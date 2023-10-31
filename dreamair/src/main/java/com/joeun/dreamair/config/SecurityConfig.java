@@ -84,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 // anyRequest()         : 모든(이외의) 요청을 지정
                                 // authenticated()      : 인증된 사용자만 허용
                                 // .anyRequest().permitAll()
-                                .anyRequest().authenticated()
+                                // .anyRequest().authenticated()
                               )
         ;
 
