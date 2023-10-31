@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,18 +11,18 @@
 <body>
 
     <!-- header -->
-    <th:block th:replace="~{fragment/admin_header::admin_header}"></th:block>
+    <th:block th:replace="~{fragment/header::header}"></th:block>
 
     <div class="row">
         <!-- sidebar -->
-        <th:block th:replace="~{fragment/admin_sidebar::admin_sidebar}"></th:block>
+        <th:block th:replace="~{fragment/sidebar::sidebar}"></th:block>
 
         <div class="col-sm-9">
             <!-- content -->
             <th:block layout:fragment="content"></th:block>
 
             <!-- footer -->
-            <th:block th:replace="~{fragment/admin_footer::admin_footer}"></th:block>
+            <th:block th:replace="~{fragment/footer::footer}"></th:block>
         </div>
     </div>
     
