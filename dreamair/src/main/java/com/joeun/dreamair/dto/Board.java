@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class Board {
+
+    // board 테이블
     private int boardNo; 
     private String writer;
     private String title;
@@ -14,4 +16,27 @@ public class Board {
     private Date updDate;
     private Date date;
     private int views;
+    private int userNo;
+    private int adminNo;
+
+    // comment 테이블
+    private int commentNo;
+    private int groupNo;
+    private int superNo;
+    private int depthNo;
+    private int seqNo;
+    private int subCount;
+
+    // file 테이블
+    private int fileNo;
+    private String parentTable;
+    private int parentNo;
+    private String fileName;
+    private String originName;
+    private String filePath;
+    private int fileSize;
+    private int fileCode;
+
+   
+   
 }

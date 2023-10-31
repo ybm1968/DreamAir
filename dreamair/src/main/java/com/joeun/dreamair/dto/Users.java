@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class Users {
+    // users 테이블
     private int userNo;
     private int authNo;
     private String userId;
@@ -19,5 +20,37 @@ public class Users {
     private Date updDate;
     private String status;
 
-    private List<Auth> authList;    // 권한목록 추가??
+    private List<Auth> authList;    
+
+    // user2 테이블
+    private int userNo2;
+
+    // auth 테이블
+    private String auth;
+
+    // passport 테이블
+    private String passportNo;
+    private int pinType;
+    private String lastName;
+    private String firstName;
+    private String nationality;
+    private String expirationDate;
+
+    // PIN 테이블
+    private String idCardNo;
+    private String idDriverNo;
+
+    // mileage 테이블
+    private int mileage;
+
+    // persistent_logins 테이블
+    private int pNo;
+    private String series; 
+    private String token;
+    private Date last_used;
+
+
 }
+    
+  
+   

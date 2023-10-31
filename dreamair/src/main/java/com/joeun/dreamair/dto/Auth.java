@@ -7,4 +7,5 @@ public class Auth {
     private int authNo;
     private String userId;
     private String auth;
+
 }
