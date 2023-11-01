@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,12 +8,15 @@
     <th:block th:replace="~{UI/fragment/link::link}"></th:block>
 </head>
 <body>
+    <!-- <th:block th:replace="~{프래그먼트경로::프로그래먼트명}"></th:block> -->
 
     <!-- header -->
     <th:block th:replace="~{UI/fragment/header::header}"></th:block>
+    <th:block th:replace="~{UI/fragment/header::header}"></th:block>
 
-    <div class="row">
+    <div class="row m-0 ">
         <!-- sidebar -->
+        <th:block th:replace="~{UI/fragment/sidebar::sidebar}"></th:block>
         <th:block th:replace="~{UI/fragment/sidebar::sidebar}"></th:block>
 
         <div class="col-sm-9">
@@ -23,11 +25,13 @@
 
             <!-- footer -->
             <th:block th:replace="~{UI/fragment/footer::footer}"></th:block>
+            <th:block th:replace="~{UI/fragment/footer::footer}"></th:block>
         </div>
     </div>
     
     
     <!-- JS -->
+    <th:block th:replace="~{UI/fragment/script::script}"></th:block>
     <th:block th:replace="~{UI/fragment/script::script}"></th:block>
 
 </body>

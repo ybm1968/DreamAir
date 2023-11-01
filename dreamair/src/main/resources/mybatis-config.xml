@@ -19,14 +19,6 @@
 			<typeAlias alias="UserAuth"  type="com.joeun.shop.dto.UserAuth"/>
 			
 		-->
-		<typeAlia alias="Admin" type="com.joeun.dreamair.dto.Admin"></typeAlia>
-		<typeAlia alias="Auth" type="com.joeun.dreamair.dto.Auth"></typeAlia>
-		<typeAlia alias="Board" type="com.joeun.dreamair.dto.Board"></typeAlia>
-		<typeAlia alias="Booking" type="com.joeun.dreamair.dto.Booking"></typeAlia>
-		<typeAlia alias="CustomUser" type="com.joeun.dreamair.dto.CustomUser"></typeAlia>
-		<typeAlia alias="Product" type="com.joeun.dreamair.dto.Product"></typeAlia>
-		<typeAlia alias="ProductIO" type="com.joeun.dreamair.dto.ProductIo"></typeAlia>
-		<typeAlia alias="User" type="com.joeun.dreamair.dto.Users"></typeAlia>
 
 		<!-- 테이블과 매핑할 DTO가 있는 패키지 경로 지정 -->
 		<package name="com.joeun.dreamair.dto"/>

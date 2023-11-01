@@ -1,4 +1,4 @@
-package com.joeun.dreamair;
+package com.joeun.dreamair.controller;
 
 import java.security.Principal;
 

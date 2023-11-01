@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap>
 
 <!-- AdminAuth 매핑 -->
-    <resultMap type="UserAuth" id="authMap">
+    <resultMap type="Auth" id="authMap">
         <result property="adminId" column="admin_id" />
         <result property="auth" column="auth" />
     </resultMap>
@@ -99,12 +99,14 @@ FROM flight
 </select>
 
 <!-- 항공기 등록 -->
-INSERT INTO flight(
-                   flight_no, flight_name, seat_no, route_no, seat_Max, seat_remaining, seat_used 
-)
-VALUES (
-  #{flightNo}, #{flightName}, #{seatNo}, #{routeNo}, #{seatMax}, #{seatRemaining}, #{seatUsed}
-)
+<insert id="flight_insert">
+  INSERT INTO flight(
+                    flight_no, flight_name, seat_no, route_no, seat_Max, seat_remaining, seat_used 
+  )
+  VALUES (
+    #{flightNo}, #{flightName}, #{seatNo}, #{routeNo}, #{seatMax}, #{seatRemaining}, #{seatUsed}
+  )
+</insert>
 
 <!-- 항공기 수정 -->
 <update id="flight_update">
