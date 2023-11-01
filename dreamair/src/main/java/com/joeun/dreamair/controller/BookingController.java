@@ -1,4 +1,4 @@
-package com.joeun.dreamair.booking;
+package com.joeun.dreamair.controller;
 
 public class BookingController {
     

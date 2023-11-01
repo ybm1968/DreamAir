@@ -1,4 +1,4 @@
-package com.joeun.dreamair.booking;
+package com.joeun.dreamair.mapper;
 
 public class BookingMapper {
     

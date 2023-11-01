@@ -19,3 +19,7 @@ user_layout.html
 - 관리자 index.html
 
 - 템플릿에 error 폴더 및 파일 추가
+
+
+- 2023.11.01
+1) 폴더 정리

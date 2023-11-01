@@ -1,4 +1,4 @@
-package com.joeun.dreamair.board;
+package com.joeun.dreamair.controller;
 
 public class BoardController {
     

@@ -1,4 +1,4 @@
-package com.joeun.dreamair.board;
+package com.joeun.dreamair.service;
 
 public class BoardServiceImpl {
     

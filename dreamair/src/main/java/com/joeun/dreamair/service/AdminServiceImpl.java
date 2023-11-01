@@ -1,4 +1,4 @@
-package com.joeun.dreamair.admin;
+package com.joeun.dreamair.service;
 
 public class AdminServiceImpl {
     
