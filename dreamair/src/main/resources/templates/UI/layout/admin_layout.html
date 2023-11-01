@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <th:block th:replace="~{UI/fragment/link::link}"></th:block>
+</head>
+<body>
+
+    <!-- header -->
+    <th:block th:replace="~{UI/fragment/admin_header::admin_header}"></th:block>
+
+    <div class="row">
+        <!-- sidebar -->
+        <th:block th:replace="~{UI/fragment/admin_sidebar::admin_sidebar}"></th:block>
+
+        <div class="col-sm-9">
+            <!-- content -->
+            <th:block layout:fragment="content"></th:block>
+
+            <!-- footer -->
+            <th:block th:replace="~{UI/fragment/admin_footer::admin_footer}"></th:block>
+        </div>
+    </div>
+    
+    
+    <!-- JS -->
+    <th:block th:replace="~{UI/fragment/script::script}"></th:block>
+
+</body>
+</html>

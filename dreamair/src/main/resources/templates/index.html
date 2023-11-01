@@ -1,20 +1,28 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/main_layout}"
+      >
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>개발을 꿈꾸는 항공사</title>
 
     <th:block th:replace="~{fragment/link::link}"></th:block>
-    
-</head>
-<body>
 
+</head>
+
+<body layout:fragment="content">
+    
     <header>헤더</header>
 
-   <div class="d-flex justify-content-center align-items-center" id="container">
 
-        
+    <div class="d-flex justify-content-center align-items-center" id="container">
+
+
         <section>
             <div class="card card-4">
                 <div class="tab-content">
@@ -107,8 +115,6 @@
 
         </section>
     </div>
-
-    
     <th:block th:replace="~{fragment/script::script}"></th:block>
 </body>
 </html>
