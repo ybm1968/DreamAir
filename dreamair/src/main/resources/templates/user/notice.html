@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/main_layout}"
+      >
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개발을 꿈꾸는 항공사</title>
+
+
+</head>
+
+<body layout:fragment="content">
+
+    <div class="container">
+
+        <h1 style="text-align: center;">탑승객 유의사항 안내</h1>
+        <h2>선택한 항공 스케줄</h2>
+
+        <!-- 예매한 탑승권 목록 보여주기 -->
+        <section>
+
+            <table>
+                <th>
+                    <td>여정</td>
+                    <td>항공편</td>
+                    <td>출발일시</td>
+                    <td>도착일시</td>
+                    <td>좌석구분</td>
+                    <td>총요금</td>
+                    <td>요청좌석</td>
+                </th>
+            </table>
+           
+
+        </section>
+
+        <!-- 취소/환불 안내사항 -->
+        <section>
+            <h3>환불규정</h3>
+            <p>* 본 항공권 환불에 따라 발생하는 수수료(위약금)는 아래와 같습니다.</p>
+
+            <p>
+                출발전 환불(전체 미사용) : 전체요금의 80% <br>
+                출발후 환불(부분 사용) : 전체요금의 30% + 편도 정상 판매가<br>
+                
+            </p>
+        </section>
+
+        <!-- 비행기 반입 금지 물품 안내-->
+        <section>
+
+
+        </section>
+
+    </div>
+    
+</body>
+</html>
