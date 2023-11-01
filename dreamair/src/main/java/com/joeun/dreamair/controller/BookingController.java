@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/booking")
 public class BookingController {
     
 

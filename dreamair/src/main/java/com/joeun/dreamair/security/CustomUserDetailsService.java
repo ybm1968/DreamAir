@@ -41,21 +41,21 @@ public class CustomUserDetailsService implements UserDetailsService {
         // Users users = null;
         
         // 비회원
-        // if( username.contains("nouser-")) {
-        //     users = userMapper.login2(username);
-        // } 
+        if( username.contains("nouser-")) {
+            users = userMapper.login2(username);
+        } 
         // 회원
-        // else {
-        //     users = userMapper.login(username);
-        // }
+        else {
+            users = userMapper.login(username);
+        }
 
-        log.info("users : " + users);
-        // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
+        // log.info("users : " + users);
+        // // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
 
         CustomUser customUser = null;
 
-        if( users != null ) 
-            customUser = new CustomUser(users);
+        // if( users != null ) 
+        //     customUser = new CustomUser(users);
         
         return customUser;
     }

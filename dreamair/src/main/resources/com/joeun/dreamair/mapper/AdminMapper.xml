@@ -7,4 +7,165 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.joeun.dreamair.mapper.AdminMapper">
 
 
+<!-- Admin 매핑 -->
+<resultMap type="Admin" id="adminMap">
+  <id property="adminNo" column="admin_no"/>
+
+  <result property="adminId" column="admin_id"/>
+  <result property="adminPw" column="admin_pw"/>
+
+  <collection property="authList" resultMap="authMap"></collection>
+</resultMap>
+
+<!-- AdminAuth 매핑 -->
+    <resultMap type="Auth" id="authMap">
+        <result property="adminId" column="admin_id" />
+        <result property="auth" column="auth" />
+    </resultMap>
+
+<!-- Admin 권한 등록 -->
+<insert id="insertAuth">
+    INSERT INTO auth( user_id, auth ) 
+    VALUES ( #{userId}, #{auth} )
+</insert>
+
+<!-- 관리자 조회 -->
+<select id="admin_login" resultMap="adminMap">
+    SELECT a.admin_no
+          ,a.admin_id
+          ,a.admin_pw
+          ,auth.auth_no
+          ,auth.auth
+    FROM Admin a LEFT OUTER JOIN auth auth 
+                ON a.admin_id = auth.user_id
+    WHERE a.admin_id = #{adminId}
+</select>
+
+<!-- 관리자 등록 -->
+<insert id="admin_insert">
+INSERT INTO admin (
+            admin_id, admin_pw
+)
+VALUES (
+  #{adminId}, #{adminPw}
+)
+</insert>
+
+<!-- 사용자 관리 -->
+<!-- 전체 조회 -->
+<select id="user_list" resultType="Users">
+SELECT *
+FROM users
+</select>
+
+<!-- 사용자 등록 -->
+<insert id="user_insert">
+INSERT INTO users (
+                    user_no, auth_no, user_id, user_pw, name, address, phone, email, status        
+)
+VALUES(
+  #{userNo}, #{authNo}, #{userId}, #{userPw}, #{name}, #{address}, #{phone}, #{email}, #{status}
+)  
+</insert>
+
+<!-- 사용자 수정 -->
+<update id="user_update">
+UPDATE users
+SET auth_no = #{authNo}
+  , user_id = #{userId} 
+  , user_pw = #{userPw}
+  , name = #{name}
+  , address = #{address}
+  , phone = #{phone}
+  , email = #{email}
+  , status = #{status}
+WHERE user_no = #{userNo}
+</update>
+
+<!-- 사용자 삭제 -->
+<delete id="user_delete">
+DELETE FROM users
+WHERE user_no = #{userNo}
+</delete>
+
+
+
+
+<!-- 항공기 관리 -->
+<!-- 전체 조회 -->
+<select id="flight_list" resultType="Admin">
+SELECT *
+FROM flight
+</select>
+
+<!-- 항공기 등록 -->
+<insert id="flight_insert">
+  INSERT INTO flight(
+                    flight_no, flight_name, seat_no, route_no, seat_Max, seat_remaining, seat_used 
+  )
+  VALUES (
+    #{flightNo}, #{flightName}, #{seatNo}, #{routeNo}, #{seatMax}, #{seatRemaining}, #{seatUsed}
+  )
+</insert>
+
+<!-- 항공기 수정 -->
+<update id="flight_update">
+UPDATE flight
+SET flight_name = #{flightName}
+  , seat_no = #{seatNo}
+  , route_no = #{routeNo}
+  , seat_Max = #{routeNo}
+  , seat_remaining = #{seatRemaining}
+  , seat_used = #{seatUsed} 
+WHERE flight_no = #{flighNo}
+</update>
+
+<!-- 항공기 삭제 -->
+<delete id="flight_delete">
+DELETE FROM flight
+WHERE flight_no = #{flightNo}
+</delete>
+
+
+
+
+<!-- 상품 관리 -->
+<!-- 전체 조회 -->
+<select id="product_list" resultType="Product">
+SELECT *
+FROM product
+</select>
+
+<!-- 상품 등록 -->
+<insert id="product_insert">
+INSERT INTO product(
+                    product_id, route_no, name, product_cat, product_price, departure, destination 
+)
+VALUES (
+  #{productId}, #{routeNo}, #{name}, #{productCat}, #{productPrice}, #{departure}, #{destination}
+)
+</insert>
+
+<!-- 상품 수정 -->
+<update id="product_update">
+UPDATE product
+SET product_id = #{productId}
+  , routeNo = #{routeNo}
+  , name = #{name}
+  , product_cat = #{productCat}
+  , product_price = #{productPrice}
+  , departure = #{departure}
+  , destination = #{destination}
+WHERE product_no = #{productNo}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="product_delete">
+DELETE FROM product
+WHERE product_id = #{productId}
+</delete>
+
+
+<!-- 상품 입출고 -->
+
 </mapper>
