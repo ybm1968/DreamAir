@@ -37,7 +37,6 @@ public class HomeController {
         String loginId = principal != null ? principal.getName() : "guest";
         // String loginId = principal.getName();
         model.addAttribute("loginId", loginId);
-
         return "index";
     }
     

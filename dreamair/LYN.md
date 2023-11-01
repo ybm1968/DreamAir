@@ -10,3 +10,8 @@
 - login.html 생성
 - join.html 생성
 - HomeController.java 파일 controller 폴더로 이동
+- HomeController.java 수정
+- SecurityConfig 인가처리 코드 수정
+- user/index.html 생성
+- user/update.html 생성
+- 등등드으드등
