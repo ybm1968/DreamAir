@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/main_layout}"
+      >
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개발을 꿈꾸는 항공사</title>
+
+
+</head>
+
+<body layout:fragment="content">
+
+    <div class="container">
+
+        <h1 style="text-align: center;">항공권 조회</h1>
+        <h2 style="text-align: center;">가는편</h2>
+
+        <!-- 출발지 - 목적지를 보여주는 섹션 -->
+        <section>
+
+            <div id="flight_box">
+                <!-- 출발지 - 목적지를 보여주는 박스 -->
+            </div>
+
+        </section>
+
+        <!-- 이전날짜 다음날짜 목록을 보여줘서 해당날짜 항공권 목록을 보여주는 섹션(옵션) -->
+        <section></section>
+
+        <!-- 항공권 목록을 보여주는 섹션 -->
+        <section>
+
+            <table id="productTable" style="margin-top: 100px;">
+
+                <th>
+                    <td class="td3t" >운항시간</td> 
+                    <td class="td2t">항공사</td> 
+                    <td class="td1t">편명</td> 
+                    <td class="td7t">가격</td>  
+                    <td class="td7t">잔여좌석</td>
+                    <td>장바구니</td>
+                    <td>예매하기</td>
+                </th>
+
+                <tr>
+                    <td class="td3t" colspan="2">06:05 - 07:10</td> 
+                    <td class="td2t">DreamAir</td> 
+                    <td class="td1t">DA7080</td> 
+                    <td class="td7t">70000</td>  
+                    <td class="td7t">10</td>
+                    <td><button>장바구니</button></td>
+                    <td><button>예매하기</button></td>
+                    
+                </tr>
+
+            </table>
+
+        </section>
+
+    </div>
+    
+</body>
+</html>

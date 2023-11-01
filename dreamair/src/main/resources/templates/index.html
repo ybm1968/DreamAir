@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/main_layout}"
+      layout:decorate="~{/UI/layout/main_layout}"
       >
 <html lang="en">
 
@@ -11,16 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
 
-    <th:block th:replace="~{fragment/link::link}"></th:block>
 
 </head>
 
 <body layout:fragment="content">
-    
-    <header>헤더</header>
 
-
-    <div class="d-flex justify-content-center align-items-center" id="container">
+    <div class="d-flex justify-content-center align-items-center" id="back">
 
 
         <section>
@@ -66,7 +62,7 @@
         
                                     <label class="label">탑승객:</label>
                                     <div class="input-group-icon" id="js-select-special">
-                                        <input class="input--style-1 t1" type="text"
+                                        <input class="input--style-1-small" type="text"
                                             name="traveller" value="성인 1, 아이 0" disabled="disabled"
                                             id="info"> <i class="zmdi zmdi-chevron-down input-icon"
                                             style="height: 100%; background-color: transparent;"></i>
@@ -115,6 +111,6 @@
 
         </section>
     </div>
-    <th:block th:replace="~{fragment/script::script}"></th:block>
+    
 </body>
 </html>

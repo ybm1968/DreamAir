@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.joeun.dreamair.dto.CustomUser;
 import com.joeun.dreamair.dto.Users;
-import com.joeun.dreamair.user.UserMapper;
+import com.joeun.dreamair.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,5 +1,11 @@
-#container {
+#back {
     width: 100%;
     height: 600px;
-    background-color: royalblue;
+    background-color: skyblue;
+
+}
+
+.container {
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
