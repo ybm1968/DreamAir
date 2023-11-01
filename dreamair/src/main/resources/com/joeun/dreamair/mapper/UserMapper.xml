@@ -4,9 +4,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace="매퍼 인터페이스 경로" -->
-<mapper namespace="com.joeun.dreamair.user.UserMapper">
+<mapper namespace="com.joeun.dreamair.mapper.UserMapper">
 
-    <select id="login" resultType="Users">
+    <!-- Users 매핑-->
+    <resultMap type="Users" id="userMap">
+        <id property="userNo" column="user_no" />
+        
+        <result property="userNo" column="user_no" />
+        <result property="userId" column="user_id" />
+        <result property="userPw" column="user_pw" />
+        <result property="name" column="name" />
+        <result property="phone" column="phone" />
+        <result property="address" column="address" />
+        <result property="email" column="email" />
+        <result property="status" column="status" />
+        <result property="regDate" column="reg_date" />
+        <result property="updDate" column="upd_date" />
+        
+        <collection property="authList" resultMap="authMap"></collection>
+    </resultMap>
+        
+    <!-- UserAuth 매핑 -->
+    <resultMap type="Auth" id="authMap">
+        <result property="userId" column="user_id" />
+        <result property="auth" column="auth" />
+    </resultMap>
+
+
+
+    <!-- 회원 조회 - id -->
+    <select id="login" resultMap="userMap">
+        SELECT u.user_no
+              ,u.user_id
+              ,user_pw
+              ,name
+              ,email
+              ,status
+              ,reg_date
+              ,upd_date
+              ,auth
+        FROM users u LEFT OUTER JOIN auth
+                    ON u.user_id = auth.user_id
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <!-- 회원 권한 등록 -->
+    <insert id="insertAuth">
+        INSERT INTO auth( user_id, auth ) 
+        VALUES ( #{userId}, #{auth} )
+    </insert>
+
+    <!-- 회원 등록 -->
+    <insert id="insert">
+        INSERT INTO users( user_id, user_pw, name, email, phone, address )
+        VALUES ( #{userId}, #{userPw}, #{name} ,#{email}, #{phone}, #{address} )
+    </insert>
+
+
+    <!-- <select id="login" resultType="Users">
         SELECT *
         FROM user
         ...
@@ -16,6 +71,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT *
         FROM user2
         ...
-    </select>
+    </select> -->
 
 </mapper>
