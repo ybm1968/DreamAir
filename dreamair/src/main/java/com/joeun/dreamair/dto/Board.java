@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Board {
+public class Board { 
 
     // board 테이블
     private int boardNo; 
@@ -18,9 +18,12 @@ public class Board {
     private int views;
     private int userNo;
     private int adminNo;
+    private int like;
 
     // comment 테이블
     private int commentNo;
+    private String parent_table;
+    private int parent_no;
     private int groupNo;
     private int superNo;
     private int depthNo;
@@ -37,6 +40,5 @@ public class Board {
     private int fileSize;
     private int fileCode;
 
-   
-   
+
 }

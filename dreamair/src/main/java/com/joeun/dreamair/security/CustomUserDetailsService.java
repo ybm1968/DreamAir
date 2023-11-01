@@ -34,20 +34,20 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("userId : " + username);
 
-        // Users users = userMapper.login(username);
+        Users users = userMapper.login(username);
 
         // jdlkfjaslkdfjdkl : 일반회원
         // noduser-01012341234
-        Users users = null;
+        // Users users = null;
         
         // 비회원
-        if( username.contains("nouser-")) {
-            users = userMapper.login2(username);
-        } 
+        // if( username.contains("nouser-")) {
+        //     users = userMapper.login2(username);
+        // } 
         // 회원
-        else {
-            users = userMapper.login(username);
-        }
+        // else {
+        //     users = userMapper.login(username);
+        // }
 
         log.info("users : " + users);
         // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
