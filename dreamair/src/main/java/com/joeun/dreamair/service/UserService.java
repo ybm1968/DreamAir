@@ -10,9 +10,9 @@ import com.joeun.dreamair.dto.Users;
 public interface UserService {
 
   // 사용자 로그인
-    public void login(Users user, HttpServletRequest request) throws Exception;
+    // public void login(Users user, HttpServletRequest request) throws Exception;
     
-    public void login2(Users user, HttpServletRequest request) throws Exception;
+    // public void login2(Users user, HttpServletRequest request) throws Exception;
 
 
 }

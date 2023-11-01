@@ -38,24 +38,24 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // jdlkfjaslkdfjdkl : 일반회원
         // noduser-01012341234
-        Users users = null;
+        // Users users = null;
         
-        // 비회원
-        if( username.contains("nouser-")) {
-            users = userMapper.login2(username);
-        } 
-        // 회원
-        else {
-            users = userMapper.login(username);
-        }
+        // // 비회원
+        // if( username.contains("nouser-")) {
+        //     users = userMapper.login2(username);
+        // } 
+        // // 회원
+        // else {
+        //     users = userMapper.login(username);
+        // }
 
-        log.info("users : " + users);
-        // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
+        // log.info("users : " + users);
+        // // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
 
         CustomUser customUser = null;
 
-        if( users != null ) 
-            customUser = new CustomUser(users);
+        // if( users != null ) 
+        //     customUser = new CustomUser(users);
         
         return customUser;
     }
