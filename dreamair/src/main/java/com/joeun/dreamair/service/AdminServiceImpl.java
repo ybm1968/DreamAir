@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
-import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.AdminMapper;
 
@@ -113,72 +112,5 @@ public class AdminServiceImpl implements AdminService {
     int result = adminMapper.user_delete(userNo);
     return result;
   }
-
-  /**
-   * 항공기 관리
-   */
-  @Override
-  public List<Admin> flight_list() throws Exception {
-    List<Admin> flightList = adminMapper.flight_list();
-    return flightList;
-  }
-
-  @Override
-  public Admin flight_select(int flightNo) throws Exception {
-    Admin flight = adminMapper.flight_select(flightNo);
-    return flight;
-  }
-
-  @Override
-  public int flight_insert(Admin flight) throws Exception {
-    int result = adminMapper.flight_insert(flight);
-    return result;
-  }
-
-  @Override
-  public int flight_update(Admin flight) throws Exception {
-    int result = adminMapper.flight_update(flight);
-    return result;
-  }
-
-  @Override
-  public int flight_delete(int flightNo) throws Exception {
-   int result = adminMapper.flight_delete(flightNo);
-   return result;
-  }
-
-  /**
-   * 상품(항공권) 관리
-   */
-  @Override
-  public List<Product> product_list() throws Exception {
-    List<Product> productList = adminMapper.product_list();
-    return productList;
-  }
-
-  @Override
-  public Product product_select(String productId) throws Exception {
-    Product product = adminMapper.product_select(productId);
-    return product;
-  }
-
-  @Override
-  public int product_insert(Product product) throws Exception {
-    int result = adminMapper.product_insert(product);
-    return result;
-  }
-
-  @Override
-  public int product_update(Product product) throws Exception {
-     int result = adminMapper.product_update(product);
-    return result; 
-  }
-
-  @Override
-  public int product_delete(String productId) throws Exception {
-    int result = adminMapper.product_delete(productId);
-    return result;
-  }
-
 
 }

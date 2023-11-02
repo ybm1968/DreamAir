@@ -40,6 +40,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("userId : " + username);
 
         Users users = userMapper.login(username);
+        Admin admin = adminMapper.admin_login(username);
+
        // Admin admin = adminMapper.login(username);
         
         // jdlkfjaslkdfjdkl : 일반회원
@@ -54,6 +56,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         else {
             users = userMapper.login(username);
         }
+
+        String adminId = String.valueOf(admin);
+        log.info("adminId : " + adminId);
+        
+       // Users adminusers = new Users( (Users) adminId);
+
+        // Users adminUsers = new Users(adminId);
 
         // log.info("users : " + users);
         // // admin / 123456 / [ROLE_USER, ROLE_ADMIN]

@@ -66,6 +66,19 @@ public class Users {
     private String token;
     private Date last_used;
 
+        // admin 테이블
+        private int adminNo;
+        private String adminId;
+        private String adminPw;
+        private String adminPwCheck; // 암호화
+    
+    
+        public void Admin(Admin admin) {
+            this.adminNo = admin.getAdminNo();
+            this.adminId = admin.getAdminId();
+            this.adminPw = admin.getAdminPw();
+            this.authList = admin.getAuthList();
+        }
 
 }
     

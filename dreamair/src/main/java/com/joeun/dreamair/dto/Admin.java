@@ -27,11 +27,5 @@ public class Admin {
     private String userId;
     private String auth;
 
-    // flight 테이블
-    private int flightNo;
-    private String flightName;
-    private String seatNo;
-    private int seatMax;
-    private int seatRemaining;
-    private int seatUsed;
+
 }

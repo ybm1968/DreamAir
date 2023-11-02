@@ -33,7 +33,7 @@ public class AdminController {
     private AdminService adminService;
     
     /**
-     * 관리자 메인 화면
+     * 관리자
      * @param model
      * @param principal
      * @return
@@ -87,7 +87,7 @@ public class AdminController {
      */
     @PostMapping(value="/admin_insert")
     public String insertPro(Admin admin, HttpServletRequest request) throws Exception {
-        int result = adminService.admin_insert(admin);
+        int result = adminService.insert(admin);
 
         // 관리자 등록 성공
         if( result > 0 ) {  
@@ -100,7 +100,6 @@ public class AdminController {
     /**
      * 사용자 수동 등록
      */
-
      @GetMapping(value="/user_insert")
      public String user_insert() {
         return "admin/user_insert";

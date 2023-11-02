@@ -6,7 +6,7 @@ import com.joeun.dreamair.dto.Users;
 
 public interface UserService {
 
-        // 회원 등록
+    // 회원 등록
     public int insert(Users user) throws Exception;
 
     // 회원 조회
@@ -20,9 +20,7 @@ public interface UserService {
 
     // 회원 수정
     public int update(Users user) throws Exception;
-    
-    
-    // public void login2(Users user, HttpServletRequest request) throws Exception;
 
+    // public void login2(Users user, HttpServletRequest request) throws Exception;
 
 }
