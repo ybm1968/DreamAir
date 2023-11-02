@@ -15,9 +15,9 @@ public interface AdminService {
    * dto : Admin
    */  
   // 관리자 로그인
-  public void login(Admin admin, HttpServletRequest request) throws Exception;
+  public void admin_login(Admin admin, HttpServletRequest request) throws Exception;
 
-  // // 관리자  인증(로그인) - id
+  // 관리자  인증(로그인) - id
   // public Admin login(String adminId) throws Exception;
 
   // // 관리자 권한 등록

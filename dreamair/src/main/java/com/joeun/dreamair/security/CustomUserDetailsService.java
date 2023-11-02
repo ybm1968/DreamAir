@@ -5,8 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.CustomUser;
 import com.joeun.dreamair.dto.Users;
+import com.joeun.dreamair.mapper.AdminMapper;
 import com.joeun.dreamair.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private AdminMapper adminMapper;
+
     /**
      *  사용자 정의 사용자 인증 메소드
      *  UserDetails
@@ -34,31 +39,45 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("userId : " + username);
 
-        Users users = userMapper.login(username);
-
         // jdlkfjaslkdfjdkl : 일반회원
         // noduser-01012341234
         // Users users = null;
+
+        Users users = userMapper.login(username);
+        Admin admin = adminMapper.admin_login(username);
+
+     /**
+     *  사용자 정의 사용자 인증 메소드
+     *  UserDetails
+     *    ➡ Users
+     *        ⬆ CustomUser   
+     */
+ 
+
+      
+        // if ( users == null || admin == null ){
+        //     throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
+        // }
+            
+        // // 비회원
+        // if( username.contains("nouser-")) {
+        //     users = userMapper.login2(username);
+        // } 
+
+        // // 관리자
+        // else if (username.contains("admin-")){
+        //     admin = adminMapper.admin_login(username);
+        // } 
         
-        // 비회원
-        if( username.contains("nouser-")) {
-            users = userMapper.login2(username);
-        } 
-        // 회원
-        else {
-            users = userMapper.login(username);
-        }
+        // // 회원
+        // else {
+        //     users = userMapper.login(username);
+        // }
 
         // log.info("users : " + users);
         // // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
-
-        CustomUser customUser = null;
-
-        // if( users != null ) 
-        //     customUser = new CustomUser(users);
+        CustomUser customUser = new CustomUser(users);
         
         return customUser;
     }
-
-    
 }

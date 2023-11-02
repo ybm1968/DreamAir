@@ -39,7 +39,7 @@ public class AdminServiceImpl implements AdminService {
    * 관리자 로그인
    */
   @Override
-  public void login(Admin admin, HttpServletRequest request) throws Exception {
+  public void admin_login(Admin admin, HttpServletRequest request) throws Exception {
    String adminId = admin.getAdminId();
     String password = admin.getAdminPwCheck();
 

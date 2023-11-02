@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="status" column="status" />
         <result property="regDate" column="reg_date" />
         <result property="updDate" column="upd_date" />
+                <!-- <result property="enabled" column="enabled" /> -->
         
         <collection property="authList" resultMap="authMap"></collection>
     </resultMap>
@@ -31,21 +32,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
 
-
     <!-- 회원 조회 - id -->
     <select id="login" resultMap="userMap">
         SELECT u.user_no
               ,u.user_id
-              ,user_pw
-              ,name
-              ,email
-              ,status
-              ,reg_date
-              ,upd_date
-              ,auth
-        FROM users u LEFT OUTER JOIN auth
+              ,u.user_pw
+              ,u.name
+              ,u.address
+              ,u.phone
+              ,u.email
+              ,u.reg_date
+              ,u.upd_date
+              ,u.status
+              ,auth.auth
+        FROM users u LEFT OUTER JOIN auth auth
                     ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
+    </select>
+
+    <select id="login2" resultMap="userMap">
+    SELECT  u.user_no
+            ,u.user_pw
+            ,u.phone
+            ,u.reg_date
+            ,u.upd_date
+            ,u.status
+            ,auth.auth
+    FROM users u LEFT OUTER JOIN auth auth
+                ON u.phone = auth.user_id
+    WHERE u.phone = #{phone}
     </select>
 
     <!-- 회원 권한 등록 -->
@@ -54,23 +69,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES ( #{userId}, #{auth} )
     </insert>
 
-    <!-- 회원 등록 -->
-    <insert id="insert">
-        INSERT INTO users( user_id, user_pw, name, email, phone, address )
-        VALUES ( #{userId}, #{userPw}, #{name} ,#{email}, #{phone}, #{address} )
-    </insert>
-
-
-    <!-- <select id="login" resultType="Users">
+    <!-- 회원 조회 -->
+    <select id="select" resultType="Users">
         SELECT *
         FROM user
-        ...
+        WHERE user_no = #{userNo}
     </select>
 
-    <select id="login2" resultType="Users">
+    <!-- 회원 조회 - id -->
+    <select id="selectById" resultType="Users">
         SELECT *
-        FROM user2
-        ...
-    </select> -->
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 회원 수정 -->
+    <!-- <update id="update">
+        UPDATE user
+           SET user_id = #{userId}
+              ,user_pw = #{userPw}
+              ,name = #{name}
+              ,email = #{email}
+        WHERE user_id = #{userId}
+    </update> -->
+
+
+    <!-- 회원 탈퇴 -->
+    <delete id="delete">
+        DELETE FROM user
+        WHERE user_id = #{userId}
+    </delete>
+
 
 </mapper>

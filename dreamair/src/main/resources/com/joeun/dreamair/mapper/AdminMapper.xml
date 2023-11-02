@@ -34,7 +34,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT a.admin_no
           ,a.admin_id
           ,a.admin_pw
-          ,auth.auth_no
           ,auth.auth
     FROM Admin a LEFT OUTER JOIN auth auth 
                 ON a.admin_id = auth.user_id
