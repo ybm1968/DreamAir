@@ -50,7 +50,7 @@ public class UserController {
     public String index() {
         // int result = 10 / 0;
         // log.info(result + "");
-        return "index";
+        return "user/index";
     }
 
 

@@ -48,6 +48,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE u.user_id = #{userId}
     </select>
 
+
+    <!-- 회원 조회 - id -->
+    <select id="selectById" resultType="Users">
+        SELECT *
+        FROM users
+        WHERE user_id = #{userId}
+    </select>
+
     <!-- 회원 권한 등록 -->
     <insert id="insertAuth">
         INSERT INTO auth( user_id, auth ) 
@@ -61,6 +69,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
 
+    <!-- 회원 수정 -->
+    <update id="update">
+        UPDATE users
+           SET user_id = #{userId}
+              ,user_pw = #{userPw}
+              ,name = #{name}
+              ,phone = #{phone}
+              ,email = #{email}
+              ,address = #{address}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 회원 / 비회원 선생님 예시 -->
     <!-- <select id="login" resultType="Users">
         SELECT *
         FROM user

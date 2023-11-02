@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -75,12 +77,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 람다식 
         http
             .authorizeRequests((authorize) -> authorize
-                                .antMatchers("/admin/**").hasRole("ADMIN")
                                 // .antMatchers("/admin/**").hasRole("ADMIN")
-                                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                                .antMatchers("/board/**").permitAll()
-                                .antMatchers("/booking/**").permitAll()
-                                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
+                                // // .antMatchers("/admin/**").hasRole("ADMIN")
+                                // .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                // .antMatchers("/board/**").permitAll()
+                                // .antMatchers("/booking/**").permitAll()
+                                // .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
                                 .antMatchers("/**").permitAll()
                                 // anyRequest()         : 모든(이외의) 요청을 지정
                                 // authenticated()      : 인증된 사용자만 허용
@@ -260,6 +262,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
+
+
+    //     @Bean
+    // public PasswordEncoder passwordEncoder() {
+    //     return new BCryptPasswordEncoder();
+    // }
+
+
+	// @Bean
+	// public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+	// 	return authenticationConfiguration.getAuthenticationManager();
+	// }
 
 
     

@@ -2,8 +2,6 @@ package com.joeun.dreamair.mapper;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.joeun.dreamair.dto.Admin;
@@ -19,10 +17,10 @@ public interface AdminMapper {
    * dto : Admin
    */
   // 관리자 로그인
-  public void login(Admin admin, HttpServletRequest request) throws Exception;
+  // public void admin_login(Admin admin, HttpServletRequest request) throws Exception;
 
   // 관리자  인증(로그인) - id
-  // public Admin login(String adminId) throws Exception;
+  public Admin admin_login(String adminId);
 
   // 관리자 권한 등록
   public int insertAuth(Auth adminAuth) throws Exception;

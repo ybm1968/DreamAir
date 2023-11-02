@@ -5,8 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.CustomUser;
 import com.joeun.dreamair.dto.Users;
+import com.joeun.dreamair.mapper.AdminMapper;
 import com.joeun.dreamair.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private AdminMapper adminMapper;
+
     /**
      *  사용자 정의 사용자 인증 메소드
      *  UserDetails
@@ -35,13 +40,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("userId : " + username);
 
         Users users = userMapper.login(username);
-
+       // Admin admin = adminMapper.login(username);
+        
         // jdlkfjaslkdfjdkl : 일반회원
         // noduser-01012341234
         // Users users = null;
         
         // 비회원
-        if( username.contains("nouser-")) {
+        if( username.contains("guest")) {
             users = userMapper.login2(username);
         } 
         // 회원
@@ -52,7 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // log.info("users : " + users);
         // // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
 
-        CustomUser customUser = null;
+        CustomUser customUser = new CustomUser(users);
 
         // if( users != null ) 
         //     customUser = new CustomUser(users);
