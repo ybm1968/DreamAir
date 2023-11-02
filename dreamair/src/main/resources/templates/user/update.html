@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/layout/main_layout}"
+      layout:decorate="~{/UI/layout/user_layout}"
       >
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
 <body layout:fragment="content">
 
     <div class="container p-4">
-        <h1 class="text-center my-3">회원정보 수정</h1>
+        <h1 class="text-center my-3 pt-5">회원정보 수정</h1>
 
         <!-- 👨‍💻상위 태그 th:object="${객체명}" -->
         <!--    하위 태그 th:value="*{변수명}" -->
