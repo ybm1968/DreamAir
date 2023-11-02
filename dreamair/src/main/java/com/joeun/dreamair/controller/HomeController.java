@@ -76,6 +76,7 @@ public class HomeController {
         return "join";
     }
 
+    
     /**
      * 회원 가입 처리
      * @param user

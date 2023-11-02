@@ -1,7 +1,7 @@
 <!-- user - sidebar -->
 <!-- ~UI/user/fragment/sidebar -->
 <th:block th:fragment="sidebar">
-    <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+    <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary pt-2">
         <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
@@ -18,34 +18,42 @@
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a href="/user/checkin" class="nav-link d-flex align-items-center gap-2" >
+                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                    체크인
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="/user/update" class="nav-link d-flex align-items-center gap-2" >
                     <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     회원정보 수정
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link d-flex align-items-center gap-2" >
+                  <a href="/user/mileage" class="nav-link d-flex align-items-center gap-2" >
+                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
+                    마일리지 조회
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/user/delete" class="nav-link d-flex align-items-center gap-2" >
                     <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     회원 탈퇴
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link d-flex align-items-center gap-2" >
-                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
-                    
-                  </a>
-                </li>
               </th:block>
+              
+              <hr class="my-3">
 
+              <!-- 회원 / 비회원 모두 조회 가능 메뉴 -->
               <li class="nav-item">
-                <a href="/user/order" class="nav-link d-flex align-items-center gap-2" >
+                <a href="/user/booking" class="nav-link d-flex align-items-center gap-2">
                   <svg class="bi"><use xlink:href="#cart"/></svg>
-                  주문내역
+                  나의 탑승권 관리
                 </a>
               </li>
             </ul>
   
-            <hr class="my-3">
             
           </div>
         </div>

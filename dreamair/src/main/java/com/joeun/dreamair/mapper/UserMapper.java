@@ -1,6 +1,7 @@
 package com.joeun.dreamair.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;
@@ -28,5 +29,9 @@ public interface UserMapper {
     
     // 회원 수정
     public int update(Users user) throws Exception;
+
+    // 회원 삭제
+    public Users delete(String username);
+
     
 }
