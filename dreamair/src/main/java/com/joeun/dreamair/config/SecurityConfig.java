@@ -7,13 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -77,9 +75,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 람다식 
         http
             .authorizeRequests((authorize) -> authorize
-                                .antMatchers("/admin/**").hasRole("ADMIN")
-                                // .antMatchers("/admin/**").hasRole("ADMIN")
-                                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .antMatchers("/admin/**").permitAll()
+                                .antMatchers("/product/**").permitAll()
+                                .antMatchers("/user/**").permitAll()
+                                // .antMatchers("/admin/**").hasRole("ROLE_ADMIN")
+                                // .antMatchers("/user/**").hasAnyRole("ROLE_USER", "ROLE_ADMIN")
                                 .antMatchers("/board/**").permitAll()
                                 .antMatchers("/booking/**").permitAll()
                                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
@@ -183,52 +183,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // AuthenticationManagerBuilder : 인증 관리 객체
-        // 인증 방식 : 인메모리 방식
-        // auth.inMemoryAuthentication()               
-        //     // .withUser("아이디").password("비밀번호").roles("권한")
-        //     // passwordEncoder.encode("비밀번호")     :   비밀번호 암호화
-        //     // BCryptPasswordEncoder 사용
-        //     .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
-        //     .and()
-        //     .withUser("admin").password(passwordEncoder.encode("123456")).roles("ADMIN")
-        //     ;
-        //     NoOpPasswordEncoder 사용
-        //     .withUser("user").password("123456").roles("USER")
-        //     .and()
-        //     .withUser("admin").password("123456").roles("ADMIN")
-        //     ;
-        
-        // 인증 방식 : jdbc 인증
-        // String sql1 = " SELECT user_id as username, user_pw as password, enabled "
-        //             + " FROM user "
-        //             + " WHERE user_id = ? ";
-
-        // String sql2 = " SELECT user_id as username, auth " 
-        //             + " FROM user_auth "
-        //             + " WHERE user_id = ? ";
-
-        // auth.jdbcAuthentication()
-        //     // 데이터 소스 등록
-        //     .dataSource( dataSource )
-        //     // 인증 쿼리    (아이디/비밀번호/활성여부)
-        //     .usersByUsernameQuery(sql1)
-        //     // 인가 쿼리    (아이디/권한)
-        //     .authoritiesByUsernameQuery(sql2)
-        //     // 비밀번호 암호화 방식 지정 - BCryptPasswordEncoder 또는 NoOpPasswordEncoder
-        //     .passwordEncoder( passwordEncoder );
-
-
         // 인증 방식 : 사용자 정의 인증 (UserDetails)
         auth.userDetailsService( customUserDetailsService() )
-            // 비밀번호 암호화 방식 지정 - BCryptPasswordEncoder 또는 NoOpPasswordEncoder
             .passwordEncoder( passwordEncoder )
             ;
-            
     }
 
-    // PersistentRepository 토큰정보 객체 - 빈 등록
-    @Bean
+    
+    @Bean // PersistentRepository 토큰정보 객체 - 빈 등록
     public PersistentTokenRepository tokenRepository() {
         // JdbcTokenRepositoryImpl : 토큰 저장 데이터 베이스를 등록하는 객체
         JdbcTokenRepositoryImpl repositoryImpl = new JdbcTokenRepositoryImpl(); 

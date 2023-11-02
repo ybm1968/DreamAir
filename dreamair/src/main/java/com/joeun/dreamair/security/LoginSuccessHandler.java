@@ -46,7 +46,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             response.addCookie(cookie);
         }
 
-
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         User user = (User) authentication.getPrincipal();
 
@@ -56,7 +55,4 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         super.onAuthenticationSuccess(request, response, authentication);
     }
-
-
-    
 }

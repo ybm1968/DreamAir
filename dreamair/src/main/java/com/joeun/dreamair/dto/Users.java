@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class Users {
+
     // users 테이블
     private int userNo;
     private String userId;
@@ -20,7 +21,7 @@ public class Users {
     private Date updDate;
     private String status;
 
-    private int enabled;
+    private int enabled;            // 휴면여부
 
     private List<Auth> authList;
     
@@ -66,19 +67,7 @@ public class Users {
     private String token;
     private Date last_used;
 
-        // admin 테이블
-        private int adminNo;
-        private String adminId;
-        private String adminPw;
-        private String adminPwCheck; // 암호화
-    
-    
-        public void Admin(Admin admin) {
-            this.adminNo = admin.getAdminNo();
-            this.adminId = admin.getAdminId();
-            this.adminPw = admin.getAdminPw();
-            this.authList = admin.getAuthList();
-        }
+
 
 }
     

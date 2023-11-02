@@ -26,7 +26,7 @@ public interface AdminMapper {
   public int insertAuth(Auth adminAuth) throws Exception;
 
   // 관리자 등록
-  public int insert(Admin admin) throws Exception;
+  public int admin_insert(Admin admin) throws Exception;
 
   /**
    * 사용자 수동 등록/수정/삭제

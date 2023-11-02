@@ -2,8 +2,6 @@ package com.joeun.dreamair.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Users;
 
@@ -13,7 +11,7 @@ public interface AdminService {
      * 관리자
      */
     // 관리자 로그인
-    public void admin_login(Admin admin, HttpServletRequest request) throws Exception;
+    // public void admin_login(Admin admin, HttpServletRequest request) throws Exception;
 
     // 관리자  인증(로그인) - id
     // public Admin login(String adminId) throws Exception;
@@ -22,7 +20,7 @@ public interface AdminService {
     // public int insertAuth(Auth adminAuth) throws Exception;
 
     // 관리자 등록
-    public int insert(Admin admin) throws Exception;
+    public int admin_insert(Admin admin) throws Exception;
 
     
     /**

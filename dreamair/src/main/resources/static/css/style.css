@@ -16,6 +16,7 @@ button { cursor: pointer; }
 .header_image {
     width: 25px;
     height: 25px;
+    z-index: 1;
 }
 
 .navbar-brand > img {
@@ -115,3 +116,5 @@ footer {
     content: "";
     clear: both;
 }
+
+/** 관리자 정보 등록 : admin/adim_insert **/

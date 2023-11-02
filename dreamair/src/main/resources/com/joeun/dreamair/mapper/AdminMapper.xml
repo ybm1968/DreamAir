@@ -6,7 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.dreamair.mapper.AdminMapper">
 
-
 <!-- Admin 매핑 -->
 <resultMap type="Admin" id="adminMap">
   <id property="adminNo" column="admin_no"/>
@@ -30,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <!-- 관리자 조회 -->
-<select id="admin_login" resultMap="adminMap">
+<!-- <select id="admin_login" resultMap="adminMap">
     SELECT a.admin_no
           ,a.admin_id
           ,a.admin_pw
@@ -38,16 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM Admin a LEFT OUTER JOIN auth auth 
                 ON a.admin_id = auth.user_id
     WHERE a.admin_id = #{adminId}
-</select>
+</select> -->
 
 <!-- 관리자 등록 -->
 <insert id="admin_insert">
-INSERT INTO admin (
-            admin_id, admin_pw
-)
-VALUES (
-  #{adminId}, #{adminPw}
-)
+INSERT INTO admin ( admin_id, admin_pw )
+VALUES ( #{adminId}, #{adminPw} )
 </insert>
 
 <!-- 사용자 관리 -->

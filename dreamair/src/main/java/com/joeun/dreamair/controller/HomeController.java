@@ -104,5 +104,29 @@ public class HomeController {
         return "exception";
     }
     
+
+    // //////////////////test
+    // /**
+    //  * 로그인 폼을 거치지 않고 바로 로그인
+    //  * @param username
+    //  * @return
+    //  */
+    // @RequestMapping("/loginWithoutForm/{username}")
+    //     public String loginWithoutForm(@PathVariable(value="username") String username) {
+
+    //     List<GrantedAuthority> roles = new ArrayList<>(1);
+    //     String roleStr = username.equals("admin") ? "ROLE_ADMIN" : "ROLE_GUEST";
+    //     roles.add(new SimpleGrantedAuthority(roleStr));
+
+    //     Users user = new Users(username, "", roles);
+
+    //     Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
+    //     SecurityContextHolder.getContext().setAuthentication(auth);
+
+    //     if(username.equals("admin")){
+    //         return "redirect:/admin";
+    //     }
+    // return "redirect:/";
+    // }
   
 }

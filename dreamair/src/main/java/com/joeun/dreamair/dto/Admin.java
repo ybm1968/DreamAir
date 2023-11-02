@@ -21,13 +21,6 @@ public class Admin {
         this.adminPw = admin.getAdminPw();
         this.authList = admin.getAuthList();
     }
-
-    public Admin(Admin admin) {
-        this.adminNo = admin.getAdminNo();
-        this.adminId = admin.getAdminId();
-        this.adminPw = admin.getAdminPw();
-        this.authList = admin.getAuthList();
-    }
     
     // auth 테이블
     private String userId;

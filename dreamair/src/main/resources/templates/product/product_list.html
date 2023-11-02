@@ -16,7 +16,7 @@
     <div class="btn-box d-grid gap-2">
         <button type="submit" class="btn btn-outline-primary btn-lg">상품 등록</button>
     </div>
-<th:block th:if="${productList != null}">
+<th:block th:if="${productList != null}" >
             <table class="table table-striped table-hover table-bordered text-center align-middle">
                 <thead>
                     <tr class="table-primary">
@@ -42,7 +42,8 @@
                         </th:block>
                         <th:block th:each="product : ${productList}">
                             <tr>
-                                <td><span th:text="${product.productNo}"></span></td>                                
+                                <td><a href="/product/product_list/${product.productNo}"></a><span th:text="${product.productNo}"></span></td>
+                                <!-- <td><span th:text="${product.productNo}"></span></td>                                 -->
                                 <td><span th:text="${product.routeNo}"></span></td>
                                 <td><span th:text="${product.name}"></span></td>
                                 <td><span th:text="${product.departure}"></span></td>

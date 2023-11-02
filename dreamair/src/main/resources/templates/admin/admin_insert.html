@@ -17,13 +17,13 @@
 
     <div class="container">
         <h1 style="text-align: center;">관리자 정보 등록</h1>
-
-        <form class="needs-validation" novalidate action="/admin/admin_insert" method="post" th:object="${admin}">   
+          <br><br><br><br><br><br>
+        <form class="needs-validation" novalidate action="admin/admin_insert" method="post" th:object="${admin}">   
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
             <div class="row g-3">
   
-              <div class="col-5">
+              <div class="col-5 ">
                 <label for="adminId" class="form-label">관리자 아이디</label>
                 <div class="input-group has-validation">
                   <input type="text" class="form-control" id="adminId" placeholder="관리자 아이디" required>
@@ -42,11 +42,10 @@
                   </div>
                 </div>
               </div>
-
+            
             <hr class="my-4">
   
             <div class="d-flex justify-content-between">
-                <a href="/admin/admin_list" class="btn btn-outline-primary btn-lg">취소</a>
                 <button type="submit" class="btn btn-outline-primary btn-lg">관리자 등록</button>
             </div>
         </form>
