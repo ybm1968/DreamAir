@@ -39,44 +39,38 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("userId : " + username);
 
-        // jdlkfjaslkdfjdkl : 일반회원
-        // noduser-01012341234
-        // Users users = null;
-
         Users users = userMapper.login(username);
         Admin admin = adminMapper.admin_login(username);
 
-     /**
-     *  사용자 정의 사용자 인증 메소드
-     *  UserDetails
-     *    ➡ Users
-     *        ⬆ CustomUser   
-     */
- 
-
-      
-        // if ( users == null || admin == null ){
-        //     throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
-        // }
-            
-        // // 비회원
-        // if( username.contains("nouser-")) {
-        //     users = userMapper.login2(username);
-        // } 
-
-        // // 관리자
-        // else if (username.contains("admin-")){
-        //     admin = adminMapper.admin_login(username);
-        // } 
+       // Admin admin = adminMapper.login(username);
         
-        // // 회원
-        // else {
-        //     users = userMapper.login(username);
-        // }
+        // jdlkfjaslkdfjdkl : 일반회원
+        // noduser-01012341234
+        // Users users = null;
+        
+        // 비회원
+        if( username.contains("guest")) {
+            users = userMapper.login2(username);
+        } 
+        // 회원
+        else {
+            users = userMapper.login(username);
+        }
+
+        String adminId = String.valueOf(admin);
+        log.info("adminId : " + adminId);
+        
+       // Users adminusers = new Users( (Users) adminId);
+
+        // Users adminUsers = new Users(adminId);
 
         // log.info("users : " + users);
         // // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
+
         CustomUser customUser = new CustomUser(users);
+
+        // if( users != null ) 
+        //     customUser = new CustomUser(users);
         
         return customUser;
     }

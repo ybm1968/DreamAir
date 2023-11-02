@@ -1,22 +1,7 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/layout/admin_layout}"
-      >
-<head>
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사용자 정보 수동 등록</title>
-</head>
-
 <body layout:fragment="content">
 
     <div class="container">
-        <h1 style="text-align: center;">사용자 정보 수동 등록</h1>
+        <h1 style="text-align: center;">사용자 수동 등록</h1>
 
         <form class="needs-validation" novalidate action="/admin/user_insert" method="post" th:object="${user}">   
             <!-- csrf -->
@@ -47,6 +32,7 @@
                 </div>
               </div>
 
+  
               <div class="col-5">
                 <label for="name" class="form-label">국적</label>
                 <input type="text" class="form-control" placeholder="국적">
@@ -79,8 +65,8 @@
             <hr class="my-4">
   
             <div class="d-flex justify-content-between">
-                <a href="/admin/user_list" class="btn btn-outline-primary btn-lg">취소</a>
-                <button type="submit" class="btn btn-outline-primary btn-lg">사용자 정보 수정</button>
+                <a href="/user/select" class="btn btn-outline-primary btn-lg">취소</a>
+                <button type="submit" class="btn btn-outline-primary btn-lg">좌석선택</button>
             </div>
         </form>
 

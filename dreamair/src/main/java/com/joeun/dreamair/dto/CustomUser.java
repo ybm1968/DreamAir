@@ -56,10 +56,10 @@ public class CustomUser implements UserDetails {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return users.getEnabled() == 0 ? false : true;
-    }
+    // @Override
+    // public boolean isEnabled() {
+    //     return users.getEnabled() == 0 ? false : true;
+    // }
 
     
 }

@@ -50,17 +50,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE u.user_id = #{userId}
     </select>
 
-    <select id="login2" resultMap="userMap">
-    SELECT  u.user_no
-            ,u.user_pw
-            ,u.phone
-            ,u.reg_date
-            ,u.upd_date
-            ,u.status
-            ,auth.auth
-    FROM users u LEFT OUTER JOIN auth auth
-                ON u.phone = auth.user_id
-    WHERE u.phone = #{phone}
+    <!-- 회원 조회 - id -->
+    <select id="selectById" resultType="Users">
+        SELECT *
+        FROM users
+        WHERE user_id = #{userId}
     </select>
 
     <!-- 회원 권한 등록 -->
@@ -69,8 +63,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES ( #{userId}, #{auth} )
     </insert>
 
-    <!-- 회원 조회 -->
-    <select id="select" resultType="Users">
+    <!-- 회원 등록 -->
+    <insert id="insert">
+        INSERT INTO users( user_id, user_pw, name, email, phone, address )
+        VALUES ( #{userId}, #{userPw}, #{name} ,#{email}, #{phone}, #{address} )
+    </insert>
+
+
+    <!-- 회원 수정 -->
+    <update id="update">
+        UPDATE users
+           SET user_id = #{userId}
+              ,user_pw = #{userPw}
+              ,name = #{name}
+              ,phone = #{phone}
+              ,email = #{email}
+              ,address = #{address}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 회원 / 비회원 선생님 예시 -->
+    <!-- <select id="login" resultType="Users">
         SELECT *
         FROM user
         WHERE user_no = #{userNo}

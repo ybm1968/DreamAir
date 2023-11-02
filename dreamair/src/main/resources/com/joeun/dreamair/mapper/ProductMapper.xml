@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.joeun.dreamair.mapper.ProductMapper">
+
+<!-- 항공기 관리 -->
+<!-- 항공기 전체 조회 -->
+<select id="flight_list" resultType="Product">
+SELECT * FROM flight;
+</select>
+
+<!-- 항공기 정보 조회 -->
+<select id="flight_select" resultType="Product">
+    SELECT * FROM flight WHERE flight_no = #{flightNo}
+</select>
+
+<!-- 항공기 등록 -->
+<insert id="flight_insert">
+  INSERT INTO flight( flight_no, flight_name, seat_no, route_no, seat_Max, seat_remaining, seat_used )
+  VALUES ( #{flightNo}, #{flightName}, #{seatNo}, #{routeNo}, #{seatMax}, #{seatRemaining}, #{seatUsed} )
+</insert>
+
+<!-- 항공기 수정 -->
+<update id="flight_update">
+UPDATE flight
+SET flight_name = #{flightName}
+  , seat_no = #{seatNo}
+  , route_no = #{routeNo}
+  , seat_Max = #{routeNo}
+  , seat_remaining = #{seatRemaining}
+  , seat_used = #{seatUsed} 
+WHERE flight_no = #{flighNo}
+</update>
+
+<!-- 항공기 삭제 -->
+<delete id="flight_delete">
+DELETE FROM flight
+WHERE flight_no = #{flightNo}
+</delete>
+
+<!-- 상품 관리 -->
+<!-- 전체 조회 -->
+<select id="product_list" resultType="Product">
+SELECT * FROM product JOIN route ON product.route_no = route.route_no;
+</select>
+
+
+<!-- 상품 정보 조회 -->
+<select id="product_select" resultType="Product">
+    SELECT *
+    FROM product
+    WHERE product_no = #{productNo}
+</select>
+
+<!-- 상품 등록 -->
+<insert id="product_insert">
+INSERT INTO product(
+                    product_id, route_no, name, product_cat, product_price, departure, destination 
+)
+VALUES (
+  #{productId}, #{routeNo}, #{name}, #{productCat}, #{productPrice}, #{departure}, #{destination}
+)
+</insert>
+
+<!-- 상품 수정 -->
+<update id="product_update">
+UPDATE product
+SET product_id = #{productId}
+  , routeNo = #{routeNo}
+  , name = #{name}
+  , product_cat = #{productCat}
+  , product_price = #{productPrice}
+  , departure = #{departure}
+  , destination = #{destination}
+WHERE product_no = #{productNo}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="product_delete">
+DELETE FROM product
+WHERE product_no = #{productNo}
+</delete>
+
+<!-- 상품 입출고 -->
+
+</mapper>

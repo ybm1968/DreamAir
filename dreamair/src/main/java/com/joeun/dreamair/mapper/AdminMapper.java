@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
-import com.joeun.dreamair.dto.Product;
+
 import com.joeun.dreamair.dto.Users;
 
 @Mapper
@@ -44,47 +44,8 @@ public interface AdminMapper {
   // 삭제
   public int user_delete(int userNo) throws Exception;
 
+  
   /**
-   * 항공기
-   * dto : Admin
+   * 탑승권 관리
    */
-  // 전체 조회
-  public List<Admin> flight_list() throws Exception;
-
-  // 조회
-  public Admin flight_select(int flightNo) throws Exception;
-
-  // 등록
-  public int flight_insert(Admin flight) throws Exception;
-
-  // 수정
-  public int flight_update(Admin flight) throws Exception;
-
-  // 삭제
-  public int flight_delete(int flightNo) throws Exception;
-
-  /**
-   * 상품(항공권)
-   * dto : Product
-   */
-  // 전체 조회
-   public List<Product> product_list() throws Exception;
-
-  // 선택 조회
-   public Product product_select(String productNo) throws Exception;
-
-  // 등록
-  public int product_insert(Product product) throws Exception;
-
-  // 수정
-  public int product_update(Product product) throws Exception;
-   
-  // 삭제
-  public int product_delete(String productNo) throws Exception;
-
-
-  /**
-   * 상품 입출고
-   */
- 
 }
