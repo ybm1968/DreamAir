@@ -27,42 +27,42 @@
               <div class="col-5">
                 <label for="name" class="form-label">상품명</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="상품명">
+                  <input type="text" class="form-control"  placeholder="상품명" value="${product.name}">
                 </div>
               </div>
 
               <div class="col-5">
                 <label for="productCat" class="form-label">상품 카테고리</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="상품 카테고리">
+                  <input type="text" class="form-control"  placeholder="상품 카테고리" value="${productCat}">
                 </div>
               </div>
 
               <div class="col-5">
                 <label for="productPrice" class="form-label">상품 가격</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="상품 가격">
+                  <input type="text" class="form-control"  placeholder="상품 가격" value="#{productPrice}">
                 </div>
               </div>
 
               <div class="col-5">
                 <label for="routeNo" class="form-label">노선번호</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="노선번호">
+                  <input type="text" class="form-control"  placeholder="노선번호" value="#{routeNo}">
                 </div>
               </div>
 
               <div class="col-5">
                 <label for="departure" class="form-label">출발지</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="출발지">
+                  <input type="text" class="form-control"  placeholder="출발지" value="#{departure}">
                 </div>
               </div>
 
               <div class="col-5">
                 <label for="destination" class="form-label">도착지</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="도착지">
+                  <input type="text" class="form-control"  placeholder="도착지" value="#{destination}">
                 </div>
               </div>
 
@@ -72,7 +72,7 @@
             <hr class="my-4">
   
             <div class="d-flex justify-content-between">
-                <a href="/user/product_list" class="btn btn-outline-primary btn-lg">취소</a>
+                <a href="/product/product_list" class="btn btn-outline-primary btn-lg">취소</a>
                 <button type="submit" class="btn btn-outline-primary btn-lg">상품 등록</button>
             </div>
         </form>

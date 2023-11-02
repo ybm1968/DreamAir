@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
+import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.UserMapper;
@@ -119,6 +120,5 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.update(user);
 
         return result;
-    }
-    
+    }    
 }

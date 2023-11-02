@@ -70,7 +70,7 @@ SELECT * FROM flight JOIN route ON flight.route_no = route.route_no;
   <result property="productRegdate" column="product_regdate"/>
   <result property="productUpdate" column="aproduct_update"/>
 
-  <collection property="routeList" resultMap="routeMap"></collection>
+  <collection property="productList" resultMap="routeMap"></collection>
 </resultMap>
 
 <!-- route 매핑 -->

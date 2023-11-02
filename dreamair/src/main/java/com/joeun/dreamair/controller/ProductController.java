@@ -32,7 +32,7 @@ public class ProductController {
 
             List<Product> productList= productService.product_list();
             model.addAttribute("ProductList", productList);
-            return "/product_list";
+            return "product/product_list";
         }
 
         // //* - 상품 조회        
@@ -45,7 +45,7 @@ public class ProductController {
         //* - 상품 등록       
         @GetMapping(value="/product_insert")
             public String productInsert(@ModelAttribute Product product) {
-            return "/product_list";
+            return "product/product_list";
         }
 
         //* - 상품 등록 처리  
@@ -62,7 +62,7 @@ public class ProductController {
            
             model.addAttribute("product", productService.product_update(productNo));
                         
-            return "/product_update";
+            return "product/product_update";
         }
 
         //* - 상품 수정 처리     

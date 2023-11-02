@@ -43,7 +43,7 @@
                                 <td colspan="6">등록된 사용자가 없습니다.</td>
                             </tr>
                         </th:block>
-                        <th:block th:each="user : ${userList}" th:text="${Users}">
+                        <th:block th:each="user : ${userList}" th:object="${userList}">
                             <tr> 
                                 <td><span th:text="${user.userNo}"></span></td>                                
                                 <td><span th:text="${user.userId}"></span></td>

@@ -42,16 +42,16 @@
                         </th:block>
                         <th:block th:each="product : ${productList}">
                             <tr>
-                                <td><a href="/product/product_list/${product.productNo}"></a><span th:text="${product.productNo}"></span></td>
+                                <td><a href="/product/product_list/${Product.productNo}"></a><span th:text="${Product.productNo}"></span></td>
                                 <!-- <td><span th:text="${product.productNo}"></span></td>                                 -->
-                                <td><span th:text="${product.routeNo}"></span></td>
-                                <td><span th:text="${product.name}"></span></td>
-                                <td><span th:text="${product.departure}"></span></td>
-                                <td><span th:text="${product.destination}"></span></td>
-                                <td><span th:text="${product.departureTime}"></span></td>
-                                <td><span th:text="${product.destinationTime}"></span></td>
-                                <!-- <td><span th:text="${product.productRegdate}"></span></td> -->
-                                <!-- <td><span th:text="${product.productUpddate}"></span></td> -->
+                                <td><span th:text="${Product.routeNo}"></span></td>
+                                <td><span th:text="${Product.name}"></span></td>
+                                <td><span th:text="${Product.departure}"></span></td>
+                                <td><span th:text="${Product.destination}"></span></td>
+                                <td><span th:text="${Product.departureTime}"></span></td>
+                                <td><span th:text="${Product.destinationTime}"></span></td>
+                                <td><span th:text="${Product.regDate}"></span></td>
+                                <td><span th:text="${Product.updDate}"></span></td>
                                 <td></td>
                                 <td></td>
                                 <td><span><a href="javascript:;">수정</a></span></td>
