@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.mapper.BookingMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class BookingServiceImpl implements BookingService{
 
@@ -16,9 +19,10 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<Booking> list(Booking booking) throws Exception {
-        //booking = bookingMapper.list(booking);
+        log.info("booking.destionation : " + booking.getDestination());
+        List<Booking> bookingList = bookingMapper.list(booking);
 
-        throw new UnsupportedOperationException("Unimplemented method 'select'");
+        return bookingList;
     }
     
 }

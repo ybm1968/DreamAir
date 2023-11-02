@@ -5,8 +5,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.dreamair.mapper.BookingMapper">
-<!-- 
-    <select id="list" resultType="Booking"> -->
+
+    <!-- <select id="list" resultType="Booking">
+        SELECT f.flight_no
+              ,f.seat_remaining
+              ,p.product_price
+              ,t.departure
+              ,t.destination
+              ,t.duration
+        FROM 
+        WHERE t.departure = #{departure} 
+          AND t.destination = #{destination}
+          AND t.departure_time = #{departureTime}
+          AND b.round_trip = #{roundTrip}
+          AND f.seat_remaining > #{pasCount}
+    </select>  -->
+
+        <select id="list" resultType="Booking">
+         SELECT f.flight_no
+              ,f.seat_remaining
+              ,p.product_price
+              ,p.departure
+              ,p.destination
+              ,p.departure_time
+              ,p.destination_time
+              ,p.duration
+        FROM flight f left join product p on f.route_no = p.route_no
+        WHERE p.departure = #{departure}
+          AND p.destination = #{destination}; 
+
+    </select> 
     
 
 </mapper>

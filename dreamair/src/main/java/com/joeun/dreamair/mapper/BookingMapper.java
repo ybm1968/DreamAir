@@ -7,7 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.joeun.dreamair.dto.Booking;
 
 @Mapper
-public class BookingMapper {
-    
-    // public List<Booking> list(Booking booking) throws Exception;
+public interface BookingMapper {
+
+    // 항공권 목록 조회
+    public List<Booking> list(Booking booking) throws Exception;
 }

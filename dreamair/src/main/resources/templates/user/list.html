@@ -36,7 +36,7 @@
         <!-- 항공권 목록을 보여주는 섹션 -->
         <section>
 
-            <table id="productTable" style="margin-top: 100px;">
+            <table class="table table-bordered" id="productTable" style="margin-top: 100px;">
 
                 <th>
                     <td class="td3t" >운항시간</td> 
@@ -48,21 +48,33 @@
                     <td>예매하기</td>
                 </th>
 
-                <tr>
-                    <td class="td3t" colspan="2">06:05 - 07:10</td> 
-                    <td class="td2t">DreamAir</td> 
-                    <td class="td1t">DA7080</td> 
-                    <td class="td7t">70000</td>  
-                    <td class="td7t">10</td>
-                    <td><button>장바구니</button></td>
-                    <td><button>예매하기</button></td>
-                    
-                </tr>
+                <th:block th:if="${bookingList.isEmpty()}">
+                    <tr>
+                        <td colspan="7">조회된 항공권이 없습니다.</td>
+                    </tr>
+                </th:block>
+                <th:block th:each="booking : ${bookingList}">
+                    <tr>
+                        <td class="td3t" colspan="2" th:value="${duration}">06:05 - 07:10</td> 
+                        <td class="td2t" th:text="${flightNo}">DreamAir</td> 
+                        <td class="td1t" th:value="${flightNo}">DA7080</td> 
+                        <td class="td7t" th:value="${productPrice}">70000</td>  
+                        <td class="td7t"th:value="${seatRemaining}">10</td>
+                        <td><button>장바구니</button></td>
+                        <td><button>예매하기</button></td>
+                        
+                    </tr>
+    
 
+                </th:block>
+                
             </table>
 
         </section>
 
+        <div class="d-flex justify-content-between">
+            <a href="/" class="btn btn-outline-primary btn-lg">메인으로 가기</a>
+        </div>
     </div>
     
 </body>

@@ -24,7 +24,7 @@
                     <div class="tab_wrap">
 
         
-                        <form action="#" method="post"  id="frm">
+                        <form action="/booking/list" method="GET"  id="frm">
         
                             <div class="radio-row" style="margin-bottom: 20px;">
                                 <label class="radio-container m-r-45">왕복 <input
@@ -39,13 +39,13 @@
                             <div id="body">
                                 <div class="input-group mid small">
                                     <label class="label">출발지:</label> <input
-                                        class="input--style-1 t1" type="text" name="depLoc"
+                                        class="input--style-1 t1" type="text" name="departure"
                                         placeholder="지역 또는 공항명" required="required" id="loc">
                                 </div>
         
                                 <div class="input-group mid small">
                                     <label class="label">도착지:</label> <input class="input--style-1"
-                                        type="text" name="arrLoc" placeholder="지역 또는 공항명"
+                                        type="text" name="destination" placeholder="지역 또는 공항명"
                                         required="required" id="arrloc">
                                 </div>
         
@@ -56,7 +56,7 @@
                                         id="input-start">
                                 </div>
         
-                                <div class="input-group mid last">
+                                <!-- <div class="input-group mid last">
                                     
                                     <label class="label">탑승객:</label>
                                     <div class="input-group-icon" id="js-select-special">
@@ -91,11 +91,10 @@
                                         </ul>
                                         
                                     </div>
-                                </div>
+                                </div> -->
         
                                 <div class="col-2">
-                                    <button class="btn-submit" id="booking_btn" type="button">검색</button>
-                                    <!-- 비동기식??? -->
+                                    <button class="btn-submit" id="booking_btn" type="submit">검색</button>
                                 </div>
         
                             </div>
