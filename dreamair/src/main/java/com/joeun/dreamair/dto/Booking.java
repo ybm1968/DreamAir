@@ -37,10 +37,10 @@ public class Booking {
     private int ticketNo;
     private String departure;           // 출발지
     private String destination;         // 도착지
-    private Date boarding;
-    private Date departureTime;         // 출발 시간
-    private Date destinationTime;       // 도착 시간
-    private String duration;              // 소요시간
+    private String boarding;            // 탑승시간(수정함)
+    private String departureTime;         // 출발 시간(수정함)
+    private String destinationTime;       // 도착 시간(수정함)
+    private String duration;            // 소요시간(수정함)
     private int checkedIn;
     private int isBoarded;
 
@@ -57,7 +57,7 @@ public class Booking {
 
     // flight 테이블
     private int flightNo;
-    // private String flightName;
+    private String flightName;
     // private String seatNo;
     // private int routeNo;
     // private int seatMax;

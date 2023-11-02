@@ -55,11 +55,11 @@
                 </th:block>
                 <th:block th:each="booking : ${bookingList}">
                     <tr>
-                        <td class="td3t" colspan="2" th:value="${duration}">06:05 - 07:10</td> 
-                        <td class="td2t" th:text="${flightNo}">DreamAir</td> 
-                        <td class="td1t" th:value="${flightNo}">DA7080</td> 
-                        <td class="td7t" th:value="${productPrice}">70000</td>  
-                        <td class="td7t"th:value="${seatRemaining}">10</td>
+                        <td class="td3t" colspan="2"><span th:text="${booking.duration}"></span></td> 
+                        <td class="td2t">DramAir</td> 
+                        <td class="td1t"><span th:text="${booking.flightName}"></span></td> 
+                        <td class="td7t"><span th:text="${booking.productPrice}"></span></td>  
+                        <td class="td7t"><span th:text="${booking.seatRemaining}"></span></td>
                         <td><button>장바구니</button></td>
                         <td><button>예매하기</button></td>
                         

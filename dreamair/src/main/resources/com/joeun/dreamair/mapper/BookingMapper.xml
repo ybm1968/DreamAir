@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           AND f.seat_remaining > #{pasCount}
     </select>  -->
 
-        <select id="list" resultType="Booking">
+        <!-- <select id="list" resultType="Booking">
          SELECT f.flight_no
               ,f.seat_remaining
               ,p.product_price
@@ -33,8 +33,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM flight f left join product p on f.route_no = p.route_no
         WHERE p.departure = #{departure}
           AND p.destination = #{destination}; 
-
-    </select> 
+    </select>  -->
     
+    <select id="list" resultType="Booking">
+         SELECT f.flight_name
+              ,f.seat_remaining
+              ,p.product_price
+              ,p.departure
+              ,p.destination
+              ,r.departure_time
+              ,r.destination_time
+              ,p.duration
+        FROM flight f left join product p on f.route_no = p.route_no
+				left join route r on f.route_no = r.route_no
+        WHERE p.departure = #{departure}
+          AND p.destination = #{destination} 
+          AND #{departureTime} IN 
+          (select SUBSTRING_INDEX(departure_time, ' ', 1)
+            from route
+            where SUBSTRING_INDEX(departure_time, ' ', 1) = '2023-11-04');
+          <!-- 추후에 탑승객 조건도 추가해야함 -->
+    </select> 
 
 </mapper>
