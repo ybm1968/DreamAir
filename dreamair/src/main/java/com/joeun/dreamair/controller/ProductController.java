@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Product;
+import com.joeun.dreamair.dto.ProductIo;
 import com.joeun.dreamair.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,21 +26,22 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-     @GetMapping(value={"/"})
-     public String Home() {
-       
+    // [product] index 화면 
+    @GetMapping(value={"/"})
+    public String index() {
         return "product/index";
     }
 
-        //* - 상품 목록 
-        @GetMapping(value="/product_list")
-        public String product_list(Model model) throws Exception {
-            log.info("[GET] - /product/product_list");
+    // 상품 목록 조회 
+    @GetMapping(value="/product_list")
+    public String product_list(Model model) throws Exception {
+        log.info("[GET] - /product/product_list");
 
-            List<Product> productList = productService.product_list();
-            model.addAttribute("ProductList", productList);
-            return "product/product_list";
-        }
+        List<Product> productList = productService.product_list();
+        model.addAttribute("ProductList", productList);
+        
+        return "product/product_list";
+    }
 
         // //* - 상품 조회        
         // @GetMapping(value="/product_list")
@@ -58,6 +60,22 @@ public class ProductController {
         @PostMapping(value="/product_insert")
             public String productInsertPro(@ModelAttribute Product product) throws Exception {
                 int result = productService.product_insert(product);
+
+                // 상품 입출고 처리(입고)
+                int productNo = product.getProductNo();
+                int amount = product.getUnitInStock();
+                String type = "IN";
+
+                ProductIo productIo = new ProductIo();
+                productIo.setProductNo(productNo);
+                productIo.setAmount(amount);
+                productIo.setType(type);
+
+                int result2 = productService.productIO_insert(product);
+                if( result2 == 0 ){
+                    log.info("상품 입출고 중 에러 발생");
+                }
+
                 if( result == 0 ) return "product/product_insert";
             return "redirect:/product/product_list";
         }
@@ -85,8 +103,6 @@ public class ProductController {
             productService.product_delete(productNo);
            return "redirect:/product/product_list";
         }
-
-
 
         // 항공기
 
@@ -117,7 +133,7 @@ public class ProductController {
         @PostMapping(value="/flight_insert")
             public String flightInsertPro(@ModelAttribute Product product) throws Exception {
                 int result = productService.flight_insert(product);
-                if( result == 0 ) return "product/flight_insert";
+                if( result == 0 ) return "redirect:/product/flight_insert";
             return "redirect:/product/flight_list";
         }
 
@@ -134,7 +150,7 @@ public class ProductController {
         @PostMapping(value="/flight_update")
         public String flightUpdatePro(@ModelAttribute Product product) throws Exception {
                 int result = productService.flight_insert(product);
-                if( result == 0 ) return "product/flight_update";
+                if( result == 0 ) return "redirect:/product/flight_update";
             return "redirect:product/flight_list";
         }
 
@@ -144,6 +160,7 @@ public class ProductController {
             productService.flight_delete(flightNo);
            return "redirect:/product/flight_list";
         }
+
 
 
 }

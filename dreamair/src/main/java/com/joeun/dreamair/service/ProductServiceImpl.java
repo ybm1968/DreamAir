@@ -14,6 +14,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductMapper productMapper;
 
+    /**
+     * 항공기
+     */
     // 항공기 전체 조회
     @Override
     public List<Product> flight_list() throws Exception {
@@ -49,6 +52,9 @@ public class ProductServiceImpl implements ProductService {
         return result;
     }
 
+    /**
+     * 상품
+     */
     // 상품(항공권) 전체 조회
     @Override
     public List<Product> product_list() throws Exception {

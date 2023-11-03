@@ -17,6 +17,7 @@ public class Product {
     private String destination;
     private Date productRegDate;
     private Date productUpdDate;
+    private int UnitInStock; // DB에 추가해야함
 
     // seat 테이블
     private String seatNo;
