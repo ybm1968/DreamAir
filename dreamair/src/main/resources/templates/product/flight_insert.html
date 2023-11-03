@@ -18,7 +18,8 @@
     <div class="container">
         <h1 style="text-align: center;">항공기 정보 등록</h1>
 
-        <form class="needs-validation" novalidate action="/admin/flight_insert" method="post" th:object="${user}">   
+        <!-- <form class="needs-validation" novalidate action="/product/flight_insert" method="post" th:object="${Product}">    -->
+        <form class="needs-validation" novalidate action="/product/flight_insert" method="post">   
             <!-- csrf -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
@@ -94,8 +95,8 @@
             <hr class="my-4">
   
             <div class="d-flex justify-content-between">
-                <a href="/user/select" class="btn btn-outline-primary btn-lg">취소</a>
-                <button type="submit" class="btn btn-outline-primary btn-lg">좌석선택</button>
+                <a href="/product/flight_list" class="btn btn-outline-primary btn-lg">취소</a>
+                <button type="submit" class="btn btn-outline-primary btn-lg">등록</button>
             </div>
         </form>
 

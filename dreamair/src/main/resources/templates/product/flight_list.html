@@ -10,11 +10,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 목록 조회</title>
+    <title>항공기 관리</title>
 </head>
-
+<body layout:fragment="content">
+    <br><br><br><br><br><br><br><br>
+    <h1 class="text-center my-3">항공기 관리</h1>
+    <div class="btn-box d-grid gap-2 pt-5" >
+        <span class="btn btn-outline-primary btn-lg"><a href="#">항공기 등록</a></span>
+    </div>
 <th:block th:if="${orderList != null}">
-            
+         
             <table class="table table-striped table-hover table-bordered text-center align-middle">
                 <thead>
                     <tr class="table-primary">
@@ -44,7 +49,7 @@
                             </tr>
                         </th:block>
                     </tbody>
-                    <th:block th:if="${ order != null }">
+                    <!-- <th:block th:if="${ order != null }">
                         <tfoot>
                             <td></td>
                             <td>합계</td>
@@ -53,9 +58,11 @@
                             <td></td>
                             <td></td>
                         </tfoot>
-                    </th:block>
+                    </th:block> -->
                 </thead>
 
             </table>
         </th:block>
+        </body>
+        </html>
         

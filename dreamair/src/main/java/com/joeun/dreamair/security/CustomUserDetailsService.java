@@ -1,15 +1,13 @@
 package com.joeun.dreamair.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.joeun.dreamair.dto.CustomUser;
-<<<<<<< HEAD
-=======
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.UserMapper;
->>>>>>> 6c5a927e2e784b424bc8f12bc3bc44ebc0320608
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    private UserMapper userMapper;
+    
+    // @Autowired
+    // private AdminMapper adminMapper;
+
     /**
      *  사용자 정의 사용자 인증 메소드
      *  UserDetails
@@ -34,32 +38,24 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("userId : " + username);
 
         Users users = userMapper.login(username);
-        Users users2 = userMapper.admin_login(username);
-        
-        // jdlkfjaslkdfjdkl : 일반회원
-        // noduser-01012341234
-        // Users users = null;
+       // Admin admin = adminMapper.admin_login(username);
         
         // 비회원
         if( username.contains("guest")) {
             users = userMapper.login2(username);
         } 
-        // 회원
+        // 회원, 관리자
         else {
-            if(users2!=null){
                 users = userMapper.login(username);
-            }
-            else{
-                users = users2;
-            }
         }
 
-    
+        // else {
+        //     users = userMapper.login2(username);
+        // }
+        
+        // CustomUser customUser = new CustomUser(users, admin);
         CustomUser customUser = new CustomUser(users);
 
-        // if( users != null ) 
-        //     customUser = new CustomUser(users);
-        
         return customUser;
     }
 }

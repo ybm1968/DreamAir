@@ -2,20 +2,13 @@ package com.joeun.dreamair.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Admin;
-import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.AdminMapper;
 
@@ -34,9 +27,9 @@ public class AdminServiceImpl implements AdminService {
   @Autowired
   private AuthenticationManager authenticationManager;
 
-  // /**
-  //  * 관리자 로그인
-  //  */
+  /**
+   * 관리자 로그인
+   */
   // @Override
   // public void admin_login(Admin admin, HttpServletRequest request) throws Exception {
   //  String adminId = admin.getAdminId();
@@ -60,31 +53,26 @@ public class AdminServiceImpl implements AdminService {
   //   SecurityContextHolder.getContext().setAuthentication(authentication);
   // }
   
-  @Override
-  public int admin_insert(Admin admin) throws Exception {
-    // 비밀번호 암호화
-    String adminPw = admin.getAdminPw();
-    String encodePw = passwordEncoder.encode(adminPw);
-    admin.setAdminPw(encodePw);
+//   @Override
+//   public int admin_insert(Admin admin) throws Exception {
+//     // 비밀번호 암호화
+//     String adminPw = admin.getAdminPw();
+//     String encodePw = passwordEncoder.encode(adminPw);
+//     admin.setAdminPw(encodePw);
 
-    // 관리자 등록
-    int result = adminMapper.admin_insert(admin);
+//     // 관리자 등록
+//     int result = adminMapper.admin_insert(admin);
 
-    // 권한 등록
-    if ( result > 0 ){
-    Auth adminAuth = new Auth();
-    adminAuth.setUserId( admin.getAdminId() );
-    adminAuth.setAuth("ROLE_ADMIN");
-    result = adminMapper.insertAuth(adminAuth);
-}
-   return result;
-  }
-   
+//     // 권한 등록
+//     if ( result > 0 ){
+//       Auth adminAuth = new Auth();
+//       adminAuth.setUserId( admin.getAdminId() );
+//       adminAuth.setAuth("ROLE_ADMIN");
+//       result = adminMapper.insertAuth(adminAuth);
+// }
+//    return result;
+//   }
 
-  // @Override
-  // public Admin login(String adminId) throws Exception {
-   
-  // }
 
   /**
    * 사용자 관리
@@ -113,4 +101,11 @@ public class AdminServiceImpl implements AdminService {
     return result;
   }
 
+  // 관리자 로그인 조회
+  @Override
+  public Admin admin_login(@RequestParam String adminId, @RequestParam String adminPw) throws Exception {
+    Admin admin = adminMapper.admin_login(adminId, adminPw); 
+    return admin;
+  }
+  
 }

@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
-import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.UserMapper;
@@ -82,27 +81,27 @@ public class UserServiceImpl implements UserService {
     }
     
     // 관리자
-    public void admin_login(Users user, HttpServletRequest requset) throws Exception {
-        String username = user.getUserId();
-        String password = user.getUserPwCheck();
-        log.info("username : " + username);
-        log.info("password : " + password);
+    // public void admin_login(Users user, HttpServletRequest requset) throws Exception {
+    //     String username = user.getUserId();
+    //     String password = user.getUserPwCheck();
+    //     log.info("username : " + username);
+    //     log.info("password : " + password);
 
-        // 아이디, 패스워드 인증 토큰 생성
-        UsernamePasswordAuthenticationToken token 
-        = new UsernamePasswordAuthenticationToken(username, password);
+    //     // 아이디, 패스워드 인증 토큰 생성
+    //     UsernamePasswordAuthenticationToken token 
+    //     = new UsernamePasswordAuthenticationToken(username, password);
 
-        // 토큰에 요청정보를 등록
-        token.setDetails( new WebAuthenticationDetails(requset) );
+    //     // 토큰에 요청정보를 등록
+    //     token.setDetails( new WebAuthenticationDetails(requset) );
 
-        // 토큰을 이용하여 인증(로그인)
-        Authentication authentication = authenticationManager.authenticate(token);
+    //     // 토큰을 이용하여 인증(로그인)
+    //     Authentication authentication = authenticationManager.authenticate(token);
 
-        User authUser = (User) authentication.getPrincipal();
-        log.info("인증된 사용자 아이디 : " + authUser.getUsername());
+    //     User authUser = (User) authentication.getPrincipal();
+    //     log.info("인증된 사용자 아이디 : " + authUser.getUsername());
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
+    //     SecurityContextHolder.getContext().setAuthentication(authentication);
+    // }
 
     @Override
     public Users selectById(String userId) throws Exception {
@@ -120,5 +119,12 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.update(user);
 
         return result;
-    }    
+    }
+
+    // @Override
+    // public void login2(Users user, HttpServletRequest request) throws Exception {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'login2'");
+    // }
+  
 }

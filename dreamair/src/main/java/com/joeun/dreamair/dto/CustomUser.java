@@ -12,7 +12,13 @@ import lombok.Getter;
 @Getter
 public class CustomUser implements UserDetails {
 
-    private Users users;         
+    private Users users;
+    private Admin admin;         
+
+    // public CustomUser(Users users, Admin admin) {
+    //     this.users = users;
+    //     this.admin = admin;
+    // }
 
     public CustomUser(Users users) {
         this.users = users;

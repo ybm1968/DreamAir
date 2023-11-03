@@ -28,6 +28,7 @@ public class Product {
     // flight 테이블
     // private int flightNo;
     private String flightName;
+
     // private String seatNo;
     private int seatMax;
     private int seatRemaining;
@@ -38,4 +39,12 @@ public class Product {
     private int userNo;
     private int userNo2;
     private int cartCnt;
+
+    // route    
+    // private int routeNo;    
+    // private String departure;     
+    // private String destination;
+    private Date departureTime;     
+    private Date destinationTime;
+
 }

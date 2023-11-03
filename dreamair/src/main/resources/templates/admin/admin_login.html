@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/admin_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+</head>
+
+<body layout:fragment="content">
+    <main class="form-signin my-5 w-100 m-auto pt-5" style="max-width: 360px;">
+        <form action="/admin/admin_login" method="post">
+          <!-- CRSF TOKEN -->
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+          <h1 class="h3 mb-3 fw-normal text-center pt-5">로그인</h1>
+      
+          <div class="form-floating">
+            <input type="text" class="form-control" name="adminId" id="adminId" placeholder="아이디" 
+                    autofocus>
+
+            <label for="floatingInput">아이디</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" name="adminPw" id="adminPw" placeholder="비밀번호" >
+            <label for="floatingPassword">비밀번호</label>
+          </div>
+
+          <button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
+        </form>
+    </main>
+
+</body>
+</html>
