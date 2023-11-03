@@ -89,5 +89,12 @@ public class ProductServiceImpl implements ProductService {
         int result = productMapper.product_delete(productNo);
         return result;
     }
+
+    // 상품 입출고 등록
+    @Override
+    public int productIO_insert(Product product) throws Exception {
+       int result = productMapper.productIO_insert(product);
+       return result;
+    }
     
 }
