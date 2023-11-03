@@ -132,7 +132,8 @@ public class AdminServiceImpl implements AdminService {
   // 탑승 처리 : (탑승완료1, 미탑승0)
   @Override
   public int ticket_used(int ticketNo) throws Exception {
-    int result = adminMapper.ticket_used(ticketNo)
+    int result = adminMapper.ticket_used(ticketNo);
+    return result;
   }
 
   // 전체 예매 내역 조회
