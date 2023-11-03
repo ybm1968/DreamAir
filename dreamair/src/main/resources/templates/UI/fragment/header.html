@@ -6,6 +6,8 @@
           <div class="container-fluid">
             <!-- 사이트 이름 -->
             <a class="navbar-brand" href="#">DreamAir</a>
+            <!-- <img src="../../../static/img/logo.png" alt="로고 이미지">
+            -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -13,14 +15,17 @@
               <!-- 메뉴 목록 (gnb) -->
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link active" aria-current="page" href="#">홈</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="#">출도착 항공편</a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="#">게시판</a>
+                </li>
+                <!-- <li class="nav-item">
                   <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
+                </li> -->
               </ul>
 
 
@@ -34,7 +39,8 @@
                     <a class="nav-link" aria-current="page" href="/join">회원가입</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/user/order">주문내역</a>
+                    <img src="" alt=장바구니 이미지">
+                    <a class="nav-link" aria-current="page" href="/user/cart">장바구니</a>
                   </li>
                 </ul>
               </th:block>
@@ -48,14 +54,40 @@
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     <strong sec:authentication="principal.users.userId">아이디</strong>
                   </a>
+          
+                  <ul class="dropdown-menu text-small">
+                    <!-- 사용자 메뉴 -->
+                    <th:block sec:authorize="hasRole('ROLE_USER')">
+                      <li><a class="dropdown-item" href="/user">사용자</a></li>
+                    </th:block>
+                    <li><a class="dropdown-item" href="#">나의 탑승권 관리</a></li>
+                    <li><a class="dropdown-item" href="#">체크인</a></li>
+                    <li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
+                    <li><a class="dropdown-item" href="#">장바구니</a></li>
+                    <li><a class="dropdown-item" href="#">마일리지 조회</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <form action="/logout" method="post">
+                        <!-- csrf token -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="dropdown-item">로그아웃</button>
+                      </form>
+                    </li>
+                  </ul>                  
+
+ 
                   <ul class="dropdown-menu text-small">
                     <!-- 관리자 메뉴 -->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                       <li><a class="dropdown-item" href="/admin">관리자</a></li>
                     </th:block>
-                    <li><a class="dropdown-item" href="/user/index">마이 페이지</a></li>
-                    <li><a class="dropdown-item" href="/user/update">회원정보 수정</a></li>
-                    <li><a class="dropdown-item" href="/user/order">주문내역</a></li>
+                    <li><a class="dropdown-item" href="#">대시보드</a></li>
+                    <li><a class="dropdown-item" href="#">사용자 관리</a></li>
+                    <li><a class="dropdown-item" href="#">항공기 관리</a></li>
+                    <li><a class="dropdown-item" href="#">상품 관리</a></li>
+                    <li><a class="dropdown-item" href="#">예매 관리</a></li>
+                    <li><a class="dropdown-item" href="#">탑승권 최종 확인</a></li>
+         
                     <li><hr class="dropdown-divider"></li>
                     <li>
                       <form action="/logout" method="post">
