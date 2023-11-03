@@ -20,10 +20,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="status" column="status" />
         <result property="regDate" column="reg_date" />
         <result property="updDate" column="upd_date" />
+                <!-- <result property="enabled" column="enabled" /> -->
         
         <collection property="authList" resultMap="authMap"></collection>
     </resultMap>
+
+     <!-- Users 매핑-->
+    <resultMap type="Users" id="adminMap">
+        <id property="adminNo" column="admin_no" />
         
+        <result property="adminNo" column="admin_no" />
+        <result property="adminId" column="adim_id" />
+        <result property="adminPw" column="admin_pw" />
+        
+        <collection property="authList" resultMap="authMap"></collection>
+    </resultMap>
+
     <!-- UserAuth 매핑 -->
     <resultMap type="Auth" id="authMap">
         <result property="userId" column="user_id" />
@@ -36,16 +48,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="login" resultMap="userMap">
         SELECT u.user_no
               ,u.user_id
-              ,user_pw
-              ,name
-              ,email
-              ,status
-              ,reg_date
-              ,upd_date
-              ,auth
-        FROM users u LEFT OUTER JOIN auth
+              ,u.user_pw
+              ,u.name
+              ,u.address
+              ,u.phone
+              ,u.email
+              ,u.reg_date
+              ,u.upd_date
+              ,u.status
+              ,auth.auth
+        FROM users u LEFT OUTER JOIN auth auth
                     ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
+    </select>
+
+
+
+    <!-- 로그인(회원, 비회원, 관리자) -->
+    <!-- <select id="login" resultMap="userMap">
+        SELECT users.user_id, users.user_pw, users.phone, auth.auth
+        FROM users JOIN auth ON auth.user_id = #{userId}
+        UNION
+        SELECT admin_id AS user_id, admin_pw AS user_pw, NULL AS phone, auth.auth
+        FROM admin
+        JOIN auth ON admin.admin_id = #{userId};
+    </select> -->
+
+    <!-- 관리자 조회 -->
+    <select id="admin_login" resultMap="adminMap">
+        SELECT a.admin_no
+            ,a.admin_id
+            ,a.admin_pw
+            ,auth.auth
+        FROM Admin a LEFT OUTER JOIN auth auth 
+                    ON a.admin_id = auth.user_id
+        WHERE a.admin_id = #{adminId}
+    </select>
+
+    <!-- 회원 조회 - id -->
+    <select id="selectById" resultType="Users">
+        SELECT *
+        FROM users
+        WHERE user_id = #{userId}
     </select>
 
     <!-- 회원 권한 등록 -->
@@ -61,16 +105,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
 
-    <!-- <select id="login" resultType="Users">
-        SELECT *
-        FROM user
-        ...
-    </select>
+    <!-- 회원 수정 -->
+    <update id="update">
+        UPDATE users
+           SET user_id = #{userId}
+              ,user_pw = #{userPw}
+              ,name = #{name}
+              ,phone = #{phone}
+              ,email = #{email}
+              ,address = #{address}
+        WHERE user_id = #{userId}
+    </update>
 
-    <select id="login2" resultType="Users">
-        SELECT *
-        FROM user2
-        ...
-    </select> -->
+    <!-- 회원 탈퇴 -->
+    <delete id="delete">
+        DELETE FROM user
+        WHERE user_id = #{userId}
+    </delete>
+
 
 </mapper>

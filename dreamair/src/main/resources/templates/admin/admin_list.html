@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{UI/layout/admin_layout}"
+      >
+<head>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 목록 조회</title>
+</head>
+<body layout:fragment="content">
+    <div class="btn-box d-grid gap-2">
+      <button type="submit" class="btn btn-outline-primary btn-lg">관리자 등록</button>
+    </div>   
+<th:block th:if="${adminList != null}">
+     
+            <table class="table table-striped table-hover table-bordered text-center align-middle">
+                <thead>
+                    <tr class="table-primary">
+                        <th>순번</th>
+                        <th>관리자 ID</th>
+                        <th>관리자 PW</th>
+                        <td></td>
+                        <td></td>
+                        <th colspan="2">비고</th>
+                    </tr>
+                    <tbody>
+                        <!-- 목록이 없을 때 -->
+                        <th:block th:if="${adminList.isEmpty()}">
+                            <tr>
+                                <td colspan="6">등록된 관리자 명단이 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="admin : ${adminList}">
+                            <tr>
+                                <td><span th:text="${admin.adminNo}"></span></td>                                
+                                <td><span th:text="${admin.adminId}"></span></td>
+                                <td><span th:text="${admin.adminPw}"></span></td>
+                                <td></td>
+                                <td></td>
+                                <td><span><a href="javascript:;">수정</a></span></td>
+                                <td><span><a href="javascript:;">삭제</a></span></td>
+                            </tr>
+                        </th:block>
+                    </tbody>
+                </thead>
+            </table>
+        </th:block>
+    </body>
+</html>

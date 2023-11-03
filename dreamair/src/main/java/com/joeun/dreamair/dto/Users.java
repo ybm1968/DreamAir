@@ -7,9 +7,9 @@ import lombok.Data;
 
 @Data
 public class Users {
+
     // users 테이블
     private int userNo;
-    private int authNo;
     private String userId;
     private String userPw;
     private String userPwCheck;     // 비밀번호 확인
@@ -21,12 +21,29 @@ public class Users {
     private Date updDate;
     private String status;
 
-    private List<Auth> authList;    
+    private int enabled;            // 휴면여부
+
+    private List<Auth> authList;
+    
+    public Users(Users users) {
+        this.userNo = users.getUserNo();
+        this.userId = users.getUserId();
+        this.userPw = users.getUserPw();
+        this.name = users.getName();
+        this.address = users.getAddress();
+        this.phone = users.getPhone();
+        this.email = users.getEmail();
+        this.regDate = users.getRegDate();
+        this.updDate = users.getUpdDate();
+        this.status = users.getStatus();
+        this.authList = users.getAuthList();
+    }
 
     // user2 테이블
     private int userNo2;
 
     // auth 테이블
+    private int authNo;
     private String auth;
 
     // passport 테이블
@@ -49,6 +66,7 @@ public class Users {
     private String series; 
     private String token;
     private Date last_used;
+
 
 
 }

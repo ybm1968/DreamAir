@@ -22,7 +22,10 @@ public interface UserMapper {
 
     // 비회원
     public Users login2(String username);
- 
+
+    // 관리자
+    public Users admin_login(String username);
+    
     // 회원 권한 등록
     public int insertAuth(Auth auth) throws Exception;
     
