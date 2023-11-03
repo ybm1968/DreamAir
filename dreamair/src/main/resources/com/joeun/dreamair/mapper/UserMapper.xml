@@ -32,6 +32,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
+    <!-- 회원 등록 -->
+    <!-- users 테이블에 회원 등록 -->
+    <insert id="insertUsers" parameterType="Users">
+        INSERT INTO users( user_id, user_pw, name, email, phone, address )
+        VALUES ( #{userId}, #{userPw}, #{name}, #{email}, #{phone}, #{address} );
+    </insert>
+
+    <!-- mileage 테이블에 회원 추가 -->
+    <insert id="insertMileage" parameterType="Users">
+        INSERT INTO mileage( user_id )
+        VALUES( #{userId} );
+    </insert>
+
+    <!-- 회원 권한 등록 -->
+    <insert id="insertAuth">
+        INSERT INTO auth( user_id, auth ) 
+        VALUES ( #{userId}, #{auth} )
+    </insert>
+
+
+
     <!-- 회원 조회 - id -->
     <select id="login" resultMap="userMap">
         SELECT u.user_no
@@ -49,6 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
+
     <!-- 회원 조회 - id -->
     <select id="selectById" resultType="Users">
         SELECT *
@@ -57,18 +79,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <!-- 회원 권한 등록 -->
-    <insert id="insertAuth">
-        INSERT INTO auth( user_id, auth ) 
-        VALUES ( #{userId}, #{auth} )
-    </insert>
 
+    <!-- user_no 조회 - id -->
+    <select id="selectUserNoByUserId" resultType="int">
+        SELECT user_no
+        FROM users
+        WHERE user_id = #{userId}
+    </select>
 
-    <!-- 회원 등록 -->
-    <insert id="insert">
-        INSERT INTO users( user_id, user_pw, name, email, phone, address )
-        VALUES ( #{userId}, #{userPw}, #{name} ,#{email}, #{phone}, #{address} )
-    </insert>
 
 
     <!-- 회원 수정 -->
@@ -84,12 +102,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
 
+
     <!-- 회원 삭제 -->
     <delete id="delete">
-        DELETE FROM users
-        WHERE user_id = #{userId}
+        DELETE users, auth
+        FROM users JOIN auth ON users.user_id = auth.user_id        
+        WHERE users.user_id = #{userId} AND auth.user_id = #{userId}
     </delete>
     
+
+
+
 
     <!-- 회원 / 비회원 선생님 예시 -->
     <!-- <select id="login" resultType="Users">

@@ -9,8 +9,10 @@ import com.joeun.dreamair.dto.Users;
 @Mapper
 public interface UserMapper {
 
+
     // 회원 등록
-    public int insert(Users user) throws Exception;
+    public int insertUsers(Users user) throws Exception;
+    public int insertMileage(Users user) throws Exception;
     
     // 회원 조회
     public Users select(int userNo) throws Exception;
@@ -32,6 +34,8 @@ public interface UserMapper {
 
     // 회원 삭제
     public Users delete(String username);
+
+
 
     
 }

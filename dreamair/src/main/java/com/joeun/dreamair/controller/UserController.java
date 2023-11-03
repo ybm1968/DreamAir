@@ -39,8 +39,9 @@ public class UserController {
     @Autowired
     private PersistentTokenRepository persistentTokenRepository;
 
+
     /**
-     * 사용자 페이지
+     * 마이 페이지
      * @return
      */
     // 회원권한(ROLE_USER)을 가진 사용자만 접근 허용
@@ -72,6 +73,7 @@ public class UserController {
 
         return "user/update";
     }
+    
 
     /**
      * 회원정보 수정 처리
@@ -178,6 +180,7 @@ public class UserController {
         return "redirect:/";
     }
     
+
     /**
      * 회원 마일리지 조회 페이지
      * @param param
@@ -189,11 +192,17 @@ public class UserController {
         String loginId = principal != null ? principal.getName() : null;
 
         Users user = userService.selectById(loginId);
+        
 
         model.addAttribute("user", user);
 
         return "user/mileage";
     }
+
+
+
+
+    
 
     
     /**

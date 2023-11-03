@@ -41,7 +41,6 @@ public class HomeController {
     }
     
 
-
     /**
      * 로그인 화면
      * @return
@@ -65,6 +64,7 @@ public class HomeController {
         
         return "login";
     }
+
 
     /**
      * 회원 가입 화면
