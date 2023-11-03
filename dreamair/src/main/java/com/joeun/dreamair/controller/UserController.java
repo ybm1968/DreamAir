@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.UserService;
 
@@ -219,26 +220,26 @@ public class UserController {
     }
 
 
-    /**
-     * 주문 내역 페이지
-     * @throws Exception
-     */
-    @GetMapping(value="/booking")
-    public String booking(Model model, Principal principal, Booking booking) throws Exception {
-        List<Booking> bookingList = null;
-        // 회원 주문 내역 데이터 요청
-        if( principal != null ) {
-            log.info("회원 : " + principal.getName());
-            String userId = principal.getName();
-            // bookingList = bookingService.listByUserId(userId);
-            // booking = bookingService.sumBooking(userId);
-            log.info("booking : " + booking);
-            model.addAttribute("bookingList", bookingList);
-            model.addAttribute("booking", booking);
-        }
+    // /**
+    //  * 주문 내역 페이지
+    //  * @throws Exception
+    //  */
+    // @GetMapping(value="/booking")
+    // public String booking(Model model, Principal principal, Booking booking) throws Exception {
+    //     List<Booking> bookingList = null;
+    //     // 회원 주문 내역 데이터 요청
+    //     if( principal != null ) {
+    //         log.info("회원 : " + principal.getName());
+    //         String userId = principal.getName();
+    //         bookingList = bookingService.listByUserId(userId);
+    //         booking = bookingService.sumBooking(userId);
+    //         log.info("booking : " + booking);
+    //         model.addAttribute("bookingList", bookingList);
+    //         model.addAttribute("booking", booking);
+    //     }
         
-        return "user/booking";
-    }
+    //     return "user/booking";
+    // }
 
 
     // @PostMapping(value="/booking")

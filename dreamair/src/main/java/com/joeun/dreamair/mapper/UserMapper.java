@@ -25,7 +25,7 @@ public interface UserMapper {
 
     // 비회원
     public Users login2(String username);
-
+ 
     // 회원 권한 등록
     public int insertAuth(Auth auth) throws Exception;
     
@@ -38,10 +38,4 @@ public interface UserMapper {
 
 
     
-  // public void login(Users user, HttpServletRequest request) throws Exception;
-    
-  // public void login2(Users user, HttpServletRequest request) throws Exception;
-  
-  // public int insertAuth(Auth userAuth) throws Exception;
-
 }
