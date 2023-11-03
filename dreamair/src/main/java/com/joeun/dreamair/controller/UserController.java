@@ -1,7 +1,6 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.UserService;
 
@@ -51,8 +49,6 @@ public class UserController {
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value={"/", ""})
     public String index() {
-        // int result = 10 / 0;
-        // log.info(result + "");
         return "user/index";
     }
 

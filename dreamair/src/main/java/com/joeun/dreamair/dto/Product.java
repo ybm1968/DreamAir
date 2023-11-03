@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class Product {
+
     // product 테이블
     private int productNo;
     private int routeNo;
@@ -24,9 +25,26 @@ public class Product {
     private int flightNo;
     private String seatClass;
 
+    // flight 테이블
+    // private int flightNo;
+    private String flightName;
+
+    // private String seatNo;
+    private int seatMax;
+    private int seatRemaining;
+    private int seatUsed;
+
     // cart 테이블
     private int cartNo;
     private int userNo;
     private int userNo2;
     private int cartCnt;
+
+    // route    
+    // private int routeNo;    
+    // private String departure;     
+    // private String destination;
+    private Date departureTime;     
+    private Date destinationTime;
+
 }

@@ -75,16 +75,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 람다식 
         http
             .authorizeRequests((authorize) -> authorize
-                                .antMatchers("/**").permitAll()
-                                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
-                                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")    // user 밑의 경로들은 USER 및 ADMIN 권한을 가진 사용자가 접근할 수 있다.
-                                .antMatchers("/admin/**").hasRole("ADMIN")                  // admin 밑의 경로들은 ADMIN 권한을 가진 사용자만 접근할 수 있다.
+                                .antMatchers("/admin/**").permitAll()
+                                .antMatchers("/product/**").permitAll()
+                                .antMatchers("/user/**").permitAll()
+                                // .antMatchers("/admin/**").hasRole("ROLE_ADMIN")
+                                // .antMatchers("/user/**").hasAnyRole("ROLE_USER", "ROLE_ADMIN")
                                 .antMatchers("/board/**").permitAll()
                                 .antMatchers("/booking/**").permitAll()
+                                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
+                                .antMatchers("/**").permitAll()
                                 // anyRequest()         : 모든(이외의) 요청을 지정
                                 // authenticated()      : 인증된 사용자만 허용
                                 // .anyRequest().permitAll()
-                                .anyRequest().authenticated()
+                                // .anyRequest().authenticated()
                               )
         ;
 
@@ -180,52 +183,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // AuthenticationManagerBuilder : 인증 관리 객체
-        // 인증 방식 : 인메모리 방식
-        // auth.inMemoryAuthentication()               
-        //     // .withUser("아이디").password("비밀번호").roles("권한")
-        //     // passwordEncoder.encode("비밀번호")     :   비밀번호 암호화
-        //     // BCryptPasswordEncoder 사용
-        //     .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
-        //     .and()
-        //     .withUser("admin").password(passwordEncoder.encode("123456")).roles("ADMIN")
-        //     ;
-        //     NoOpPasswordEncoder 사용
-        //     .withUser("user").password("123456").roles("USER")
-        //     .and()
-        //     .withUser("admin").password("123456").roles("ADMIN")
-        //     ;
-        
-        // 인증 방식 : jdbc 인증
-        // String sql1 = " SELECT user_id as username, user_pw as password, enabled "
-        //             + " FROM user "
-        //             + " WHERE user_id = ? ";
-
-        // String sql2 = " SELECT user_id as username, auth " 
-        //             + " FROM user_auth "
-        //             + " WHERE user_id = ? ";
-
-        // auth.jdbcAuthentication()
-        //     // 데이터 소스 등록
-        //     .dataSource( dataSource )
-        //     // 인증 쿼리    (아이디/비밀번호/활성여부)
-        //     .usersByUsernameQuery(sql1)
-        //     // 인가 쿼리    (아이디/권한)
-        //     .authoritiesByUsernameQuery(sql2)
-        //     // 비밀번호 암호화 방식 지정 - BCryptPasswordEncoder 또는 NoOpPasswordEncoder
-        //     .passwordEncoder( passwordEncoder );
-
-
         // 인증 방식 : 사용자 정의 인증 (UserDetails)
         auth.userDetailsService( customUserDetailsService() )
-            // 비밀번호 암호화 방식 지정 - BCryptPasswordEncoder 또는 NoOpPasswordEncoder
             .passwordEncoder( passwordEncoder )
             ;
-            
     }
 
-    // PersistentRepository 토큰정보 객체 - 빈 등록
-    @Bean
+    
+    @Bean // PersistentRepository 토큰정보 객체 - 빈 등록
     public PersistentTokenRepository tokenRepository() {
         // JdbcTokenRepositoryImpl : 토큰 저장 데이터 베이스를 등록하는 객체
         JdbcTokenRepositoryImpl repositoryImpl = new JdbcTokenRepositoryImpl(); 
@@ -259,6 +224,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
+
+
+    //     @Bean
+    // public PasswordEncoder passwordEncoder() {
+    //     return new BCryptPasswordEncoder();
+    // }
+
+
+	// @Bean
+	// public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+	// 	return authenticationConfiguration.getAuthenticationManager();
+	// }
 
 
     

@@ -8,16 +8,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
-   
-  </head>
 
-  <body layout:fragment="content">
-    <P>메인 페이지</P>
-    <P>메인 페이지</P>
-    <P>메인 페이지</P>
-    <P>메인 페이지</P>
-    <P>메인 페이지</P>
-    <P>메인 페이지</P>
-  
-  </body>
-  </html>
+
+</head>
+
+<body layout:fragment="content">
+
+    <div class="d-flex justify-content-center align-items-center" id="back">
+
+
+        <section>
+            <div class="card card-4">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                    <div class="tab_wrap">
+
+        
+                        <form action="#" method="post"  id="frm">
+        
+                            <div class="radio-row" style="margin-bottom: 20px;">
+                                <label class="radio-container m-r-45">왕복 <input
+                                    type="radio" name="kind" value="왕복" id="round" checked="checked">
+                                    <span class="radio-checkmark"></span>
+                                </label> <label class="radio-container m-r-45">편도 <input
+                                    type="radio" name="kind" value="편도" id="eachWay"> <span
+                                    class="radio-checkmark"></span>
+                                </label>
+                            </div>
+        
+                            <div id="body">
+                                <div class="input-group mid small">
+                                    <label class="label">출발지:</label> <input
+                                        class="input--style-1 t1" type="text" name="depLoc"
+                                        placeholder="지역 또는 공항명" required="required" id="loc">
+                                </div>
+        
+                                <div class="input-group mid small">
+                                    <label class="label">도착지:</label> <input class="input--style-1"
+                                        type="text" name="arrLoc" placeholder="지역 또는 공항명"
+                                        required="required" id="arrloc">
+                                </div>
+        
+        
+                                <div class="input-group mid large">
+                                    <label class="label">탑승일:</label> <input class="input--style-1"
+                                        type="text" name="date" placeholder="yyyy/mm/dd"
+                                        id="input-start">
+                                </div>
+        
+                                <div class="input-group mid last">
+        
+                                    <label class="label">탑승객:</label>
+                                    <div class="input-group-icon" id="js-select-special">
+                                        <input class="input--style-1-small" type="text"
+                                            name="traveller" value="성인 1, 아이 0" disabled="disabled"
+                                            id="info"> <i class="zmdi zmdi-chevron-down input-icon"
+                                            style="height: 100%; background-color: transparent;"></i>
+                                    </div>
+        
+        
+                                    <div class="dropdown-select">
+                                        <ul class="list-room">
+                                            <li class="list-room__item">
+                                                <ul class="list-person">
+                                                    <li class="list-person__item"><span class="name">성인</span>
+                                                        <div class="quantity quantity1">
+                                                            <span class="minus" id="a_minus">-</span> 
+                                                            <input class="inputQty" type="number" min="0" value="1" name="adult" id="adult"> 
+                                                            <span class="plus">+</span>
+                                                        </div>
+                                                    </li>
+                                                    
+                                                    <li class="list-person__item"><span class="name">아이</span>
+                                                        <div class="quantity quantity2">
+                                                            <span class="minus">-</span> 
+                                                            <input class="inputQty" type="number" min="0" value="0" name="child" id="child">
+                                                            <span class="plus">+</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+        
+                                <div class="col-2">
+                                    <button class="btn-submit" id="booking_btn" type="button">검색</button>
+                                </div>
+        
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        
+        
+
+
+        </section>
+    </div>
+    
+</body>
+</html>

@@ -17,7 +17,7 @@ public interface UserService {
 
     // 로그인
     public void login(Users user, HttpServletRequest requset) throws Exception;
-
+    
     // 회원 수정
     public int update(Users user) throws Exception;
 

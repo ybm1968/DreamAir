@@ -20,9 +20,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
-    
+
     @Autowired
     private UserMapper userMapper;
+    
+    // @Autowired
+    // private AdminMapper adminMapper;
 
     /**
      *  사용자 정의 사용자 인증 메소드
@@ -34,31 +37,25 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("userId : " + username);
 
-        // Users users = userMapper.login(username);
-
-        // jdlkfjaslkdfjdkl : 일반회원
-        // noduser-01012341234
-        Users users = null;
+        Users users = userMapper.login(username);
+       // Admin admin = adminMapper.admin_login(username);
         
         // 비회원
-        if( username.contains("nouser-")) {
+        if( username.contains("guest")) {
             users = userMapper.login2(username);
         } 
-        // 회원
+        // 회원, 관리자
         else {
-            users = userMapper.login(username);
+                users = userMapper.login(username);
         }
 
-        log.info("users : " + users);
-        // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
-
-        CustomUser customUser = null;
-
-        if( users != null ) 
-            customUser = new CustomUser(users);
+        // else {
+        //     users = userMapper.login2(username);
+        // }
         
+        // CustomUser customUser = new CustomUser(users, admin);
+        CustomUser customUser = new CustomUser(users);
+
         return customUser;
     }
-
-    
 }

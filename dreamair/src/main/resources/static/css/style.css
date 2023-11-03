@@ -1,0 +1,120 @@
+/* 초기화 */
+* { margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box; }
+
+li { list-style: none; }
+
+a { text-decoration: none;
+    color: inherit; }
+
+img { max-width: 100%; }
+
+button { cursor: pointer; }
+
+/* 헤더 header.html */
+.header_image {
+    width: 25px;
+    height: 25px;
+    z-index: 1;
+}
+
+.navbar-brand > img {
+    width: 60px;
+    height: 30px;
+}
+
+/* 메인 index.html */
+#back {
+    width: 100%;
+    height: 600px;
+    background-color: skyblue;
+
+}
+
+.container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+/** 푸터 footer.html */
+footer {
+    width: 100%;
+    height: 100%;
+    /* background-color: antiquewhite; */
+}
+
+.copyright {
+    display: inline-block;
+}
+
+.name {
+    display: inline-block;
+}
+
+.font {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.team > .name {
+    display: inline-block;
+    padding-left: 130px;
+    text-align: center;
+}
+
+.sns > span > a > img {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+/* copyright */
+.copyright {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    padding-left: 20px;
+    float: left;
+    width: 10%;
+    height: 30px;
+    z-index: 1;
+}
+
+.logo:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.logo > img {
+    width: 70px;
+    height: 70px;
+}
+
+.copy_content {
+    width: 70%;
+    text-align: center;
+}
+
+.copy {
+    text-align: center;
+}
+
+.sns {
+    padding-left: 30px;
+    width: 20%;
+    float: right;
+}
+
+.sns:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/** 관리자 정보 등록 : admin/adim_insert **/
