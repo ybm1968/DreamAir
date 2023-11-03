@@ -7,28 +7,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.joeun.dreamair.mapper.AdminMapper">
 
 <!-- Admin 매핑 -->
-<resultMap type="Admin" id="adminMap">
+<!-- <resultMap type="Admin" id="adminMap">
   <id property="adminNo" column="admin_no"/>
 
   <result property="adminId" column="admin_id"/>
   <result property="adminPw" column="admin_pw"/>
 
   <collection property="authList" resultMap="authMap"></collection>
-</resultMap>
+</resultMap> -->
 
 <!-- AdminAuth 매핑 -->
-    <resultMap type="Auth" id="authMap">
+    <!-- <resultMap type="Auth" id="authMap">
         <result property="adminId" column="admin_id" />
         <result property="auth" column="auth" />
-    </resultMap>
+    </resultMap> -->
 
 <!-- Admin 권한 등록 -->
-<insert id="insertAuth">
+<!-- <insert id="insertAuth">
     INSERT INTO auth( user_id, auth ) 
     VALUES ( #{userId}, #{auth} )
-</insert>
+</insert> -->
 
-<!-- 관리자 조회 -->
+<!-- 관리자 로그인 조회 -->
 <!-- <select id="admin_login" resultMap="adminMap">
     SELECT a.admin_no
           ,a.admin_id
@@ -36,14 +36,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           ,auth.auth
     FROM Admin a LEFT OUTER JOIN auth auth 
                 ON a.admin_id = auth.user_id
-    WHERE a.admin_id = #{adminId}
+    WHERE a.admin_id = #{adminId} AND a.admin_pw = #{adminPw}
+</select> -->
+
+<!-- 관리자 로그인 조회 -->
+<select id="admin_login" resultType="Admin">
+    SELECT *
+    FROM Admin
+    WHERE admin_id = #{adminId} AND admin_pw = #{adminPw}
+</select>
+
+
+<!-- <select id="admin_login" resultType="Admin">
+    SELECT a.admin_no
+          ,a.admin_id
+          ,a.admin_pw
+          ,auth.auth
+    FROM Admin a LEFT OUTER JOIN auth auth 
+                ON a.admin_id = auth.user_id
+    WHERE a.admin_id = #{adminId} AND a.admin_pw = #{adminPw}
 </select> -->
 
 <!-- 관리자 등록 -->
-<insert id="admin_insert">
+<!-- <insert id="admin_insert">
 INSERT INTO admin ( admin_id, admin_pw )
 VALUES ( #{adminId}, #{adminPw} )
-</insert>
+</insert> -->
 
 <!-- 사용자 관리 -->
 <!-- 전체 조회 -->
@@ -54,9 +72,7 @@ FROM users
 
 <!-- 사용자 등록 -->
 <insert id="user_insert">
-INSERT INTO users (
-                    user_no, auth_no, user_id, user_pw, name, address, phone, email, status        
-)
+INSERT INTO users ( user_no, auth_no, user_id, user_pw, name, address, phone, email, status) 
 VALUES(
   #{userNo}, #{authNo}, #{userId}, #{userPw}, #{name}, #{address}, #{phone}, #{email}, #{status}
 )  

@@ -25,19 +25,19 @@ public class Users {
 
     private List<Auth> authList;
     
-    public Users(Users users) {
-        this.userNo = users.getUserNo();
-        this.userId = users.getUserId();
-        this.userPw = users.getUserPw();
-        this.name = users.getName();
-        this.address = users.getAddress();
-        this.phone = users.getPhone();
-        this.email = users.getEmail();
-        this.regDate = users.getRegDate();
-        this.updDate = users.getUpdDate();
-        this.status = users.getStatus();
-        this.authList = users.getAuthList();
-    }
+    // public Users(Users users) {
+    //     this.userNo = users.getUserNo();
+    //     this.userId = users.getUserId();
+    //     this.userPw = users.getUserPw();
+    //     this.name = users.getName();
+    //     this.address = users.getAddress();
+    //     this.phone = users.getPhone();
+    //     this.email = users.getEmail();
+    //     this.regDate = users.getRegDate();
+    //     this.updDate = users.getUpdDate();
+    //     this.status = users.getStatus();
+    //     this.authList = users.getAuthList();
+    // }
 
     // user2 테이블
     private int userNo2;

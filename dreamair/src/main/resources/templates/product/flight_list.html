@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/admin_layout}"
+      layout:decorate="~{UI/layout/admin_layout}"
       >
 <head>
 
@@ -10,10 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>항공기 목록 조회</title>
+    <title>항공기 관리</title>
 </head>
 
-<th:block th:if="${flight_list != null}">
+<th:block th:if="${FlightList != null}">
             
             <table class="table table-striped table-hover table-bordered text-center align-middle">
                 <thead>
@@ -44,7 +44,7 @@
                             </tr>
                         </th:block>
                     </tbody>
-                    <th:block th:if="${ order != null }">
+                    <!-- <th:block th:if="${ order != null }">
                         <tfoot>
                             <td></td>
                             <td>합계</td>
@@ -53,9 +53,11 @@
                             <td></td>
                             <td></td>
                         </tfoot>
-                    </th:block>
+                    </th:block> -->
                 </thead>
 
             </table>
         </th:block>
+        </body>
+        </html>
         

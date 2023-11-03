@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/admin_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>항공기/상품 관리</title>
+
+</head>
+<body layout:fragment="content">
+
+    <div class="container p-4">
+        <h1 class="text-center my-3">/Product 관리 페이지 입니다.</h1>
+        <br>
+        <br>
+        <h3>Operation</h3>
+        <div class="btn-box d-grid gap-2 pt-5" >
+            <span class="btn btn-outline-primary btn-lg"><a href="/product/product_list">항공기 관리</a></span>
+            <br>
+            <br>
+        </div>
+
+        <h3>Product</h3>
+        <div class="btn-box d-grid gap-2 pt-5" >
+            <span class="btn btn-outline-primary btn-lg"><a href="/product/flight_list">상품(항공권) 관리</a></span>
+        </div>
+    </div>
+    <div style="height: 1000px;"></div>
+</body>  
+</html>

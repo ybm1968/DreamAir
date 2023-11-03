@@ -6,11 +6,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Users;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -37,23 +37,7 @@ public class AdminController {
     //  * @param principal
     //  * @return
     //  */
-    // @GetMapping(value={"/"})
-    // public String adminHome(Model model, Principal principal) {
-    //     // Principal : 현재 로그인한 사용자의 정보를 확인하는 인터페이스
-    //     String loginId = principal != null ? principal.getName() : "admin";
-    //     // String loginId = principal.getName();
-
-    //     model.addAttribute("loginId", loginId);
-
-    //     return "index";
-    // }
-    
-    @GetMapping(value={"/", ""})
-    public String index() {
-        // int result = 10 / 0;
-        // log.info(result + "");
-        return "admin/index";
-    }
+   
     // /admin/, /admin
     // 관리자 권한(ROLE_ADMIN)을 가진 사용자만 접근 허용
     // @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -62,6 +46,50 @@ public class AdminController {
     //     log.info("[GET] - /admin");
     //     return "admin/index";
     // }
+
+    // @GetMapping(value={"/", ""})
+    // public String index() {
+
+    //     return "admin/index";
+    // }
+
+    // 로그인 화면
+    @GetMapping(value="/admin_login")
+    // public String login(Model model, Principal principal) {
+    public String login() {
+    
+    //    String adminId = principal != null ? principal.getName() : "";
+    //    log.info("adminId : " + adminId);
+    //    model.addAttribute("userId", adminId);
+
+      return "admin/admin_login";	
+   }
+
+   // 로그인 처리
+   @PostMapping(value="/admin_login")
+    public String loginPro(Model model, Admin admin, HttpServletRequest request) throws Exception {
+
+     String adminId = request.getParameter("adminId");
+	 String adminPw = request.getParameter("adminPw");
+        log.info("adminId : " + adminId);
+        log.info("adminPw : " + adminPw);
+    admin.setAdminId(adminId);
+     admin.setAdminPw(adminPw);
+
+
+    Admin adminLogin = adminService.admin_login(adminId, adminPw);
+
+
+    if(adminLogin == null) {
+        return "redirect:/admin/admin_login";
+    }
+
+	// 로그인 성공 : 세션에 아이디 등록
+    //model.addAttribute("admin", admin);
+    model.addAttribute("adminId", adminId);
+
+    return "redirect:/admin/index";	
+   }
 
 
     // 관리자 목록 조회
@@ -82,16 +110,16 @@ public class AdminController {
      * @return
      * @throws Exception
      */
-    @PostMapping(value="/admin_insert")
-    public String adminInsertPro(Admin admin, HttpServletRequest request) throws Exception {
-        int result = adminService.admin_insert(admin);
+    // @PostMapping(value="/admin_insert")
+    // public String adminInsertPro(Admin admin, HttpServletRequest request) throws Exception {
+    //     int result = adminService.admin_insert(admin);
 
-        if( result > 0 ) {  
-            log.info("관리자 등록 성공");
-        }
+    //     if( result > 0 ) {  
+    //         log.info("관리자 등록 성공");
+    //     }
 
-        return "redirect:/admin/index";
-    }
+    //     return "redirect:/index";
+    // }
 
     
     /**

@@ -5,7 +5,9 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
           <div class="container-fluid">
             <!-- 사이트 이름 -->
-            <a class="navbar-brand" href="#"><img src="img/logo.png" alt="로고"></a>
+            <a class="navbar-brand" href="#">DreamAir</a>
+            <!-- <img src="../../../static/img/logo.png" alt="로고 이미지">
+            -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,20 +27,13 @@
                 <!-- 비 로그인 시 -->
                 <th:block sec:authorize="isAnonymous()">
                   <li class="nav-item">
-                    <a class="nav-link disabled" aria-current="page" href="/admin/index">관리자 페이지</a>
-                  </li>
-                </th:block>
-                <!-- 로그인 시-->
-                <th:block sec:authorize="isAuthenticated()">
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/admin/index">관리자 페이지</a>
+                    <a class="nav-link" aria-current="page" href="admin/admin_login">관리자 페이지</a>
                   </li>
                 </th:block>
                 <!-- <li class="nav-item">
                   <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li> -->
               </ul>
-
 
               <!-- 비 로그인 시 -->
               <th:block sec:authorize="isAnonymous()">
@@ -64,7 +59,6 @@
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     <strong sec:authentication="principal.users.userId">아이디</strong>
                   </a>
-
                   <ul class="dropdown-menu text-small">
                     <!-- 사용자 메뉴 -->
                     <th:block sec:authorize="hasRole('ROLE_USER')">
@@ -88,7 +82,7 @@
 
                     <!-- 관리자 메뉴 -->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                      <li><a class="dropdown-item" href="/admin">관리자 페이지</a></li>
+                      <li><a class="dropdown-item" href="/admin/index">관리자 페이지</a></li>
                     </th:block>
                     <li><a class="dropdown-item" href="#">대시보드</a></li>
                     <li><a class="dropdown-item" href="#">사용자 관리</a></li>
