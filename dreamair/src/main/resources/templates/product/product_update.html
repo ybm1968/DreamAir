@@ -15,64 +15,92 @@
 
 <body layout:fragment="content">
 
-    <div class="container">
+    <div class="product_container">
         <h1 style="text-align: center;">상품(항공권) 정보 등록</h1>
 
-        <form class="needs-validation" novalidate action="/product/product_insert" method="post" th:object="${user}">   
+        <form class="needs-validation" novalidate action="|/product/product_update?productNo=${product.productNo}|" method="post" enctype="multipart/form-data">   
             <!-- csrf -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            
+            <div style="overflow: hidden">
+              <img src="|/img?id=${product.productId}|" class="w-100 p-2" />
+            </div>
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">상품 이미지</label>
+              <input type="file" class="form-control col-md-10" name="file" value="${product.File}">
+            </div>	
+            
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">상품명</label>
+              <input type="text" class="form-control col-md-10" name="name"
+                  value="${product.name}" >
+            </div>
+            
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">상품 가격</label>
+              <input type="number" class="form-control col-md-10" name="productPrice"
+                  value="${product.productPrice}" >
+            </div>
 
-            <div class="row g-3">
-  
-              <div class="col-5">
-                <label for="name" class="form-label">상품명</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="상품명" value="${product.name}">
+            <div class="input-group mb-3 row">
+              <label class="input-group-text w-100" id="">상세 정보</label>
+              <textarea class="form-control" name="description" style="height: 200px !important;"
+                  >${product.description}</textarea>
+            </div>
+
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">노선번호</label>
+              <input type="text" class="form-control col-md-10" name="routeNo"
+                  value="${product.routeNo}>" >
+            </div>
+
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">출발지</label>
+              <input type="text" class="form-control col-md-10" name="departure"
+                  value="${product.departure}" >
+            </div>
+
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">도착지</label>
+              <input type="text" class="form-control col-md-10" name="destination"
+                  value="${product.destination}" >
+            </div>
+
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">재고 수</label>
+              <input type="number" class="form-control col-md-10" name="unitsInStock"
+                  value="%{product.unitsInStock}">
+            </div>
+
+            <div class="input-group mb-3 row">
+              <div class="col-md-2 p-0">
+                <label class="input-group-text" id="">카테고리</label>
+              </div>
+              <div class="col-md-10 d-flex align-items-center">
+                <input type="hidden" name="temp-category" value="${product.productCat}" id="temp-category" />
+                <div class="radio-box d-flex">
+                  <div class="radio-item mx-5">
+                    <input type="radio" class="form-check-input" name="category" value="ticket" id="category-ticket"> 
+                    <label for="category-ticket">항공권</label>
+                  </div>
+                  
+                  <div class="radio-item mx-5">
+                    <input type="radio" class="form-check-input " name="category" value="travle" id="category-travle"> 
+                    <label for="category-old">여행상품</label>
+                  </div>
+                  
+                  <div class="radio-item mx-5">
+                    <input type="radio" class="form-check-input " name="category" value="goods" id="category-goods"> 
+                    <label for="category-re">여행 필수품</label>
+                  </div>
                 </div>
               </div>
-
-              <div class="col-5">
-                <label for="productCat" class="form-label">상품 카테고리</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="상품 카테고리">
-                </div>
-              </div>
-
-              <div class="col-5">
-                <label for="productPrice" class="form-label">상품 가격</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="상품 가격">
-                </div>
-              </div>
-
-              <div class="col-5">
-                <label for="routeNo" class="form-label">노선번호</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="노선번호">
-                </div>
-              </div>
-
-              <div class="col-5">
-                <label for="departure" class="form-label">출발지</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="출발지">
-                </div>
-              </div>
-
-              <div class="col-5">
-                <label for="destination" class="form-label">도착지</label>
-                <div class="input-group has-validation">
-                  <input type="text" class="form-control"  placeholder="도착지">
-                </div>
-              </div>
-
-
             </div>
   
             <hr class="my-4">
   
             <div class="d-flex justify-content-between">
-                <a href="/user/product_list" class="btn btn-outline-primary btn-lg">취소</a>
+                <a href="/product/product_list" class="btn btn-outline-primary btn-lg">취소</a>
                 <button type="submit" class="btn btn-outline-primary btn-lg">상품 등록</button>
             </div>
         </form>

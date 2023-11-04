@@ -9,6 +9,7 @@ public class Product {
 
     // product 테이블
     private int productNo;
+    private int productId;
     private int routeNo;
     private String name;
     private String productCat;
@@ -17,7 +18,9 @@ public class Product {
     private String destination;
     private Date productRegDate;
     private Date productUpdDate;
-    private int UnitInStock; // DB에 추가해야함
+    private int unitInStock;
+    private String description;
+    private String File;
 
     // seat 테이블
     private String seatNo;
