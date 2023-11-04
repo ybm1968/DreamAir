@@ -66,6 +66,9 @@ public class Users {
     private String series; 
     private String token;
     private Date last_used;
+    public Object withUsername(String name2) {
+        return null;
+    }
 
 
 

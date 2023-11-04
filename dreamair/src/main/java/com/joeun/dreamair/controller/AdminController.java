@@ -2,11 +2,13 @@ package com.joeun.dreamair.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,42 +57,62 @@ public class AdminController {
     }
 
     // 로그인 화면
-    @GetMapping(value="/admin_login")
-    // public String login(Model model, Principal principal) {
-    public String login() {
+//     @GetMapping(value="/admin_login")
+//     // public String login(Model model, Principal principal) {
+//     public String login() {
     
-    //    String adminId = principal != null ? principal.getName() : "";
-    //    log.info("adminId : " + adminId);
-    //    model.addAttribute("userId", adminId);
+//     //    String adminId = principal != null ? principal.getName() : "";
+//     //    log.info("adminId : " + adminId);
+//     //    model.addAttribute("userId", adminId);
 
-      return "admin/admin_login";	
-   }
+//       return "admin/admin_login";	
+//    }
 
-   // 로그인 처리
-   @PostMapping(value="/admin_login")
-    public String loginPro(Model model, Admin admin, HttpServletRequest request) throws Exception {
-        String adminId = request.getParameter("adminId");
-        String adminPw = request.getParameter("adminPw");
 
-        log.info("adminId : " + adminId);
-        log.info("adminPw : " + adminPw);
+    @GetMapping(value="/admin_login")
+    public String login(@CookieValue(value = "remember-id", required = false) Cookie cookie, Model model) {
+        
+        String userId = "";
+        boolean rememberId = false;
 
-        admin.setAdminId(adminId);
-        admin.setAdminPw(adminPw);
-
-        Admin adminLogin = adminService.admin_login(adminId, adminPw);
-
-        // 로그인 실패 시 -> 로그인 화면으로 이동
-        if(adminLogin == null) {
-            return "redirect:/admin/admin_login";
+        if( cookie != null ) {
+            log.info("CookieName : " + cookie.getName());
+            log.info("CookiValue : " + cookie.getValue());
+            userId = cookie.getValue();
+            rememberId = true;
         }
 
-        // 로그인 성공 시 -> 세션에 아이디 등록
-        //model.addAttribute("admin", admin);
-        model.addAttribute("adminId", adminId);
+        model.addAttribute("userId", userId);
+        model.addAttribute("rememberId", rememberId);
+        
+        return "admin/admin_login";
+    }
 
-    return "redirect:/admin/index";	
-   }
+   // 로그인 처리
+//    @PostMapping(value="/admin_login")
+//     public String loginPro(Model model, Admin admin, HttpServletRequest request) throws Exception {
+//         String adminId = request.getParameter("adminId");
+//         String adminPw = request.getParameter("adminPw");
+
+//         log.info("adminId : " + adminId);
+//         log.info("adminPw : " + adminPw);
+
+//         admin.setAdminId(adminId);
+//         admin.setAdminPw(adminPw);
+
+//         Admin adminLogin = adminService.admin_login(adminId, adminPw);
+
+//         // 로그인 실패 시 -> 로그인 화면으로 이동
+//         if(adminLogin == null) {
+//             return "redirect:/admin/admin_login";
+//         }
+
+//         // 로그인 성공 시 -> 세션에 아이디 등록
+//         //model.addAttribute("admin", admin);
+//         model.addAttribute("adminId", adminId);
+
+//     return "redirect:/admin/index";	
+//    }
 
     // 관리자 목록 조회
     

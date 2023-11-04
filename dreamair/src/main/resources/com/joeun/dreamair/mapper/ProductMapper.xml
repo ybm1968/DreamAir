@@ -33,8 +33,8 @@ SELECT * FROM flight JOIN route ON flight.route_no = route.route_no;
 
 <!-- 항공기 등록 -->
 <insert id="flight_insert">
-  INSERT INTO flight( flight_no, flight_name, seat_no, route_no, seat_Max, seat_remaining, seat_used )
-  VALUES ( #{flightNo}, #{flightName}, #{seatNo}, #{routeNo}, #{seatMax}, #{seatRemaining}, #{seatUsed} )
+  INSERT INTO flight( flight_no, flight_name, route_no, seat_Max, seat_remaining, seat_used )
+  VALUES ( #{flightNo}, #{flightName}, #{routeNo}, #{seatMax}, #{seatRemaining}, #{seatUsed} )
 </insert>
 
 <!-- 항공기 수정 -->

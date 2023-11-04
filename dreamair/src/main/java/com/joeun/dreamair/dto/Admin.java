@@ -40,5 +40,15 @@ public class Admin {
     private Date updDate;
     private String status;
 
+      // file 테이블
+      private int fileNo;
+      private String parentTable;
+      private int parentNo;
+      private String fileName;
+      private String originName;
+      private String filePath;
+      private int fileSize;
+      private int fileCode;
+
 
 }

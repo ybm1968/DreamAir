@@ -3,6 +3,7 @@ package com.joeun.dreamair.dto;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +13,10 @@ import lombok.Getter;
 @Getter
 public class CustomUser implements UserDetails {
 
+    @Autowired
     private Users users;
+
+    @Autowired
     private Admin admin;         
 
     // public CustomUser(Users users, Admin admin) {
@@ -22,6 +26,10 @@ public class CustomUser implements UserDetails {
 
     public CustomUser(Users users) {
         this.users = users;
+    }
+
+    public CustomUser(Admin admin) {
+    this.admin = admin;
     }
 
     /**
