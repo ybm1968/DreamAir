@@ -32,12 +32,14 @@ public class HomeController {
      * @return
      */
     @GetMapping(value={"", "/"})
-    public String home(Model model, Principal principal){
-    String loginId = principal != null ? principal.getName() : "guest";
-    model.addAttribute("loginId", loginId);
-
-    return "index";
+    public String home(Model model, Principal principal) {
+        // Principal : 현재 로그인한 사용자의 정보를 확인하는 인터페이스
+        String loginId = principal != null ? principal.getName() : "guest";
+        // String loginId = principal.getName();
+        model.addAttribute("loginId", loginId);
+        return "index";
     }
+    
 
     /**
      * 로그인 화면
@@ -50,7 +52,6 @@ public class HomeController {
         // - required=false              : 쿠키 필수 ❌ ➡ 쿠키가 없어도 에러❌ (null)
         String userId = "";
         boolean rememberId = false;
-
         if( cookie != null ) {
             log.info("CookieName : " + cookie.getName());
             log.info("CookiValue : " + cookie.getValue());
@@ -94,41 +95,20 @@ public class HomeController {
         return "redirect:/";
     }
 
+
     /**
      * 접근 거부 에러 페이지
      * @param param
      * @return
      */
     @GetMapping(value="/exception")
-    public String error(Authentication auth, Model model) {
+    public String error(Authentication auth, Model model) { // 보통 에러 페이지는 접근 권한이 없어 거부되거나 하는 경우에 오는 페이지니까 model에 객체로 어쩌구..
         log.info(auth.toString());
         model.addAttribute("msg", "인증 거부 : " + auth.toString());
         return "exception";
     }
     
-
-    // //////////////////test
-    // /**
-    //  * 로그인 폼을 거치지 않고 바로 로그인
-    //  * @param username
-    //  * @return
-    //  */
-    // @RequestMapping("/loginWithoutForm/{username}")
-    //     public String loginWithoutForm(@PathVariable(value="username") String username) {
-
-    //     List<GrantedAuthority> roles = new ArrayList<>(1);
-    //     String roleStr = username.equals("admin") ? "ROLE_ADMIN" : "ROLE_GUEST";
-    //     roles.add(new SimpleGrantedAuthority(roleStr));
-
-    //     Users user = new Users(username, "", roles);
-
-    //     Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
-    //     SecurityContextHolder.getContext().setAuthentication(auth);
-
-    //     if(username.equals("admin")){
-    //         return "redirect:/admin";
-    //     }
-    // return "redirect:/";
-    // }
-  
+    
+    
+    
 }

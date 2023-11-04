@@ -1,6 +1,7 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +51,8 @@ public class UserController {
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value={"/", ""})
     public String index() {
+        // int result = 10 / 0;
+        // log.info(result + "");
         return "user/index";
     }
 
@@ -220,26 +223,26 @@ public class UserController {
     }
 
 
-    // /**
-    //  * 주문 내역 페이지
-    //  * @throws Exception
-    //  */
-    // @GetMapping(value="/booking")
-    // public String booking(Model model, Principal principal, Booking booking) throws Exception {
-    //     List<Booking> bookingList = null;
-    //     // 회원 주문 내역 데이터 요청
-    //     if( principal != null ) {
-    //         log.info("회원 : " + principal.getName());
-    //         String userId = principal.getName();
-    //         bookingList = bookingService.listByUserId(userId);
-    //         booking = bookingService.sumBooking(userId);
-    //         log.info("booking : " + booking);
-    //         model.addAttribute("bookingList", bookingList);
-    //         model.addAttribute("booking", booking);
-    //     }
+    /**
+     * 주문 내역 페이지
+     * @throws Exception
+     */
+    @GetMapping(value="/booking")
+    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+        List<Booking> bookingList = null;
+        // 회원 주문 내역 데이터 요청
+        if( principal != null ) {
+            log.info("회원 : " + principal.getName());
+            String userId = principal.getName();
+            // bookingList = bookingService.listByUserId(userId);
+            // booking = bookingService.sumBooking(userId);
+            log.info("booking : " + booking);
+            model.addAttribute("bookingList", bookingList);
+            model.addAttribute("booking", booking);
+        }
         
-    //     return "user/booking";
-    // }
+        return "user/booking";
+    }
 
 
     // @PostMapping(value="/booking")

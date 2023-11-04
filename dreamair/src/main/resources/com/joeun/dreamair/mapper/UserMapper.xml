@@ -20,11 +20,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="status" column="status" />
         <result property="regDate" column="reg_date" />
         <result property="updDate" column="upd_date" />
-                <!-- <result property="enabled" column="enabled" /> -->
         
         <collection property="authList" resultMap="authMap"></collection>
     </resultMap>
-
+        
     <!-- UserAuth 매핑 -->
     <resultMap type="Auth" id="authMap">
         <result property="userId" column="user_id" />
@@ -58,40 +57,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="login" resultMap="userMap">
         SELECT u.user_no
               ,u.user_id
-              ,u.user_pw
-              ,u.name
-              ,u.address
-              ,u.phone
-              ,u.email
-              ,u.reg_date
-              ,u.upd_date
-              ,u.status
-              ,auth.auth
-        FROM users u LEFT OUTER JOIN auth auth
+              ,user_pw
+              ,name
+              ,email
+              ,status
+              ,reg_date
+              ,upd_date
+              ,auth
+        FROM users u LEFT OUTER JOIN auth
                     ON u.user_id = auth.user_id
         WHERE u.user_id = #{userId}
     </select>
 
-    <!-- 로그인(회원, 비회원, 관리자) -->
-    <!-- <select id="login" resultMap="userMap">
-        SELECT users.user_id, users.user_pw, users.phone, auth.auth
-        FROM users JOIN auth ON auth.user_id = #{userId}
-        UNION
-        SELECT admin_id AS user_id, admin_pw AS user_pw, NULL AS phone, auth.auth
-        FROM admin
-        JOIN auth ON admin.admin_id = #{userId};
-    </select> -->
-
-    <!-- 관리자 조회 -->
-    <!-- <select id="admin_login" resultMap="adminMap">
-        SELECT a.admin_no
-            ,a.admin_id
-            ,a.admin_pw
-            ,auth.auth
-        FROM Admin a LEFT OUTER JOIN auth auth 
-                    ON a.admin_id = auth.user_id
-        WHERE a.admin_id = #{adminId}
-    </select> -->
 
 
     <!-- 회원 조회 - id -->
@@ -144,6 +121,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ...
     </select>
 
+    <select id="login2" resultType="Users">
+        SELECT *
+        FROM user2
+        ...
+    </select> -->
 
 </mapper>
 
