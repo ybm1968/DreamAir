@@ -8,6 +8,17 @@
             "mainClass": "com.joeun.dreamair.DreamairApplication",
             "projectName": "dreamair",
             "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=56437 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=dreamair"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BoardApplication<board>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.joeun.board.BoardApplication",
+            "projectName": "board",
+            "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
     ]
