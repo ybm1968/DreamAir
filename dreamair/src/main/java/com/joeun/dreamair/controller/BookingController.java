@@ -1,30 +1,56 @@
 package com.joeun.dreamair.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import groovyjarjarpicocli.CommandLine.Model;
+import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.service.BookingService;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
+
+
+@Slf4j
 @Controller
 @RequestMapping("/booking")
 public class BookingController {
+
+    @Autowired
+    private BookingService bookingService;
     
 
-    @GetMapping(value="/select")
-    public String select(Model model) {
+    // 출발지 날짜 도착지(ticket), 탑승인원 왕복여부(booking) 를 정보()에 맞는 검색결과를 보여주기
+    @GetMapping(value="/list")
+    public String list(Model model, Booking booking) throws Exception {
+        log.info("booking.departure : " + booking.getDeparture());
+        List<Booking> bookingList = bookingService.list(booking);
+        model.addAttribute("bookingList", bookingList);
 
-        
-
-        return "user/select";
+        return "user/list";
     }
 
     @GetMapping(value="/info")
     public String info() {
         return "user/info";
     }
+
+    @PostMapping(value="/info")
+    public int infoPro(Booking booking) throws Exception{
+        log.info("booking.Name : " + booking.getName());
+        int result = bookingService.info(booking);
+        
+        return result;
+    }
+    
 
     @GetMapping(value="/seat")
     public String seat() {
