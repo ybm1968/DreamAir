@@ -26,5 +26,13 @@ public class BookingServiceImpl implements BookingService{
 
         return bookingList;
     }
+
+    @Override
+    public int info(Booking booking) throws Exception {
+        log.info("booking.email : " + booking.getEmail());
+        int result = bookingMapper.info(booking);
+        
+        return result;
+    }
     
 }

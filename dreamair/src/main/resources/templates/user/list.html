@@ -50,7 +50,7 @@
 
                 <th:block th:if="${bookingList.isEmpty()}">
                     <tr>
-                        <td colspan="7">조회된 항공권이 없습니다.</td>
+                        <td colspan="7" class="text-center">조회된 항공권이 없습니다.</td>
                     </tr>
                 </th:block>
                 <th:block th:each="booking : ${bookingList}">
@@ -60,9 +60,8 @@
                         <td class="td1t"><span th:text="${booking.flightName}"></span></td> 
                         <td class="td7t"><span th:text="${booking.productPrice}"></span></td>  
                         <td class="td7t"><span th:text="${booking.seatRemaining}"></span></td>
-                        <td><button>장바구니</button></td>
-                        <td><button>예매하기</button></td>
-                        
+                        <td><a href="" class="btn btn-outline-primary btn-lg">장바구니</a></td>
+                        <td><a href="/booking/info" class="btn btn-outline-primary btn-lg">예매하기</a></td>
                     </tr>
     
 

@@ -12,6 +12,9 @@ import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.service.BookingService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -39,6 +42,15 @@ public class BookingController {
     public String info() {
         return "user/info";
     }
+
+    @PostMapping(value="/info")
+    public int infoPro(Booking booking) throws Exception{
+        log.info("booking.Name : " + booking.getName());
+        int result = bookingService.info(booking);
+        
+        return result;
+    }
+    
 
     @GetMapping(value="/seat")
     public String seat() {

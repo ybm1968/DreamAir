@@ -48,11 +48,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				left join route r on f.route_no = r.route_no
         WHERE p.departure = #{departure}
           AND p.destination = #{destination} 
-          AND #{departureTime} IN 
-          (select SUBSTRING_INDEX(departure_time, ' ', 1)
-            from route
-            where SUBSTRING_INDEX(departure_time, ' ', 1) = '2023-11-04');
+          AND SUBSTRING_INDEX(r.departure_time, ' ', 1) = #{departureTime};
           <!-- 추후에 탑승객 조건도 추가해야함 -->
     </select> 
+
+    <insert id="info">
+            INSERT INTO passenger ()
+            VALUES ()
+    </insert>
+
 
 </mapper>

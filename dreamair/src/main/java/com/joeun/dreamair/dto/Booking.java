@@ -15,7 +15,7 @@ public class Booking {
     private int productNo;
     private int routeNo;
     private int pasCount;       // 탑승 인원
-    private int roundTrip;      // 왕복 여부
+    private String roundTrip;      // 왕복 여부(수정함)
     private String status;
 
     // passengers 테이블

@@ -8,4 +8,7 @@ public interface BookingService {
 
     // 항공권 조회
     public List<Booking> list(Booking booking) throws Exception;
+
+    // 탑승객 정보 입력
+    public int info(Booking booking) throws Exception;
 }
