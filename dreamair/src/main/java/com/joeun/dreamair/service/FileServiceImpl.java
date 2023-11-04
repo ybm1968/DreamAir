@@ -1,4 +1,4 @@
-package com.joeun.dreamair.board;
+package com.joeun.dreamair.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,8 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
-import com.joeun.dreamair.dto.Board;
-import com.joeun.dreamair.board.FileMapper;
+import com.joeun.dreamair.mapper.FileMapper;
 
 @Service
 public class FileServiceImpl implements FileService {

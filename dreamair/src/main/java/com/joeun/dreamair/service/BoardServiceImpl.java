@@ -11,6 +11,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.joeun.dreamair.dto.Board;
+import com.joeun.dreamair.mapper.BoardMapper;
+import com.joeun.dreamair.mapper.FileMapper;
 
 public class BoardServiceImpl implements BoardService {
 

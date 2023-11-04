@@ -1,4 +1,6 @@
-package com.joeun.dreamair.board;
+package com.joeun.dreamair.controller;
+
+import java.nio.file.Files;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,8 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.joeun.dreamair.dto.Board;
-import com.joeun.dreamair.board.FileService;
+import com.joeun.dreamair.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
 

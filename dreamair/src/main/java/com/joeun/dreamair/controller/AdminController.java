@@ -131,56 +131,56 @@ public class AdminController {
 }
 
     
-    // [사용자 관리]
-    // 사용자 목록 조회
-    @GetMapping(value="/user_list")
-    public String userlist(Model model) throws Exception {
-        log.info("[GET] - /admin/user_list");
+    // // [사용자 관리]
+    // // 사용자 목록 조회
+    // @GetMapping(value="/user_list")
+    // public String userlist(Model model) throws Exception {
+    //     log.info("[GET] - /admin/user_list");
 
-        List<Users> list = adminService.user_list();
-        model.addAttribute("UserList", list);
+    //     List<Users> list = adminService.user_list();
+    //     model.addAttribute("UserList", list);
 
-        return "/admin/user_list";
-    }
+    //     return "/admin/user_list";
+    // }
 
-    // 사용자 수동 등록     
-    @GetMapping(value="/user_insert")
-    public String userInsert(@ModelAttribute Users users) {
-        return "admin/user_insert";
-    }
+    // // 사용자 수동 등록     
+    // @GetMapping(value="/user_insert")
+    // public String userInsert(@ModelAttribute Users users) {
+    //     return "admin/user_insert";
+    // }
 
-    // 사용자 수동 등록 처리 
-    @PostMapping(value="/user_insert")
-    public String userInsertPro(@ModelAttribute Users users) throws Exception {
-        int result = adminService.user_insert(users);
-        if( result == 0 ) return "redirect:/admin/user_insert";
-         return "redirect:/admin/user_list";
-     } 
+    // // 사용자 수동 등록 처리 
+    // @PostMapping(value="/user_insert")
+    // public String userInsertPro(@ModelAttribute Users users) throws Exception {
+    //     int result = adminService.user_insert(users);
+    //     if( result == 0 ) return "redirect:/admin/user_insert";
+    //      return "redirect:/admin/user_list";
+    //  } 
 
-    // 사용자 정보 수정
-     @GetMapping(value="/user_insert/{userNo}")
-     public String userUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
+    // // 사용자 정보 수정
+    //  @GetMapping(value="/user_insert/{userNo}")
+    //  public String userUpdate(@PathVariable("userNo") int userNo, Model model) throws Exception {
            
-        model.addAttribute("Users", adminService.user_update(userNo));
+    //     model.addAttribute("Users", adminService.user_update(userNo));
                     
-        return "admin/user_update";
-     }
+    //     return "admin/user_update";
+    //  }
 
-    // 사용자 정보 수정 처리   
-    @PostMapping(value="/user_update")
-    public String userUpdatePro(@ModelAttribute Users users) throws Exception {
-        int result = adminService.user_insert(users);
-        if( result == 0 ) return "redirect:/admin/user_update";
+    // // 사용자 정보 수정 처리   
+    // @PostMapping(value="/user_update")
+    // public String userUpdatePro(@ModelAttribute Users users) throws Exception {
+    //     int result = adminService.user_insert(users);
+    //     if( result == 0 ) return "redirect:/admin/user_update";
 
-        return "redirect:/admin/user_list";
-    }
+    //     return "redirect:/admin/user_list";
+    // }
     
-    // 사용자 정보 삭제 처리      
-    @GetMapping(value="/user_delete")
-    public String userDelete(@RequestParam int userNo) throws Exception {
-        adminService.user_delete(userNo);
-        return "redirect:/admin/user_list";
-    }
+    // // 사용자 정보 삭제 처리      
+    // @GetMapping(value="/user_delete")
+    // public String userDelete(@RequestParam int userNo) throws Exception {
+    //     adminService.user_delete(userNo);
+    //     return "redirect:/admin/user_list";
+    // }
     
     // [예매 관리]
     // 예매 목록 조회

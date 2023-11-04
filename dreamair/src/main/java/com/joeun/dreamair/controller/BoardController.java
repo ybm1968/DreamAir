@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.dreamair.dto.Board;
-
-import groovy.util.logging.Slf4j;
+import com.joeun.dreamair.service.BoardService;
+import com.joeun.dreamair.service.FileService;
 
 @lombok.extern.slf4j.Slf4j              // 로그 사용 어노테이션
 @Controller
