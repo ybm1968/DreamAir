@@ -75,7 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 람다식 
         http
             .authorizeRequests((authorize) -> authorize
-                                .antMatchers("/admin/**").permitAll()
                                 .antMatchers("/product/**").permitAll()
                                 .antMatchers("/user/**").permitAll()
                                 // .antMatchers("/admin/**").hasRole("ROLE_ADMIN")

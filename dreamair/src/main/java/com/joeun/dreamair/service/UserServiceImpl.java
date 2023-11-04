@@ -127,4 +127,18 @@ public class UserServiceImpl implements UserService {
     //     throw new UnsupportedOperationException("Unimplemented method 'login2'");
     // }
   
+    // 마일리지 등록
+    public int mileageInsert(int userNo) throws Exception {
+        int result = userMapper.mileageInsert(userNo);
+        return result;
+    }
+
+    public int latedUserNo() throws Exception {
+        int result = userMapper.latedUserNo();
+        return result;
+    }
+    
+  
+
+
 }

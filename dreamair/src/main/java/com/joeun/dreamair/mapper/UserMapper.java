@@ -29,10 +29,15 @@ public interface UserMapper {
     // 회원 수정
     public int update(Users user) throws Exception;
     
-  // public void login(Users user, HttpServletRequest request) throws Exception;
+    // public void login(Users user, HttpServletRequest request) throws Exception;
+      
+    // public void login2(Users user, HttpServletRequest request) throws Exception;
     
-  // public void login2(Users user, HttpServletRequest request) throws Exception;
-  
-  // public int insertAuth(Auth userAuth) throws Exception;
+    // public int insertAuth(Auth userAuth) throws Exception;
+
+    // 마일리지 등록
+    public int latedUserNo() throws Exception;
+    
+    public int mileageInsert(int userNo) throws Exception;
 
 }

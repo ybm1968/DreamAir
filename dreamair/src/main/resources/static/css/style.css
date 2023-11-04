@@ -120,7 +120,7 @@ footer {
 /**
 * 탑승권 최종 확인 토글 버튼
 */
-label {
+/* label {
     display: block;
     position: relative;
     width: 100px;
@@ -167,4 +167,4 @@ label::before {
     content: "ON";
     color: #fff;
     left: 15px;
-}
+} */

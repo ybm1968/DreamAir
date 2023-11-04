@@ -31,8 +31,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="auth" column="auth" />
     </resultMap>
 
-
-
     <!-- 회원 조회 - id -->
     <select id="login" resultMap="userMap">
         SELECT u.user_no
@@ -110,5 +108,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE user_id = #{userId}
     </delete>
 
+    <!-- 마일리지 -->
+    <!-- 1. 최근 등록된 userNo 조회 -->
+    <select id="latedUserNo" resultType='Integer'>
+        SELECT user_no 
+        FROM users 
+        ORDER BY user_no DESC LIMIT 1
+    </select>
+
+    <!-- 2. 마일리지 적립 -->
+    <insert id="mileageInsert">
+       INSERT INTO mileage (user_no, mileage) 
+       VALUES ( ${userNo}, 0 )
+    </insert>
 
 </mapper>

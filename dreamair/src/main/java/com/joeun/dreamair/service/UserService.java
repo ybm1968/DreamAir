@@ -22,5 +22,9 @@ public interface UserService {
     public int update(Users user) throws Exception;
 
     // public void login2(Users user, HttpServletRequest request) throws Exception;
-
+    
+   // 마일리지 등록
+   public int latedUserNo() throws Exception;
+    
+   public int mileageInsert(int userNo) throws Exception;
 }

@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("userId : " + username);
 
         Users users = userMapper.login(username);
-       // Admin admin = adminMapper.admin_login(username);
+      //  Admin admin = adminMapper.admin_login(username);
         
         // 비회원
         if( username.contains("guest")) {

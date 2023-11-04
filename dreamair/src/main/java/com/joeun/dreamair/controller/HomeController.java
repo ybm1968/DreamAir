@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.joeun.dreamair.dto.Users;
@@ -82,14 +83,27 @@ public class HomeController {
      * @throws Exception
      */
     @PostMapping(value="/join")
-    public String joinPro(Users user, HttpServletRequest request) throws Exception {
+    public String joinPro(@ModelAttribute Users user, HttpServletRequest request) throws Exception {
+        
         int result = userService.insert(user);
 
         // 회원 가입 성공 시, 바로 로그인
-        if( result > 0 ) {  
+        if( result > 0 ) {
+            
+            // 마일리지 0으로 초기 셋팅
+        int userNo = userService.latedUserNo();
+        log.info("userNo : " + userNo);
+        user.setUserNo(userNo);
+        
+        result = userService.mileageInsert(userNo);
+        if( result == 0 ){
+            log.info("마일리지 초기 셋팅 중 에러 발생");
+        }
+
             userService.login(user, request);
         }
 
+        
         return "redirect:/";
     }
 

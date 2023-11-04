@@ -96,8 +96,8 @@ SELECT * FROM flight JOIN route ON flight.route_no = route.route_no;
 
 <!-- 상품 등록 -->
 <insert id="product_insert">
-  INSERT INTO product( product_id, route_no, name, product_cat, product_price, departure, destination  )
-  VALUES ( #{productId}, #{routeNo}, #{name}, #{productCat}, #{productPrice}, #{departure}, #{destination}  )
+  INSERT INTO product( product_id, route_no, name, product_cat, product_price, departure, destination, description, unitInStock, File  )
+  VALUES ( #{productId}, #{routeNo}, #{name}, #{productCat}, #{productPrice}, #{departure}, #{destination}, #{description}, #{unitInStock}, #{File}  )
 </insert>
 
 <!-- 상품 수정 -->
@@ -110,6 +110,8 @@ SELECT * FROM flight JOIN route ON flight.route_no = route.route_no;
     , product_price = #{productPrice}
     , departure = #{departure}
     , destination = #{destination}
+    , unitInStock = #{unitInStock}
+    , File = #{File}
   WHERE product_no = #{productNo}
 </update>
 
