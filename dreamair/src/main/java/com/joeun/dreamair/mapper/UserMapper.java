@@ -35,6 +35,8 @@ public interface UserMapper {
     // 회원 삭제
     public Users delete(String username);
 
+    // 마일리지 조회
+    public Users selectMileage(String username) throws Exception;
 
 
     

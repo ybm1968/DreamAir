@@ -24,4 +24,7 @@ public interface UserService {
     // 회원 삭제
     public Users delete(String userId) throws Exception;
 
+    // 회원 마일리지 조회
+    public Users selectMileage(String userId) throws Exception;
+
 }

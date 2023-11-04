@@ -183,24 +183,28 @@ public class UserController {
 
     /**
      * 회원 마일리지 조회 페이지
-     * @param param
+     * @param user
+     * @param model
+     * @param principal
      * @return
      * @throws Exception
      */
-    @GetMapping(value="/mileage")
-    public String viewMileage(Model model, Principal principal) throws Exception {
+    @GetMapping(value = "/mileage")
+    public String viewMileage(Users user, Model model, Principal principal) throws Exception {
         String loginId = principal != null ? principal.getName() : null;
 
-        Users user = userService.selectById(loginId);
+        user = userService.selectById(loginId);
         
+        // 조회된 마일리지를 사용자 객체의 mileage 필드에 설정
+        Users mileageUser = userService.selectMileage(loginId);
+        user.setMileage(mileageUser.getMileage());
+
+        System.out.println(user);
 
         model.addAttribute("user", user);
 
         return "user/mileage";
     }
-
-
-
 
     
 
