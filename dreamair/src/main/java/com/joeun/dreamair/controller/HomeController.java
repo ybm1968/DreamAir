@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -88,11 +89,11 @@ public class HomeController {
     @PostMapping(value="/join")
     public String joinPro(Users user, HttpServletRequest request) throws Exception {
         int result = userService.insert(user);
-
+        
         // 회원 가입 성공 시, 바로 로그인
         if( result > 0 ) {  
             log.info("회원가입 성공");
-            //memberService.login(user, request);
+            // memberService.login(user);
             //userService.login(user, request);
         }
 

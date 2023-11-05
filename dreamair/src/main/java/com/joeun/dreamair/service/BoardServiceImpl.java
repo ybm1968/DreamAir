@@ -1,14 +1,9 @@
 package com.joeun.dreamair.service;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.joeun.dreamair.dto.Board;
 import com.joeun.dreamair.mapper.BoardMapper;

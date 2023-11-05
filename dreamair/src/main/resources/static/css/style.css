@@ -174,27 +174,27 @@ label::before {
 * 중복 아이디
 */
 /* 중복아이디 존재하지 않는경우 */
-.id_input_re_1{
+/* .id_input_re_1{
     color : green;
     display : none;
-}
+} */
 /* 중복아이디 존재하는 경우 */
-.id_input_re_2{
+/* .id_input_re_2{
     color : red;
     display : none;
-}
+} */
 
 /* 로그인 실패시 경고 */
-.login_warn {
+/* .login_warn {
     margin-top: 30px;
     text-align: center;
     color: red;
-}
+} */
 
 
  
 /* 로그인 성공 영역 */
-.login_success_area{
+/* .login_success_area{
     height: 62%;
     width: 80%;
     border: 2px solid #7474ad;
@@ -218,7 +218,7 @@ label::before {
     line-height: 22px;
     border-radius: 25px;
     color: #606267;    
-}
+} */
 
 
 /**

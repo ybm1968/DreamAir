@@ -1,5 +1,6 @@
 package com.joeun.dreamair.config;
 
+import javax.servlet.DispatcherType;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,13 +74,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 람다식 
         http
             .authorizeRequests((authorize) -> authorize
+                                //.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                                .antMatchers("/").permitAll()
                                 .antMatchers("/**").permitAll()
                                 //.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                                 //.antMatchers("/admin/**").hasRole("ADMIN")
+                                //.antMatchers("/img/**").permitAll()
+                                //.antMatchers("/js/**").permitAll()
+                                //.antMatchers("/css/**").permitAll()
+
                                 // anyRequest()         : 모든(이외의) 요청을 지정
                                 // authenticated()      : 인증된 사용자만 허용
                                 // .anyRequest().permitAll()
                                 .anyRequest().authenticated()
+
                               )
         ;
 

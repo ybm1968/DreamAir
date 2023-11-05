@@ -4,26 +4,18 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Member;
-import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.AdminService;
 import com.joeun.dreamair.service.MemberService;
 import com.joeun.dreamair.service.UserService;
@@ -95,31 +87,31 @@ public class AdminController {
     return "redirect:/admin/admin_insert";
     }
 
-    // 관리자 로그인 화면
-    @GetMapping(value="/admin_login")
-    public String adminLogin(@CookieValue(value = "remember-id", required = false) Cookie cookie, Model model) {
-        String adminId = "";
-        boolean rememberId = false;
-        if( cookie != null ) {
-            log.info("CookieName : " + cookie.getName());
-            log.info("CookiValue : " + cookie.getValue());
-            adminId = cookie.getValue();
-            rememberId = true;
-        }
+    // //관리자 로그인 화면
+    // @GetMapping(value="/admin_login")
+    // public String adminLogin(@CookieValue(value = "remember-id", required = false) Cookie cookie, Model model) {
+    //     String adminId = "";
+    //     boolean rememberId = false;
+    //     if( cookie != null ) {
+    //         log.info("CookieName : " + cookie.getName());
+    //         log.info("CookiValue : " + cookie.getValue());
+    //         adminId = cookie.getValue();
+    //         rememberId = true;
+    //     }
 
-        model.addAttribute("adminId", adminId);
-        model.addAttribute("rememberId", rememberId);
+    //     model.addAttribute("adminId", adminId);
+    //     model.addAttribute("rememberId", rememberId);
 
-        return "admin/admin_login";
-    }
+    //     return "admin/admin_login";
+    // }
 
-    // 사용자 목록 조회
-     @GetMapping(value="/user_list")
-        public String users(Model model) throws Exception {
-        List<Member> userList = memberService.user_list();
-        model.addAttribute("UserList", userList);
-        return "admin/user_list";
-    }
+    // // 사용자 목록 조회
+    //  @GetMapping(value="/user_list")
+    //     public String users(Model model) throws Exception {
+    //     List<Member> userList = memberService.user_list();
+    //     model.addAttribute("UserList", userList);
+    //     return "admin/user_list";
+    // }
 
     // @PostMapping(value="/users")
     // public String usersPost(UserAuth userAuth) throws Exception {

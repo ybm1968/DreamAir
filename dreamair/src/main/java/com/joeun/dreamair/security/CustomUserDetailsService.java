@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.CustomUser;
 import com.joeun.dreamair.dto.Member;
 import com.joeun.dreamair.mapper.MemberMapper;
@@ -36,26 +37,40 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("userId : " + username);
 
         //Users user = userMapper.login(username);
-        Member member = memberMapper.login(username);
-        Member member2 = memberMapper.login2(username);
-        Member member3 = memberMapper.admin_login(username);
+        Member member = new Member();
+        //boolean isEnabled = true;
+        // Member member = memberMapper.login(username);
+        // Member member2 = memberMapper.login2(username);
+        // Member member3 = memberMapper.admin_login(username);
+        member.setUserId(username);
+        member.setAdminId(username);
+        //member.setEnabled(1);
 
-        if (member==null&&member2==null&&member3==null) {
+
+        log.info("member : " + member);
+        if (username==null) {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
+        } else{
+            
+            if(member.getAdminId()!=null){
+                member = memberMapper.admin_login(username);
+                log.info("DB member : " + member);
+            } else if(member.getUserId()!=null){
+                member = memberMapper.login(username);
+                 log.info("DB  member : " + member);
+            } else {
+                member = memberMapper.login2(username);
+            }
+            
+            log.info("member : " + member);
+            
+            Auth auth = new Auth();
+            auth.setUserId(username);
+            
+            
         }
-        
-        if(member!=null){
-            member = memberMapper.login(username);
-        } else if(member2!=null){
-            member = member2;
-        } else member = member3;
-
-        log.warn("username : " + username);
-
         // 🟢🟡🔴 CustomUser (➡User) 사용
         CustomUser customUser = new CustomUser(member);
         return customUser;
-        
-
-    }
+}
 }

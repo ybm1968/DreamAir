@@ -62,6 +62,7 @@ public class AdminServiceImpl implements AdminService {
       String adminPw = admin.getAdminPw();
       String encodedPw = passwordEncoder.encode(adminPw);
       admin.setAdminPw(encodedPw);
+      String username = admin.getAdminId();
 
       // 관리자 등록
       int result = adminMapper.admin_insert(admin);
@@ -69,8 +70,9 @@ public class AdminServiceImpl implements AdminService {
       // 권한 등록
       if( result > 0 ) {
           Auth Auth = new Auth();
-          Auth.setUserId( admin.getAdminId() );
-          Auth.setAuth("ROLE_ADMIN");          
+          Auth.setUserId( username );
+          Auth.setAuth("ROLE_ADMIN");
+         // Auth.setIsEnabled(1);           
           result = adminMapper.insertAuth(Auth);
       }
     return result;

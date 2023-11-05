@@ -22,10 +22,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insert(Users user) throws Exception {
+        
         // 비밀번호 암호화
         String userPw = user.getUserPw();
         String encodedPw = passwordEncoder.encode(userPw);
         user.setUserPw(encodedPw);
+        String username = user.getUserId();
 
         // 회원 등록
         int result = userMapper.insert(user);
@@ -33,8 +35,9 @@ public class UserServiceImpl implements UserService {
         // 권한 등록
         if( result > 0 ) {
             Auth Auth = new Auth();
-            Auth.setUserId( user.getUserId() );
+            Auth.setUserId( username );
             Auth.setAuth("ROLE_USER");          // 기본 권한 : 사용자 권한 (ROLE_USER)
+            //Auth.setIsEnabled(1);           
             result = userMapper.insertAuth(Auth);
         }
         return result;
