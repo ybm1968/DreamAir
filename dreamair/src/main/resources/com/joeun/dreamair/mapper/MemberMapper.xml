@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.joeun.dreamair.mapper.MemberMapper">
+<!-- Admin 매핑 -->
+<resultMap type="Admin" id="adminMap">
+  <id property="adminNo" column="admin_no"/>
+
+  <result property="adminId" column="admin_id"/>
+  <result property="adminPw" column="admin_pw"/>
+
+  <collection property="authList" resultMap="authMap"></collection>
+</resultMap>
+
+<!-- Users 매핑-->
+    <resultMap type="Users" id="userMap">
+        <id property="userNo" column="user_no" />
+        
+        <result property="userNo" column="user_no" />
+        <result property="userId" column="user_id" />
+        <result property="userPw" column="user_pw" />
+        <result property="name" column="name" />
+        <result property="phone" column="phone" />
+        <result property="address" column="address" />
+        <result property="email" column="email" />
+        <result property="status" column="status" />
+        <result property="regDate" column="reg_date" />
+        <result property="updDate" column="upd_date" />
+        <result property="enabled" column="enabled" />
+        
+        <collection property="authList" resultMap="authMap"></collection>
+    </resultMap>
+
+    <!-- Auth 매핑 -->
+    <resultMap type="Auth" id="authMap">
+        <result property="userId" column="user_id" />
+        <result property="auth" column="auth" />
+    </resultMap>
+
+    <!-- 회원 조회 - id -->
+    <select id="login" resultMap="userMap">
+        SELECT u.user_no
+              ,u.user_id
+              ,u.user_pw
+              ,u.name
+              ,u.address
+              ,u.phone
+              ,u.email
+              ,u.reg_date
+              ,u.upd_date
+              ,u.status
+              ,auth.auth
+        FROM users u LEFT OUTER JOIN auth auth
+                    ON u.user_id = auth.user_id
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <!-- 비회원 조회 - id -->
+    <select id="login2" resultMap="userMap">
+        SELECT u.user_no2
+              ,u.user_id
+              ,u.user_pw
+              ,auth.auth
+        FROM user2 u LEFT OUTER JOIN auth auth
+                    ON u.user_id = auth.user_id
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <!-- 관리자 조회 - id -->
+    <select id="admin_login" resultMap="adminMap">
+        SELECT a.admin_no
+              ,a.admin_id
+              ,a.admin_pw
+              ,auth.auth
+        FROM Admin a LEFT OUTER JOIN auth auth 
+                    ON a.admin_id = auth.user_id
+        WHERE a.admin_id = #{adminId}
+    </select>
+
+    <!-- 회원 권한 등록 -->
+    <insert id="insertAuth">
+        INSERT INTO auth( user_id, auth ) 
+        VALUES ( #{userId}, #{auth} )
+    </insert>
+    
+    </mapper>

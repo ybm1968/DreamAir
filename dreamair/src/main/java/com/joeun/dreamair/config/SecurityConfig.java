@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration                  // 설정 클래스
 @EnableWebSecurity              // 해당 클래스를 스프링 시큐리티 설정 빈으로 등록
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)   
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = false)   
 // @EnableGlobalMethodSecurity  : 스프링 시큐리티 어노테이션 활성화를 위한 어노테이션
 // - prePostEnabled = true ➡  @PreAuthorize, @PostAuthorize 어노테이션 사용 활성화
 // - securedEnabled = true ➡  @Secured 어노테이션 사용 활성화
@@ -74,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests((authorize) -> authorize
                                 .antMatchers("/**").permitAll()
-                                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                                .antMatchers("/admin/**").hasRole("ADMIN")
+                                //.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                //.antMatchers("/admin/**").hasRole("ADMIN")
                                 // anyRequest()         : 모든(이외의) 요청을 지정
                                 // authenticated()      : 인증된 사용자만 허용
                                 // .anyRequest().permitAll()
@@ -249,4 +249,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
+
+
+    
+    
 }

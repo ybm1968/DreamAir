@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
 import com.joeun.dreamair.dto.Admin;
+import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.AdminMapper;
 
@@ -40,54 +41,6 @@ public class AdminServiceImpl implements AdminService {
   //   return admin;
   // }
 
-  @Override
-  public void admin_login(Admin admin, HttpServletRequest requset) throws Exception {
-
-      String username = admin.getAdminId();
-      String password = admin.getAdminPwCheck();
-      log.info("username : " + username);
-      log.info("password : " + password);
-
-      // 아이디, 패스워드 인증 토큰 생성
-      UsernamePasswordAuthenticationToken token 
-          = new UsernamePasswordAuthenticationToken(username, password);
-
-      // 토큰에 요청정보를 등록
-      token.setDetails( new WebAuthenticationDetails(requset) );
-
-      // 토큰을 이용하여 인증(로그인)
-      Authentication authentication = authenticationManager.authenticate(token);
-
-      User authUser = (User) authentication.getPrincipal();
-      log.info("인증된 사용자 아이디 : " + authUser.getUsername());
-
-      SecurityContextHolder.getContext().setAuthentication(authentication);
-  }
-  /**
-   * 관리자 로그인
-   */
-//   @Override
-//   public void admin_login(Admin admin, HttpServletRequest request) throws Exception {
-//    String adminId = admin.getAdminId();
-//     String password = admin.getAdminPwCheck();
-
-//     log.info("adminId : " + adminId );
-//     log.info("password : "  + password);
-
-//     // 아이디, 패스워드 인증 토큰 생성
-//     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(adminId, password);
-
-//     // 토큰에 요청정보를 등록
-//     token.setDetails( new WebAuthenticationDetails(request) );
-    
-//     // 토큰을 이용하여 인증(로그인)
-//     Authentication authentication = authenticationManager.authenticate(token);
-
-//     User authUser = (User) authentication.getPrincipal();
-//     log.info("인증된 사용자 아이디 : " + authUser.getUsername());
-
-//     SecurityContextHolder.getContext().setAuthentication(authentication);
-//   }
   
   // // 사용자 전체 조회
   // @Override
@@ -121,6 +74,14 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public int admin_insert(Admin admin) throws Exception {
     int result = adminMapper.admin_insert(admin);
+
+        // 권한 등록
+        if( result > 0 ) {
+            Auth Auth = new Auth();
+            Auth.setUserId( admin.getAdminId() );
+            Auth.setAuth("ROLE_ADMIN");          // 기본 권한 : 사용자 권한 (ROLE_USER)
+            result = adminMapper.insertAuth(Auth);
+        }
     return result;
   }
 
@@ -151,7 +112,10 @@ public class AdminServiceImpl implements AdminService {
     List<Admin> bookingList = adminMapper.booking_list();
     return bookingList;
   }
-  
-
+  @Override
+  public List<Admin> admin_list() throws Exception {
+    List<Admin> adminList = adminMapper.booking_list();
+    return adminList;
+  }
   
 }

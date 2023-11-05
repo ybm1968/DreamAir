@@ -20,10 +20,10 @@ public interface UserMapper {
     // 회원 로그인 - id
     public Users login(String username);
 
-    // 비회원
-    public Users login2(String username);
+    // // 비회원
+    // public Users login2(String username);
 
-    // 회원 권한 등록
+    // // 회원 권한 등록
     public int insertAuth(Auth auth) throws Exception;
     
     // 회원 수정
@@ -40,4 +40,6 @@ public interface UserMapper {
     
     public int mileageInsert(int userNo) throws Exception;
 
+    // 아이디 중복 검사
+	public int idCheck(String memberId); 
 }

@@ -13,23 +13,13 @@ import lombok.Getter;
 @Getter
 public class CustomUser implements UserDetails {
 
+    private static final long serialVersionUID = 1L;
+   
     @Autowired
-    private Users users;
+    private Member member;     
 
-    @Autowired
-    private Admin admin;         
-
-    // public CustomUser(Users users, Admin admin) {
-    //     this.users = users;
-    //     this.admin = admin;
-    // }
-
-    public CustomUser(Users users) {
-        this.users = users;
-    }
-
-    public CustomUser(Admin admin) {
-    this.admin = admin;
+    public CustomUser(Member member) {
+        this.member = member;
     }
 
     /**
@@ -40,19 +30,19 @@ public class CustomUser implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return users.getAuthList().stream()
+        return member.getAuthList().stream()
                                   .map( (auth) -> new SimpleGrantedAuthority(auth.getAuth()))
                                   .collect(Collectors.toList());
     }
 
     @Override
     public String getPassword() {
-        return users.getUserPw();
+        return member.getUserPw();
     }
 
     @Override
     public String getUsername() {
-        return users.getUserId();
+        return member.getUserId();
     }
 
     @Override
@@ -72,7 +62,7 @@ public class CustomUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return users.getEnabled() == 0 ? false : true;
+        return member.getEnabled() == 0 ? false : true;
     }
 
     

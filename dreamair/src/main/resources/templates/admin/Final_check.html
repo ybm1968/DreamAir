@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/admin_layout}"
+      >
+<head>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>탑승권 관리</title>
+</head>
+<body layout:fragment="content">
+    <h1 class="text-center my-3">탑승권 관리</h1>
+
+    <div class="btn-box d-grid gap-2 pt-5" >
+        <div class="col-5">
+            <label for="flightNo" class="form-label">항공기 조회</label>
+            <div class="input-group has-validation">
+              <input type="text" class="form-control" id="flightNo" placeholder="항공기 번호" value="${product.flightNo}">
+            </div>
+        </div>
+        <span class="btn btn-outline-primary btn-lg"><a href="#">항공기 조회</a></span>
+    </div>
+    <br>  
+
+<th:block th:if="${TicketList != null}">
+     
+            <table class="table table-striped table-hover table-bordered text-center align-middle">
+                <thead>
+                    <tr class="table-primary">
+                        <th>상품번호</th>
+                        <th>노선번호</th>
+                        <th>상품명</th>
+                        <th>카테고리</th>
+                        <th>가격</th>
+                        <th>출발지</th>
+                        <th>도착지</th>
+                        <th>출발시간</th>
+                        <th>도착시간</th>
+                        <th>등록일자</th>
+                        <th>수정일자</th>
+                        <th colspan="2">비고</th>
+                    </tr>
+                    <tbody>
+                        <!-- 목록이 없을 때 -->
+                        <th:block th:if="${TicketList.isEmpty()}">
+                            <tr>
+                                <td colspan="13">등록된 탑승권이 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="ticket : ${TicketList}">
+                            <tr>
+                                <td><span th:text="${ticket.productNo}"></span></td>                                
+                                <td><span th:text="${ticket.routeNo}"></span></td>                                
+                                <td><span th:text="${ticket.productName}"></span></td>                                
+                                <td><span th:text="${ticket.productCat}"></span></td>                                
+                                <td><span th:text="${ticket.productPrice}"></span></td>                                
+                                <td><span th:text="${ticket.departure}"></span></td>                                
+                                <td><span th:text="${ticket.destination}"></span></td>                                
+                                <td><span th:text="${ticket.departureTime}"></span></td>                                
+                                <td><span th:text="${ticket.destinationTime}"></span></td>                                
+                                <td><span th:text="${ticket.regDate}"></span></td>                                
+                                <td><span th:text="${ticket.updDate}"></span></td>
+                                <!-- 토글 버튼 -->
+                                <!-- <th:block th:if="${!TicketList.isEmpty()}">
+                                    <td colspan="2"><div><input type="checkbox" id="finalChecking"/><label for="switch">미탑승</label></div></td>
+                                </th:block> ticketNo랑 checkbox 값 같이 보내기-->
+                                <td></td>
+                            </tr>
+                        </th:block>
+                    </tbody>
+                </thead>
+            </table>
+        </th:block>
+        
+        <th:block th:if="${TicketList==null}" >
+            <th:block th:if="${TicketList.isEmpty()}">
+                <tr>
+                    <td colspan="13">등록된 탑승권이 없습니다.</td>
+                </tr>
+            </th:block>
+        </th:block>
+    </body>
+</html>        

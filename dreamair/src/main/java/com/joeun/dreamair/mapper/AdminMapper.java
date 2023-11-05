@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.joeun.dreamair.dto.Admin;
+import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;
 
 @Mapper
@@ -13,22 +14,14 @@ public interface AdminMapper {
    /**
      * 관리자
      */
-    // 관리자 로그인
-    // public void admin_login(Admin admin) throws Exception;
-
-    // 관리자  인증(로그인) - id
-    public Admin admin_login(String username);
-
-    // 관리자 권한 등록
-    // public int insertAuth(Auth adminAuth) throws Exception;
-
-    // 관리자 로그인(id, pw)
-    // public Admin admin_login(String adminId, String adminPw) throws Exception;
-    //public Admin admin_login( String adminId, String adminPw) throws Exception;
+    // 전체 관리자 조회
+    public List<Users> admin_list() throws Exception;
 
     // 관리자 등록
     public int admin_insert(Admin admin) throws Exception;
-
+    
+    // 회원 권한 등록
+    public int insertAuth(Auth auth) throws Exception;
     
     /**
      * 사용자 관리

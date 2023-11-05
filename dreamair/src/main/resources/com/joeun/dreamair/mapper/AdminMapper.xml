@@ -6,39 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.dreamair.mapper.AdminMapper">
 
-<!-- Admin 매핑 -->
-<resultMap type="Admin" id="adminMap">
-  <id property="adminNo" column="admin_no"/>
-
-  <result property="adminId" column="admin_id"/>
-  <result property="adminPw" column="admin_pw"/>
-
-  <collection property="authList" resultMap="authMap"></collection>
-</resultMap>
-
-<!-- AdminAuth 매핑 -->
-<resultMap type="Auth" id="authMap">
-    <result property="adminId" column="admin_id" />
-    <result property="auth" column="auth" />
-</resultMap>
-
-<!-- Admin 권한 등록 -->
-<insert id="insertAuth">
-    INSERT INTO auth( user_id, auth ) 
-    VALUES ( #{userId}, #{auth} )
-</insert>
-
-<!-- 관리자 로그인 조회 -->
-<select id="admin_login" resultMap="adminMap">
-    SELECT a.admin_no
-          ,a.admin_id
-          ,a.admin_pw
-          ,auth.auth
-    FROM Admin a LEFT OUTER JOIN auth auth 
-                ON a.admin_id = auth.user_id
-    WHERE a.admin_id = #{adminId} AND a.admin_pw = #{adminPw}
-</select>
-
 <!-- 관리자 로그인 조회 -->
 <!-- <select id="admin_login" resultType="Admin">
     SELECT *
@@ -58,30 +25,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select> -->
 
 <!-- 관리자 등록 -->
-<!-- <insert id="admin_insert">
-INSERT INTO admin ( admin_id, admin_pw )
-VALUES ( #{adminId}, #{adminPw} )
-</insert> -->
+<insert id="admin_insert">
+    INSERT INTO admin ( admin_id, admin_pw )
+    VALUES ( #{adminId}, #{adminPw} )
+</insert>
 
-
-<!-- Users 매핑-->
-    <resultMap type="Users" id="userMap">
-        <id property="userNo" column="user_no" />
-        
-        <result property="userNo" column="user_no" />
-        <result property="userId" column="user_id" />
-        <result property="userPw" column="user_pw" />
-        <result property="name" column="name" />
-        <result property="phone" column="phone" />
-        <result property="address" column="address" />
-        <result property="email" column="email" />
-        <result property="status" column="status" />
-        <result property="regDate" column="reg_date" />
-        <result property="updDate" column="upd_date" />
-                <!-- <result property="enabled" column="enabled" /> -->
-        
-        <collection property="authList" resultMap="authMap"></collection>
-    </resultMap>
+<!-- 회원 권한 등록 -->
+<insert id="insertAuth">
+    INSERT INTO auth( user_id, auth ) 
+    VALUES ( #{userId}, #{auth} )
+</insert>
 
 <!-- 사용자 관리 -->
 <!-- 전체 조회 -->
@@ -128,6 +81,11 @@ WHERE user_no = #{userNo}
 <select id="booking_list" resultType="Admin">
     SELECT *
     FROM booking 
+</select>
+
+<select id="admin_list" resultType="Admin">
+SELECT *
+FROM admin
 </select>
 
 <!-- 탑승권 선택 조회 -->

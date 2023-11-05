@@ -14,25 +14,24 @@
 
     <div class="container p-4">
         <h1 class="text-center my-3">관리자 페이지입니다.</h1>
-    
-        <form action="admin/login" method="post">
-            <!-- csrf token -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-            <th:block sec:authorize="isAnonymous()">
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-outline-primary btn-lg">관리자 로그인</button>
-                </div>
-             </th:block>
-             
-            <th:block sec:authorize="isAuthenticated()">
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-outline-primary btn-lg">로그아웃</button>
-                </div>
-            </th:block>
-        </form>
-
     </div>
+
+    <!-- 로그인 하지 않은 상태 -->
+    <th:if test = "${admin == null }">
+        <div class="login_button"><a href="/admin/admin_login">로그인</a></div>
+        <span><a href="/admin/admin_insert">관리자 등록</a></span>                
+</th:if>  
+
+    <!-- 로그인한 상태 -->
+    <th:if test="${ admin != null }">
+        <th:if text="${admin.adminCk == 1}">
+        <div class="login_success_area">
+            <span>${admin.adminId}님 반갑습니다.</span>
+        </div>
+    </th:if>
+    </th:if>
     <div style="height: 1000px;"></div>
 </body>  
 </html>
+
+<!-- <fmt:formatNumber value="${member.point }" pattern="#,###" /> -->

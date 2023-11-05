@@ -26,6 +26,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    // @Autowired
+    // private FileService fileService;
+    
     // [product] index 화면 
     @GetMapping(value={"/"})
     public String index() {
@@ -52,14 +55,32 @@ public class ProductController {
 
         //* - 상품 등록       
         @GetMapping(value="/product_insert")
-            public String productInsert(@ModelAttribute Product product) {
-            return "product/product_insert";
+            public String productInsert(Model model) {
+            model.addAttribute("product", new Product());
+                return "product/product_insert";
         }
 
         //* - 상품 등록 처리  
         @PostMapping(value="/product_insert")
-            public String productInsertPro(@ModelAttribute Product product) throws Exception {
-                int result = productService.product_insert(product);
+            public String productInsertPro(Product product) throws Exception {
+        //         // 필수값 없으면 다시 상품 등록 페이지로
+        // if(bindingResult.hasErrors()){
+        //     return "item/itemForm";
+        // }
+
+        // if(itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null){
+        //     model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
+        //     return "item/itemForm";
+        // }
+
+        // try {
+        //     // 상품 저장 로직 호출
+        //     itemService.saveItem(itemFormDto, itemImgFileList);
+        // } catch (Exception e){
+        //     model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
+        //     return "item/itemForm";
+        // }
+                 int result = productService.product_insert(product);
 
                 // 상품 입출고 처리(입고)
                 int productNo = product.getProductNo();

@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.joeun.dreamair.dto.Product;
+import com.joeun.dreamair.mapper.FileMapper;
 import com.joeun.dreamair.mapper.ProductMapper;
 
 @Service
@@ -13,6 +15,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private FileMapper FileMapper;
 
     /**
      * 항공기
@@ -97,6 +102,29 @@ public class ProductServiceImpl implements ProductService {
        return result;
     }
 
-    
+//     // 상품 등록
+//     @Override
+//     public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception{
+
+//         //상품 등록
+//         Item item = itemFormDto.createItem(); // 입력받은 폼으로부터 객체 생성
+//         itemRepository.save(item); // 상품데이터저장
+
+//         //이미지 등록
+//         for(int i=0;i<itemImgFileList.size();i++){
+//             ItemImg itemImg = new ItemImg();
+//             itemImg.setItem(item);
+
+//             if(i == 0)
+//                 itemImg.setRepimgYn("Y");
+//             else
+//                 itemImg.setRepimgYn("N");
+
+//             itemImgService.saveItemImg(itemImg, itemImgFileList.get(i)); //상품의 이미지 정보 저장
+//         }
+
+//         return item.getId();
+//     }
+// }
     
 }

@@ -12,6 +12,7 @@
 // import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.PathVariable;
 // import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.multipart.MultipartFile;
 
 // import com.joeun.dreamair.service.FileService;
 
@@ -26,6 +27,7 @@
 
 //     @Autowired
 //     private FileService fileService;
+
 
 //     /**
 //      * 파일 다운로드
@@ -69,5 +71,38 @@
 //         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 //     }
     
-    
+    // // 파일 등록
+    // @Override
+    // public void saveItemImg(Files file, MultipartFile itemImgFile) throws Exception{
+    //     String originName = itemImgFile.getOriginalFilename();
+    //     String fileName = "";
+    //     String filePath = "";
+
+    //     //파일 업로드
+    //     if(!StringUtils.isEmpty(oriImgName)){
+    //         // 로컬에 저장된 파일의 이름을 변수에 저장
+    //         imgName = fileService.uploadFile(file.filepath, file.originName,
+    //                 itemImgFile.getBytes());
+    //         // 저장할 파일 이미지를 불러올 경로 설정
+    //         imgUrl = "/images/item/" + imgName;
+    //     }
+
+    //     @Override
+    // public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{
+    //     if(!itemImgFile.isEmpty()){
+    //         ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
+    //                 .orElseThrow(EntityNotFoundException::new);
+
+    //         //기존 이미지 파일 삭제
+    //         if(!StringUtils.isEmpty(savedItemImg.getImgName())) {
+    //             fileService.deleteFile(itemImgLocation+"/"+
+    //                     savedItemImg.getImgName());
+    //         }
+
+    //         String oriImgName = itemImgFile.getOriginalFilename();
+    //         String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+    //         String imgUrl = "/images/item/" + imgName;
+    //         savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+    //     }
+    // }
 // }
