@@ -6,7 +6,7 @@
 
 
 [회원 탈퇴]
-- 회원 탈퇴는 정상적으로 작동하나(DB 삭제), 계속 예외로 튕김
+- 회원 탈퇴는 정상적으로 작동하나(DB 삭제) 계속 예외로 튕김
 - 회원 탈퇴 시, mileage 테이블 & auth 테이블에 모두 ON DELETE CASCADE 적용하여 일괄 삭제 처리 필요
 
 
@@ -42,11 +42,3 @@
 - UserController.java 수정
 - UserMapper.xml & UserMapper.java 수정
 - 등등
-
-- 11/3
-- DB 마일리지 테이블 - user_id 속성 추가, 마일리지 default 0 설정
-- 회원 등록 시 마일리지 테이블에 해당 회원이 함께 추가 될 수 있도록 추가
-- 
-
-- 11/4
-- 

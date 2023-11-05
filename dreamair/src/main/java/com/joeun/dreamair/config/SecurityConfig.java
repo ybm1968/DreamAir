@@ -125,8 +125,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                     .logoutSuccessUrl("/login")
                                     .logoutUrl("/logout")  
                                     // 쿠키 삭제
-                                    .deleteCookies("remember-id"
-                                                                        ,"remember-me"
+                                    .deleteCookies(//"remember-id"
+                                                                        "remember-me"
                                                                         ,"JSESSIONID")
                                     .invalidateHttpSession(true)        // 세션 무효화
                                     .permitAll()

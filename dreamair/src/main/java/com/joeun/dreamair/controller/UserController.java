@@ -195,7 +195,6 @@ public class UserController {
 
         user = userService.selectById(loginId);
         
-        // 조회된 마일리지를 사용자 객체의 mileage 필드에 설정
         Users mileageUser = userService.selectMileage(loginId);
         user.setMileage(mileageUser.getMileage());
 
