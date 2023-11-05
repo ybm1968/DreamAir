@@ -53,20 +53,25 @@
                         <td colspan="7" class="text-center">조회된 항공권이 없습니다.</td>
                     </tr>
                 </th:block>
-                <th:block th:each="booking : ${bookingList}">
-                    <tr>
-                        <td class="td3t" colspan="2"><span th:text="${booking.duration}"></span></td> 
-                        <td class="td2t">DramAir</td> 
-                        <td class="td1t"><span th:text="${booking.flightName}"></span></td> 
-                        <td class="td7t"><span th:text="${booking.productPrice}"></span></td>  
-                        <td class="td7t"><span th:text="${booking.seatRemaining}"></span></td>
-                        <td><a href="" class="btn btn-outline-primary btn-lg">장바구니</a></td>
-                        <td><a href="/booking/info" class="btn btn-outline-primary btn-lg">예매하기</a></td>
-                    </tr>
-    
-
-                </th:block>
                 
+                    <th:block th:each="booking : ${bookingList}">
+                        <form action="/booking/info">
+                            <tr>
+                                <td class="td3t" colspan="2"><span th:text="${booking.duration}"></span></td> 
+                                <td class="td2t">DramAir</td> 
+                                <td class="td1t"><span th:text="${booking.flightName}"></span></td> 
+                                <td class="td7t"><span th:text="${booking.productPrice}"></span></td>  
+                                <td class="td7t"><span th:text="${booking.seatRemaining}"></span></td>
+                                <td><a href="" class="btn btn-outline-primary btn-lg">장바구니</a></td>
+                                <input type="hidden" name="productNo" th:value="${booking.productNo}" >
+                                <input type="hidden" name="routeNo" th:value="${booking.routeNo}" >
+                                <!-- <input type="hidden" name="producId" th:value="${booking.producId}" > -->
+                                <!-- 좌석번호, 예매번호는 나중에 insert문 말고 update문으로 값을 추가 -->
+                                <td><input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg"></td>
+                            </tr>
+                        </form>
+                    </th:block>
+               
             </table>
 
         </section>

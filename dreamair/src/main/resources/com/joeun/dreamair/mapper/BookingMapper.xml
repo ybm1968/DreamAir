@@ -36,14 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>  -->
     
     <select id="list" resultType="Booking">
-         SELECT f.flight_name
-              ,f.seat_remaining
-              ,p.product_price
-              ,p.departure
-              ,p.destination
-              ,r.departure_time
-              ,r.destination_time
-              ,p.duration
+         SELECT *
         FROM flight f left join product p on f.route_no = p.route_no
 				left join route r on f.route_no = r.route_no
         WHERE p.departure = #{departure}
@@ -53,8 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select> 
 
     <insert id="info">
-            INSERT INTO passenger ()
-            VALUES ()
+            INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+            VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
     </insert>
 
 

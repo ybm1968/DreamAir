@@ -39,16 +39,19 @@ public class BookingController {
     }
 
     @GetMapping(value="/info")
-    public String info() {
+    public String info(Model model, Booking booking) {
+        log.info("상품번호 : " + booking.getProductNo());
+        log.info("노선번호 : " + booking.getRouteNo());
+        model.addAttribute("booking", booking);
+        
         return "user/info";
     }
 
     @PostMapping(value="/info")
-    public int infoPro(Booking booking) throws Exception{
-        log.info("booking.Name : " + booking.getName());
+    public String infoPro(Booking booking) throws Exception{
         int result = bookingService.info(booking);
         
-        return result;
+        return "user/seat";
     }
     
 
