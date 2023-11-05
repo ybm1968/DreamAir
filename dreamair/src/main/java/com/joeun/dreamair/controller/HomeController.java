@@ -19,8 +19,6 @@ import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @Slf4j
 @Controller
 public class HomeController {
@@ -47,8 +45,6 @@ public class HomeController {
         return "index";
     }
     
-
-
     /**
      * 로그인 화면
      * @return
@@ -95,7 +91,7 @@ public class HomeController {
 
         // 회원 가입 성공 시, 바로 로그인
         if( result > 0 ) {  
-            
+            log.info("회원가입 성공");
             //memberService.login(user, request);
             //userService.login(user, request);
         }

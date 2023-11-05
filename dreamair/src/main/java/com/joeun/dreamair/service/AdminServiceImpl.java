@@ -2,16 +2,9 @@ package com.joeun.dreamair.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
 import com.joeun.dreamair.dto.Admin;
@@ -73,15 +66,21 @@ public class AdminServiceImpl implements AdminService {
   // 관리자 정보 등록
   @Override
   public int admin_insert(Admin admin) throws Exception {
-    int result = adminMapper.admin_insert(admin);
+      // 비밀번호 암호화
+      String adminPw = admin.getAdminPw();
+      String encodedPw = passwordEncoder.encode(adminPw);
+      admin.setAdminPw(encodedPw);
 
-        // 권한 등록
-        if( result > 0 ) {
-            Auth Auth = new Auth();
-            Auth.setUserId( admin.getAdminId() );
-            Auth.setAuth("ROLE_ADMIN");          // 기본 권한 : 사용자 권한 (ROLE_USER)
-            result = adminMapper.insertAuth(Auth);
-        }
+      // 관리자 등록
+      int result = adminMapper.admin_insert(admin);
+
+      // 권한 등록
+      if( result > 0 ) {
+          Auth Auth = new Auth();
+          Auth.setUserId( admin.getAdminId() );
+          Auth.setAuth("ROLE_ADMIN");          
+          result = adminMapper.insertAuth(Auth);
+      }
     return result;
   }
 

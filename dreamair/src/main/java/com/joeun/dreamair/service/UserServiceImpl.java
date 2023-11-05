@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
         String userPw = user.getUserPw();
         String encodedPw = passwordEncoder.encode(userPw);
         user.setUserPw(encodedPw);
+
         // 회원 등록
         int result = userMapper.insert(user);
 
@@ -36,7 +37,6 @@ public class UserServiceImpl implements UserService {
             Auth.setAuth("ROLE_USER");          // 기본 권한 : 사용자 권한 (ROLE_USER)
             result = userMapper.insertAuth(Auth);
         }
-
         return result;
     }
 

@@ -16,20 +16,7 @@
         <h1 class="text-center my-3">관리자 페이지입니다.</h1>
     </div>
 
-    <!-- 로그인 하지 않은 상태 -->
-    <th:if test = "${admin == null }">
-        <div class="login_button"><a href="/admin/admin_login">로그인</a></div>
-        <span><a href="/admin/admin_insert">관리자 등록</a></span>                
-</th:if>  
-
-    <!-- 로그인한 상태 -->
-    <th:if test="${ admin != null }">
-        <th:if text="${admin.adminCk == 1}">
-        <div class="login_success_area">
-            <span>${admin.adminId}님 반갑습니다.</span>
-        </div>
-    </th:if>
-    </th:if>
+    <h3>관리자 페이지입니다.</h3>
     <div style="height: 1000px;"></div>
 </body>  
 </html>
