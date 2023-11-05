@@ -37,12 +37,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <!-- 사용자 관리 -->
-<!-- 전체 조회 -->
-<select id="user_list" resultType="Users">
-SELECT *
-FROM users
-</select>
-
 <!-- 사용자 등록 -->
 <insert id="user_insert">
 INSERT INTO users ( user_no, auth_no, user_id, user_pw, name, address, phone, email, status) 

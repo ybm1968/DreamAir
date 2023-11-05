@@ -77,4 +77,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	<select id="idCheck" resultType="int">
   		SELECT count(*) FROM users where userId = #{userId}
   	</select>
+
+
 </mapper>

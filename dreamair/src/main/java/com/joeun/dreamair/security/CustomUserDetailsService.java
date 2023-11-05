@@ -1,18 +1,13 @@
 package com.joeun.dreamair.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.CustomUser;
 import com.joeun.dreamair.dto.Member;
-import com.joeun.dreamair.dto.Users;
-import com.joeun.dreamair.mapper.AdminMapper;
 import com.joeun.dreamair.mapper.MemberMapper;
-import com.joeun.dreamair.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -34,14 +34,6 @@ public class AdminServiceImpl implements AdminService {
   //   return admin;
   // }
 
-  
-  // // 사용자 전체 조회
-  // @Override
-  // public List<Users> user_list() throws Exception {
-  //   List<Users> userList = adminMapper.user_list();
-  //   return userList;
-  // }
-
   // // 사용자 수동 등록
   // @Override
   // public int user_insert(Users users) throws Exception {

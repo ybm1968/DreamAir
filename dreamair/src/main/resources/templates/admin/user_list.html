@@ -55,10 +55,9 @@
                                 <td><span th:text="${users.regDate}"></span></td> 
                                 <td><span th:text="${users.updDate}"></span></td> 
                                 <td><span th:text="${users.status}"></span></td> 
-                                <td><span th:text="${users.userPw}"></span></td>
-                                <td></td>
-                                <td></td>
-                                <td><a th:href="|/admin/user_update?userNo=${user.userNo}|">수정</a></td>
+                                <td><span th:text="${users.auth}"></span></td>
+    
+                                <td><a th:href="|/admin/user_update?userNo=${users.userNo}|">수정</a></td>
                                 <td><a href="javascript:;">삭제</a></td>
                                 <td></td>
                             </tr>

@@ -21,19 +21,20 @@
           <h1 class="h3 mb-3 fw-normal text-center pt-5">로그인</h1>
       
           <div class="form-floating">
-            <input type="text" class="form-control" name="id" id="floatingInput" placeholder="아이디" 
+            <input type="text" class="form-control" name="username" id="username" placeholder="아이디" 
                     autofocus>
 
             <label for="floatingInput">아이디</label>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control" name="pw" id="floatingPassword" placeholder="비밀번호" >
+            <input type="password" class="form-control" name="pw" id="pw" placeholder="비밀번호" >
             <label for="floatingPassword">비밀번호</label>
           </div>
-          
-          <th:if test = "${result == 0}">
+
+          <br>
+          <!-- <th:if test = "${result == 0}">
             <div class="login_warn">관리자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
-          </th:if>
+          </th:if> -->
 
           <button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
         </form>

@@ -1,5 +1,7 @@
 package com.joeun.dreamair.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
-import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Member;
 import com.joeun.dreamair.mapper.MemberMapper;
 
@@ -103,12 +104,10 @@ public class MemberServiceImpl implements MemberService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-
+    // 사용자 조회
     @Override
-    public int insertAuth(Auth auth) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insertAuth'");
+    public List<Member> user_list() throws Exception {
+        return memberMapper.user_list();
     }
-    
     
 }

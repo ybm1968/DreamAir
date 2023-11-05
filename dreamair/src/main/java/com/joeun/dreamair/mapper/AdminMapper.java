@@ -23,22 +23,7 @@ public interface AdminMapper {
     // 회원 권한 등록
     public int insertAuth(Auth auth) throws Exception;
     
-    /**
-     * 사용자 관리
-     */
-    // 전체 사용자 조회
-    public List<Users> user_list() throws Exception;
-
-    // 사용자 수동 등록
-    public int user_insert(Users users) throws Exception;
-    
-    // 사용자 정보 수정
-    public int user_update(int userNo) throws Exception;
-
-    // 사용자 정보 삭제
-    public int user_delete(int userNo) throws Exception;
-
-    /**
+      /**
      * 예매 관리
      */
     // 전체 예매 내역 조회

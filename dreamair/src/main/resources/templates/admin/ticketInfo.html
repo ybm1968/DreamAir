@@ -5,12 +5,9 @@
       layout:decorate="~{/UI/layout/admin_layout}"
       >
 <head>
-
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 정보 등록</title>
+    <title>탑승권 상세 정보</title>
 </head>
 <script type="text/javascript">
 function functview(t_no, s_no) {
@@ -56,7 +53,7 @@ function airinfo() {
 
 </head>
 <body layout:fragment="content" class="basicFont container">
-<div class="logo"><a href="index.jsp"><img src="resources/images/bomair_logo.png"/></a></div>
+<div class="logo"><a href="index.jsp"><img src="/images/logo.png"/></a></div>
 <h1>예약번호 : ${dto.t_no }</h1>
 <br>
 <input type="button" class="btn btn-primary nextBtn btn-lg btn2 btn2-lg" value="나의 항공권 예매" onclick="history.back(-1)">&nbsp;
@@ -66,27 +63,27 @@ function airinfo() {
 <br>
 <table>
 <tr>
-<th align="center" colspan="2">상세 예약정보</th>
+<th class="text-center" colspan="2">상세 예약정보</th>
 </tr>
 <tr>
-	<td align="center">예매자</td>
-	<td align="center">${dto.g_id }</td>
+	<td class="text-center">예매자</td>
+	<td class="text-center">${dto.g_id }</td>
 </tr>
 <tr>
-	<td align="center">인원 수</td>
-	<td align="center">
+	<td class="text-center">인원 수</td>
+	<td class="text-center">
 	${fn:substring(dto.t_no ,11,12)} 명
 
 	</td>
 </tr>
 		<c:if test="${fn:substring(dto.t_no ,0,1) eq 'D'}">
 <tr>
-	<td align="center">출발지</td>
-	<td align="center">인천(ICN)</td>
+	<td class="text-center">출발지</td>
+	<td class="text-center">인천(ICN)</td>
 </tr>
 <tr>
-	<td align="center">도착지</td>
-	<td align="center">
+	<td class="text-center">도착지</td>
+	<td class="text-center">
 			<c:choose>
 				<c:when test="${fn:substring(dto.air_name,2,3) eq '1'}">제주(CJU)</c:when>
 				<c:when test="${fn:substring(dto.air_name,2,3) eq '2'}">도쿄(NPT)</c:when>
@@ -104,8 +101,8 @@ function airinfo() {
 
 		<c:if test="${fn:substring(dto.t_no ,0,1) eq 'R'}">
 <tr>
-	<td align="center">출발지</td>
-	<td align="center">
+	<td class="text-center">출발지</td>
+	<td class="text-center">
 	<c:choose>
 				<c:when test="${fn:substring(dto.air_name,2,3) eq '1'}">제주(CJU)</c:when>
 				<c:when test="${fn:substring(dto.air_name,2,3) eq '2'}">도쿄(NPT)</c:when>
@@ -120,50 +117,50 @@ function airinfo() {
 	</td>
 </tr>
 <tr>
-	<td align="center">도착지</td>
-	<td align="center">인천(ICN)</td>
+	<td class="text-center">도착지</td>
+	<td class="text-center">인천(ICN)</td>
 		</tr>
 </c:if>
 
 
 <tr>
-	<td align="center">출발날짜</td>
-	<td align="center">${fn:substring(dto.t_no ,1,5)}-${fn:substring(dto.t_no ,5,7)}-${fn:substring(dto.t_no ,7,9)}</td>
+	<td class="text-center">출발날짜</td>
+	<td class="text-center">${fn:substring(dto.t_no ,1,5)}-${fn:substring(dto.t_no ,5,7)}-${fn:substring(dto.t_no ,7,9)}</td>
 </tr>
 <tr>
-	<td align="center">출발시간</td>
-	<td align="center">${dto.o_stime }</td>
+	<td class="text-center">출발시간</td>
+	<td class="text-center">${dto.o_stime }</td>
 </tr>
 <tr>
-	<td align="center">소요시간</td>
-	<td align="center">
+	<td class="text-center">소요시간</td>
+	<td class="text-center">
 	<fmt:parseNumber var="soyo_hh" value="${dto.o_soyo / 60}" integerOnly="true"/>
 	<c:set var="soyo_time" value="${soyo_hh }시간 ${dto.o_soyo % 60}분"></c:set>
 	${soyo_time }
 	</td></tr>
 <tr>
-	<td align="center">편명</td>
-	<td align="center">${dto.air_name }</td>
+	<td class="text-center">편명</td>
+	<td class="text-center">${dto.air_name }</td>
 </tr>
 <tr>
-	<td align="center">예약한 날짜</td>
-	<td align="center">${dto.ab_date }</td>
+	<td class="text-center">예약한 날짜</td>
+	<td class="text-center">${dto.ab_date }</td>
 </tr>
 <tr>
-	<td align="center">결제가격</td>
-	<td align="center"><fmt:formatNumber value="${dto.pay }" pattern="#,###" /> KRW</td>
+	<td class="text-center">결제가격</td>
+	<td class="text-center"><fmt:formatNumber value="${dto.pay }" pattern="#,###" /> KRW</td>
 </tr>
 
 <tr>
-	<td align="center">좌석번호</td>
+	<td class="text-center">좌석번호</td>
 	<c:choose>
 	<c:when test="${dto.s_no eq null}">
-	<td align="center">
+	<td class="text-center">
 	<input type="button" value="체크인" onclick = "javascript:checkIn('${dto.t_no }')">
 	</td>
 	</c:when>
 	<c:otherwise>
-		<td align="center">
+		<td class="text-center">
 		${dto.s_no}
 		</td>
 		</c:otherwise>
@@ -189,8 +186,5 @@ function airinfo() {
 	<input type="hidden" name="t_no">
 	<input type="hidden" name="o_sdate">
 	</form>
-
-
-
 </body>
 </html>

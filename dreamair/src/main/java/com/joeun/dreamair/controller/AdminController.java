@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Admin;
+import com.joeun.dreamair.dto.Member;
+import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.AdminService;
 import com.joeun.dreamair.service.MemberService;
+import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +41,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MemberService memberService;
@@ -86,21 +95,46 @@ public class AdminController {
     return "redirect:/admin/admin_insert";
     }
 
-    // 관리자 로그인
+    // 관리자 로그인 화면
     @GetMapping(value="/admin_login")
-    public String adminLogin(){
+    public String adminLogin(@CookieValue(value = "remember-id", required = false) Cookie cookie, Model model) {
+        String adminId = "";
+        boolean rememberId = false;
+        if( cookie != null ) {
+            log.info("CookieName : " + cookie.getName());
+            log.info("CookiValue : " + cookie.getValue());
+            adminId = cookie.getValue();
+            rememberId = true;
+        }
+
+        model.addAttribute("adminId", adminId);
+        model.addAttribute("rememberId", rememberId);
+
         return "admin/admin_login";
     }
 
-    @PostMapping(value="/admin_login")
-    public String adminLoginPro(Admin admin, HttpServletRequest request){
-        
-        return null;
+    // 사용자 목록 조회
+     @GetMapping(value="/user_list")
+        public String users(Model model) throws Exception {
+        List<Member> userList = memberService.user_list();
+        model.addAttribute("UserList", userList);
+        return "admin/user_list";
     }
 
-
-  
-
+    // @PostMapping(value="/users")
+    // public String usersPost(UserAuth userAuth) throws Exception {
+    //     log.info(userAuth.toString());
+    //     int result = userAuthService.insert(userAuth);
+    //     return "redirect:/admin/users";
+    // }
+    
+    
+    // @DeleteMapping(value="/users")
+    // public ResponseEntity<String> usersDelete(UserAuth userAuth) throws Exception {
+    //     log.info(userAuth.toString());
+    //     int result = userAuthService.deleteByUserIdAndAuth(userAuth);
+    //     return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    // }
 
     //     /* 메인페이지 로그아웃 */
     // @GetMapping(value="/logout")
@@ -127,19 +161,11 @@ public class AdminController {
     //     return "/admin/user_list";
     // }
 
-    // // 사용자 수동 등록     
-    // @GetMapping(value="/user_insert")
-    // public String userInsert(@ModelAttribute Users users) {
-    //     return "admin/user_insert";
-    // }
-
-    // // 사용자 수동 등록 처리 
-    // @PostMapping(value="/user_insert")
-    // public String userInsertPro(@ModelAttribute Users users) throws Exception {
-    //     int result = adminService.user_insert(users);
-    //     if( result == 0 ) return "redirect:/admin/user_insert";
-    //      return "redirect:/admin/user_list";
-    //  } 
+    // 사용자 수동 등록     
+    @GetMapping(value="/user_insert")
+    public String userInsert() {
+        return "admin/user_insert";
+    }
 
     // // 사용자 정보 수정
     //  @GetMapping(value="/user_insert/{userNo}")

@@ -44,7 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="login" resultMap="userMap">
         SELECT u.user_no
               ,u.user_id
-              ,u.user_pw
               ,u.name
               ,u.address
               ,u.phone
@@ -86,4 +85,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES ( #{userId}, #{auth} )
     </insert>
     
+    <!-- 사용자 조회 -->
+    <select id="user_list" resultMap="userMap">
+        SELECT u.user_no
+              ,u.user_id
+              ,u.user_pw
+              ,u.name
+              ,u.address
+              ,u.phone
+              ,u.email
+              ,u.reg_date
+              ,u.upd_date
+              ,u.status
+              ,auth.auth
+        FROM users u LEFT OUTER JOIN auth auth 
+                    ON u.user_id = auth.user_id
+    </select>
+
+    <!-- 사용자 수정 -->
+    <update id="user_update">
+        UPDATE user
+           SET user_id = #{userId}
+              ,user_pw = #{userPw}
+              ,name = #{name}
+              ,email = #{email}
+              ,phone = #{phone}
+              ,status = #{status}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 사용자 삭제 -->
+    <delete id="user_delete">
+        DELETE FROM user
+        WHERE user_id = #{userId}
+    </delete>
+
     </mapper>

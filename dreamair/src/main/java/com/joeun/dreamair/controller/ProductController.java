@@ -55,8 +55,7 @@ public class ProductController {
 
         //* - 상품 등록       
         @GetMapping(value="/product_insert")
-            public String productInsert(Model model) {
-            model.addAttribute("product", new Product());
+            public String productInsert() {
                 return "product/product_insert";
         }
 
