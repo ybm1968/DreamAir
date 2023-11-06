@@ -1,6 +1,5 @@
 package com.joeun.dreamair.dto;
 
-import java.util.Date;
 import java.util.List;
 
 import lombok.Data;

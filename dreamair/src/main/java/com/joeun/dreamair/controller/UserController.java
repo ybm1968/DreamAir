@@ -18,15 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
-
 
 @Slf4j
 @Controller
@@ -267,23 +264,8 @@ public class UserController {
     //     return "user/booking";
     // }
     
-    // 아이디 중복 검사
-	@RequestMapping(value = "/userIdChk", method = RequestMethod.POST)
-    @ResponseBody
-	public String userIdChkPOST(String userId) throws Exception{
-			
-		int result = userService.idCheck(userId);
-		
-		log.info("아이디 중복 검사 결과값 = " + result);
-		
-		if(result != 0) {	
-			return "fail";	// 중복 아이디가 존재
-		} else {
-			return "success";	// 중복 아이디 x
-		}
-	} 
+
+    
     
     
 }
-
-

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.joeun.dreamair.dto.Files;
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.ProductIo;
 import com.joeun.dreamair.service.ProductService;

@@ -1,13 +1,10 @@
 package com.joeun.dreamair.dto;
 
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
-List<MultipartFile>
+@Data
 public class Product {
 
     // product 테이블

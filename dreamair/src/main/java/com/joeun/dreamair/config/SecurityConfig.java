@@ -1,6 +1,5 @@
 package com.joeun.dreamair.config;
 
-import javax.servlet.DispatcherType;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;

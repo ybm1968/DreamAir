@@ -1,7 +1,6 @@
 package com.joeun.dreamair.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;

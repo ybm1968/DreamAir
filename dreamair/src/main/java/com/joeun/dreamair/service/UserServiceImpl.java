@@ -1,7 +1,15 @@
 package com.joeun.dreamair.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
 import com.joeun.dreamair.dto.Auth;
@@ -26,7 +34,6 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public int insert(Users user) throws Exception {
-        
         // 비밀번호 암호화
         String userPw = user.getUserPw();
         String encodedPw = passwordEncoder.encode(userPw);
@@ -38,9 +45,8 @@ public class UserServiceImpl implements UserService {
         // auth 테이블에 데이터 추가
         if( result > 0 ) {
             Auth Auth = new Auth();
-            Auth.setUserId( username );
+            Auth.setUserId( user.getUserId() );
             Auth.setAuth("ROLE_USER");          // 기본 권한 : 사용자 권한 (ROLE_USER)
-            //Auth.setIsEnabled(1);           
             result = userMapper.insertAuth(Auth);
         }
 
