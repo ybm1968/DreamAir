@@ -65,6 +65,7 @@ public class HomeController {
         return "login";
     }
 
+
     /**
      * 회원 가입 화면
      * @param param
@@ -85,12 +86,10 @@ public class HomeController {
     @PostMapping(value="/join")
     public String joinPro(Users user, HttpServletRequest request) throws Exception {
         int result = userService.insert(user);
-        
+
         // 회원 가입 성공 시, 바로 로그인
         if( result > 0 ) {  
-            log.info("회원가입 성공");
-            // memberService.login(user);
-            //userService.login(user, request);
+            userService.login(user, request);
         }
 
         return "redirect:/";
@@ -105,7 +104,6 @@ public class HomeController {
     @GetMapping(value="/exception")
     public String error(Authentication auth, Model model) { // 보통 에러 페이지는 접근 권한이 없어 거부되거나 하는 경우에 오는 페이지니까 model에 객체로 어쩌구..
         log.info(auth.toString());
-        log.info("test");
         model.addAttribute("msg", "인증 거부 : " + auth.toString());
         return "exception";
     }

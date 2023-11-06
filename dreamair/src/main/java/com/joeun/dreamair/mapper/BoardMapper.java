@@ -27,6 +27,3 @@ public interface BoardMapper {
     public void views(int boardNo) throws Exception;
     
 }
-
-
-

@@ -3,6 +3,7 @@ package com.joeun.dreamair.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.joeun.dreamair.dto.Comment;
 
