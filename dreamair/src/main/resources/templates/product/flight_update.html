@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/admin_layout}"
+      >
+<head>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>항공기 정보 등록</title>
+</head>
+
+<body layout:fragment="content">
+
+    <div class="container">
+        <h1 style="text-align: center;">항공기 정보 등록</h1>
+
+        <form class="needs-validation" novalidate action="/product/flight_insert" method="post" th:object="${Product}">   
+            <!-- csrf -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <div class="row g-3">
+              <div class="input-group mb-3 row">
+                <label for="flightname" class="input-group-text col-md-2" id="">항공기명</label>
+                <input type="text" class="form-control col-md-10" name="flightname" placeholder="항공기명" value="${product.flightname}">
+              </div>
+
+              <div class="input-group mb-3 row">
+                <label for="routeNo" class="input-group-text col-md-2" id="">노선번호</label>
+                <input type="text" class="form-control col-md-10" name="routeNo" placeholder="노선번호" value="${product.routNo}">
+              </div>
+              
+              <div class="input-group mb-3 row">
+                <label for="departure" class="input-group-text col-md-2" id="">출발지</label>
+                <input type="text" class="form-control col-md-10" name="departure" placeholder="출발지" value="${product.departure}">
+              </div>
+
+              <div class="input-group mb-3 row">
+                <label for="destination" class="input-group-text col-md-2" id="">도착지</label>
+                <input type="text" class="form-control col-md-10" name="destination" placeholder="도착지" value="${product.destination}">
+              </div>
+              
+              <div class="input-group mb-3 row">
+                <label for="seatMax" class="input-group-text col-md-2" id="">좌석 수</label>
+                <input type="text" class="form-control col-md-10" name="seatMax" placeholder="좌석 수" value="${product.seatMax}">
+              </div>
+
+              <div class="input-group mb-3 row">
+                <label for="seatUsed" class="input-group-text col-md-2" id="">사용 중인 좌석 수</label>
+                <input type="text" class="form-control col-md-10" name="seatUsed" placeholder="사용 중인 좌석 수" value="${product.seatUsed}">
+              </div>
+
+              <div class="input-group mb-3 row">
+                <label for="seatReamining" class="input-group-text col-md-2" id="">잔여 좌석 수</label>
+                <input type="text" class="form-control col-md-10" name="seatReamining" placeholder="잔여 좌석 수" value="${product.seatReamining}" >
+              </div>
+
+            </div>
+  
+
+
+  
+            <hr class="my-4">
+  
+            <div class="d-flex justify-content-between">
+              <a href="/product/flight_list" class="btn btn-outline-primary btn-lg">취소</a>
+              <button type="submit" class="btn btn-outline-primary btn-lg">등록</button>
+          </div>
+        </form>
+
+       
+
+    </div>
+    
+</body>

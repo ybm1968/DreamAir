@@ -1,0 +1,86 @@
+<th:block th:fragment="header">
+    <header data-bs-theme="dark">
+      <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="/img/logo.png" alt="로고 이미지"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <!-- 메뉴 목록 (gnb) -->
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">DreamAir</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">출도착 항공편 조회</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/board/list">게시판</a>
+                </li>
+                <!-- 로그인 시 -->
+                <!-- <th:block sec:authorize="isAnonymous()"> -->
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/admin">관리자 페이지</a>
+                  </li>
+                <!-- </th:block> -->
+              </ul>
+
+              <!-- 비 로그인 시 -->
+              <th:block sec:authorize="isAnonymous()">
+                <ul class="navbar-nav d-flex align-items-center px-3">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/login">로그인</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/join">회원가입</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/user/cart"><img class="header_image" src="/img/white_cart.png" alt="장바구니">  장바구니 (0)</a>
+                  </li>
+                </ul>
+              </th:block>
+
+              <!-- 유저 프로필 -->
+              <!-- 로그인 시 -->
+              <th:block sec:authorize="isAuthenticated()">
+                <div class="dropdown text-end mx-3">
+                  <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                    <strong sec:authentication="principal.users.userId">아이디</strong>
+                  </a>
+                  <ul class="dropdown-menu text-small">
+                    <!-- 사용자 메뉴 -->
+                    <th:block sec:authorize="hasRole('ROLE_USER')">
+                      <li><a class="dropdown-item" href="/user">마이 페이지</a></li>
+                    </th:block>
+                    <li><a class="dropdown-item" href="/user/update">회원 정보 수정</a></li>
+                    <li><a class="dropdown-item" href="/user/booking">나의 탑승권 관리</a></li>
+                    <li><a class="dropdown-item" href="/user/checkIn">체크인</a></li>
+                    <li><a class="dropdown-item" href="/user/cart">장바구니 조회</a></li>
+                    <li><a class="dropdown-item" href="/user/mileage">마일리지 조회</a></li>
+                    <li><a class="dropdown-item" href="/user/delete">회원 탈퇴</a></li>
+                  
+                    
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <form action="/logout" method="post">
+                        <!-- csrf token -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="dropdown-item">로그아웃</button>
+                      </form>
+                    </li>
+
+              <!-- 검색창 -->
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+   </header>
+</th:block>

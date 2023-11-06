@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.joeun.dreamair.mapper.AdminMapper">
+
+<!-- 관리자 로그인 조회 -->
+<!-- <select id="admin_login" resultType="Admin">
+    SELECT *
+    FROM Admin
+    WHERE admin_id = #{adminId} AND admin_pw = #{adminPw}
+</select> -->
+
+
+<!-- <select id="admin_login" resultType="Admin">
+    SELECT a.admin_no
+          ,a.admin_id
+          ,a.admin_pw
+          ,auth.auth
+    FROM Admin a LEFT OUTER JOIN auth auth 
+                ON a.admin_id = auth.user_id
+    WHERE a.admin_id = #{adminId} AND a.admin_pw = #{adminPw}
+</select> -->
+
+<!-- 관리자 등록 -->
+<insert id="admin_insert">
+    INSERT INTO admin ( admin_id, admin_pw )
+    VALUES ( #{adminId}, #{adminPw} )
+</insert>
+
+<!-- 회원 권한 등록 -->
+<insert id="insertAuth">
+    INSERT INTO auth( user_id, auth ) 
+    VALUES ( #{userId}, #{auth} )
+</insert>
+
+<!-- 사용자 관리 -->
+<!-- 사용자 등록 -->
+<insert id="user_insert">
+INSERT INTO users ( user_no, auth_no, user_id, user_pw, name, address, phone, email, status) 
+VALUES(
+  #{userNo}, #{authNo}, #{userId}, #{userPw}, #{name}, #{address}, #{phone}, #{email}, #{status}
+)  
+</insert>
+
+<!-- 사용자 수정 -->
+<update id="user_update">
+UPDATE users
+SET auth_no = #{authNo}
+  , user_id = #{userId} 
+  , user_pw = #{userPw}
+  , name = #{name}
+  , address = #{address}
+  , phone = #{phone}
+  , email = #{email}
+  , status = #{status}
+WHERE user_no = #{userNo}
+</update>
+
+<!-- 사용자 삭제 -->
+<delete id="user_delete">
+DELETE FROM users
+WHERE user_no = #{userNo}
+</delete>
+
+<!-- 탑승권 전체 조회 -->
+<select id="ticket_list" resultType="Admin">
+    SELECT *
+    FROM ticket
+</select>
+
+<!-- 예매 전체 조회 -->
+<select id="booking_list" resultType="Admin">
+    SELECT *
+    FROM booking 
+</select>
+
+<select id="admin_list" resultType="Admin">
+SELECT *
+FROM admin
+</select>
+
+<!-- 탑승권 선택 조회 -->
+    <!-- // 전체 사용자 조회
+    public List<Users> user_list() throws Exception;
+
+    // 사용자 수동 등록
+    public int user_insert(Users users) throws Exception;
+    
+    // 사용자 정보 수정
+    public int user_update(int userNo) throws Exception;
+
+    // 사용자 정보 삭제
+    public int user_delete(int userNo) throws Exception;
+  
+    /**
+     * 탑승권 관리
+     */
+    // 탑승권 조회 : 항공기 번호를 입력 했을 때 당일에 한하여만 조회 가능, 체크인도 되어 있어야 함
+    public Product ticket_select(int ticketNo) throws Exception;
+
+    // 탑승권 목록 내역 조회(전체)
+    public List<Admin> ticket_list() throws Exception;
+
+    // 탑승 처리 : (탑승완료1, 미탑승0)
+    public int ticket_used(int ticket_no) throws Exception;
+
+    /**
+     * 예매 관리
+     */
+    // 전체 예매 내역 조회
+    public List<Admin> booking_list() throws Exception; -->
+
+
+
+
+</mapper>
