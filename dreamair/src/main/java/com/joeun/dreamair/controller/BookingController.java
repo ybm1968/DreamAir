@@ -56,10 +56,21 @@ public class BookingController {
     
 
     @GetMapping(value="/seat")
-    public String seat() {
+    public String seat(Model model, Booking booking) {
+        // 값을 조회
+        model.addAttribute("booking", booking);
+      
         return "user/seat";
     }
     
+    @PostMapping(value="/seat")
+    public String seatPro() {
+        
+        
+        return "user/notice";
+    }
+    
+
     @GetMapping(value="/notice")
     public String notice() {
         return "user/notice";

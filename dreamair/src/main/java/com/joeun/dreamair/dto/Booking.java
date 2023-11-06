@@ -16,8 +16,11 @@ public class Booking {
     private int routeNo;
     private String productId;
     private int pasCount;       // 탑승 인원
-    private String roundTrip;      // 왕복 여부(수정함)
+    private String roundTrip;      // 왕복 여부
     private String status;
+    private Date regDate;
+    private Date upDate;
+    private String ticketType;
 
     // passengers 테이블
     private int pinType;
@@ -38,12 +41,15 @@ public class Booking {
     private int ticketNo;
     private String departure;           // 출발지
     private String destination;         // 도착지
-    private String boarding;            // 탑승시간(수정함)
-    private String departureTime;         // 출발 시간(수정함)
-    private String destinationTime;       // 도착 시간(수정함)
-    private String duration;            // 소요시간(수정함)
+    private String boarding;            // 탑승시간
+    private String departureTime;         // 출발 시간
+    private String destinationTime;       // 도착 시간
+    private String departureDate;         // 출발 날짜
+    private String destinationDate;       // 도착 날짜
+    private String duration;            // 소요시간
     private int checkedIn;
     private int isBoarded;
+    private Date boardingTime;          // 실제 탑승시간
 
     // product 테이블
     // private int productNo;

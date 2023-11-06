@@ -25,7 +25,7 @@
           <h2 class="direction"><span id="depLoc"></span> → <span id="arrLoc"></span></h2>
         </div>
         <div class="modal-body">
-        <form id="frm3" method="post" action="./checkInPage">
+        <form id="frm3" action="/booking/seat" method="post" >
             <div class="modalInnerWrap">
                 <div class="modalInnerLeft">
                     <div class="left1">
@@ -34,10 +34,29 @@
                     <div class="depAir">
                     <div class="depSeat">
                         <div class="seat1">
+
+
+                            <div th:each="i : ${#numbers.sequence(1, 31)}">
+                                <div th:each="j : ${#numbers.sequence(1, 3)}">
+                                    <div th:switch="${j}">
+                                        <span th:case="1" th:with="c='A'"></span>
+                                        <span th:case="2" th:with="c='B'"></span>
+                                        <span th:case="3" th:with="c='C'"></span>
+                                    </div>
+                                    <!-- <label th:for="${'dep' + #lists.sequence('A', 'C')[j-1] + i}" class="bookable" th:title="${#lists.sequence('A', 'C')[j-1] + i}">
+                                        <input type="checkbox" th:id="${'dep' + #lists.sequence('A', 'C')[j-1] + i}" class="seat" th:title="${#lists.sequence('A', 'C')[j-1] + i}">
+                                    </label> -->
+                                    <label class="bookable">
+                                        <input type="checkbox"class="seat">
+                                    </label>
+                                </div>
+                                <br>
+                            </div>
+
                             <!-- 왼쪽줄을 나타냄 31줄 -->
-                            <c:forEach begin="1" end="31" var="i">      
+                            <!-- <c:forEach begin="1" end="31" var="i">       -->
                                 <!-- A, B, C 열을 나타냄 -->
-                                <c:forEach begin="1" end="3" var="j">
+                                <!-- <c:forEach begin="1" end="3" var="j">
                                     <c:choose>
                                         <c:when test="${j eq 1}">
                                             <c:set var="c" value="A"/>
@@ -52,11 +71,36 @@
                                     <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
                                 </c:forEach>
                                 <br>
-                            </c:forEach>
+                            </c:forEach> -->
                         </div>
                         <div class="seat2">
+
+
+                            <div th:each="i : ${#numbers.sequence(1, 32)}">
+                                <div th:each="j : ${#numbers.sequence(1, 3)}">
+                                    <!-- <div th:if="${j == 1}">
+                                        <span th:utext="'D'"></span>
+                                    </div>
+                                    <div th:if="${j == 2}">
+                                        <span th:utext="'E'"></span>
+                                    </div>
+                                    <div th:if="${j == 3}">
+                                        <span th:utext="'F'"></span>
+                                    </div> -->
+                                    <div th:switch="${j}">
+                                        <span th:case="1" th:with="c='A'"></span>
+                                        <span th:case="2" th:with="c='B'"></span>
+                                        <span th:case="3" th:with="c='C'"></span>
+                                    </div>
+                                    <label th:for="${'dep' + {'D', 'E', 'F'}[__${j}-1__] + __${i}__}" class="bookable" th:title="${{'D', 'E', 'F'}[__${j}-1__] + __${i}__}">
+                                        <input type="checkbox" th:id="${'dep' + {'D', 'E', 'F'}[__${j}-1__] + __${i}__}" class="seat" th:title="${{'D', 'E', 'F'}[__${j}-1__] + __${i}__}">
+                                    </label>
+                                </div>
+                                <br>
+                            </div>
+
                             <!-- 오른쪽줄을 나타냄 31줄 -->
-                            <c:forEach begin="1" end="32" var="i">
+                            <!-- <c:forEach begin="1" end="32" var="i">
                              <c:forEach begin="1" end="3" var="j">
                              <c:choose>
                                      <c:when test="${j eq 1}">
@@ -72,7 +116,7 @@
                                  <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
                               </c:forEach>
                               <br>
-                            </c:forEach>
+                            </c:forEach> -->
                         </div>
                      </div>
                     </div>
@@ -131,9 +175,9 @@
                         </div>
                     </div>
                     <div class="modalInnerRightDown">
-                                    <div> 예매번호  <span class="spanBookingNum"></span><input type="text" id="bookingNum" name="bookingNum"
+                                    <!-- <div> 예매번호  <span class="spanBookingNum"></span><input type="text" id="bookingNum" name="bookingNum"
                                             readonly="readonly" hidden="hidden">
-                                    </div>
+                                    </div> -->
                                     <div>
                                         인원 수 <input type="text" id="people" name="people"
                                             readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople"></span>명

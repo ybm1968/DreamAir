@@ -19,8 +19,8 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<Booking> list(Booking booking) throws Exception {
-        log.info("booking.destionation : " + booking.getDestination());
-        log.info("booking.출발날짜 : " + booking.getDepartureTime());
+        log.info("booking.도착지 : " + booking.getDestination());
+        log.info("booking.출발날짜 : " + booking.getDepartureDate());
 
         List<Booking> bookingList = bookingMapper.list(booking);
 
