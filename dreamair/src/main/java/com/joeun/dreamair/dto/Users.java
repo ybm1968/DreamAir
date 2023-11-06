@@ -9,7 +9,6 @@ import lombok.Data;
 public class Users {
     // users 테이블
     private int userNo;
-    private int authNo;
     private String userId;
     private String userPw;
     private String userPwCheck;     // 비밀번호 확인
@@ -28,6 +27,7 @@ public class Users {
 
     // auth 테이블
     private String auth;
+    private int authNo;
 
     // passport 테이블
     private String passportNo;

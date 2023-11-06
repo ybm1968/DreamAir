@@ -23,7 +23,7 @@ public class Admin {
     // flight 테이블
     private int flightNo;
     private String flightName;
-    private String seatNo;
+    private int routeNo;
     private int seatMax;
     private int seatRemaining;
     private int seatUsed;

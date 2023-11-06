@@ -21,13 +21,15 @@ public class Product {
     private int unitInStock;
     private String description;
     private String File;
-
+    
+    
     // seat 테이블
     private String seatNo;
     private int bookingNo;
     private String passengerName;
     private int flightNo;
     private String seatClass;
+    private String status;
 
     // flight 테이블
     // private int flightNo;
