@@ -9,7 +9,7 @@ public class Product {
 
     // product 테이블
     private int productNo;
-    private int productId;
+    private String productId;
     private int routeNo;
     private String name;
     private String productCat;
