@@ -1,7 +1,6 @@
 package com.joeun.dreamair.dto;
 
 import java.util.Date;
-
 import lombok.Data;
 
 @Data
@@ -9,15 +8,16 @@ public class Booking {
     // booking 테이블
     private int bookingNo;
     private String name;
-    private String seatNo;
+    private int seatNo;
     private int userNo;
     private int userNo2;
     private int productNo;
     private int routeNo;
-    private String productId;
     private int pasCount;       // 탑승 인원
     private String roundTrip;      // 왕복 여부(수정함)
     private String status;
+    private Date regDate;
+    private Date updDate;
 
     // passengers 테이블
     private int pinType;
