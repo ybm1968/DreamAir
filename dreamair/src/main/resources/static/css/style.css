@@ -1,11 +1,214 @@
+
+/* 헤더 header.html */
+.header_image {
+    width: 25px;
+    height: 25px;
+    z-index: 1;
+}
+
+.navbar-brand > img {
+    width: 60px;
+    height: 30px;
+}
+
+
+/* 메인 index.html */
 #back {
     width: 100%;
     height: 600px;
-    background-color: skyblue;
+    background-image: url(/img/main_background.jpg)
 
 }
 
 .container {
     margin-top: 100px;
     margin-bottom: 100px;
+}
+
+/** 푸터 footer.html */
+footer {
+    width: 100%;
+    height: 100%;
+    /* background-color: antiquewhite; */
+}
+
+.copyright {
+    display: inline-block;
+}
+
+.name {
+    display: inline-block;
+}
+
+.font {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.team > .name {
+    display: inline-block;
+    padding-left: 130px;
+    text-align: center;
+}
+
+.sns > span > a > img {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+/* copyright */
+.copyright {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    padding-left: 20px;
+    float: left;
+    width: 10%;
+    height: 30px;
+    z-index: 1;
+}
+
+.logo:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.logo > img {
+    width: 70px;
+    height: 70px;
+}
+
+.copy_content {
+    width: 70%;
+    text-align: center;
+}
+
+.copy {
+    text-align: center;
+}
+
+.sns {
+    padding-left: 30px;
+    width: 20%;
+    float: right;
+}
+
+.sns:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/**
+* 탑승권 최종 확인 토글 버튼
+*/
+/* label {
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 45px;
+    background: #d3d3d3;
+    border-radius: 60px;
+    transition: background 0.4s;
+  }
+
+  label::after {
+  content: "";
+  position: absolute;
+  left: 2.5px;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #fff;
+  transform: translateY(-50%);
+  box-shadow: 1px 3px 4px rgba(0,0,0,0.1);
+  transition: all 0.4s;
+}
+
+label::before {
+    content: "탑승완료";
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.4s;
+  }
+
+  #chk1:checked + label {
+    background:rgb(169, 183, 240)
+  }
+
+  #chk1:checked + label::after {
+    left: calc(100% - 42.5px);
+   }
+
+   #chk1:checked + label::before {
+    content: "ON";
+    color: #fff;
+    left: 15px;
+} */
+
+
+/**
+* 중복 아이디
+*/
+/* 중복아이디 존재하지 않는경우 */
+/* .id_input_re_1{
+    color : green;
+    display : none;
+} */
+/* 중복아이디 존재하는 경우 */
+/* .id_input_re_2{
+    color : red;
+    display : none;
+} */
+
+/* 로그인 실패시 경고 */
+/* .login_warn {
+    margin-top: 30px;
+    text-align: center;
+    color: red;
+} */
+
+
+ 
+/* 로그인 성공 영역 */
+/* .login_success_area{
+    height: 62%;
+    width: 80%;
+    border: 2px solid #7474ad;
+    border-radius: 15px;
+    margin: 5% auto;
+    padding-top: 5%;
+}
+.login_success_area>span{
+    display : block;
+    text-align: left;
+    margin-left: 10%;
+}
+.login_success_area>a{
+    font-size: 15px;
+    font-weight: 900;
+    display: inline-block;
+    margin-top: 5px;
+    background: #e1e5e8;
+    width: 82px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 25px;
+    color: #606267;    
+} */
+
+
+.login_checkbox > input[type=checkbox] {
+	display: block; 
 }

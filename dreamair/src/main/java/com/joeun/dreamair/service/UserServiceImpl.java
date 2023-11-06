@@ -31,16 +31,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    
     @Override
     public int insert(Users user) throws Exception {
         // 비밀번호 암호화
         String userPw = user.getUserPw();
         String encodedPw = passwordEncoder.encode(userPw);
         user.setUserPw(encodedPw);
-        // 회원 등록
-        int result = userMapper.insert(user);
 
-        // 권한 등록
+        // 회원 등록
+        int result = userMapper.insertUsers(user);
+
+        // auth 테이블에 데이터 추가
         if( result > 0 ) {
             Auth Auth = new Auth();
             Auth.setUserId( user.getUserId() );
@@ -48,13 +50,23 @@ public class UserServiceImpl implements UserService {
             result = userMapper.insertAuth(Auth);
         }
 
+        // mileage 테이블에 데이터 추가
+        if (result > 0) {
+            user.setUserId(user.getUserId());
+            result = userMapper.insertMileage(user);
+        }
+
         return result;
     }
+
+
 
     @Override
     public Users select(int userNo) throws Exception {
         return userMapper.select(userNo);
     }
+
+
 
     @Override
     public void login(Users user, HttpServletRequest requset) throws Exception {
@@ -80,12 +92,16 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+
+
     @Override
     public Users selectById(String userId) throws Exception {
         Users user = userMapper.selectById(userId);
         return user;
     }
 
+
+    
     @Override
     public int update(Users user) throws Exception {
         // 비밀번호 암호화
@@ -96,6 +112,26 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.update(user);
 
         return result;
+    }
+    
+    
+    // 회원 탈퇴
+    @Override
+    public Users delete(String userId) throws Exception {
+        
+        // 사용자를 삭제하고 삭제된 사용자 정보를 반환
+        Users deleteUser = userMapper.delete(userId);
+
+        return deleteUser;
+    }
+    
+
+    
+    @Override
+    public Users selectMileage(String userId) throws Exception {
+        
+        return userMapper.selectMileage(userId);
+        
     }
     
 }

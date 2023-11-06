@@ -36,7 +36,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>  -->
     
     <!-- 출발지, 도착지, 날짜, 승객 기준으로 항공권 조회 -->
-    <!-- 날짜에 like % ??? -->
     <select id="list" resultType="Booking">
       SELECT *
         FROM flight f left join product p on f.route_no = p.route_no

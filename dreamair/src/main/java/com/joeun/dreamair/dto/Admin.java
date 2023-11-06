@@ -1,5 +1,6 @@
 package com.joeun.dreamair.dto;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -12,7 +13,6 @@ public class Admin {
     private int authNo;
     private String adminId;
     private String adminPw;
-    private String adminPwCheck; // 암호화
 
     private List<Auth> authList;    
 

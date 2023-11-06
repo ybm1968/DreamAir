@@ -1,13 +1,15 @@
 package com.joeun.dreamair.dto;
 
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
 @Data
-public class Board {
+public class Board { 
 
-    // board 테이블
     private int boardNo; 
     private String writer;
     private String title;
@@ -18,25 +20,13 @@ public class Board {
     private int views;
     private int userNo;
     private int adminNo;
-
-    // comment 테이블
-    private int commentNo;
-    private int groupNo;
-    private int superNo;
-    private int depthNo;
-    private int seqNo;
-    private int subCount;
-
-    // file 테이블
-    private int fileNo;
-    private String parentTable;
-    private int parentNo;
+    private int like;
+    private List<Files> files;
+    private Files thumbnail;
     private String fileName;
-    private String originName;
-    private String filePath;
-    private int fileSize;
-    private int fileCode;
+    private String fileType;
+    
+     private List<MultipartFile> file;
 
-   
-   
+
 }

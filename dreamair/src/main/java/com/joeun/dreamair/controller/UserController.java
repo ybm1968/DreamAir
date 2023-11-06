@@ -1,6 +1,7 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.UserService;
 
@@ -37,8 +39,9 @@ public class UserController {
     @Autowired
     private PersistentTokenRepository persistentTokenRepository;
 
+
     /**
-     * 사용자 페이지
+     * 마이 페이지
      * @return
      */
     // 회원권한(ROLE_USER)을 가진 사용자만 접근 허용
@@ -50,12 +53,12 @@ public class UserController {
     public String index() {
         // int result = 10 / 0;
         // log.info(result + "");
-        return "index";
+        return "user/index";
     }
 
 
     /**
-     * 회원정보 수정
+     * 회원정보 수정 페이지
      * @param param
      * @return
      * @throws Exception
@@ -70,6 +73,7 @@ public class UserController {
 
         return "user/update";
     }
+    
 
     /**
      * 회원정보 수정 처리
@@ -108,29 +112,140 @@ public class UserController {
         // 로그아웃 후 ➡ 로그인 페이지
         return "redirect:/login";
     }
-    
-    // /**
-    //  * 주문 내역 페이지
-    //  * @throws Exception
-    //  */
-    // @GetMapping(value="/booking")
-    // public String booking(Model model, Principal principal, Booking booking) throws Exception {
-    //     List<Booking> bookingList = null;
-    //     // 회원 주문 내역 데이터 요청
-    //     if( principal != null ) {
-    //         log.info("회원 : " + principal.getName());
-    //         String userId = principal.getName();
-    //         bookingList = bookingService.listByUserId(userId);
-    //         booking = bookingService.sumBooking(userId);
-    //         log.info("booking : " + booking);
-    //         model.addAttribute("bookingList", bookingList);
-    //         model.addAttribute("booking", booking);
-    //     }
-        
-        
 
-    //     return "user/booking";
-    // }
+
+    /**
+     * 회원 탈퇴 페이지
+     * @param param
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value="/delete")
+    public String userDelete(Model model, Principal principal) throws Exception {
+        String loginId = principal != null ? principal.getName() : null;
+
+        Users user = userService.selectById(loginId);
+
+        model.addAttribute("user", user);
+
+        return "user/delete";
+    }
+    
+
+    /**
+     * 회원 탈퇴 처리
+     * @param principal
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/delete")
+    public String userDeleteProcess(Model model
+                                    ,Principal principal
+                                    ,Users user
+                                    , HttpServletRequest request
+                                    , HttpServletResponse response) throws Exception {
+
+        String loginId = principal != null ? principal.getName() : null;
+        
+        try {
+            
+            // 시큐리티 강제 로그아웃
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+            
+            log.info("test1");
+            
+            // remember-me 쿠키 삭제
+            Cookie cookie = new Cookie("remember-me", "");     
+            cookie.setMaxAge(0);                                  
+            cookie.setPath("/");        
+            response.addCookie(cookie);
+            
+            log.info("test2");
+            
+            // 토큰 삭제
+            persistentTokenRepository.removeUserTokens(user.getUserId());
+            
+            log.info("test3");
+            
+            userService.delete(loginId);
+            
+        } catch (Exception e) {
+
+            System.out.println("예외쓰~~~~~~~~~~~~~~");
+            
+            return "index";
+        }
+        
+        return "redirect:/";
+    }
+    
+
+    /**
+     * 회원 마일리지 조회 페이지
+     * @param user
+     * @param model
+     * @param principal
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "/mileage")
+    public String viewMileage(Users user, Model model, Principal principal) throws Exception {
+        String loginId = principal != null ? principal.getName() : null;
+
+        user = userService.selectById(loginId);
+        
+        Users mileageUser = userService.selectMileage(loginId);
+        user.setMileage(mileageUser.getMileage());
+
+        System.out.println(user);
+
+        model.addAttribute("user", user);
+
+        return "user/mileage";
+    }
+
+    
+
+    
+    /**
+     * 회원 체크인 페이지
+     * @param param
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value="/checkIn")
+    public String checkin(Model model, Principal principal) throws Exception {
+        String loginId = principal != null ? principal.getName() : null;
+
+        Users user = userService.selectById(loginId);
+
+        model.addAttribute("user", user);
+
+        return "user/checkIn";
+    }
+
+
+    /**
+     * 주문 내역 페이지
+     * @throws Exception
+     */
+    @GetMapping(value="/booking")
+    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+        List<Booking> bookingList = null;
+        // 회원 주문 내역 데이터 요청
+        if( principal != null ) {
+            log.info("회원 : " + principal.getName());
+            String userId = principal.getName();
+            // bookingList = bookingService.listByUserId(userId);
+            // booking = bookingService.sumBooking(userId);
+            log.info("booking : " + booking);
+            model.addAttribute("bookingList", bookingList);
+            model.addAttribute("booking", booking);
+        }
+        
+        return "user/booking";
+    }
 
 
     // @PostMapping(value="/booking")
@@ -154,3 +269,5 @@ public class UserController {
     
     
 }
+
+
