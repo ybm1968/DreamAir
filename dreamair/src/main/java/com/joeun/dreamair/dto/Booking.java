@@ -18,8 +18,8 @@ public class Booking {
     private int pasCount;       // 탑승 인원
     private String roundTrip;      // 왕복 여부
     private String status;
-    private Date regDate;
-    private Date upDate;
+    private String regDate;
+    private String upDate;
     private String ticketType;
 
     // passengers 테이블
@@ -49,7 +49,7 @@ public class Booking {
     private String duration;            // 소요시간
     private int checkedIn;
     private int isBoarded;
-    private Date boardingTime;          // 실제 탑승시간
+    private String boardingTime;          // 실제 탑승시간
 
     // product 테이블
     // private int productNo;

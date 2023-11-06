@@ -36,38 +36,38 @@
         <!-- 항공권 목록을 보여주는 섹션 -->
         <section>
 
-            <table class="table table-bordered" id="productTable" style="margin-top: 100px;">
+            <table class="table table-striped table-hover table-bordered text-center align-middle" id="productTable" style="margin-top: 100px;">
 
                 <th>
-                    <td class="td3t" >운항시간</td> 
-                    <td class="td2t">항공사</td> 
-                    <td class="td1t">편명</td> 
-                    <td class="td7t">가격</td>  
-                    <td class="td7t">잔여좌석</td>
-                    <td>장바구니</td>
-                    <td>예매하기</td>
+                    <tr class="tr3t" >운항시간</tr> 
+                    <tr class="tr2t">항공사</tr> 
+                    <tr class="tr1t">편명</tr> 
+                    <tr class="tr7t">가격</tr>  
+                    <tr class="tr7t">잔여좌석</tr>
+                    <tr>장바구니</tr>
+                    <tr>예매하기</tr>
                 </th>
 
                 <th:block th:if="${bookingList.isEmpty()}">
                     <tr>
-                        <td colspan="7" class="text-center">조회된 항공권이 없습니다.</td>
+                        <tr colspan="7" class="text-center">조회된 항공권이 없습니다.</tr>
                     </tr>
                 </th:block>
                 
                     <th:block th:each="booking : ${bookingList}">
                         <form action="/booking/info">
                             <tr>
-                                <td class="td3t" colspan="2"><span th:text="${booking.duration}"></span></td> 
-                                <td class="td2t">DramAir</td> 
-                                <td class="td1t"><span th:text="${booking.flightName}"></span></td> 
-                                <td class="td7t"><span th:text="${booking.productPrice}"></span></td>  
-                                <td class="td7t"><span th:text="${booking.seatRemaining}"></span></td>
-                                <td><a href="" class="btn btn-outline-primary btn-lg">장바구니</a></td>
+                                <tr class="tr3t" colspan="2"><span th:text="${booking.duration}"></span></tr> 
+                                <tr class="tr2t">DramAir</tr> 
+                                <tr class="tr1t"><span th:text="${booking.flightName}"></span></tr> 
+                                <tr class="tr7t"><span th:text="${booking.productPrice}"></span></tr>  
+                                <tr class="tr7t"><span th:text="${booking.seatRemaining}"></span></tr>
+                                <tr><a href="" class="btn btn-outline-primary btn-lg">장바구니</a></tr>
                                 <input type="hidden" name="productNo" th:value="${booking.productNo}" >
                                 <input type="hidden" name="routeNo" th:value="${booking.routeNo}" >
                                 <!-- <input type="hidden" name="producId" th:value="${booking.producId}" > -->
                                 <!-- 좌석번호, 예매번호는 나중에 insert문 말고 update문으로 값을 추가 -->
-                                <td><input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg"></td>
+                                <tr><input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg"></tr>
                             </tr>
                         </form>
                     </th:block>
