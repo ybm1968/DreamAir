@@ -58,6 +58,16 @@ public class UserController {
 
 
     /**
+     * 장바구니 페이지
+     * @return
+     */
+    @GetMapping(value = "/cart")
+    public String cart() {
+        return "user/cart";
+    }
+
+
+    /**
      * 회원정보 수정 페이지
      * @param param
      * @return
@@ -246,6 +256,9 @@ public class UserController {
         
         return "user/booking";
     }
+
+
+    
 
 
     // @PostMapping(value="/booking")
