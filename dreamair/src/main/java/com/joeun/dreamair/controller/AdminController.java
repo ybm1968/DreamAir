@@ -6,6 +6,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.dreamair.dto.Admin;
-import com.joeun.dreamair.dto.Member;
 import com.joeun.dreamair.service.AdminService;
 import com.joeun.dreamair.service.MemberService;
 import com.joeun.dreamair.service.UserService;
@@ -37,26 +37,23 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private MemberService memberService;
-    
      @Autowired
     private PasswordEncoder passwordEncoder;        // 비밀번호 암호화 객체 
 
    // /admin/, /admin
-   // 관리자 권한(ROLE_ADMIN)을 가진 사용자만 접근 허용
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
-    // @GetMapping(value={"/", ""})
-    // public String index() {
-    //     log.info("[GET] - /admin");
-    //     return "admin/index";
-    // }
+//    관리자 권한(ROLE_ADMIN)을 가진 사용자만 접근 허용
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value={"/", ""})
+    public String index() {
+        log.info("[GET] - /admin");
+        return "admin/index";
+    }
 
     // [관리자] index 화면 
-    @GetMapping(value={"/"})
-    public String index() {
-        return "/admin/index";
-    }
+    // @GetMapping(value={"/"})
+    // public String index() {
+    //     return "/admin/index";
+    // }
     
     // 관리자 목록 조회
     @GetMapping(value="/admin_list")

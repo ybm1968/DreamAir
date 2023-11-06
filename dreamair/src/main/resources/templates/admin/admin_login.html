@@ -12,13 +12,13 @@
 </head>
 
 <body layout:fragment="content">
-    <main class="form-signin my-5 w-100 m-auto pt-5" style="max-width: 360px;">
+    <main class="form-signin my-5 w-100 m-auto " style="max-width: 360px;">
         <!-- <form action="/admin/admin_login" method="post"> -->
           <form action="" method="post">
           <!-- CRSF TOKEN -->
           <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-          <h1 class="h3 mb-3 fw-normal text-center pt-5">로그인</h1>
+          <h1 class="h3 mb-3 fw-normal text-center ">로그인</h1>
       
           <div class="form-floating">
             <input type="text" class="form-control" name="username" id="username" placeholder="아이디" 

@@ -5,20 +5,19 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Files { 
+public class Files {
 
-    // file 테이블
     private int fileNo;
+    private int board_no;
     private String parentTable;
     private int parentNo;
     private String fileName;
     private String originName;
     private String filePath;
-    private int fileSize;
+    private long fileSize;
     private Date regDate;
     private Date updDate;
     private int fileCode;
     private String fileType;
-
-
+    
 }

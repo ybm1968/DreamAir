@@ -1,16 +1,3 @@
-/* 초기화 */
-* { margin: 0 auto;
-    padding: 0;
-    box-sizing: border-box; }
-
-li { list-style: none; }
-
-a { text-decoration: none;
-    color: inherit; }
-
-img { max-width: 100%; }
-
-button { cursor: pointer; }
 
 /* 헤더 header.html */
 .header_image {
@@ -24,11 +11,12 @@ button { cursor: pointer; }
     height: 30px;
 }
 
+
 /* 메인 index.html */
 #back {
     width: 100%;
     height: 600px;
-    background-color: skyblue;
+    background-image: url(/img/main_background.jpg)
 
 }
 
@@ -221,18 +209,6 @@ label::before {
 } */
 
 
-/**
-캘린더*/
-.ui-datepicker-trigger {						/* 캘린더 css 설정 */
-    margin-left: 25px;
-    width: 14%;
-    height: 38px;
-    font-weight: 600;
-    background-color: #dfe8f5;
-    font-size: 15px;
-    cursor:pointer;
-}
-input[name='publeYear'] {
-    width: 80%;
-    text-align: center;
+.login_checkbox > input[type=checkbox] {
+	display: block; 
 }

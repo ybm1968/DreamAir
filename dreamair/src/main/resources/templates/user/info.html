@@ -21,11 +21,14 @@
         <h2 style="text-align: center;">신분증 정보와 동일하게 입력해주세요.</h2>
 
         <form action="/booking/info" method="post">
-			
-        
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <input type="hidden" name="productNo" th:value="${booking.productNo}" />
+          <input type="hidden" name="routeNo" th:value="${booking.routeNo}" />
+         
+
           <div class="input-group mb-3 row">
             <label class="input-group-text col-md-2" id="">이름</label>
-            <input type="text" class="form-control col-md-10" name="name">
+            <input type="text" class="form-control col-md-10" name="passengerName">
           </div>
 
           <div class="input-group mb-3 row">
@@ -37,10 +40,30 @@
             <label class="input-group-text col-md-2" id="">성(영문)</label>
             <input type="text" class="form-control col-md-10" name="lastName">
           </div>
-          
+
+
+          <div class="radio-row" style="margin-bottom: 20px;">
+            <label class="radio-container m-r-45">남자 <input
+                type="radio" name="gender" value="남자" id="male" checked="checked">
+                <span class="radio-checkmark"></span>
+            </label> 
+            <label class="radio-container m-r-45">여자 <input
+                type="radio" name="gender" value="여자" id="female"> <span
+                class="radio-checkmark"></span>
+            </label>
+          </div>
+
           <div class="input-group mb-3 row">
             <label class="input-group-text col-md-2" id="">생년월일</label>
             <input type="text" class="form-control col-md-10" name="birth">
+          </div>
+
+          <div class="input-group mb-3 row">
+            <select name="pinType" id="">
+              <option value="1">주민등록증</option>
+              <option value="2">여권</option>
+              <option value="3">운전면허증</option>
+            </select>
           </div>
           
           <div class="input-group mb-3 row">

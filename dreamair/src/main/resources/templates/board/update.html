@@ -1,359 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/layout/main_layout}"
+    >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 수정</title>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    <!-- 사이드 바 -->
-    <aside id="sidebar">
-        <div class="top flex main-end">
-            <a href="javascript:;" id="btn-close">
-                <span class="material-symbols-outlined">close</span>
-            </a>
+<body layout:fragment="content">
+    <h1>게시글 수정</h1>
+    <form action="/board/update" method="POST" id="form">
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+        <table>
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title" th:value="${board.title}">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" th:value="${board.writer}">
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                    <textarea name="content" cols="40" rows="5" th:text="${board.content}"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <button type="button" onclick="moveList()">목록</button>
+            <button type="button" onclick="actionUpdate()">수정</button>
+            <button type="button" onclick="actionDelete()">삭제</button>
         </div>
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../board/list.html">Board</a></li>
-            <li><a href="../gallery/list.html">Gallery</a></li>
-        </ul>
-    </aside>
-
-    <!-- 헤더 -->
-    <header>
-        <!-- 로그인 | 회원가입 -->
-        <div class="util"></div>
-
-        <!-- 메인 메뉴 -->
-        <div class="menu">
-            <nav>
-                <ul class="pc">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../board/list.html">Board</a></li>
-                    <li><a href="../gallery/list.html">Gallery</a></li>
-                </ul>
-                <ul class="mobile">
-                    <li>
-                        <a href="../index.html"><span class="material-symbols-outlined">home</span></a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" id="btn-menu"><span class="material-symbols-outlined">menu</span></a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- 메인 -->
-    <section class="main container">
-        <div class="inner">
-            <!-- 제목 영역 -->
-            <div class="main-title">
-                <h1>게시글 수정</h1>
-                <p>커뮤니티 게시글 정보를 수정합니다.<p>
-            </div>
-
-            <!-- 게시글 수정 -->
-            <form action="http://192.168.30.119:8080/api/board" method="post">
-                <table class="board">
-                    <tr>
-                        <td class="label">제목</td>
-                        <td class="data">
-                            <input type="text" name="title" id="title" class="input-text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">작성자</td>
-                        <td class="data">
-                            <input type="text" name="writer" id="writer" class="input-text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">내용</td>
-                        <td class="data">
-                            <textarea name="content" id="content" cols="30" rows="10" 
-                                    class="input-textarea"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">파일</td>
-                        <td class="data">
-                            <input type="file" name="file" id="file" multiple>
-                            <!-- 파일 목록 -->
-                            <ul id="file-list"></ul>
-                        </td>
-                    </tr>
-                </table>
-
-                <div class="btn-box">
-                    <div class="item">
-                        <a href="list.html" class="btn">목록</a>
-                    </div>
-                    <div class="item">
-                        <a href="javascript:;" class="btn btn-update">수정</a>
-                        <a href="javascript:;" class="btn btn-delete">삭제</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- script -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
-    <!-- sweetalert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script src="../js/main.js"></script>
+    </form>
 
     <script>
-
-        // 현재 URL 가져오기
-        const urlParams = new URLSearchParams(location.search)
-        // ?boardNo=100   (100 <-- 글번호 가져오기)
-        let boardNo = urlParams.get('boardNo')
+        let form = document.getElementById('form')
+        // 👩‍💻 모델 객체를 자바스크립트에서 표현하는 방법
+        let boardNo = "[[${board.boardNo}]]"
         
-        if( boardNo != null ) {
-            getBoard()
-            getFileList()
+        // 목록으로 이동
+        function moveList() {
+            location.href = "/board/list"
         }
 
-        // 게시글 조회
-        function getBoard(){
-            const url = 'http://192.168.30.119:8080/api/board?boardNo=' + boardNo
-            
-            $.ajax({
-                url     : url,
-                type    : 'GET',
-                success : function(response) {
-                    let board = response
-
-                    $('#title').val(board.title)
-                    $('#writer').val(board.writer)
-                    $('#content').val(board.content)
-                },
-                error   : function(error) {
-
-                }
-
-            })
+        // 수정 요청
+        function actionUpdate() {
+            form.submit()
         }
 
-        // 수정 버튼 - 클릭 이벤트
-        $('.btn-update').on('click', function() {
-
-            // 게시글 수정 요청
-            let url = 'http://192.168.30.119:8080/api/board'
-
-
-            let formData = new FormData()       // 폼 데이터 객체
-
-            let title = $('#title').val()
-            let writer = $('#writer').val()
-            let content = $('#content').val()
-
-            formData.append('boardNo', boardNo)
-            formData.append('title', title)
-            formData.append('writer', writer)
-            formData.append('content', content)
-
-            // 파일 입력 가져오기
-            let file = $('#file')[0]
-            let files = file.files
-            // 파일 데이터 추가
-            for (let i = 0; i < files.length; i++) {
-                formData.append('file[]', files[i])
-            }
-
-            $.ajax({
-                url             :   url,
-                type            :   'PUT',
-                data            :   formData,
-                contentType     :   false,
-                processData     :   false,
-                success         : function(response, status) {
-                    if( response == 'SUCCESS' ){
-                        // alert('수정이 완료되었습니다.')
-                        Swal.fire(
-                            '완료!',
-                            '수정이 완료되었습니다.',
-                            'success'
-                        ).then((result) => {
-                            if( result.isConfirmed ) {
-                                // 읽기 페이지 이동
-                                location.href = 'read.html?boardNo=' + boardNo
-                            }
-                        })
-
-                    }
-                },
-                error           : function(request, status, error){
-                    // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                    Swal.fire(
-                        '에러!',
-                        'code:' + request.status,
-                        'error'
-                    )
-                }
-            })
-
-
-            
-        })
-
-        // 삭제 버튼 - 클릭 이벤트
-        $('.btn-delete').on('click', function() {
-
-
-            // let check = confirm('정말로 삭제하시겠습니까?')
-            
-            // if( !check ) 
-            //     return
-
-            Swal.fire({
-                    title: '정말로 삭제하시겠습니까?',
-                    text: "삭제하면 되돌릴 수 없습니다!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '예',
-                    cancelButtonText: '아니오',
-                }).then((result) => {
-                    // result.isConfirmed : true  [예]
-                    // result.isConfirmed : false  [아니오]
-                    if (result.isConfirmed) {
-                        deleteData(boardNo)
-                    }
-                })
-        })
-
-
-        // 게시글 삭제 요청
-        function deleteData() {
-            let url = 'http://192.168.30.119:8080/api/board'
-
-            let data = {
-                'boardNo' : boardNo
-            }
-
-            $.ajax({
-                url             :   url,
-                type            :   'DELETE',
-                data            :   data,
-                dataType        :   'text',                 // 응답 컨텐츠 타입
-                success         : function(response, status) {
-                    if( response == 'SUCCESS' ){
-                        // alert('삭제가 완료되었습니다.')
-                        Swal.fire(
-                            '완료!',
-                            '삭제가 완료되었습니다.',
-                            'success'
-                        ).then((result) => {
-                            if( result.isConfirmed ) {
-                               
-                            }
-                            // 목록 페이지로 이동
-                            location.href = 'list.html'
-                        })
-                    }
-                },
-                error           : function(request, status, error){
-                    // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                    Swal.fire(
-                        '에러!',
-                        'code:' + request.status,
-                        'error'
-                    )
-                }
-            })
-        }
-
-
-        // 파일 목록 조회
-        function getFileList() {
-
-            const url = 'http://192.168.30.119:8080/api/board/file?boardNo=' + boardNo
-
-            $.ajax({
-                url : url,
-                type : 'get',
-                success : function(response) {
-                    let fileList = response
-                    console.log(fileList)
-
-                    let fileListData = ''
-                    let fileUrl = 'http://192.168.30.119:8080/api/file'
-                    for (let i = 0; i < fileList.length; i++) {
-                        let fileNo = fileList[i].fileNo
-                        let fileName = fileList[i].fileName     // UID_강아지.png
-                        let originName = fileList[i].originName // 원본파일명
-                        let filePath = fileList[i].filePath
-
-                        let li = `<li>
-                                    <p>
-                                        <img src="${fileUrl}/img?fileNo=${fileNo}" style="width:240px" />
-                                    </p>
-                                    <span>${originName}</span>
-                                    <a href="${fileUrl}/${fileNo}">[다운로드]</a>
-                                    <a href="javascript:;" onclick="deleteFile(this)" data="${fileNo}">[삭제]</a>
-                                </li>  
-                                `
-                        fileListData += li
-                    }
-
-                    $('#file-list').html(fileListData)
-
-                },
-                error : function(error) {
-
-                }
-            })
-        }        
-
-
-        // 파일 삭제 
-        function deleteFile(e) {
-
-            // [확인] -> true -> 삭제
-            // [취소] -> false -> 삭제 안 함
+        // 삭제 요청
+        function actionDelete() {
             let check = confirm('정말로 삭제하시겠습니까?')
-            if( !check ) {
-                return
+            if( check ) {
+                form.action = '/board/delete'           // form 태그의 action 속성을 변경
+                form.submit()
             }
-
-            let fileNo = $(e).attr('data')
-
-            // 삭제 요청
-            const url = 'http://192.168.30.119:8080/api/file'
-
-            let data = {
-                fileNo : fileNo
-            }
-
-            $.ajax({
-                url : url,
-                type : 'DELETE',
-                data : data,
-                success : function(response) {
-
-                    if( response == 'SUCCESS' ) {
-                        getFileList()       // 파일 목록 갱신
-                    }
-                    
-                },
-                error : function(error) {
-
-                }
-            })
-
         }
-
 
     </script>
-
 </body>
 </html>

@@ -27,9 +27,6 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private MemberService memberService;
-
     /**
      * 메인 화면
      * @param model
@@ -42,10 +39,10 @@ public class HomeController {
         String loginId = principal != null ? principal.getName() : "guest";
         // String loginId = principal.getName();
         model.addAttribute("loginId", loginId);
-
         return "index";
     }
     
+
     /**
      * 로그인 화면
      * @return
@@ -80,6 +77,7 @@ public class HomeController {
         return "join";
     }
 
+    
     /**
      * 회원 가입 처리
      * @param user
@@ -107,7 +105,7 @@ public class HomeController {
      * @return
      */
     @GetMapping(value="/exception")
-    public String error(Authentication auth, Model model) {
+    public String error(Authentication auth, Model model) { // 보통 에러 페이지는 접근 권한이 없어 거부되거나 하는 경우에 오는 페이지니까 model에 객체로 어쩌구..
         log.info(auth.toString());
         log.info("test");
         model.addAttribute("msg", "인증 거부 : " + auth.toString());

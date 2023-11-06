@@ -14,6 +14,7 @@ public class Booking {
     private int userNo2;
     private int productNo;
     private int routeNo;
+    private String productId;
     private int pasCount;       // 탑승 인원
     private String roundTrip;      // 왕복 여부(수정함)
     private String status;
@@ -63,6 +64,17 @@ public class Booking {
     // private int seatMax;
     private int seatRemaining;
     // private int seatUsed;
+
+
+    // 왕복 변수 정리
+    /*
+     * 필요한 변수
+     * 가는날 오는날
+     * 가는날 : 출발시간(가는날 날짜 + 출발시간) 도착시간(가는날 날짜 + 도착시간)
+     * 오는날 : 출발시간(오는날짜 + 출발시간) 도착시간(오는날짜 + 도착시간) null 허용
+     * 추가할 테이블 : ticket, route v
+     * 돌아오는날 데이터 들어가는 행에있는 출발지 도착지는 반대로 값을 넣어야함
+     */
 
 
    

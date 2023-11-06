@@ -5,10 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.CustomUser;
-import com.joeun.dreamair.dto.Member;
-import com.joeun.dreamair.mapper.MemberMapper;
+import com.joeun.dreamair.dto.Users;
+import com.joeun.dreamair.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,10 +20,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
-
+    
     @Autowired
-    private MemberMapper memberMapper;
-
+    private UserMapper userMapper;
 
     /**
      *  사용자 정의 사용자 인증 메소드
@@ -36,41 +34,32 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("userId : " + username);
 
-        //Users user = userMapper.login(username);
-        Member member = new Member();
-        //boolean isEnabled = true;
-        // Member member = memberMapper.login(username);
-        // Member member2 = memberMapper.login2(username);
-        // Member member3 = memberMapper.admin_login(username);
-        member.setUserId(username);
-        member.setAdminId(username);
-        //member.setEnabled(1);
+        // Users users = userMapper.login(username);
 
-
-        log.info("member : " + member);
-        if (username==null) {
-            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
-        } else{
-            
-            if(member.getAdminId()!=null){
-                member = memberMapper.admin_login(username);
-                log.info("DB member : " + member);
-            } else if(member.getUserId()!=null){
-                member = memberMapper.login(username);
-                 log.info("DB  member : " + member);
-            } else {
-                member = memberMapper.login2(username);
-            }
-            
-            log.info("member : " + member);
-            
-            Auth auth = new Auth();
-            auth.setUserId(username);
-            
-            
+        // jdlkfjaslkdfjdkl : 일반회원
+        // noduser-01012341234
+        Users users = null;
+        
+        // 비회원
+        if( username.contains("GUEST-")) {
+            users = userMapper.login2(username);
+        } 
+        // 회원
+        else {
+            users = userMapper.login(username);
         }
-        // 🟢🟡🔴 CustomUser (➡User) 사용
-        CustomUser customUser = new CustomUser(member);
+
+        log.info("users : " + users);
+        // admin / 123456 / [ROLE_USER, ROLE_ADMIN]
+
+        CustomUser customUser = null;
+
+        if( users != null ) 
+            customUser = new CustomUser(users);
+        
         return customUser;
+    }
+
+    
 }
 }

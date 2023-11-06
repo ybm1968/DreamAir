@@ -24,12 +24,6 @@ public class Product {
     private int unitInStock;
     private String description;
     private String File;
-    private List<Files> files;
-    private Files thumbnail;
-    private String fileName;
-    private String fileType;
-    private List<MultipartFile> file; 
-
 
     // seat 테이블
     private String seatNo;

@@ -20,6 +20,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    
     @Override
     public int insert(Users user) throws Exception {
         
@@ -27,12 +31,11 @@ public class UserServiceImpl implements UserService {
         String userPw = user.getUserPw();
         String encodedPw = passwordEncoder.encode(userPw);
         user.setUserPw(encodedPw);
-        String username = user.getUserId();
 
         // 회원 등록
-        int result = userMapper.insert(user);
+        int result = userMapper.insertUsers(user);
 
-        // 권한 등록
+        // auth 테이블에 데이터 추가
         if( result > 0 ) {
             Auth Auth = new Auth();
             Auth.setUserId( username );
@@ -40,13 +43,50 @@ public class UserServiceImpl implements UserService {
             //Auth.setIsEnabled(1);           
             result = userMapper.insertAuth(Auth);
         }
+
+        // mileage 테이블에 데이터 추가
+        if (result > 0) {
+            user.setUserId(user.getUserId());
+            result = userMapper.insertMileage(user);
+        }
+
         return result;
     }
+
+
 
     @Override
     public Users select(int userNo) throws Exception {
         return userMapper.select(userNo);
     }
+
+
+
+    @Override
+    public void login(Users user, HttpServletRequest requset) throws Exception {
+
+        String username = user.getUserId();
+        String password = user.getUserPwCheck();
+        log.info("username : " + username);
+        log.info("password : " + password);
+
+        // 아이디, 패스워드 인증 토큰 생성
+        UsernamePasswordAuthenticationToken token 
+            = new UsernamePasswordAuthenticationToken(username, password);
+
+        // 토큰에 요청정보를 등록
+        token.setDetails( new WebAuthenticationDetails(requset) );
+
+        // 토큰을 이용하여 인증(로그인)
+        Authentication authentication = authenticationManager.authenticate(token);
+
+        User authUser = (User) authentication.getPrincipal();
+        log.info("인증된 사용자 아이디 : " + authUser.getUsername());
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+
 
     @Override
     public Users selectById(String userId) throws Exception {
@@ -54,6 +94,8 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+
+    
     @Override
     public int update(Users user) throws Exception {
         // 비밀번호 암호화
@@ -65,22 +107,25 @@ public class UserServiceImpl implements UserService {
 
         return result;
     }
-  
-    // 마일리지 등록
-    public int mileageInsert(int userNo) throws Exception {
-        int result = userMapper.mileageInsert(userNo);
-        return result;
-    }
+    
+    
+    // 회원 탈퇴
+    @Override
+    public Users delete(String userId) throws Exception {
+        
+        // 사용자를 삭제하고 삭제된 사용자 정보를 반환
+        Users deleteUser = userMapper.delete(userId);
 
-    public int latedUserNo() throws Exception {
-        int result = userMapper.latedUserNo();
-        return result;
+        return deleteUser;
     }
     
-    // 아이디 중복 검사
-	public int idCheck(String userId){
-        return userMapper.idCheck(userId);
+
+    
+    @Override
+    public Users selectMileage(String userId) throws Exception {
+        
+        return userMapper.selectMileage(userId);
+        
     }
-
-
+    
 }

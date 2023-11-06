@@ -5,7 +5,7 @@
             <h5 class="offcanvas-title" id="sidebarMenuLabel">DreamAir</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+          <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto w-100">
      
             <ul class="nav nav-pills flex-column">
 
@@ -13,50 +13,43 @@
               <!-- <th:block sec:authorize="isAuthenticated()"> -->
                 <th:block>
                 <li class="nav-item">
-                  <a href="/admin/index" class="nav-link d-flex align-items-center gap-2" aria-current="page" >
-                    <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                  <a href="/admin" class="nav-link d-flex align-items-center gap-2" aria-current="page" >
                     대시보드
                   </a>
                 </li>
 
                 <li class="nav-item">
                   <a href="/admin/admin_insert" class="nav-link d-flex align-items-center gap-2" >
-                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     관리자 등록
                   </a>
                 </li>
 
                 <li class="nav-item">
                   <a href="/admin/user_list" class="nav-link d-flex align-items-center gap-2" >
-                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     사용자 관리
                   </a>
                 </li>
 
                 <li class="nav-item">
                   <a href="/product/flight_list" class="nav-link d-flex align-items-center gap-2" >
-                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     항공기 관리
                   </a>
                 </li>
 
                 <li class="nav-item">
                   <a href="/product/product_list" class="nav-link d-flex align-items-center gap-2" >
-                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     상품 관리
                   </a>
                 </li>
 
                 <li class="nav-item">
                   <a href="/admin/booking_list" class="nav-link d-flex align-items-center gap-2" >
-                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     예매 관리
                   </a>
                 </li>
 
                 <li class="nav-item">
                   <a href="/admin/ticket_list" class="nav-link d-flex align-items-center gap-2" >
-                    <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                     사용자 탑승권 관리
                   </a>
                 </li>
