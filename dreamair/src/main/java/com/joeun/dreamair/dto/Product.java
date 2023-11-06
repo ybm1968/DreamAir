@@ -16,8 +16,8 @@ public class Product {
     private int productPrice;
     private String departure;
     private String destination;
-    private Date productRegDate;
-    private Date productUpdDate;
+    private String productRegDate;
+    private String productUpdDate;
     private int unitInStock;
     private String description;
     private String File;
@@ -50,7 +50,7 @@ public class Product {
     // private int routeNo;    
     // private String departure;     
     // private String destination;
-    private Date departureTime;     
-    private Date destinationTime;
+    private String departureTime;     
+    private String destinationTime;
 
 }

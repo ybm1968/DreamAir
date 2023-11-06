@@ -18,7 +18,7 @@ public interface AdminService {
     //  * 사용자 관리
     //  */
     // // 전체 사용자 조회
-    // public List<Users> user_list() throws Exception;
+    public List<Users> user_list() throws Exception;
 
     // // // 사용자 수동 등록
     // public int user_insert(Users users) throws Exception;

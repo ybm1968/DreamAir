@@ -6,24 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.dreamair.mapper.AdminMapper">
 
-<!-- 관리자 로그인 조회 -->
-<!-- <select id="admin_login" resultType="Admin">
-    SELECT *
-    FROM Admin
-    WHERE admin_id = #{adminId} AND admin_pw = #{adminPw}
-</select> -->
-
-
-<!-- <select id="admin_login" resultType="Admin">
-    SELECT a.admin_no
-          ,a.admin_id
-          ,a.admin_pw
-          ,auth.auth
-    FROM Admin a LEFT OUTER JOIN auth auth 
-                ON a.admin_id = auth.user_id
-    WHERE a.admin_id = #{adminId} AND a.admin_pw = #{adminPw}
-</select> -->
-
 <!-- 관리자 등록 -->
 <insert id="admin_insert">
     INSERT INTO admin ( admin_id, admin_pw )
@@ -36,13 +18,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     VALUES ( #{userId}, #{auth} )
 </insert>
 
-<!-- 사용자 관리 -->
+<!-- 사용자 조회 -->
+<select id="user_list" resultType="Users">
+    SELECT * FROM users
+</select>
+
 <!-- 사용자 등록 -->
 <insert id="user_insert">
-INSERT INTO users ( user_no, auth_no, user_id, user_pw, name, address, phone, email, status) 
-VALUES(
-  #{userNo}, #{authNo}, #{userId}, #{userPw}, #{name}, #{address}, #{phone}, #{email}, #{status}
-)  
+INSERT INTO users ( user_no, user_id, user_pw, name, address, phone, email, status) 
+VALUES(  #{user_no}, #{user_id}, #{userPw}, #{name}, #{address}, #{phone}, #{email}, #{status} )  
 </insert>
 
 <!-- 사용자 수정 -->

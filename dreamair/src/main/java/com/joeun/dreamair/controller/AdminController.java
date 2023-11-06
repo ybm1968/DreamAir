@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.dreamair.dto.Admin;
+import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.AdminService;
 import com.joeun.dreamair.service.UserService;
 
@@ -54,7 +55,7 @@ public class AdminController {
     
     // 관리자 목록 조회
     @GetMapping(value="/admin_list")
-    public String userlist(Model model) throws Exception {
+    public String adminlist(Model model) throws Exception {
         log.info("[GET] - /admin/admin_list");
 
         List<Admin> list = adminService.admin_list();
@@ -137,15 +138,15 @@ public class AdminController {
     
     // // [사용자 관리]
     // // 사용자 목록 조회
-    // @GetMapping(value="/user_list")
-    // public String userlist(Model model) throws Exception {
-    //     log.info("[GET] - /admin/user_list");
+    @GetMapping(value="/user_list")
+    public String userlist(Model model) throws Exception {
+        log.info("[GET] - /admin/user_list");
 
-    //     List<Users> list = adminService.user_list();
-    //     model.addAttribute("UserList", list);
+        List<Users> list = adminService.user_list();
+        model.addAttribute("UserList", list);
 
-    //     return "/admin/user_list";
-    // }
+        return "/admin/user_list";
+    }
 
     // 사용자 수동 등록     
     @GetMapping(value="/user_insert")

@@ -105,10 +105,19 @@ public class AdminServiceImpl implements AdminService {
     List<Admin> bookingList = adminMapper.booking_list();
     return bookingList;
   }
+
+  // 전체 관리자 조회
   @Override
   public List<Admin> admin_list() throws Exception {
     List<Admin> adminList = adminMapper.booking_list();
     return adminList;
+  }
+
+  // 전체 사용자 조회
+  @Override
+  public List<Users> user_list() throws Exception {
+    List<Users> userList = adminMapper.users_list();
+     return userList;
   }
   
 }

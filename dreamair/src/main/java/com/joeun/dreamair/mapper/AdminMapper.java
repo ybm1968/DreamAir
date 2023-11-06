@@ -11,6 +11,9 @@ import com.joeun.dreamair.dto.Users;
 @Mapper
 public interface AdminMapper {
     
+    // 전체 관리자 조회
+    public List<Users> users_list() throws Exception;
+
    /**
      * 관리자
      */
