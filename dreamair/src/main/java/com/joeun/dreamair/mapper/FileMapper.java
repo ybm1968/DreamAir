@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FileMapper {
 
     // 파일 목록
-    public List<Files> list() throws Exception;
+    public List<com.joeun.dreamair.dto.Files> list() throws Exception;
 
     // 파일 조회
     public Files select(int fileNo) throws Exception;
@@ -28,5 +28,9 @@ public interface FileMapper {
     
     // 파일 삭제 - 부모 기준
     public int deleteByParent(Files file) throws Exception;
+
+    public List<Files> selectFilesByProductNo(int productNo) throws Exception;
+
+    public Files selectThumbnail(Files file) thorws Exception;
 
 }

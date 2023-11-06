@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.joeun.dreamair.dto.Files;
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.ProductIo;
 import com.joeun.dreamair.service.ProductService;
@@ -25,6 +26,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private FileService fileService; 
 
     // @Autowired
     // private FileService fileService;
@@ -56,6 +60,14 @@ public class ProductController {
         //* - 상품 등록       
         @GetMapping(value="/product_insert")
             public String productInsert() {
+                // 파일
+                files.setParentTable("product");
+                files.setParentNo(productNo);
+                List<Files> fileList = fileService.listByparent(files);
+
+                // 모델등록
+                model.addAttribute("product", product);
+
                 return "product/product_insert";
         }
 

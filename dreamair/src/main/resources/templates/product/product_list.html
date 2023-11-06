@@ -37,6 +37,14 @@
                         <!-- <th>등록일자</th>
                         <th>수정일자</th> -->
                         <th colspan="2">비고</th>
+                        <!-- 파일 목록 -->
+                        <th:block th:each="file : ${fileList}">
+                            <img th:src="|/img/${board.fileName}|" alt="게시글 이미지" class="card-img-top" th:if="${board.fileType == 'img'}"/>
+                    <!--    <img id="imgId" th:src="@{/img/}+${file.fileName}" alt="첨부이미지" th:if="${file.filePath != null} and ${file.fileType == 'img'}"/>  -->
+                            <!-- 파일 다운로드 -->
+                            <a th:href="|/file/${file.fileNo}|" th:text="${file.originName}"></a>
+                            <button type="button" class="btn btn-danger btn-sm btn-file-delete" th:data="${file.fileNo}">삭제</button>
+                        </th:block>
                     </tr>
                     <tbody>
                         <!-- 목록이 없을 때 -->

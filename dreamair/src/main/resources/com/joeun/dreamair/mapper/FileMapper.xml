@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" -->
+<!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.joeun.dreamair.mapper.FileMapper">
 
     <!-- 파일 목록 -->
@@ -21,24 +21,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            📄 파일 번호 3
      -->
     <select id="listByParent" resultType="Files">
-        SELECT *
-        FROM file
-        WHERE parent_table = #{parentTable}
-          AND parent_no = #{parentNo}
-        ORDER BY reg_date DESC
+        SELECT a.*
+        , CASE WHEN INSTR(UPPER(origin_name), 'PNG') > 0 then 'img'
+				   WHEN INSTR(UPPER(origin_name), 'GIF') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'JPG') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'JPEG') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'BMP') > 0 then 'img'
+			       ELSE 'imgx'
+			       END fileType
+        FROM file a
+        WHERE a.parent_table = #{parentTable}
+          AND a.parent_no = #{parentNo}
+        ORDER BY a.reg_date DESC
     </select>
 
     <!-- 파일 조회 -->
     <select id="select" resultType="Files">
-        SELECT *
-        FROM file
-        WHERE file_no = #{fileNo}
+        SELECT a.*
+			, CASE WHEN INSTR(UPPER(origin_name), 'PNG') > 0 then 'img'
+				   WHEN INSTR(UPPER(origin_name), 'GIF') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'JPG') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'JPEG') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'BMP') > 0 then 'img'
+			       ELSE 'imgx'
+			       END fileType
+        FROM file a
+        WHERE a.file_no = #{fileNo}
     </select>
 
     <!-- 파일 등록 -->
     <insert id="insert">
-        INSERT INTO file( parent_table, parent_no, file_name, origin_name, file_path, file_size, file_code )
-        VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{filePath}, #{fileSize}, #{fileCode} )
+        INSERT INTO file( parent_table, parent_no, file_name, origin_name, file_path, file_size, file_code, board_no )
+        VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{filePath}, #{fileSize}, #{fileCode}, #{board_no} )
     </insert>
 
     <!-- 파일 수정 -->
@@ -57,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 파일 삭제 -->
     <delete id="delete">
         DELETE FROM file
-        WHERE file_no = #{fileNo}
+        WHERE board_no = #{board_no}
     </delete>
 
 
@@ -67,6 +81,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE parent_table = #{parentTable}
           AND parent_no = #{parentNo}
     </delete>
+    
+    <select id="selectFilesByBoardNo" resultType="Files">
+        SELECT * FROM Files WHERE parentNo = #{boardNo}
+    </select>
 
+
+    <!-- 썸네일 조회 -->
+    <select id="selectThumbnail" resultType="Files">
+        SELECT a.*
+         , CASE WHEN INSTR(UPPER(origin_name), 'PNG') > 0 then 'img'
+				   WHEN INSTR(UPPER(origin_name), 'GIF') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'JPG') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'JPEG') > 0 then 'img'
+			       WHEN INSTR(UPPER(origin_name), 'BMP') > 0 then 'img'
+			       ELSE 'imgx'
+			       END fileType
+        FROM file a
+        WHERE a.parent_table = #{parentTable}
+          AND a.parent_no = #{parentNo}
+          AND a.file_code = 0
+    </select>
 
 </mapper>

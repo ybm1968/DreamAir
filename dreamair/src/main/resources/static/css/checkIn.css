@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/* @charset "UTF-8";
 * {
 	padding: 0;
 	margin: 0;
@@ -239,10 +239,10 @@ input[type="text"] {
 input:focus {
 	outline: none;
 }
-
+/* 
 input[type=checkbox] {
 	display: none; 
-}
+} */
 
 input[type=checkbox]:disabled {
 	display: none;
@@ -444,4 +444,4 @@ label {
 input[type="text"]:hover{
 	    border: 1px solid #ccc;
     background-color: white;
-}
+} */

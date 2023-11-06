@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <resultMap type="Member" id="adminMap">
   <id property="adminNo" column="admin_no"/>
 
-  <result property="adminId" column="admin_id"/>
+  <result property="userId" column="user_id"/>
   <result property="adminPw" column="admin_pw"/>
 
   <collection property="authList" resultMap="authMap"></collection>
@@ -74,13 +74,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 관리자 조회 - id -->
     <select id="admin_login" resultMap="adminMap">
         SELECT a.admin_no
-              ,a.admin_id
+              ,a.user_id
               ,a.admin_pw
               ,auth.auth
               ,auth.isEnabled
         FROM Admin a LEFT OUTER JOIN auth auth 
-                    ON a.admin_id = auth.user_id
-        WHERE a.admin_id = #{adminId}
+                    ON a.user_id = auth.user_id
+        WHERE a.user_id = #{userId}
     </select>
 
     <!-- 회원 권한 등록 -->
