@@ -17,14 +17,15 @@ public class Users {
     private String address;
     private String phone;
     private String email;
-    private Date regDate;
-    private Date updDate;
+    private String regDate;
+    private String updDate;
     private String status;
 
     private List<Auth> authList;    
 
     // user2 테이블
     private int userNo2;
+
 
     // auth 테이블
     private String auth;
@@ -38,8 +39,7 @@ public class Users {
     private String expirationDate;
 
     // PIN 테이블
-    private String idCardNo;
-    private String idDriverNo;
+    private String pinName;
 
     // mileage 테이블
     private int mileage;
@@ -48,7 +48,7 @@ public class Users {
     private int pNo;
     private String series; 
     private String token;
-    private Date last_used;
+    private String last_used;
 
 
 }

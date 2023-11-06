@@ -15,8 +15,8 @@ public class Files {
     private String originName;
     private String filePath;
     private long fileSize;
-    private Date regDate;
-    private Date updDate;
+    private String regDate;
+    private String updDate;
     private int fileCode;
     private String fileType;
     
