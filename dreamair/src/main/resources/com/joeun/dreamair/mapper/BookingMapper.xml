@@ -42,8 +42,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				left join route r on f.route_no = r.route_no
         WHERE p.departure = #{departure}
           AND p.destination = #{destination}
-          AND SUBSTRING_INDEX(r.departure_Date, '~', 1) = #{departureDate};
-          <!-- and departure_Date between #{departureDate} and #{departureDate} -->
+          AND r.departure_date= SUBSTRING_INDEX(#{departureDate}, ' ~ ', 1);
+          <!-- OR r.departure_date= SUBSTRING_INDEX(#{departureDate}, ' ~ ', 2); -->
+          <!-- and departure_date between #{departureDate} and #{departureDate} -->
           <!-- 추후에 탑승객 조건도 추가해야함 -->
     </select> 
 

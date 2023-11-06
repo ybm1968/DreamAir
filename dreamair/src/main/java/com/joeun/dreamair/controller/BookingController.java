@@ -32,7 +32,9 @@ public class BookingController {
     @GetMapping(value="/list")
     public String list(Model model, Booking booking) throws Exception {
         log.info("booking.departure : " + booking.getDeparture());
+        log.info("탑승인원 : " + booking.getPasCount());
         List<Booking> bookingList = bookingService.list(booking);
+        // log.info("bookingList 출력확인 : " + bookingList.get(0).getPasCount());
         model.addAttribute("bookingList", bookingList);
 
         return "user/list";

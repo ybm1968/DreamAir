@@ -10,8 +10,11 @@
     <title>개발을 꿈꾸는 항공사</title>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-   
 
+    <!-- 폰트 어썸 라이브러리 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+   
 </head>
 
 <body layout:fragment="content">
@@ -25,8 +28,6 @@
                     <div class="tab-pane active" id="tab1">
                     <div class="tab_wrap">
 
-                        <!-- 왕복일때는 달력을 두번 편도일때는 한번 보여주고 왕복일때는 오는날짜 변수 추가해서 돌아오는값을 넣고 -->
-                        <!-- 편도일때는 지금처럼 하면됨 -->
                         <form action="/booking/list" method="GET"  id="frm">
         
                             <div class="radio-row" style="margin-bottom: 20px;">
@@ -38,23 +39,33 @@
                                     class="radio-checkmark"></span>
                                 </label>
                             </div>
-                            <!-- 설렉트로 변경 -->
+
                             <div id="body">
+
                                 <div class="input-group mid small">
-                                    <label class="label">출발지:</label> <input
-                                        class="input--style-1 t1" type="text" name="departure"
-                                        placeholder="지역 또는 공항명" required="required" id="loc">
+                                    <label class="label">출발지:</label>
+                                    <select name="departure" id="loc">
+                                        <option value="김포">김포</option>
+                                        <option value="제주">제주</option>
+                                        <option value="울산">울산</option>
+                                        <option value="부산">부산</option>
+                                        <option value="여수">여수</option>
+                                      </select>
+                                </div>
+                                
+                                <div class="input-group mid small">
+                                    <label class="label">도착지:</label>
+                                    <select name="destination" id="arrloc">
+                                        <option value="김포">김포</option>
+                                        <option value="제주">제주</option>
+                                        <option value="울산">울산</option>
+                                        <option value="부산">부산</option>
+                                        <option value="여수">여수</option>
+                                      </select>
                                 </div>
         
-                                <div class="input-group mid small">
-                                    <label class="label">도착지:</label> <input class="input--style-1"
-                                        type="text" name="destination" placeholder="지역 또는 공항명"
-                                        required="required" id="arrloc">
-                                </div>
-        
-                                <!-- 왕복일 경우 text 타입으로 출발일부터 돌아오는날까지 기간을 입력받거나 여유가 되면 달력을 보여주고 출발일과 돌아오는 날짜를 선택 -->
                                 <div class="input-group mid large">
-                                    <label class="label">탑승일:</label> <input class="input--style-12"
+                                    <label class="label">탑승일:</label> <input class="input--style-11"
                                         type="text" name="departureDate" placeholder="yyyy/mm/dd"
                                         id="input-start">
                                 </div>
@@ -66,14 +77,16 @@
                                         id="input-return">
                                 </div> -->
         
-                                <!-- <div class="input-group mid last">
+                                <div class="input-group mid last">
                                     
                                     <label class="label">탑승객:</label>
                                     <div class="input-group-icon" id="js-select-special">
                                         <input class="input--style-1-small" type="text"
-                                            name="traveller" value="성인 1, 아이 0" disabled="disabled"
-                                            id="info"> <i class="zmdi zmdi-chevron-down input-icon"
-                                            style="height: 100%; background-color: transparent;"></i>
+                                            name="pasCount" value="탑승인원" disabled="disabled"
+                                            id="info">
+                                            <i class="fa fa-chevron-down input-icon" style="height: 100%; background-color: transparent;"></i> 
+                                            <!-- <i class="zmdi zmdi-chevron-down input-icon"
+                                            style="height: 100%; background-color: transparent;"></i> -->
                                     </div>
         
         
@@ -81,27 +94,27 @@
                                         <ul class="list-room">
                                             <li class="list-room__item">
                                                 <ul class="list-person">
-                                                    <li class="list-person__item"><span class="name">성인</span>
+                                                    <li class="list-person__item"><span class="name">인원</span>
                                                         <div class="quantity quantity1">
                                                             <span class="minus" id="a_minus">-</span> 
-                                                            <input class="inputQty" type="number" min="0" value="1" name="adult" id="adult"> 
+                                                            <input class="inputQty" type="number" min="0" value="1" name="pasCount" id="adult"> 
                                                             <span class="plus">+</span>
                                                         </div>
                                                     </li>
                                                     
-                                                    <li class="list-person__item"><span class="name">아이</span>
+                                                    <!-- <li class="list-person__item"><span class="name">아이</span>
                                                         <div class="quantity quantity2">
                                                             <span class="minus">-</span> 
                                                             <input class="inputQty" type="number" min="0" value="0" name="child" id="child">
                                                             <span class="plus">+</span>
                                                         </div>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </li>
                                         </ul>
                                         
                                     </div>
-                                </div> -->
+                                </div>
         
                                 <div class="col-2">
                                     <button class="btn-submit" id="booking_btn" type="submit">검색</button>
@@ -124,24 +137,9 @@
         /*** dateRangePicker ***/
         //  $('#input-start').daterangepicker({
         //     singleDatePicker:false,
-        //     // autoApply: true,
+        //     autoApply: true,
         //       minDate: new Date() 
         //     });
-
-        $('input:radio[name=roundTrip]').click(function(){
-            if($('input:radio[id=eachWay]').is(":checked")){
-                     $('#input-start').daterangepicker({
-                        singleDatePicker:true,
-                         minDate: new Date()
-                        }); 
-                }else{
-                    $('#input-start').daterangepicker({
-                        singleDatePicker:false,	
-                        // autoApply: true,
-                         minDate: new Date()
-                        }); 	
-                }
-        });
 
         $('#input-start').daterangepicker({
             "minYear": 1000,
@@ -184,6 +182,22 @@
         console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
         
+        $('input:radio[name=roundTrip]').click(function(){
+            if($('input:radio[id=eachWay]').is(":checked")){
+                     $('#input-start').daterangepicker({
+                        singleDatePicker:true,
+                        autoApply: true,
+                        //  minDate: new Date()
+                        }); 
+                }else{
+                    $('#input-start').daterangepicker({
+                        singleDatePicker:false,	
+                        autoApply: true,
+                        //  minDate: new Date()
+                        }); 	
+                }
+        });
+
         /*** dateRangePicker 끝  ***/
     </script>
 </body>
