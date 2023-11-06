@@ -27,6 +27,8 @@ public interface ProductMapper {
     // 항공기 정보 삭제
     public int flight_delete(int flightNo) throws Exception;
 
+    // 항공기 번호(기본키) 최댓값
+    public int flight_maxPk() throws Exception;
 
     /**
      * 상품
@@ -45,6 +47,9 @@ public interface ProductMapper {
 
     // 상품(항공권) 삭제
     public int product_delete(int productNo) throws Exception;
+
+    // 상품(항공권)(기본키) 최댓값
+    public int product_maxPk() throws Exception;
 
     /**
      * 상품 입출고 등록

@@ -1,6 +1,8 @@
 package com.joeun.dreamair.dto;
 
-import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -52,5 +54,12 @@ public class Product {
     // private String destination;
     private String departureTime;     
     private String destinationTime;
+
+    private List<Files> files;
+    private Files thumbnail;
+    private String fileName;
+    private String fileType;
+    
+    private List<MultipartFile> file;
 
 }

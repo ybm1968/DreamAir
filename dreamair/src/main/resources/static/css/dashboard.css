@@ -1,5 +1,6 @@
 .bi {
   display: inline-block;
+  text-align: center;
   width: 1rem;
   height: 1rem;
 }

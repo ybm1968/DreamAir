@@ -20,7 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 사용자 조회 -->
 <select id="user_list" resultType="Users">
-    SELECT * FROM users
+    SELECT users.*, auth.*
+    FROM users
+    INNER JOIN auth ON users.user_id = auth.user_id
+    WHERE auth.auth = 'ROLE_USER'
+    AND users.user_id NOT IN (SELECT user_id FROM auth WHERE auth = 'ROLE_ADMIN');
 </select>
 
 <!-- 사용자 등록 -->
@@ -66,23 +70,7 @@ SELECT *
 FROM admin
 </select>
 
-<!-- 탑승권 선택 조회 -->
-    <!-- // 전체 사용자 조회
-    public List<Users> user_list() throws Exception;
-
-    // 사용자 수동 등록
-    public int user_insert(Users users) throws Exception;
-    
-    // 사용자 정보 수정
-    public int user_update(int userNo) throws Exception;
-
-    // 사용자 정보 삭제
-    public int user_delete(int userNo) throws Exception;
-  
-    /**
-     * 탑승권 관리
-     */
-    // 탑승권 조회 : 항공기 번호를 입력 했을 때 당일에 한하여만 조회 가능, 체크인도 되어 있어야 함
+<!--// 탑승권 조회 : 항공기 번호를 입력 했을 때 당일에 한하여만 조회 가능, 체크인도 되어 있어야 함
     public Product ticket_select(int ticketNo) throws Exception;
 
     // 탑승권 목록 내역 조회(전체)
@@ -95,9 +83,30 @@ FROM admin
      * 예매 관리
      */
     // 전체 예매 내역 조회
-    public List<Admin> booking_list() throws Exception; -->
+    public List<Admin> booking_list() throws Exception;   -->
 
+<!-- 탑승권 조회 -->
+<select id="ticket_select" resultType="Booking">
+    SELECT * FROM ticket WHERE departure_date = #{departureDate};
+</select>
 
-
+<!-- 탑승권 정보 수정 -->
+<update id="ticket_update">
+    UPDATE ticket
+    SET passenger_no = #{passengerNo}
+       ,passenger_name = #{passengerName}
+       ,departure = #{departure}
+       ,destination = #{destination}
+       ,departure_date = #{departureDate}
+       ,destination_dte = #{destinationDate}
+       ,departure_time = #{departureTime}
+       ,duration = #{duration}
+       ,boarding = #{boarding}
+       ,checked_in = #{checkedIn}
+       ,is_boarded = #{isBoarded}
+       ,route_no = #{routeNo}
+       ,boarding_time = #{boardingTime}
+    WHERE ticket_no = #{ticketNo} 
+</update>
 
 </mapper>

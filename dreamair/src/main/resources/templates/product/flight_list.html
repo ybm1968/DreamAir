@@ -26,6 +26,7 @@
                 <thead>
                     <tr class="table-primary">
                         <th>항공기 번호</th>
+                        <th>이미지</th>
                         <th>항공기 이름</th>
                         <th>노선번호</th>
                         <th>출발지</th>
@@ -41,13 +42,14 @@
                         <!-- 목록이 없을 때 -->
                         <th:block th:if="${FlightList.isEmpty()}">
                             <tr>
-                                <td colspan="12">등록된 항공기 정보가 없습니다.</td>
+                                <td colspan="13">등록된 항공기 정보가 없습니다.</td>
                             </tr>
                         </th:block>
                         <!-- 목록이 있을 때 -->
                         <th:block th:each="flight : ${FlightList}">
                             <tr>
                                 <td><span th:text="${flight.flightNo}"></span></td>                                
+                                <td><img th:src="|/${flight.fileName}|" alt="이미지" th:if="${flight.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>
                                 <td><span th:text="${flight.flightname}"></span></td>
                                 <td><span th:text="${flight.routNo}"></span></td>
                                 <td><span th:text="${flight.departure}"></span></td>
@@ -57,9 +59,13 @@
                                 <td><span th:text="${flight.seatMax}"></span></td>
                                 <td><span th:text="${flight.seatRemaining}"></span></td>
                                 <td><span th:text="${flight.seatUsed}"></span></td>
-                                <td><a th:href="|/product/flight_update?flightNo=${product.flightNo}|">수정</a></td>
-                                <td><a href="javascript:;">삭제</a></td>
-                                <td></td>
+                               
+                                <td colspan="2">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button class="btn btn-primary me-md-2" type="button"  th:href="|/product/flight_update?flightNo=${flight.flightNo}|">수정</button>            
+                                        <button class="btn btn-primary" type="button" th:href="|/product/flight_delete?flightNo=${flight.flightNo}|">삭제</button>
+                                    </div>
+                                </td>
                             </tr>
                         </th:block>
                     </tbody>
@@ -70,7 +76,7 @@
         <th:block th:if="${FlightList==null}" >
             <th:block th:if="${FlightList.isEmpty()}">
                 <tr>
-                    <td colspan="12">등록된 항공기 정보가 없습니다.</td>
+                    <td colspan="13">등록된 항공기 정보가 없습니다.</td>
                 </tr>
             </th:block>
         </th:block>

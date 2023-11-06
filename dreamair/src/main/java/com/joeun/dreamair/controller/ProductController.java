@@ -46,141 +46,124 @@ public class ProductController {
         return "product/product_list";
     }
 
-        // //* - 상품 조회        
-        // @GetMapping(value="/product_list")
-        // public String productselect(@ModelAttribute int productNo) throws Exception{
-        //     // Product product = productService.product_select(productNo);
-        //     return "product/product_list";
-        // }
+    //* - 상품 등록       
+    @GetMapping(value="/product_insert")
+        public String productInsert(@ModelAttribute Product product) {
+            return "product/product_insert";
+    }
 
-        //* - 상품 등록       
-        @GetMapping(value="/product_insert")
-            public String productInsert() {
-                return "product/product_insert";
+    //* - 상품 등록 처리  
+    @PostMapping(value="/product_insert")
+        public String productInsertPro(@ModelAttribute Product product) throws Exception {
+    
+        int result = productService.product_insert(product);
+
+        // 상품 입출고 처리(입고)
+        int productNo = product.getProductNo();
+        int amount = product.getUnitInStock();
+        String type = "IN";
+
+        ProductIo productIo = new ProductIo();
+        productIo.setProductNo(productNo);
+        productIo.setAmount(amount);
+        productIo.setType(type);
+
+        int result2 = productService.productIO_insert(product);
+        if( result2 == 0 ){
+            log.info("상품 입출고 중 에러 발생");
         }
 
-        //* - 상품 등록 처리  
-        @PostMapping(value="/product_insert")
-            public String productInsertPro(Product product) throws Exception {
-        //         // 필수값 없으면 다시 상품 등록 페이지로
-        // if(bindingResult.hasErrors()){
-        //     return "item/itemForm";
-        // }
+        if( result == 0 ) return "product/product_insert";
+        return "redirect:/product/product_list";
+    }
 
-        // if(itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null){
-        //     model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
-        //     return "item/itemForm";
-        // }
+    //* - 상품 수정   
+    @GetMapping(value="/product_update")
+    public String productUpdate(Model model, int productNo) throws Exception {
+        Product product = productService.product_update(productNo);
+        model.addAttribute("product", product);                    
+        return "product/product_update";
+    }
 
-        // try {
-        //     // 상품 저장 로직 호출
-        //     itemService.saveItem(itemFormDto, itemImgFileList);
-        // } catch (Exception e){
-        //     model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
-        //     return "item/itemForm";
-        // }
-                 int result = productService.product_insert(product);
+    //* - 상품 수정 처리     
+    @PostMapping(value="/product_update")
+    public String productUpdatePro(Product product) throws Exception {
+        log.info("[POST] - /product/product_update");
+        int result = productService.product_insert(product);
+        int productNo = product.getProductNo();
 
-                // 상품 입출고 처리(입고)
-                int productNo = product.getProductNo();
-                int amount = product.getUnitInStock();
-                String type = "IN";
+        if( result == 0 ) return "redirect:/product/product_update?productNo" + productNo;
+        return "redirect:/product/product_list";
+    }
 
-                ProductIo productIo = new ProductIo();
-                productIo.setProductNo(productNo);
-                productIo.setAmount(amount);
-                productIo.setType(type);
+    //* - 상품 삭제 처리       
+    @PostMapping(value="/product_delete")
+    public String productDelete(int productNo) throws Exception {
+        log.info("[POST] - /product/product_delete");
+        int result = productService.product_delete(productNo);
 
-                int result2 = productService.productIO_insert(product);
-                if( result2 == 0 ){
-                    log.info("상품 입출고 중 에러 발생");
-                }
+        if(result == 0) return "redirect:/product/product_update?productNo=" + productNo;
+        return "redirect:/product/product_list";
+    }
 
-                if( result == 0 ) return "product/product_insert";
-            return "redirect:/product/product_list";
-        }
+    // 항공기
+    //* - 항공기 목록 
+    @GetMapping(value="/flight_list")
+    public String flight_list(Model model) throws Exception {
+        log.info("[GET] - /product/flight_list");
 
-        //* - 상품 수정   
-        @GetMapping(value="/product_update/{productNo}")
-        public String productUpdate(@PathVariable("productNo") int productNo, Model model) throws Exception {
-           
-            model.addAttribute("product", productService.product_update(productNo));
-                        
-            return "product/product_update";
-        }
+        List<Product> flightList = productService.flight_list();
+        model.addAttribute("FlightList", flightList);
+        
+        return "product/flight_list";
+    }
 
-        //* - 상품 수정 처리     
-        @PostMapping(value="/product_update")
-        public String productUpdatePro(@ModelAttribute Product product) throws Exception {
-                int result = productService.product_insert(product);
-                if( result == 0 ) return "redirect:/product/product_update";
-            return "redirect:/product/product_list";
-        }
+    //* - 항공기 등록       
+    @GetMapping(value="/flight_insert")
+        public String flightInsert() {
+        return "product/flight_insert";
+    }
 
-        //* - 상품 삭제 처리       
-        @GetMapping(value="/product_delete")
-        public String productDelete(@RequestParam int productNo) throws Exception {
-            productService.product_delete(productNo);
-           return "redirect:/product/product_list";
-        }
+    //* - 항공기 등록 처리  
+    @PostMapping(value="/flight_insert")
+        public String flightInsertPro(Product flight) throws Exception {
+        log.info("[POST] - /product/flight_lnsert");
 
-        // 항공기
+        int result = productService.flight_insert(flight);
+        if( result == 0 ) return "redirect:/product/flight_insert";
+        return "redirect:/product/flight_list";
+    }
 
-         //* - 항공기 목록 
-        @GetMapping(value="/flight_list")
-        public String flight_list(Model model) throws Exception {
-            log.info("[GET] - /product/flight_list");
+     //* - 항공기 수정   
+    @GetMapping(value="/flight_update")
+    public String flightUpdate(Model model, int flightNo) throws Exception {
+        log.info("[GET] - /product/flight_update");
 
-            List<Product> flightList = productService.flight_list();
-            model.addAttribute("FlightList", flightList);
-            return "product/flight_list";
-        }
+        Product flight = productService.product_update(flightNo);
+        model.addAttribute("flight", flight);                    
+        return "product/flight_update";
+    }
 
-        // //* - 항공기 조회        
-        // @GetMapping(value="/product_list")
-        // public String productselect(@ModelAttribute int productNo) throws Exception{
-        //     // Product product = productService.product_select(productNo);
-        //     return "product/product_list";
-        // }
+    //* - 항공기 수정 처리     
+    @PostMapping(value="/flight_update")
+    public String flightUpdatePro(Product flight) throws Exception {
+        log.info("[POST] - /product/flight_update");
 
-        //* - 항공기 등록       
-        @GetMapping(value="/flight_insert")
-            public String flightInsert(@ModelAttribute Product product) {
-            return "product/flight_insert";
-        }
+        int result = productService.flight_insert(flight);
+        int flightNo = flight.getFlightNo();
 
-        //* - 항공기 등록 처리  
-        @PostMapping(value="/flight_insert")
-            public String flightInsertPro(@ModelAttribute Product product) throws Exception {
-                int result = productService.flight_insert(product);
-                if( result == 0 ) return "redirect:/product/flight_insert";
-            return "redirect:/product/flight_list";
-        }
+        if( result == 0 ) return "redirect:/product/flight_update?flightNo" + flightNo;
+        return "redirect:/product/flight_list";
+    }
 
-        //* - 항공기 수정   
-        @GetMapping(value="/flight_update/{flightNo}")
-        public String flightUpdate(@PathVariable("flightNo") int flightNo, Model model) throws Exception {
-           
-            model.addAttribute("flight", productService.flight_update(flightNo));
-                        
-            return "product/flight_update";
-        }
+    //* - 항공기 삭제 처리       
+    @GetMapping(value="/flight_delete")
+    public String flightDelete(int flightNo) throws Exception {
+        log.info("[POST] - /product/flight_delete");
 
-        //* - 항공기 수정 처리     
-        @PostMapping(value="/flight_update")
-        public String flightUpdatePro(@ModelAttribute Product product) throws Exception {
-                int result = productService.flight_insert(product);
-                if( result == 0 ) return "redirect:/product/flight_update";
-            return "redirect:product/flight_list";
-        }
-
-        //* - 항공기 삭제 처리       
-        @GetMapping(value="/flight_delete")
-        public String flightDelete(@RequestParam int flightNo) throws Exception {
-            productService.flight_delete(flightNo);
-           return "redirect:/product/flight_list";
-        }
-
-
+        int result = productService.flight_delete(flightNo);
+        if(result == 0) return "redirect:/product/flight_update?productNo=" + flightNo;
+        return "redirect:/product/flight_list";
+    }
 
 }

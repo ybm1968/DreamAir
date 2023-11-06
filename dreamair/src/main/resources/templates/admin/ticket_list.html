@@ -11,6 +11,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>탑승권 관리</title>
+    <style type="text/css">
+        .toggleBG{background:#CCCCCC; width:70px; height:30px; border:1px solid #CCCCCC; border-radius: 15px;}
+        .toggleFG{background:#FFFFFF; width:30px; height:30px; border:none; border-radius:15px; position:relative; left:0px;}
+    </style>
 </head>
 <body layout:fragment="content">
     <h1 class="text-center my-3">탑승권 관리</h1>
@@ -19,8 +23,14 @@
         <div class="col-5">
             <label for="flightNo" class="form-label">항공기 조회</label>
             <div class="input-group has-validation">
-              <input type="text" class="form-control" id="flightNo" placeholder="항공기 번호" value="${product.flightNo}">
+              <input type="text" class="form-control" id="flightNo" placeholder="항공기 번호">
             </div>
+            <input type="text" class="form-control" id="filter" placeholder="필터">
+            <select id="ticket_search_Keword">
+                <option value="1">체크인 완료</option>
+                <option value="2">탑승 완료</option>
+                <option value="3">체크인+탑승 완료</option>
+            </select>
         </div>
         <span class="btn btn-outline-primary btn-lg"><a href="#">항공기 조회</a></span>
     </div>
@@ -68,6 +78,7 @@
                                 <!-- <th:block th:if="${!TicketList.isEmpty()}">
                                     <td colspan="2"><div><input type="checkbox" id="finalChecking"/><label for="switch">미탑승</label></div></td>
                                 </th:block> ticketNo랑 checkbox 값 같이 보내기-->
+                                <div class='toggleBG'><button class='toggleFG'><label for="switch">미탑승</label></button></div>
                                 <td></td>
                             </tr>
                         </th:block>
@@ -83,5 +94,36 @@
                 </tr>
             </th:block>
         </th:block>
+<script>
+    $(document).on('click','.toggleBG', function(){
+        var toggleBG = $(this);
+        var toggleFG = $(this).find('.toggleFG');
+        var left = toggleFG.css('left');
+        if(left=='40px'){
+            toggleBG.css('background','#CCCCCC');
+            toggleActionStart(toggleFG,'TO_LEFT');
+        }else if(left=='0px'){
+            toggleBG.css('background','#53FF4C');
+            toggleActionStart(toggleFG,'TO_RIGHT');
+    }});
+
+    // 토글 버튼 이동 모션 함수
+    function toggleActionStart(toggleBtn, LR) { // 0.01초 단위로 실행    
+        var intervalID = setInterval(function() { // 버튼 이동            
+            var left=parseInt(toggleBtn.css('left'));
+            left+=(LR=='TO_RIGHT')?5:-5;
+            if(left>=0&&left<=40){
+                left+='px';
+                toggleBtn.css('left',left);}},10);
+                setTimeout(function(){clearInterval(intervalID);},201);}
+
+ function getToggleBtnState(toggleBtnId){
+    const left_px=parseInt(
+        $('#'+toggleBtnId).css('left'));
+        return (left_px>0)?"on":"off";}
+
+                
+</script>
+
     </body>
 </html>        
