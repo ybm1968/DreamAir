@@ -32,3 +32,4 @@ public interface FileMapper {
     // 파일 조회
     public Files selectThumbnail(Files file) throws Exception;
 }
+

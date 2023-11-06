@@ -8,6 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
+
+
 </head>
 
 <body layout:fragment="content">
@@ -50,13 +52,20 @@
         
                                 <!-- 왕복일 경우 text 타입으로 출발일부터 돌아오는날까지 기간을 입력받거나 여유가 되면 달력을 보여주고 출발일과 돌아오는 날짜를 선택 -->
                                 <div class="input-group mid large">
-                                    <label class="label">탑승일:</label> <input class="input--style-1"
-                                        type="text" name="date" placeholder="yyyy/mm/dd"
+                                    <label class="label">가는날:</label> <input class="input--style-1"
+                                        type="date" name="departureTime" placeholder="yyyy/mm/dd"
                                         id="input-start">
                                 </div>
+
+                                <!-- 편도일 때는 안보여주고 왕복일때만 보여줌 -->
+                                <div class="input-group mid large">
+                                    <label class="label">오는날:</label> <input class="input--style-1"
+                                        type="date" name="departureTime" placeholder="yyyy/mm/dd"
+                                        id="input-return">
+                                </div>
         
-                                <div class="input-group mid last">
-        
+                                <!-- <div class="input-group mid last">
+                                    
                                     <label class="label">탑승객:</label>
                                     <div class="input-group-icon" id="js-select-special">
                                         <input class="input--style-1-small" type="text"

@@ -23,9 +23,3 @@ user_layout.html
 
 - 2023.11.01
 1) 폴더 정리
-
-2) Admin : AdminMapper.xml / AdminMapper.java / AdminService.java / AdminServiceImpl.java 수정 및 서버 연동 첫 성공 
-
-- 2023. 11. 03
-Layout 관련 파일 완료
-link.html 수정 및 css, js 추가

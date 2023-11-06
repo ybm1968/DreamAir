@@ -58,6 +58,16 @@ public class UserController {
 
 
     /**
+     * 장바구니 페이지
+     * @return
+     */
+    @GetMapping(value = "/cart")
+    public String cart() {
+        return "user/cart";
+    }
+
+
+    /**
      * 회원정보 수정 페이지
      * @param param
      * @return
@@ -248,6 +258,9 @@ public class UserController {
     }
 
 
+    
+
+
     // @PostMapping(value="/booking")
     // public String bookingPost(Model model, Principal principal, Booking booking) throws Exception {
     //     List<Booking> bookingList = null;
@@ -269,3 +282,5 @@ public class UserController {
     
     
 }
+
+

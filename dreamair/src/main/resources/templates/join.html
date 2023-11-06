@@ -21,29 +21,23 @@
   
               <div class="col-12">
                 <label for="userId" class="form-label">아이디</label>
-                <div class="in_input_box">
-                  <div class="input-group has-validation">
-                    <!-- <span class="input-group-text">아이디</span> -->
-                    <input type="text" class="form-control" id="userId" placeholder="아이디" required
-                          name="userId">
-                    <div class="invalid-feedback">
-                      Your username is required.
-                    </div>
+                <div class="input-group has-validation">
+                  <!-- <span class="input-group-text">아이디</span> -->
+                  <input type="text" class="form-control" id="userId" placeholder="아이디" required
+                         name="userId">
+                  <div class="invalid-feedback">
+                    Your username is required.
                   </div>
-                  <span class="id_input_re_1">사용 가능한 아이디 입니다.</span>
-                  <span class="id_input_re_2">아이디가 이미 존재합니다.</span>
                 </div>
               </div>
 
               <div class="col-12">
                 <label for="userPw" class="form-label">비밀번호</label>
-      
-                  <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="userPw" placeholder="비밀번호" required
-                          name="userPw">
-                    <div class="invalid-feedback">
-                      Your username is required.
-                    </div>
+                <div class="input-group has-validation">
+                  <input type="password" class="form-control" id="userPw" placeholder="비밀번호" required
+                         name="userPw">
+                  <div class="invalid-feedback">
+                    Your username is required.
                   </div>
                 </div>
               </div>
@@ -103,24 +97,6 @@
         </form>
     
     </main>
-<script>
-  //아이디 중복검사
-$('.id_input').on("propertychange change keyup paste input", function(){
 
-  var memberId = $('.id_input').val();			// .id_input에 입력되는 값
-	var data = {userId : userId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
-	
-	$.ajax({
-		type : "post",
-		url : "/user/userIdChk",
-		data : data,
-    success : function(result){
-			 console.log("성공 여부" + result);
-			
-		}// success 종료
-	}); // ajax 종료		
-
-});
-</script>
 </body>
 </html>
