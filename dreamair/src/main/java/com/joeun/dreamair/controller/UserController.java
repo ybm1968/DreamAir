@@ -214,7 +214,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @GetMapping(value="/checkin")
+    @GetMapping(value="/checkIn")
     public String checkin(Model model, Principal principal) throws Exception {
         String loginId = principal != null ? principal.getName() : null;
 
@@ -222,7 +222,7 @@ public class UserController {
 
         model.addAttribute("user", user);
 
-        return "user/checkin";
+        return "user/checkIn";
     }
 
 

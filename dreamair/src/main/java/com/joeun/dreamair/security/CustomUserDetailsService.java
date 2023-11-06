@@ -41,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Users users = null;
         
         // 비회원
-        if( username.contains("nouser-")) {
+        if( username.contains("GUEST-")) {
             users = userMapper.login2(username);
         } 
         // 회원

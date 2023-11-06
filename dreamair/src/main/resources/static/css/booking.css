@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+/******************* bookingMain1 ********************/
+.mid {
+	height: 50px;
+	float: left;
+	margin-right: 10px;
+}
+
+.large {
+	width: 266px;
+}
+
+.small {
+	width: 213px;
+}
+
+.last{
+	width: 200px;
+}
+
+#body {
+	float: left;
+}
+
+#booking_btn {
+	float: left;
+	position: absolute;
+	margin-left: 20px;
+}
+
+#locSearch {
+	margin-left: 95px;
+}
+
+.search {
+    position: absolute;
+    top: 367px;
+    left: 325px;
+    border-radius: 10px;
+    width: 213px;
+    background-color: white;
+    font-size: 16px;
+    color: #666;
+    padding-left: 85px;
+    line-height: 36px;
+}
+
+#deplocSearch {
+	margin-left: 320px;
+}
+
+.loctdd {
+	cursor: pointer;
+}
+
+.loctdd:hover {
+	color: red;
+}
