@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -443,5 +444,43 @@
 
     </script>
 
+=======
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/layout/main_layout}"
+    >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록</title>
+</head>
+<body layout:fragment="content">
+    
+    <div class="container mt-5">
+        <h1 class="mb-4">게시글 목록</h1>
+    
+        <a href="/board/insert" class="btn btn-primary mb-4">글쓰기</a>
+    
+        <div class="row">
+            <div th:each="board : ${boardList}" class="col-md-4 mb-4">
+                <div class="card">
+                    <img th:src="|/${board.fileName}|" alt="게시글 이미지" class="card-img-top" th:if="${board.fileType == 'img'}" style="width: 200px;height: auto;"/><br>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${board.title}"></h5>
+                        <p class="card-text">
+                            작성자: <span th:text="${board.writer}"></span><br>
+                            등록일자: <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
+                            수정일자: <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
+                            조회수: <span th:text="${board.views}"></span>
+                        </p>
+                        <a th:href="|/board/read?boardNo=${board.boardNo}|" class="btn btn-primary">게시글 조회</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+>>>>>>> origin/main
 </body>
 </html>

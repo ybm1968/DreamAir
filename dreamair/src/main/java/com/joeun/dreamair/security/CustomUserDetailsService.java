@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.joeun.dreamair.dto.CustomUser;
 import com.joeun.dreamair.dto.Users;
-import com.joeun.dreamair.user.UserMapper;
+import com.joeun.dreamair.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,9 +41,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         // Users users = null;
         
         // 비회원
+<<<<<<< HEAD
         // if( username.contains("nouser-")) {
         //     users = userMapper.login2(username);
         // } 
+=======
+        if( username.contains("GUEST-")) {
+            users = userMapper.login2(username);
+        } 
+>>>>>>> origin/main
         // 회원
         // else {
         //     users = userMapper.login(username);

@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
+    private static final String Cookie = null;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request
@@ -30,7 +31,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         log.info("remeberId : " + rememberId);
         log.info("id : " + username);
 
-        // 아아디 저장 체크 ✅
+        // 아이디 저장 체크 ✅
         if( rememberId != null && rememberId.equals("on") ) {
             Cookie cookie = new Cookie("remember-id", username);     // 쿠키에 아이디 등록
             cookie.setMaxAge(60 * 60 * 24 * 7);                          // 유효기간  : 7일

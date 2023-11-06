@@ -75,16 +75,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 람다식 
         http
             .authorizeRequests((authorize) -> authorize
-                                .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
-                                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .antMatchers("/**").permitAll()
+                                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
+                                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")    // user 밑의 경로들은 USER 및 ADMIN 권한을 가진 사용자가 접근할 수 있다.
+                                .antMatchers("/admin/**").hasRole("ADMIN")                  // admin 밑의 경로들은 ADMIN 권한을 가진 사용자만 접근할 수 있다.
                                 .antMatchers("/board/**").permitAll()
                                 .antMatchers("/booking/**").permitAll()
-                                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
-                                .antMatchers("/**").permitAll()
                                 // anyRequest()         : 모든(이외의) 요청을 지정
                                 // authenticated()      : 인증된 사용자만 허용
                                 // .anyRequest().permitAll()
-                                // .anyRequest().authenticated()
+                                .anyRequest().authenticated()
                               )
         ;
 
@@ -125,8 +125,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                     .logoutSuccessUrl("/login")
                                     .logoutUrl("/logout")  
                                     // 쿠키 삭제
-                                    .deleteCookies("remember-id"
-                                                                        ,"remember-me"
+                                    .deleteCookies(//"remember-id"
+                                                                        "remember-me"
                                                                         ,"JSESSIONID")
                                     .invalidateHttpSession(true)        // 세션 무효화
                                     .permitAll()
