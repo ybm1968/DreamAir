@@ -14,9 +14,9 @@ public class Board {
     private String writer;
     private String title;
     private String content;
-    private Date regDate;
-    private Date updDate;
-    private Date date;
+    private String regDate;
+    private String updDate;
+    private String date;
     private int views;
     private int userNo;
     private int adminNo;
