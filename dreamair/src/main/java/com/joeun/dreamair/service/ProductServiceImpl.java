@@ -65,51 +65,51 @@ public class ProductServiceImpl implements ProductService {
         int parentNo = productMapper.flight_maxPk();
 
         // 파일 업로드 
-        List<MultipartFile> fileList = board.getFile();
+        // List<MultipartFile> fileList = board.getFile();
 
-        if( !fileList.isEmpty() )
-        for (MultipartFile file : fileList) {
+        // if( !fileList.isEmpty() )
+        // for (MultipartFile file : fileList) {
 
-            if( file.isEmpty() ) continue;
+        //     if( file.isEmpty() ) continue;
 
-            // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
-            String originName = file.getOriginalFilename();
-            long fileSize = file.getSize();
-            byte[] fileData = file.getBytes();
+        //     // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
+        //     String originName = file.getOriginalFilename();
+        //     long fileSize = file.getSize();
+        //     byte[] fileData = file.getBytes();
             
-            // 업로드 경로
-            // 파일명 중복 방지 방법(정책)
-            // - 날짜_파일명.확장자
-            // - UID_파일명.확장자
+        //     // 업로드 경로
+        //     // 파일명 중복 방지 방법(정책)
+        //     // - 날짜_파일명.확장자
+        //     // - UID_파일명.확장자
 
-            // UID_강아지.png
-            String fileName = UUID.randomUUID().toString() + "_" + originName;
+        //     // UID_강아지.png
+        //     String fileName = UUID.randomUUID().toString() + "_" + originName;
 
-            // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
+        //     // c:/upload/UID_강아지.png
+        //     String filePath = uploadPath + "/" + fileName;
 
-            // 파일업로드
-            // - 서버 측, 파일 시스템에 파일 복사
-            // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
-            FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
+        //     // 파일업로드
+        //     // - 서버 측, 파일 시스템에 파일 복사
+        //     // - DB 에 파일 정보 등록
+        //     File uploadFile = new File(uploadPath, fileName);
+        //     FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
 
-            // FileOutputStream fos = new FileOutputStream(uploadFile);
-            // fos.write(fileData);
-            // fos.close();
+        //     // FileOutputStream fos = new FileOutputStream(uploadFile);
+        //     // fos.write(fileData);
+        //     // fos.close();
 
-            Files uploadedFile = new Files();
-            uploadedFile.setParentTable(parentTable);
-            uploadedFile.setParentNo(parentNo);
-            uploadedFile.setBoard_no(parentNo);
-            uploadedFile.setFileName(fileName);
-            uploadedFile.setFilePath(filePath);
-            uploadedFile.setOriginName(originName);
-            uploadedFile.setFileSize(fileSize);
-            uploadedFile.setFileCode(0);
+        //     Files uploadedFile = new Files();
+        //     uploadedFile.setParentTable(parentTable);
+        //     uploadedFile.setParentNo(parentNo);
+        //     uploadedFile.setBoard_no(parentNo);
+        //     uploadedFile.setFileName(fileName);
+        //     uploadedFile.setFilePath(filePath);
+        //     uploadedFile.setOriginName(originName);
+        //     uploadedFile.setFileSize(fileSize);
+        //     uploadedFile.setFileCode(0);
 
-            fileMapper.insert(uploadedFile);
-        }
+        //     fileMapper.insert(uploadedFile);
+        // }
 
         return result;
     }
@@ -166,51 +166,51 @@ public class ProductServiceImpl implements ProductService {
         int parentNo = productMapper.flight_maxPk();
 
         // 파일 업로드 
-        List<MultipartFile> fileList = product.getFile();
+        // List<MultipartFile> fileList = product.getFile();
 
-        if( !fileList.isEmpty() )
-        for (MultipartFile file : fileList) {
+        // if( !fileList.isEmpty() )
+        // for (MultipartFile file : fileList) {
 
-            if( file.isEmpty() ) continue;
+        //     if( file.isEmpty() ) continue;
 
-            // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
-            String originName = file.getOriginalFilename();
-            long fileSize = file.getSize();
-            byte[] fileData = file.getBytes();
+        //     // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
+        //     String originName = file.getOriginalFilename();
+        //     long fileSize = file.getSize();
+        //     byte[] fileData = file.getBytes();
             
-            // 업로드 경로
-            // 파일명 중복 방지 방법(정책)
-            // - 날짜_파일명.확장자
-            // - UID_파일명.확장자
+        //     // 업로드 경로
+        //     // 파일명 중복 방지 방법(정책)
+        //     // - 날짜_파일명.확장자
+        //     // - UID_파일명.확장자
 
-            // UID_강아지.png
-            String fileName = UUID.randomUUID().toString() + "_" + originName;
+        //     // UID_강아지.png
+        //     String fileName = UUID.randomUUID().toString() + "_" + originName;
 
-            // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
+        //     // c:/upload/UID_강아지.png
+        //     String filePath = uploadPath + "/" + fileName;
 
-            // 파일업로드
-            // - 서버 측, 파일 시스템에 파일 복사
-            // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
-            FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
+        //     // 파일업로드
+        //     // - 서버 측, 파일 시스템에 파일 복사
+        //     // - DB 에 파일 정보 등록
+        //     File uploadFile = new File(uploadPath, fileName);
+        //     FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
 
-            // FileOutputStream fos = new FileOutputStream(uploadFile);
-            // fos.write(fileData);
-            // fos.close();
+        //     // FileOutputStream fos = new FileOutputStream(uploadFile);
+        //     // fos.write(fileData);
+        //     // fos.close();
 
-            Files uploadedFile = new Files();
-            uploadedFile.setParentTable(parentTable);
-            uploadedFile.setParentNo(parentNo);
-            uploadedFile.setBoard_no(parentNo);
-            uploadedFile.setFileName(fileName);
-            uploadedFile.setFilePath(filePath);
-            uploadedFile.setOriginName(originName);
-            uploadedFile.setFileSize(fileSize);
-            uploadedFile.setFileCode(0);
+        //     Files uploadedFile = new Files();
+        //     uploadedFile.setParentTable(parentTable);
+        //     uploadedFile.setParentNo(parentNo);
+        //     uploadedFile.setBoard_no(parentNo);
+        //     uploadedFile.setFileName(fileName);
+        //     uploadedFile.setFilePath(filePath);
+        //     uploadedFile.setOriginName(originName);
+        //     uploadedFile.setFileSize(fileSize);
+        //     uploadedFile.setFileCode(0);
 
-            fileMapper.insert(uploadedFile);
-        }
+        //     fileMapper.insert(uploadedFile);
+        // }
 
         return result;
     }

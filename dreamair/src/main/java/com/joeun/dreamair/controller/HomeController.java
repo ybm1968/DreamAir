@@ -116,7 +116,8 @@ public class HomeController {
 	public int idCheck(Users user) {
 		
 		String userid = user.getUserId();
-		int result = userService.idCheck(userid); //userMapper
+        int result = 0;
+		//int result = userService.idCheck(userid); //userMapper
 		/* 만약, DB에 ID가 존재하면 1을, 존재하지 않으면 0을 return 할 것임 */
 		return result;
 	}   

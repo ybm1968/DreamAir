@@ -51,10 +51,10 @@ public class AdminController {
     // }
 
     // [관리자] index 화면 
-    // @GetMapping(value={"/"})
-    // public String index() {
-    //     return "/admin/index";
-    // }
+    @GetMapping(value={"/"})
+    public String index() {
+        return "/admin/index";
+    }
     
     // 관리자 목록 조회
     @GetMapping(value="/admin_list")

@@ -80,7 +80,8 @@ public class ProductController {
     //* - 상품 수정   
     @GetMapping(value="/product_update")
     public String productUpdate(Model model, int productNo) throws Exception {
-        Product product = productService.product_update(productNo);
+        //Product product = productService.product_update(productNo);
+        Product product = new Product();
         model.addAttribute("product", product);                    
         return "product/product_update";
     }
@@ -139,7 +140,8 @@ public class ProductController {
     public String flightUpdate(Model model, int flightNo) throws Exception {
         log.info("[GET] - /product/flight_update");
 
-        Product flight = productService.product_update(flightNo);
+        //Product flight = productService.product_update(flightNo);
+        Product flight = new Product();
         model.addAttribute("flight", flight);                    
         return "product/flight_update";
     }
