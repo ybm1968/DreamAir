@@ -26,15 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BookingController {
 
     @Autowired
-    private BookingService bookingService;
+    private BookingService bookingService; 
     
 
     // 출발지 날짜 도착지(ticket), 탑승인원 왕복여부(booking) 를 정보()에 맞는 검색결과를 보여주기
     @GetMapping(value="/list")
     public String list(Model model, Booking booking) throws Exception {
-        log.info("booking.departure : " + booking.getDeparture());
+        log.info("리스트 출발지 : " + booking.getDeparture());
         log.info("탑승인원 : " + booking.getPasCount());
-        List<Booking> bookingList = bookingService.list(booking);   //?
+        List<Booking> bookingList = bookingService.golist(booking);   //?
         // log.info("bookingList 출력확인 : " + bookingList.get(0).getPasCount());
         model.addAttribute("bookingList", bookingList);     //??
         model.addAttribute("booking", booking);
@@ -43,12 +43,21 @@ public class BookingController {
     }
 
 
-    // 가는 편, 오는 편 리스트
-    @GetMapping(value="/component/list")
-    public String bookingList(Model model, Booking booking) throws Exception {
-        log.info("booking.departure : " + booking.getDeparture());
-        log.info("탑승인원 : " + booking.getPasCount());
-        List<Booking> bookingList = bookingService.list(booking);
+    // 가는 편
+    @GetMapping(value="/component/golist")
+    public String gobookingList(Model model, Booking booking) throws Exception {
+        log.info("가는편 출발지 : " + booking.getDeparture());
+        List<Booking> bookingList = bookingService.golist(booking);
+        model.addAttribute("bookingList", bookingList);
+        model.addAttribute("bookingInfo", booking);
+        return "UI/component/booking/list";
+    }
+
+    // 오는 편
+    @GetMapping(value="/component/comelist")
+    public String comebookingList(Model model, Booking booking) throws Exception {
+        log.info("오는편 출발지 : " + booking.getDeparture());
+        List<Booking> bookingList = bookingService.comelist(booking);
         model.addAttribute("bookingList", bookingList);
         model.addAttribute("bookingInfo", booking);
         return "UI/component/booking/list";
