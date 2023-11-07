@@ -49,6 +49,7 @@ public class BoardController {
     @Autowired
     private FileService fileService;
 
+    
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value={"/", ""})
     public String index() {

@@ -4,168 +4,203 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/UI/layout/main_layout}"
       >
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
-
+    
+    <script th:inline="javascript">
+        /* 스크립트 코드 */
+        document.addEventListener("DOMContentLoaded", function() {
+            const bookableElements = document.querySelectorAll(".bookable");
+    
+            bookableElements.forEach(function(element) {
+                element.addEventListener("click", function() {
+                    if (!element.classList.contains("booking")) {
+                        /* "bookable" 클래스를 "booking" 클래스로 토글 */
+                        element.classList.toggle("booking");
+                        /* 배경 이미지 변경 */
+                        const img = element.querySelector("img");
+                        if (img) {
+                            img.src = "/img/bookingSeat.png";
+                        }
+                        
+                        // 선택한 좌석을 가는 편 좌석 input에 출력
+                        const seatTitle = element.getAttribute("title");
+                        document.getElementById("depSeat").value = seatTitle;
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 
 <body layout:fragment="content">
 
     <div class="modal-content">
         <div class="modal-header">
-          <span class="close">&times;</span>
-          <h2 style="color: #6d6e70;cursor: context-menu;">좌석선택</h2>
+            <span class="close">&times;</span>
+            <h2 style="color: #6d6e70;cursor: context-menu;">좌석선택</h2>
         </div>
+
         <div class="modal-header2">
-          <h2 class="direction"><span id="depLoc"></span> → <span id="arrLoc"></span></h2>
+            <h2 class="direction"><span id="depLoc"></span> → <span id="arrLoc"></span></h2>
         </div>
+
+
         <div class="modal-body">
-        <form id="frm3" method="post" action="./checkInPage">
-            <div class="modalInnerWrap">
-                <div class="modalInnerLeft">
-                    <div class="left1">
-                        <div class="nameView"><p class="nameViewInner"></p></div>
+            <form action="./checkInPage" method="post" id="frm3">
+                <div class="modalInnerWrap">
+                    <div class="modalInnerLeft">
+                        <div class="left1">
+                            <div class="nameView"><p class="nameViewInner"></p></div>
                             <div class="seatView">
-                    <div class="depAir">
-                    <div class="depSeat">
-                        <div class="seat1">
-                            <!-- 왼쪽줄을 나타냄 31줄 -->
-                            <c:forEach begin="1" end="31" var="i">      
-                                <!-- A, B, C 열을 나타냄 -->
-                                <c:forEach begin="1" end="3" var="j">
-                                    <c:choose>
-                                        <c:when test="${j eq 1}">
-                                            <c:set var="c" value="A"/>
-                                        </c:when>
-                                        <c:when test="${j eq 2}">
-                                            <c:set var="c" value="B"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="c" value="C"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
-                                </c:forEach>
-                                <br>
-                            </c:forEach>
-                        </div>
-                        <div class="seat2">
-                            <!-- 오른쪽줄을 나타냄 31줄 -->
-                            <c:forEach begin="1" end="32" var="i">
-                             <c:forEach begin="1" end="3" var="j">
-                             <c:choose>
-                                     <c:when test="${j eq 1}">
-                                         <c:set var="c" value="D"/>
-                                     </c:when>
-                                     <c:when test="${j eq 2}">
-                                         <c:set var="c" value="E"/>
-                                     </c:when>
-                                     <c:otherwise>
-                                         <c:set var="c" value="F"/>
-                                     </c:otherwise>
-                                 </c:choose>
-                                 <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
-                              </c:forEach>
-                              <br>
-                            </c:forEach>
-                        </div>
-                     </div>
-                    </div>
-                    <div class="arrAir" style="display: none">
-                        <div class="arrSeat">
-                            <div class="seat1">
-                            <c:forEach begin="1" end="31" var="i">
-                             <c:forEach begin="1" end="3" var="j">
-                            <c:choose>
-                                     <c:when test="${j eq 1}">
-                                         <c:set var="c" value="A"/>
-                                     </c:when>
-                                     <c:when test="${j eq 2}">
-                                         <c:set var="c" value="B"/>
-                                     </c:when>
-                                     <c:otherwise>
-                                         <c:set var="c" value="C"/>
-                                     </c:otherwise>
-                                 </c:choose>
-                                <label for="arr${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="arr${c}${i}" class="seat" title="${c}${i}"></label>
-                              </c:forEach>
-                              <br>
-                            </c:forEach>
+                                <div class="depAir">
+                                    <div class="depSeat">
+
+                                        <br>
+
+                                        <!-- 왼쪽 줄 -->
+                                        <div class="seat1">
+                                            <th:block th:each="i: ${#numbers.sequence(1, 10)}">
+
+                                                <!-- A, B, C 열 -->
+                                                <th:block th:each="j: ${#numbers.sequence(1, 3)}">
+                                                    <th:block th:if="${j == 1}">
+                                                        <th:with th:var="c" th:value="'A'" />
+                                                    </th:block>
+                                                    <th:block th:if="${j == 2}">
+                                                        <th:with th:var="c" th:value="'B'" />
+                                                    </th:block>
+                                                    <th:block th:unless="${j == 1 or j == 2}">
+                                                        <th:with th:var="c" th:value="'C'" />
+                                                    </th:block>
+
+                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "A1", "A2", ..., "C20"과 같은 식별자로 각각 표시 -->
+                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
+                                                    <!-- <label for="dep${c}${i}" class="bookable" title="${c}${i}" ><input type="checkbox" id="${c}${i}" th:name="seatNo" value="|dep${c}${i}|" class="seat" title="${c}${i}"></label> -->
+                                                </th:block>
+
+                                                <br>
+
+                                            </th:block>
+                                        </div>
+
+                                        <!-- 오른쪽 줄 -->
+                                        <div class="seat2">
+                                            <th:block th:each="i: ${#numbers.sequence(1, 10)}">
+
+                                                <!-- A, B, C 열 -->
+                                                <th:block th:each="j: ${#numbers.sequence(1, 3)}">
+                                                    <th:block th:if="${j == 1}">
+                                                        <c:set var="c" value="D" />
+                                                    </th:block>
+                                                    <th:block th:if="${j == 2}">
+                                                        <c:set var="c" value="E" />
+                                                    </th:block>
+                                                    <th:block th:unless="${j == 1 or j == 2}">
+                                                        <th:with th:var="c" th:value="F" />
+                                                    </th:block>
+
+                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "D1", "D2", ..., "F20"과 같은 식별자로 각각 표시 -->
+                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
+                                                </th:block>
+
+                                                <br>
+
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="arrAir" style="display: none;">
+                                    <div class="arrSeat">
+                                        <!-- 왼쪽 줄 -->
+                                        <div class="seat1">
+                                            <th:block th:each="i1: ${#numbers.sequence(1, 10)}">
+
+                                                <!-- A, B, C 열 -->
+                                                <th:block th:each="j1: ${#numbers.sequence(1, 3)}">
+                                                    <th:block th:if="${j == 1}">
+                                                        <th:with th:var="c" th:value="'A'" />
+                                                    </th:block>
+                                                    <th:block th:if="${j == 2}">
+                                                        <th:with th:var="c" th:value="'B'" />
+                                                    </th:block>
+                                                    <th:block th:unless="${j == 1 or j == 2}">
+                                                        <th:with th:var="c" th:value="'C'" />
+                                                    </th:block>
+
+                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "A1", "A2", ..., "C20"과 같은 식별자로 각각 표시 -->
+                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
+                                                </th:block>
+
+                                                <br>
+
+                                            </th:block>
+                                        </div>
+
+                                        <!-- 오른쪽 줄 -->
+                                        <div class="seat2">
+                                            <th:block th:each="i1: ${#numbers.sequence(1, 10)}">
+
+                                                <!-- A, B, C 열 -->
+                                                <th:block th:each="j1: ${#numbers.sequence(1, 3)}">
+                                                    <th:block th:if="${j == 1}">
+                                                        <th:with th:var="c" th:value="'D'" />
+                                                    </th:block>
+                                                    <th:block th:if="${j == 2}">
+                                                        <th:with th:var="c" th:value="'E'" />
+                                                    </th:block>
+                                                    <th:block th:unless="${j == 1 or j == 2}">
+                                                        <th:with th:var="c" th:value="'F'" />
+                                                    </th:block>
+
+                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "D1", "D2", ..., "F20"과 같은 식별자로 각각 표시 -->
+                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
+                                                </th:block>
+
+                                                <br>
+
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                                <div class="seat2">
-                            <c:forEach begin="1" end="32" var="i">
-                             <c:forEach begin="1" end="3" var="j">
-                             <c:choose>
-                                     <c:when test="${j eq 1}">
-                                         <c:set var="c" value="D"/>
-                                     </c:when>
-                                     <c:when test="${j eq 2}">
-                                         <c:set var="c" value="E"/>
-                                     </c:when>
-                                     <c:otherwise>
-                                         <c:set var="c" value="F"/>
-                                     </c:otherwise>
-                                 </c:choose>
-                                 <label for="arr${arrFNum}${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="arr${arrFNum}${c}${i}" class="seat" title="${c}${i}"></label>
-                              </c:forEach>
-                              <br>
-                            </c:forEach>
+
+                            <div class="seatWarning"><span class="warning">좌석지정 유의사항 안내</span></div>
                         </div>
+                    </div>
+                    
+                    <div class="modalInnerRight">
+                        <div class="modalInnerRightTop">
+                            <div class="seatInfo">
+                                <div class="seatInfo_bookSeat"><img alt="" src="/img/bookableSeat.png"> 선택 가능 좌석 </div>
+                                <div class="seatInfo_bookingSeat"><img alt="" src="/img/bookingSeat.png"> 선택한 좌석 </div>
+                                <div class="seatInfo_bookedSeat"><img alt="" src="/img/bookedSeat.png"> 선택 불가 좌석 </div>
                             </div>
+                        </div>
+                        
+                        <div class="modalInnerRightDown">
+                            <div> 예매번호  <span class="spanBookingNum"></span><input type="text" id="bookingNum" name="bookingNum" readonly="readonly" hidden="hidden"></div>
+                            <div>인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople"></span>명</div>
+                            <div class="goSeat">가는편 좌석<input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
+                            <div class="roundOnly backSeat">오는편 좌석<input type="text" id="arrSeat" name="arrSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
+                            
+                            <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
+                            <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
+                            <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden">
+                        </div>
                     </div>
-                            </div>
-                            <div class="seatWarning"> <span class="warning"><i class="fa fa-warning" style="margin-right: 5px"></i>좌석지정 유의사항 안내</span></div>
-                        </div>
-                </div>
-                <div class="modalInnerRight">
-                    <div class="modalInnerRightTop">
-                        <div class="seatInfo">
-                            <div class="seatInfo_bookSeat"><img alt="" src="/img/bookableSeat.png"> 선택가능 좌석 </div>
-                            <div class="seatInfo_bookingSeat"><img alt="" src="/img/bookingSeat.png"> 선택한 좌석 </div>
-                            <div class="seatInfo_bookedSeat"><img alt="" src="/img/bookedSeat.png"> 선택불가 좌석 </div>
-                        </div>
-                    </div>
-                    <div class="modalInnerRightDown">
-                        <div> 예매번호  <span class="spanBookingNum"></span><input type="text" id="bookingNum" name="bookingNum"
-                                readonly="readonly" hidden="hidden">
-                        </div>
-                        <div>
-                            인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople"></span>명
-                        </div>
-                        <div class="goSeat">
-                            가는편 좌석
-                            <input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
-                        <div class="roundOnly backSeat">
-                            오는편 좌석 
-                            <input type="text" id="arrSeat" name="arrSeat" readonly="readonly" style="padding: 0; height: 17px">
-                        </div>
-                
-                        <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
-                        <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
-                        <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden">
-                    </div>
-                </div>
-                <div class="ajax" style="display: none;">
                     
                 </div>
-                
-                <p><button type="button" class="modalInnerBottom" id="btn"><span>선택 완료</span></button></p>
-                
-                <div class="modalInnerBottom2" style="display: none">
-                     <p><button type="button" class="depBookGo" id="btn2"><span>좌석 변경</span></button></p>
-                     <p><button type="button" class="bookOk" id="btn3"><span>체크인</span></button></p>
-                </div>
-            </div>
+                <button type="button" class="modalInnerBottom" id="btn">
+                    <span>선택 완료</span>
+                </button>
             </form>
         </div>
-        <div class="modal-footer">
-          <h3 class="tripDate"></h3>
-        </div>
-      </div>
-    
+
+    </div>
 </body>
 </html>
