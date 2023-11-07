@@ -79,7 +79,9 @@ public class Booking {
      * 돌아오는날 데이터 들어가는 행에있는 출발지 도착지는 반대로 값을 넣어야함
      */
 
-
+     
+    private String userId;
+    private String password;
    
 }
 
