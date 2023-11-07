@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/layout/main_layout}"
+    >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 조회</title>
+</head>
+<body layout:fragment="content" class="container mt-5">
+    <h1 class="mb-4">게시글 조회</h1>
+    <form action="/board/delete" method="POST" id="form">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+        <table class="table table-bordered">
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title" th:value="${board.title}" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" th:value="${board.writer}" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                    <textarea name="content" cols="40" rows="5" th:text="${board.content}" class="form-control"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>파일</td>
+                <td>
+                    <ul>
+                        <!-- 파일 목록 -->
+                        <th:block th:each="file : ${fileList}">
+                            <li>
+                            	<img id="imgId" th:src="@{/img/}+${file.fileName}" alt="첨부이미지" th:if="${file.filePath != null} and ${file.fileType == 'img'}" style="width: 400px;height: auto;"/>
+                            	<br/>
+                                <!-- 파일 다운로드 -->
+                                <a th:href="|/file/${file.fileNo}|" th:text="${file.originName}"></a>         
+                                <button type="button" class="btn btn-danger btn-sm btn-file-delete" th:data="${file.fileNo}">삭제</button>
+                            </li>
+                        </th:block>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <button type="button" onclick="moveList()" class="btn btn-primary">목록</button>
+            <button type="button" onclick="moveUpdate()" class="btn btn-primary">수정</button>
+            <button type="button" onclick="actionDelete()" class="btn btn-primary">삭제</button>
+        </div>
+
+    </form>
+   <!-- 댓글 입력 폼 -->
+    <div class="mt-5">
+        <h4>댓글 작성</h4>
+        <form action="/comment/insert" method="POST">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" name="parentTable" value="comment" /> 
+            <input type="hidden" name="parentNo" th:value="${board.boardNo}" />
+            <div class="form-group">
+                <label for="writer">작성자</label>
+                <input type="text" id="writer" name="comment-writer" class="form-control" placeholder="이름을 입력하세요..." required>
+            </div>
+            <div class="form-group">
+                <label for="comment">댓글</label>
+                <textarea id="content" name="comment-content" class="form-control" placeholder="댓글을 입력하세요..." required></textarea>
+            </div>
+            <div class="btn-box">
+                <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+            </div>
+        </form>
+    </div>
+    <!-- 
+ 	<div th:each="comm: ${commList}" class="col-md-4 mb-4">
+             <div class="mt-5">
+		        <form action="/comment/insert" method="POST">
+		            <input type="hidden" name="commenNno" th:value="${comm.commentNo}"/> 
+		            <div class="form-group">
+		                <label for="writer">작성자</label>
+		                <input type="text" id="writer" name="comment-writer" class="form-control" placeholder="이름을 입력하세요..." required readonly th:value="${comm.writer}">
+		            </div>
+		            <div class="form-group">
+		                <label for="comment">댓글</label>
+		                <textarea id="content" name="comment-content" class="form-control" placeholder="댓글을 입력하세요..." required readonly th:value="${comm.content}"></textarea>
+		            </div>
+		            <div class="btn-box">
+		                <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">삭제</a>
+		                <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">수정</a>
+		            </div>
+		        </form>
+		    </div>
+     </div>
+ -->
+    <!-- 댓글 출력 부분 -->
+    <div class="mt-5">
+        <h4>댓글 목록</h4>
+        <ul id="comment-list"> 
+            <!-- 예제 댓글 아이템 -->
+            <th:block th:each="comment : ${commList}">
+                <li class="mb-2">
+                    <strong th:id="'cmW_'+${comment.commentNo}" th:text="${comment.writer}"></strong>: 
+                    <span th:id="'cmC_'+${comment.commentNo}" th:text="${comment.content}"></span> 
+                     <!-- 댓글 수정 버튼 -->
+                     <div class="item">
+                        <!-- 버튼에 고유한 클래스를 부여하고 data 속성을 이용하여 댓글 번호를 전달합니다 -->
+                        <a href="#" class="1" th:id="'cmBtnUpd_'+${comment.commentNo}" th:onclick="fn_cmmUpd([[${comment.commentNo}]], [[${board.boardNo}]]);">수정</a>
+                        <a href="#" class="1" th:onclick="fn_commDel([[${comment.commentNo}]], [[${board.boardNo}]]);">삭제</a>
+                    </div>
+                </li>
+            </th:block>
+        </ul>
+    </div> 
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="../js/main.js"></script>
+
+
+    <script>
+        let form = document.getElementById('form')
+        // 👩‍💻 모델 객체를 자바스크립트에서 표현하는 방법
+        let boardNo = "[[${board.boardNo}]]"
+        let btnFileDelete = document.querySelectorAll(".btn-file-delete")
+
+        getCommentList()
+
+        // 파일 삭제 버튼 클릭 이벤트
+        for (let i = 0; i < btnFileDelete.length; i++) {
+            
+            btnFileDelete[i].addEventListener('click', function() {
+                let btn = this
+                let fileNo = this.getAttribute('data')
+                
+                let data = { 
+                    fileNo : fileNo
+                }
+
+                let request = new XMLHttpRequest()
+
+                // DELETE 메소드로 Content-Type 지정 안 하면, 데이터가 body 담기지 않는다.
+                // - 쿼리스트링(요청 파라미터)에 데이터를 넘겨준다.
+                request.open('DELETE', '/file?fileNo=' + fileNo, true)
+                request.send( )
+
+                // DELETE 메소드로 Content-Type 지정하면, 데이터가 body 에 담긴다.
+                // request.open('DELETE', '/file' + fileNo, true)
+                // request.setRequestHeader("Content-Type", "application/json")
+                // request.send( JSON.stringify(data) )
+                
+                request.onreadystatechange = function() {
+
+                    // 요청 성공 시,
+                    if( request.readyState == request.DONE && request.status == 200 ) {
+                        console.log('파일 삭제 성공');
+                        // 파일 항목 제거
+                        btn.parentNode.remove()
+                    }
+
+                }
+
+            })
+            
+        }
+        
+        function fn_cmmUpd(commentNo, boardNo){
+        	var comment = $("#cmC_"+commentNo).text();
+        	$("#cmC_"+commentNo).html(""+
+    				"<textarea id=\"contentUpd_"+commentNo+"\" name=\"comment-content\" class=\"form-control\">"+comment+"</textarea>"
+        	);
+        	
+        	$("#cmBtnUpd_"+commentNo).html("<a href=\"#\" class=\"1\" id=\"cmBtnUpd_"+commentNo+"\" onclick=\"fn_cmmUpdAction('"+commentNo+"');\">수정</a>");
+        }
+        
+        function fn_cmmUpdAction(commentNo){
+        	let url = '/comment/update'
+        	var content = $("#contentUpd_"+commentNo).val();
+       	 	let data = {
+                    'commentNo':commentNo,
+                    'content':content
+                }
+            $.ajax({
+                url : '/comment/update',
+                type : 'post',
+                data : data,
+                success : function(response) {
+                	location.reload(true);
+                    /* 
+                	let result = response
+					
+                    if( result == 'SUCCESS' ) {
+                        alert('댓글 수정이 완료되었습니다.');
+                        
+                        // 댓글 목록 갱신
+                        //getCommentList()
+
+                    } */
+                },
+                error : function(error) {
+                	location.reload(true);
+                }
+            })
+        }
+        
+        function fn_commDel(commentNo, boardNo){
+
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( !check )
+                return
+
+            //let commentNo = $(this).attr('data') // "data" 속성의 키를 확인
+			console.log("commentNo::"+commentNo);
+            const url = '/comment/delete'
+            let data = {
+                commentNo : commentNo,
+                boardNo : boardNo
+            }
+
+            $.ajax({
+                url : '/comment/delete',
+                type : 'post',
+                data :data,   // 폼 데이터 형식으로 보냄
+                success : function(response) {
+
+                    let result = response
+
+                    if( result == 'SUCCESS' ) {
+                        alert('댓글 삭제가 완료되었습니다.')
+                        // 댓글 목록 갱신
+                        //getCommentList()
+                    } else {
+                    	location.reload(true);
+                    }
+                },
+                error : function(error) {
+
+                }
+            })
+
+        }
+        
+        
+        // 목록으로 이동
+        function moveList() {
+            location.href = "/board/list"
+        }
+
+        // 수정으로 이동
+        function moveUpdate() {
+            location.href = "/board/update?boardNo=" + boardNo
+        }
+
+        // 삭제 요청
+        function actionDelete() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( check )
+                form.submit()
+        }
+
+
+        // 댓글 목록 조회
+        function getCommentList() {
+
+            const url = 'http://localhost:8080/comment/read'
+
+            let data = {
+                'boardNo' : boardNo
+            }
+
+
+            $.ajax({
+                url : url,
+                type : 'get',
+                data : data,
+                success : function(response) {
+                    let commentList = response
+                   
+
+                    let commentData = ''
+                    for (let i = 0; i < commentList.length; i++) {
+                        let comment = commentList[i]
+                        
+
+                        let date = new Date(comment.regDate);
+                        let regDate = date.toISOString().split("T")[0];
+                        let regTime = date.toISOString().split("T")[1];
+                        regTime = regTime.split(".")[0]
+
+                        // 계층번호
+                        let depthNo = comment.depthNo
+
+                        let commentBox = `<div class="comment-box" style="margin-left: ${depthNo * 60}px;">
+                                            <div class="data-box">
+                                                <div class="top">
+                                                    <div class="item">
+                                                        <span class="comment-writer">${comment.writer}</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
+                                                        <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                                                    </div>
+                                                </div>
+                                                <div class="bottom">
+                                                    <p class="comment-content">${comment.content}</p>
+                                                    <div class="etc-box">
+                                                        <span class="comment-date">${comment.regDate} </span>
+                                                        <a href="javascript:;" class="btn btn-sm btn-reply" data="${comment.commentNo}">답글</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="edit-box"></div>
+                                        </div>
+                                        `
+                        commentData += commentBox
+                    }
+
+                    $('#comment-list').html(commentData)
+
+                    // 이벤트 추가
+                   initCommentEvent()
+                    
+                },
+                error : function(error) {
+
+                }
+            })
+        }
+
+          // 댓글 등록
+          function insertComment( writer, content ) {
+
+            const url = '/comment/insert'
+
+            let data = {
+                'parentNo'   : boardNo,
+                'parentTable' : 'board',
+                'writer'    : writer,
+                'content'   : content,
+            }
+
+            $.ajax({
+                url : '/comment/insert',
+                type : 'post',
+                data : data,
+                success : function(response) {
+                	let result = response
+
+                    if( result == 'SUCCESS' ) {
+                        Swal.fire(
+                            '완료!',
+                            '댓글 등록이 완료되었습니다.',
+                            'success'
+                        )
+                        // 댓글 목록 갱신
+                        //getCommentList()
+						//location.reload(true);
+                        // 작성한 댓글 입력내용 초기화
+                        $('#comment-writer').val('')
+                        $('#comment-content').val('')
+
+                    }
+                },
+                error : function(error) {
+
+                }
+            })
+            }
+
+             // 댓글 등록 버튼 - 클릭 이벤트
+        $('#btn-comment-insert').on('click', function() {
+
+           
+            let writer = $('#writer').val()
+            let content = $('#content').val()
+
+            
+            if (writer.trim() === '' || content.trim() === '') {
+                alert('작성자와 댓글 내용을 모두 입력해주세요.');
+                return;
+         }
+            insertComment( writer, content )
+			location.reload(true);
+            getCommentList()
+            })
+
+
+// -----------------------------------------------------------------------------------------------------------------------
+
+
+
+            // 댓글 [수정][삭제][답글] - 이벤트 추가
+            $(document).ready(function() {
+                initCommentEvent();
+            });
+
+            function initCommentEvent() {
+
+
+            // 댓글 [수정] 버튼 클릭 이벤트
+            $('.btn-comment-update').on('click', function() {
+                // 답글 작성 UI 초기화
+                $('.reply-box').remove()
+
+                // 작성자, 내용 
+                let btn = $(this)
+                let commentNo = btn.attr('data')        // 댓글번호
+                let commentBox = btn.parents('.comment-box')
+                let commentWriter = commentBox.find('.comment-writer')
+                let commentContent = commentBox.find('.comment-content')
+                let writer = commentWriter.text()
+                let content = commentContent.text()
+
+                // 수정 중인 다른 댓글 UI 초기화
+                $('.data-box').show()
+                $('.edit-box').empty()
+
+                // 댓글 보기 UI 숨김
+                commentBox.find('.data-box').hide()
+
+                // 댓글 수정 UI 추가
+                let editBox = `<div class="top">
+                                    <div class="item">
+                                        <input type="text" id="input-update-writer" value="${writer}">
+                                    </div>
+                                    <div class="item">
+                                        
+                                    </div>
+                                </div>
+                                <div class="bottom">
+                                    <textarea id="input-update-content" cols="40" rows="5">${content}</textarea>
+                                    <div class="etc-box">
+                                        <a href="javascript:;" id="btn-comment-update" class="btn btn-sm" data="${commentNo}">수정</a>
+                                        <a href="javascript:;" id="btn-comment-delete" class="btn btn-sm" >취소</a>
+                                    </div>
+                                </div>
+                                `
+
+                commentBox.find('.edit-box').html(editBox)
+
+
+                // 취소 버튼 클릭
+                $('#btn-comment-delete').on('click', function() {
+                    $('.comment-box .data-box').show()
+                    $('.comment-box .edit-box').empty()
+                })
+
+
+                // 수정 버튼 클릭
+                $('#btn-comment-update').on('click', function() {
+                    let url = '/comment/update'
+                    let data = {
+                        commentNo : commentNo,
+                        writer : $('#input-update-writer').val(),
+                        content : $('#input-update-content').val(),
+                    }
+
+                    $.ajax({
+                        url : '/comment/update',
+                        type : 'post',
+                        data : JSON.stringify(data),
+                        contentType : 'application/json',
+                        success : function(response) {
+                            let result = response
+
+                            if( result == 'SUCCESS' ) {
+                                alert('댓글 수정이 완료되었습니다.')
+                                // 댓글 목록 갱신
+                                getCommentList()
+
+                            }
+                        },
+                        error : function(error) {
+
+                        }
+                    })
+
+
+                })
+
+
+            })
+
+            //  btn btn-update btn-comment-update" th:data-comment-no="${comment.commentNo}">수정</a>
+            //  btn btn-delete btn-comment-delete" th:data-comment-no="${comment.commentNo}">삭제</a>
+
+            // 댓글 [삭제] 버튼 클릭 이벤트
+            $('#comment-list').on('click', '.btn-comment-delete', function() {
+
+                let check = confirm('정말로 삭제하시겠습니까?')
+                if( !check )
+                    return
+
+                let commentNo = $(this).attr('data') // "data" 속성의 키를 확인
+				console.log("commentNo::"+commentNo);
+                const url = '/comment/delete'
+                let data = {
+                    commentNo : commentNo
+                }
+
+                $.ajax({
+                    url : '/comment/delete',
+                    type : 'post',
+                    data :{ commentNo: commentNo },   // 폼 데이터 형식으로 보냄
+                    success : function(response) {
+
+                        let result = response
+
+                        if( result == 'SUCCESS' ) {
+                            alert('댓글 삭제가 완료되었습니다.')
+                            // 댓글 목록 갱신
+                            getCommentList()
+                        } else {
+                            alert('댓글 삭제에 실패했습니다.');
+                        }
+                    },
+                    error : function(error) {
+
+                    }
+                })
+
+            })
+
+
+
+
+        // ---------------------------------------------------------------------------------------------------------------------
+            
+            // 댓글 [답글] 클릭 이벤트
+            $('.btn-reply').on('click', function() {
+
+            // 댓글 수정 상태를 초기화
+            $('.data-box').show()
+            $('.edit-box').empty()
+
+            // 부모 댓글 번호
+            let superNo = $(this).attr('data')
+
+            // 답글 작성 UI 추가
+            let replyBox = `<div class="comment-box reply-box">
+                                <div class="edit-box">
+                                    <div class="top">
+                                        <div class="item">
+                                            <input type="text" id="input-reply-writer" placeholder="작성자">
+                                        </div>
+                                        <div class="item">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        <textarea id="input-reply-content" cols="40" rows="5" placeholder="댓글을 입력해주세요"></textarea>
+                                        <div class="etc-box">
+                                            <a href="javascript:;" id="btn-reply-insert" class="btn btn-sm">등록</a>
+                                            <a href="javascript:;" id="btn-reply-cancel" class="btn btn-sm">취소</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+
+            let btn = $(this)
+            let commentBox = btn.parents('.comment-box')
+            $('.reply-box').remove()                // 답글 입력 상자 초기화
+            commentBox.after( $(replyBox) )
+
+
+            // 답글 [등록] 버튼 클릭 이벤트
+            $('#btn-reply-insert').on('click', function() {
+
+                let url = 'http://localhost:8080/comment/reply'
+
+                let data = {
+                    superNo : superNo,                          // 부모 댓글번호
+                    writer : $('#input-reply-writer').val(),     
+                    content : $('#input-reply-content').val(), 
+                }
+
+                $.ajax({
+                    url : url,
+                    type : 'post',
+                    data : JSON.stringify(data),
+                    contentType : 'application/json',
+                    success : function(response) {
+                        let result = response
+
+                        if( result == 'SUCCESS' ) {
+                            alert('답글 등록이 완료되었습니다.')
+                            // 댓글 목록 갱신
+                            getCommentList()
+                        }
+                    },
+                    error : function(error) {
+
+                    }
+                })
+
+
+            })
+
+
+            // 댓글 [답글] 취소 버튼 클릭 이벤트
+            $('#btn-reply-cancel').on('click', function() {
+                $('.reply-box').remove()
+            })
+
+            })
+
+            }
+
+
+    </script>
+</body>
+</html>

@@ -10,6 +10,7 @@ public class Admin {
 
     // admin 테이블
     private int adminNo;
+    private int authNo;
     private String adminId;
     private String adminPw;
 

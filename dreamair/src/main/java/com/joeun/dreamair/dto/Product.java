@@ -9,15 +9,15 @@ public class Product {
 
     // product 테이블
     private int productNo;
-    private String productId;
+    private int productId;
     private int routeNo;
     private String name;
     private String productCat;
     private int productPrice;
     private String departure;
     private String destination;
-    private String productRegDate;
-    private String productUpdDate;
+    private Date productRegDate;
+    private Date productUpdDate;
     private int unitInStock;
     private String description;
     private String File;
@@ -28,12 +28,10 @@ public class Product {
     private String passengerName;
     private int flightNo;
     private String seatClass;
-    private String status;
 
     // flight 테이블
     // private int flightNo;
     private String flightName;
-    
 
     // private String seatNo;
     private int seatMax;
@@ -50,9 +48,7 @@ public class Product {
     // private int routeNo;    
     // private String departure;     
     // private String destination;
-    private String departureTime;     
-    private String departureDate;     
-    private String destinationTime;
-    private String destinationDate;
+    private Date departureTime;     
+    private Date destinationTime;
 
 }

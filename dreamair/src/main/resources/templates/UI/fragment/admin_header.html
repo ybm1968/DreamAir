@@ -29,7 +29,11 @@
                     <strong sec:authentication="principal.users.userId">아이디</strong>
                   </a>
 
-
+                  <!-- 검색창 -->
+                  <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </form>
                   <ul class="dropdown-menu text-small">
                     <!-- 관리자 메뉴 -->
                     <!-- <th:block sec:authorize="hasRole('ROLE_ADMIN')"> -->
@@ -54,11 +58,7 @@
                   </ul>
                 </div>
               </th:block>
-            <!-- 검색창 -->
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+              
               
             </div>
           </div>
