@@ -32,6 +32,12 @@ public class Booking {
     private String birth;
     private String phone;
     private String email;
+    private String seatNoDep;       // 좌석번호(가는편)
+    private String seatNoDes;       // 좌석번호(오는편)
+    private String productIdDep;    // 상품코드(가는편)
+    private String productIdDes;    // 상품코드(오는편)
+    private int productNoDep;       // 상품번호(가는편)
+    private int productNoDes;       // 상품번호(오는편)
 
     // cart
     private int cartNo;
@@ -72,15 +78,7 @@ public class Booking {
     // private int seatUsed;
 
 
-    // 왕복 변수 정리
-    /*
-     * 필요한 변수
-     * 가는날 오는날
-     * 가는날 : 출발시간(가는날 날짜 + 출발시간) 도착시간(가는날 날짜 + 도착시간)
-     * 오는날 : 출발시간(오는날짜 + 출발시간) 도착시간(오는날짜 + 도착시간) null 허용
-     * 추가할 테이블 : ticket, route v
-     * 돌아오는날 데이터 들어가는 행에있는 출발지 도착지는 반대로 값을 넣어야함
-     */
+
 
 
    

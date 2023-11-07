@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.service.BookingService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -33,12 +34,27 @@ public class BookingController {
     public String list(Model model, Booking booking) throws Exception {
         log.info("booking.departure : " + booking.getDeparture());
         log.info("탑승인원 : " + booking.getPasCount());
-        List<Booking> bookingList = bookingService.list(booking);
+        List<Booking> bookingList = bookingService.list(booking);   //?
         // log.info("bookingList 출력확인 : " + bookingList.get(0).getPasCount());
-        model.addAttribute("bookingList", bookingList);
+        model.addAttribute("bookingList", bookingList);     //??
+        model.addAttribute("booking", booking);
 
         return "user/list";
     }
+
+
+    // 가는 편, 오는 편 리스트
+    @GetMapping(value="/component/list")
+    public String bookingList(Model model, Booking booking) throws Exception {
+        log.info("booking.departure : " + booking.getDeparture());
+        log.info("탑승인원 : " + booking.getPasCount());
+        List<Booking> bookingList = bookingService.list(booking);
+        model.addAttribute("bookingList", bookingList);
+        model.addAttribute("bookingInfo", booking);
+        return "UI/component/booking/list";
+    }
+    
+
 
     @GetMapping(value="/info")
     public String info(Model model, Booking booking) {
@@ -82,6 +98,9 @@ public class BookingController {
     public String payment() {
         return "user/payment";
     }
+
+
+    
     
     
     
