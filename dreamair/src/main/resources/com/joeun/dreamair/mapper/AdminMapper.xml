@@ -18,6 +18,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     VALUES ( #{userId}, #{auth} )
 </insert>
 
+<!-- 관리자 조회 -->
+<select id="admin_list" resultType="Admin">
+    SELECT admin.*, auth.*
+    FROM admin
+    INNER JOIN auth ON admin.admin_id = auth.user_id
+    WHERE auth.auth = 'ROLE_ADMIN'
+</select>
+
 <!-- 사용자 조회 -->
 <select id="user_list" resultType="Users">
     SELECT users.*, auth.*
@@ -53,44 +61,50 @@ DELETE FROM users
 WHERE user_no = #{userNo}
 </delete>
 
-<!-- 탑승권 전체 조회 -->
-<select id="ticket_list" resultType="Admin">
-    SELECT *
-    FROM ticket
-</select>
-
 <!-- 예매 전체 조회 -->
-<select id="booking_list" resultType="Admin">
+<select id="booking_list" resultType="Booking">
     SELECT *
     FROM booking 
-</select>
-
-<select id="admin_list" resultType="Admin">
-SELECT *
-FROM admin
 </select>
 
 <!--// 탑승권 조회 : 항공기 번호를 입력 했을 때 당일에 한하여만 조회 가능, 체크인도 되어 있어야 함
     public Product ticket_select(int ticketNo) throws Exception;
 
-    // 탑승권 목록 내역 조회(전체)
-    public List<Admin> ticket_list() throws Exception;
-
     // 탑승 처리 : (탑승완료1, 미탑승0)
     public int ticket_used(int ticket_no) throws Exception;
-
-    /**
-     * 예매 관리
-     */
-    // 전체 예매 내역 조회
-    public List<Admin> booking_list() throws Exception;   -->
+   -->
 
 <!-- 탑승권 조회 -->
-<select id="ticket_select" resultType="Booking">
-    SELECT * FROM ticket WHERE departure_date = #{departureDate};
+<select id="ticket_list" resultType="Booking">
+    SELECT * 
+    FROM ticket 
+    WHERE departure_date = #{today};
 </select>
 
-<!-- 탑승권 정보 수정 -->
+<!-- 탑승권 조회 -->
+<!--
+    checkedIn : 1 ➡ isBoarded : 0,1
+    checkedIn : 0 
+
+    isBoarded  : 1 ➡ checkedIn : 1
+-->
+<select id="ticket_selectList" resultType="Booking">
+    SELECT *
+    FROM ticket
+    WHERE 1 = 1
+        <if test='checkedIn == 1'>
+            AND checked_in = #{checkedIn}
+            AND is_boarded  = #{isBoarded}
+        </if>
+        <if test='isBoarded == 1'>
+            AND checked_in = 1
+            AND is_boarded  = #{isBoarded}
+        </if>
+        AND flight_no = #{flightNo}
+        AND departure_date = #{today};
+</select>
+
+<!-- 탑승권 정보 수정/탑승처리 -->
 <update id="ticket_update">
     UPDATE ticket
     SET passenger_no = #{passengerNo}

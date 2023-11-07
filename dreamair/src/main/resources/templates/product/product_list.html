@@ -21,13 +21,12 @@
     </div>
     <br>
 
-    <form action="/board/update" method="POST" id="form">
 <th:block th:if="${ProductList != null}" >
             <table class="table table-striped table-hover table-bordered text-center align-middle">
                 <thead>
                     <tr class="table-primary">
                         <th>상품번호</th>
-                        <th>이미지</th>
+                        <!-- <th>이미지</th> -->
                         <th>노선번호</th>
                         <th>상품명</th>
                         <th>카테고리</th>
@@ -38,13 +37,13 @@
                         <th>도착시간</th>
                         <th>등록일자</th>
                         <th>수정일자</th>
-                        <th colspan="4">비고</th>
+                        <th colspan="2">비고</th>
                     </tr>
                     <tbody>
                         <!-- 목록이 없을 때 -->
                         <th:block th:if="${ProductList.isEmpty()}">
                             <tr>
-                                <td colspan="13">등록된 상품(항공권)이 없습니다.</td>
+                                <td colspan="14">등록된 상품(항공권)이 없습니다.</td>
         
                             </tr>
                         </th:block>
@@ -52,7 +51,7 @@
                         <th:block th:each="product : ${ProductList}">
                             <tr>
                                 <td><a href="/product/product_list/${product.productNo}"></a><span th:text="${product.productNo}"></span></td>
-                                <td><img th:src="|/${product.fileName}|" alt="이미지" th:if="${product.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>                             
+                                <!-- <td><img th:src="|/${product.fileName}|" alt="이미지" th:if="${product.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>                              -->
                                 <td><span th:text="${product.routeNo}"></span></td>
                                 <td><span th:text="${product.name}"></span></td>
                                 <td><span th:text="${product.productCat}"></span></td>
@@ -66,8 +65,8 @@
                     
                                 <td colspan="2">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-primary me-md-2" type="button" onclick="updatePro()">수정</button>            
-                                    <button class="btn btn-primary" type="button" onclick="deletePro()">삭제</button>
+                                    <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/product_update?productNo=${product.productNo}|">수정</button></td>          
+                                    <td><button class="btn btn-primary" type="button" onclick="deletePro()">삭제</button></td>
                                 </div>
                                 </td>
                             </tr>
@@ -76,11 +75,11 @@
                 </thead>
             </table>
         </th:block>
-        </form>
+
         <th:block th:if="${ProductList==null}" >
             <th:block th:if="${ProductList.isEmpty()}">
                 <tr>
-                    <td colspan="6">등록된 상품(항공권)이 없습니다.</td>
+                    <td colspan="14">등록된 상품(항공권)이 없습니다.</td>
                 </tr>
             </th:block>
         </th:block>

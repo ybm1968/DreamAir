@@ -44,6 +44,8 @@ public class Booking {
     private String duration;            // 소요시간(수정함)
     private int checkedIn;
     private int isBoarded;
+    private String departureDate;
+    private String destinationDate;
 
     // product 테이블
     // private int productNo;
@@ -77,6 +79,7 @@ public class Booking {
      */
 
 
-   
+    // 탑승권 처리 할 때 필요한 변수
+    private int select;
 }
 

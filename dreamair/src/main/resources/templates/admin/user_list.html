@@ -27,14 +27,13 @@
                     <tr class="table-primary">
                         <th>회원번호</th>
 						<th>아이디</th>
-						<th>비밀번호</th>
 						<th>이름</th>
 						<th>주소</th>
 						<th>연락처</th>
 						<th>이메일</th>
 						<th>등록일자</th>
 						<th>수정일자</th>
-						<th>계정상태</th>
+						<th>권한</th>
                         <th colspan="2">비고</th>
                     </tr>
                     <tbody>
@@ -54,12 +53,12 @@
                                 <td><span th:text="${users.email}"></span></td> 
                                 <td><span th:text="${users.regDate}"></span></td> 
                                 <td><span th:text="${users.updDate}"></span></td> 
-                                <td><span th:text="${users.status}"></span></td> 
                                 <td><span th:text="${users.auth}"></span></td>
-    
-                                <td><a th:href="|/admin/user_update?userNo=${users.userNo}|">수정</a></td>
-                                <td><a href="javascript:;">삭제</a></td>
-                                <td></td>
+
+                                <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/user_update?userNo=${users.userNo}|">수정</button></td>          
+                                <td><button class="btn btn-primary" type="button" onclick="deletePro()">삭제</button></td>
+                                <!-- <td><a th:href="|/admin/user_update?userNo=${users.userNo}|">수정</a></td>
+                                <td><a href="javascript:;" onclick="">삭제</a></td> -->
                             </tr>
                         </th:block>
                     </tbody>

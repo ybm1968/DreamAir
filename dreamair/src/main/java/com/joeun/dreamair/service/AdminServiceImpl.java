@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
@@ -32,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
   // 전체 관리자 조회
   @Override
   public List<Admin> admin_list() throws Exception {
-    List<Admin> adminList = adminMapper.booking_list();
+    List<Admin> adminList = adminMapper.admin_list();
     return adminList;
   }
 
@@ -90,28 +91,29 @@ public class AdminServiceImpl implements AdminService {
   
   // 전체 예매 내역 조회
   @Override
-  public List<Admin> booking_list() throws Exception {
-    List<Admin> bookingList = adminMapper.booking_list();
+  public List<Booking> booking_list() throws Exception {
+    List<Booking> bookingList = adminMapper.booking_list();
     return bookingList;
   }
 
   // 항공권 번호로 당일의 탑승객 조회 (확인 필요)
     @Override
-  public Booking ticket_select(int flightNo) throws Exception {
-    Booking passenger = adminMapper.ticket_select(flightNo);
-    return passenger;
+  public List<Booking> ticket_selectList(String departureDate, int flightNo, int checkedIn, int isBoarded) throws Exception {
+    List<Booking> ticketList = adminMapper.ticket_selectList(departureDate, flightNo, checkedIn, isBoarded);
+
+    return ticketList;
   }
 
   // 탑승권 목록 내역 조회(전체)
   @Override
-  public List<Admin> ticket_list() throws Exception {
-    List<Admin> ticketList = adminMapper.ticket_list();
+  public List<Booking> ticket_list(String today) throws Exception {
+    List<Booking> ticketList = adminMapper.ticket_list(today);
     return ticketList;
   }
 
   // 탑승 처리 : (탑승완료1, 미탑승0)
   @Override
-  public int ticket_update(@RequestBody int ticketNo) throws Exception {
+  public int ticket_update(int ticketNo) throws Exception {
     int result = adminMapper.ticket_update(ticketNo);
     return result;
   }

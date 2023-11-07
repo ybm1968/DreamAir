@@ -35,18 +35,18 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> flight_list() throws Exception {
        List<Product> flightList = productMapper.flight_list();
 
-       for (int i = 0; i < flightList.size(); i++) {
-            Files file = new Files();
-            file.setParentTable("flight");
-            file.setParentNo(flightList.get(i).getFlightNo());
+    //    for (int i = 0; i < flightList.size(); i++) {
+    //         Files file = new Files();
+    //         file.setParentTable("flight");
+    //         file.setParentNo(flightList.get(i).getFlightNo());
 
-            file = fileMapper.selectThumbnail(file);
-            if(file != null) {
-        		flightList.get(i).setFileName(file.getFileName());
-        		flightList.get(i).setFileType(file.getFileType());
-            }
-            flightList.get(i).setThumbnail(file);
-        }
+    //         file = fileMapper.selectThumbnail(file);
+    //         if(file != null) {
+    //     		flightList.get(i).setFileName(file.getFileName());
+    //     		flightList.get(i).setFileType(file.getFileType());
+    //         }
+    //         flightList.get(i).setThumbnail(file);
+    //     }
        return flightList;
     }
 
@@ -136,18 +136,18 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> product_list() throws Exception {
         List<Product> productList = productMapper.product_list();
 
-         for (int i = 0; i < productList.size(); i++) {
-            Files file = new Files();
-            file.setParentTable("product");
-            file.setParentNo(productList.get(i).getFlightNo());
+        //  for (int i = 0; i < productList.size(); i++) {
+        //     Files file = new Files();
+        //     file.setParentTable("product");
+        //     file.setParentNo(productList.get(i).getFlightNo());
 
-            file = fileMapper.selectThumbnail(file);
-            if(file != null) {
-        		productList.get(i).setFileName(file.getFileName());
-        		productList.get(i).setFileType(file.getFileType());
-            }
-            productList.get(i).setThumbnail(file);
-        }
+        //     file = fileMapper.selectThumbnail(file);
+        //     if(file != null) {
+        // 		productList.get(i).setFileName(file.getFileName());
+        // 		productList.get(i).setFileType(file.getFileType());
+        //     }
+        //     productList.get(i).setThumbnail(file);
+        // }
         return productList;
     }
 
@@ -235,5 +235,6 @@ public class ProductServiceImpl implements ProductService {
        int result = productMapper.productIO_insert(product);
        return result;
     }
+    
     
 }

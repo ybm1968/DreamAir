@@ -12,47 +12,36 @@
               <!-- 관리자 메뉴 -->
               <!-- <th:block sec:authorize="isAuthenticated()"> -->
                 <th:block>
-                <li class="nav-item">
-                  <a href="/admin" class="nav-link d-flex align-items-center gap-2" aria-current="page" >
-                    대시보드
-                  </a>
-                </li>
+                <ul class="nav-item">
+                  <a href="/admin/" class="nav-link d-flex align-items-center gap-2" aria-current="page">대시보드</a>
+                </ul>
 
-                <li class="nav-item">
-                  <a href="/admin/admin_insert" class="nav-link d-flex align-items-center gap-2" >
-                    관리자 등록
-                  </a>
-                </li>
+                <ul class="nav-item">
+                  <a href="/admin/admin_insert" class="nav-link d-flex align-items-center gap-2">관리자 등록</a>
+                  <li><a href="/admin/admin_list" class="nav-link d-flex align-items-center gap-2">관리자 목록</a></li>
+                </ul>
 
-                <li class="nav-item">
-                  <a href="/admin/user_list" class="nav-link d-flex align-items-center gap-2" >
-                    사용자 관리
-                  </a>
-                </li>
+                <ul class="nav-item">
+                  <a href="/admin/user_list" class="nav-link d-flex align-items-center gap-2">사용자 관리</a>
+                </ul>
 
-                <li class="nav-item">
-                  <a href="/product/flight_list" class="nav-link d-flex align-items-center gap-2" >
-                    항공기 관리
-                  </a>
-                </li>
+                <ul class="nav-item">
+                  <a href="/product/flight_list" class="nav-link d-flex align-items-center gap-2">항공기 관리</a>
+                  <li><a href="/product/flight_insert" class="nav-link d-flex align-items-center gap-2">항공기 정보 등록</a></li>
+                </ul>
 
-                <li class="nav-item">
-                  <a href="/product/product_list" class="nav-link d-flex align-items-center gap-2" >
-                    상품 관리
-                  </a>
-                </li>
+                <ul class="nav-item">
+                  <a href="/product/product_list" class="nav-link d-flex align-items-center gap-2">상품 관리</a>
+                  <li><a href="/product/product_insert" class="nav-link d-flex align-items-center gap-2">상품 정보 등록</a></li>
+                </ul>
 
-                <li class="nav-item">
-                  <a href="/admin/booking_list" class="nav-link d-flex align-items-center gap-2" >
-                    예매 관리
-                  </a>
-                </li>
+                <ul class="nav-item">
+                  <a href="/admin/booking_list" class="nav-link d-flex align-items-center gap-2">예매 관리</a>
+                </ul>
 
-                <li class="nav-item">
-                  <a href="/admin/ticket_list" class="nav-link d-flex align-items-center gap-2" >
-                    사용자 탑승권 관리
-                  </a>
-                </li>
+                <ul class="nav-item">
+                  <a href="/admin/ticket_list" class="nav-link d-flex align-items-center gap-2">사용자 탑승권 관리</a>
+                </ul>
               </th:block>
             </ul>
             <hr class="my-3">
