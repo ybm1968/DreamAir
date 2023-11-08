@@ -8,7 +8,7 @@ public class Booking {
     // booking 테이블
     private int bookingNo;
     private String name;
-    private int seatNo;
+    private String seatNo;
     private int userNo;
     private int userNo2;
     private int productNo;

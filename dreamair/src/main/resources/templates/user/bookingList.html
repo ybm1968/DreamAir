@@ -59,30 +59,49 @@
             </div>
         </th:block>
 
-        <table class="table table-striped table-hover table-bordered text-center align-middle">
-            <tr class="table-primary">
-                <th>상품명</th>
-                <th>출발일</th>
-                <th>결제 금액</th>
-                <th>상태</th>
-                <th>환불 / 좌석 변경 / 조회</th>
-            </tr>
-            <tr>
-                <td><span></span></td>                                
-                <td><span></span></td>
-                <td><span></span></td>
-                <td><span></span></td>
-                <td>
-                    <span style="white-space: nowrap;">
-                    <button>환불</button>
-                    <p style="display: inline;">/</p>
-                    <button>좌석 변경</button>
-                    <p style="display: inline;">/</p>
-                    <button>조회</button>
-                    </span>
-                </td>
-            </tr>
-        </table>
+
+        <!-- 예매 내역 -->
+        <th:block th:if="${ticketList != null}">
+            
+            <table class="table table-striped table-hover table-bordered text-center align-middle">
+                <thead>
+                    <tr class="table-primary">
+                        <th>상품명</th>
+                        <th>출발일</th>
+                        <th>결제 금액</th>
+                        <th>상태</th>
+                        <th>환불 / 좌석 변경 / 조회</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- 예매 내역이 없을 때 -->
+                    <th:block th:if="${ticketList.isEmpty()}">
+                        <tr>
+                            <td colspan="4">예매 내역이 없습니다.</td>
+                        </tr>
+                    </th:block>
+
+                    <th:block th:each="ticket : ${ticketList}">
+                        <tr>
+                            <td><span th:text="${ticket.name}"></span></td>                                
+                            <td><span th:text="${ticket.departureDate}"></span></td>
+                            <td><span>50,000</span></td>
+                            <td><span th:text="${ticket.isBoarded}"></span></td>
+                            <td>
+                                <span style="white-space: nowrap;">
+                                <button>환불</button>
+                                <p style="display: inline;">/</p>
+                                <button>좌석 변경</button>
+                                <p style="display: inline;">/</p>
+                                <button href="/dreamair/src/main/resources/templates/user/viewTicket.html">조회</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </th:block>
     </div>
 
 

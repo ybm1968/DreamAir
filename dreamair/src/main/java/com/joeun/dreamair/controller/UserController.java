@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
+import com.joeun.dreamair.service.TicketService;
 import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +34,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // @Autowired
-    // private BookingService bookingService;
+    @Autowired
+    private TicketService ticketService;
 
     @Autowired
     private PersistentTokenRepository persistentTokenRepository;
@@ -240,24 +241,40 @@ public class UserController {
      * 주문 내역 페이지
      * @throws Exception
      */
-    @GetMapping(value="/booking")
+    @GetMapping(value="/bookingList")
     public String booking(Model model, Principal principal, Booking booking) throws Exception {
-        List<Booking> bookingList = null;
+        List<Booking> ticketList = null;
         // 회원 주문 내역 데이터 요청
         if( principal != null ) {
             log.info("회원 : " + principal.getName());
             String userId = principal.getName();
-            // bookingList = bookingService.listByUserId(userId);
-            // booking = bookingService.sumBooking(userId);
-            log.info("booking : " + booking);
-            model.addAttribute("bookingList", bookingList);
-            model.addAttribute("booking", booking);
+            
+            ticketList = ticketService.selectBookingByUser(userId);
+            
+            // ticket = ticketService.sumBooking(userId);
+            
+            log.info("ticket : " + ticketList);
+            // log.info("booking : " + booking);
+
+            model.addAttribute("ticketList", ticketList);
+            // model.addAttribute("booking", booking);
         }
         
-        return "user/booking";
+        return "user/bookingList";
     }
 
 
+    /**
+     * 티켓 상세 정보 페이지
+     * @throws Exception
+     */
+    @GetMapping(value="/viewTicket")
+    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+        
+        return "user/viewTicket";
+    }
+
+    
     
 
 
