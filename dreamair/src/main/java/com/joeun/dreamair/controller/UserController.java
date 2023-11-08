@@ -242,7 +242,7 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value="/bookingList")
-    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+    public String bookingList(Model model, Principal principal, Booking booking) throws Exception {
         List<Booking> ticketList = null;
         // 회원 주문 내역 데이터 요청
         if( principal != null ) {
@@ -269,7 +269,7 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value="/viewTicket")
-    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+    public String viewTicekt(Model model, Principal principal, Booking booking) throws Exception {
         
         return "user/viewTicket";
     }
