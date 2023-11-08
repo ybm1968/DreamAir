@@ -9,7 +9,7 @@ import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.mapper.BookingMapper;
 
 import lombok.extern.slf4j.Slf4j;
-
+ 
 @Slf4j
 @Service 
 public class BookingServiceImpl implements BookingService{

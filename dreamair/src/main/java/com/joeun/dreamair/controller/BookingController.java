@@ -47,6 +47,8 @@ public class BookingController {
     @GetMapping(value="/component/golist")
     public String gobookingList(Model model, Booking booking) throws Exception {
         log.info("가는편 출발지 : " + booking.getDeparture());
+        log.info("*가는편 getProductNoDep : " + booking.getProductNoDep());
+
         List<Booking> bookingList = bookingService.golist(booking);
         model.addAttribute("bookingList", bookingList);
         model.addAttribute("bookingInfo", booking);
@@ -57,7 +59,9 @@ public class BookingController {
     @GetMapping(value="/component/comelist")
     public String comebookingList(Model model, Booking booking) throws Exception {
         log.info("오는편 출발지 : " + booking.getDeparture());
-        log.info("오는편 getProductNoDep : " + booking.getProductNoDep());
+        log.info("오는편 getProductNo : " + booking.getProductNo());
+        log.info("*오는편 getProductNoDep : " + booking.getProductNoDep());
+
         List<Booking> bookingList = bookingService.comelist(booking);
         model.addAttribute("bookingList", bookingList);
         model.addAttribute("bookingInfo", booking);
@@ -80,8 +84,17 @@ public class BookingController {
     }
 
     @PostMapping(value="/info")
-    public String infoPro(Booking booking) throws Exception{
-        int result = bookingService.info(booking);
+    public String infoPro(List<Booking> bookingList) throws Exception{
+        log.info("탑승객1 이름 : " + bookingList.get(0).getPassengerName());
+        log.info("탑승객2 이름 : " + bookingList.get(0).getPassengerName());
+
+        int result = 0;
+        for (Booking booking : bookingList) {
+            result = bookingService.info(booking);
+            result++;
+        }
+
+        log.info("인서트결과 : " + result);
 
         // 탑승객 수 만큼 반복해서 인서트???
         

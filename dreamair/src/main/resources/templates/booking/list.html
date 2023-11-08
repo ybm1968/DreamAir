@@ -96,7 +96,8 @@
         let destination = "[[${booking.destination}]]"
         let departureDate = "[[${booking.departureDate}]]"
         let pasCount = "[[${booking.pasCount}]]"
-
+        let productNoDep
+        let productIdDep
 
         goWay()
 
@@ -136,6 +137,10 @@
 
             $('.btn-select').on("click", function() {
                 $('#goWay').hide();
+                productNoDep = $("#productNoDep").val();
+                productIdDep = $("#productIdDep").val();
+                console.log('productNoDep의 값:', productNoDep);
+                console.log('productIdDep의 값:', productIdDep);
                 roundTrip = '도착'
                 comeWay();
             })
@@ -153,10 +158,10 @@
                 destination: departure,
                 departureDate: departureDate,   
                 pasCount: pasCount,
-                // productNoDep : productNoDep,
-                // productIdDep : productIdDep
+                productNoDep : productNoDep,
+                productIdDep : productIdDep
             };
-
+ 
 
             $.ajax({
                 url     : url,
@@ -173,12 +178,6 @@
             })
         }
             
-        // 선택할때 booking에 값을 넣고 예매하기 할때도 booking에 값을 넣어서 info로 넘겨서 info에서 탑승객 정보입력시 디비에 입력
-        // data에 히든값 포함해서 데이터 전송
-        // 선택하기 눌렀을 때()
-        
-    
-        
     </script>
 
 </body>

@@ -36,52 +36,61 @@
     
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">이름</label>
-                <input type="text" class="form-control col-md-10" name="passengerName" th:name="'bookingList.passengerName' + ${i}">
+                <input type="text" class="form-control col-md-10" th:name="'bookingList.passengerName' + ${i}">
+                <!-- name="passengerName" > -->
               </div>
 
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">이름(영문)</label>
-                <input type="text" class="form-control col-md-10" name="firstName" th:name="'bookingList.firstName' + ${i}">
+                <input type="text" class="form-control col-md-10" th:name="'bookingList.firstName' + ${i}"> 
+                <!-- name="firstName" > -->
               </div>
 
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">성(영문)</label>
-                <input type="text" class="form-control col-md-10" name="lastName" th:name="'bookingList.lastName' + ${i}">
+                <input type="text" class="form-control col-md-10" th:name="'bookingList.lastName' + ${i}">
+                <!-- name="lastName" > -->
               </div>
 
 
               <div class="radio-row" style="margin-bottom: 20px;">
                 <label class="radio-container m-r-45">남자
-                  <input type="radio" th:name="'bookingList.gender' + ${i}" th:id="'male_' + ${i}" value="남자" name="gender" id="male" checked="checked">
+                  <input type="radio" th:name="'bookingList.gender' + ${i}" th:id="'male_' + ${i}" value="남자"  checked="checked">
+                  <!-- name="gender" id="male"> -->
                     <span class="radio-checkmark"></span>
                 </label> 
                 <label class="radio-container m-r-45">여자
-                  <input type="radio" th:name="'bookingList.gender' + ${i}" th:id="'female_' + ${i}" value="여자" name="gender" id="female"> 
+                  <input type="radio" th:name="'bookingList.gender' + ${i}" th:id="'female_' + ${i}" value="여자"> 
+                  <!-- name="gender" id="female">  -->
                     <span class="radio-checkmark"></span>
                 </label>
               </div>
 
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">생년월일</label>
-                <input type="text" class="form-control col-md-10" name="birth" th:name="'bookingList.birth' + ${i}">
+                <input type="text" class="form-control col-md-10"  th:name="'bookingList.birth' + ${i}" >
+                <!-- name="birth"> -->
               </div>
 
               <div class="input-group mb-3 row">
-                <select name="pinType" id="" th:name="'bookingList.pinType' + ${i}">
+                <select  id="" th:name="'bookingList.pinType' + ${i}" > 
+                  <!-- name="pinType"> -->
                   <option value="1">주민등록증</option>
                   <option value="2">여권</option>
                   <option value="3">운전면허증</option>
                 </select>
               </div>
-              
+               
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">핸드폰 번호</label>
-                <input type="number" class="form-control col-md-10" name="phone" th:name="'bookingList.phone' + ${i}">
+                <input type="number" class="form-control col-md-10"  th:name="'bookingList.phone' + ${i}" >
+                <!-- name="phone"> -->
               </div>
           
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">이메일</label>
-                <input type="text" class="form-control col-md-10" name="email" th:name="'bookingList.email' + ${i}">
+                <input type="text" class="form-control col-md-10" th:name="'bookingList.email' + ${i}">
+                 <!-- name="email" > -->
               </div>
 
               <!-- <div class="input-group mb-3 row" sec:authorize="isAnonymous()">

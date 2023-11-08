@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" -->
+<!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.joeun.dreamair.mapper.BookingMapper">
     
     <!-- 가는편 조회 --> 
@@ -41,6 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="info">
             INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
             VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
+            
+            <!-- INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+            VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
     </insert>
 
 
