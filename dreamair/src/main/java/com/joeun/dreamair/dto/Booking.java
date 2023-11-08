@@ -1,11 +1,10 @@
 package com.joeun.dreamair.dto;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
 public class Booking {
+
     // booking 테이블
     private int bookingNo;
     private String name;
@@ -15,8 +14,8 @@ public class Booking {
     private int productNo;
     private int routeNo;
     private String productId;
-    private int pasCount;       // 탑승 인원
-    private String roundTrip;      // 왕복 여부(수정함)
+    private int pasCount;               // 탑승 인원
+    private String roundTrip;           // 왕복 여부(수정함)
     private String status;
 
     // passengers 테이블
@@ -38,35 +37,23 @@ public class Booking {
     private int ticketNo;
     private String departure;           // 출발지
     private String destination;         // 도착지
-    private String boarding;            // 탑승시간(수정함)
-    private String departureTime;         // 출발 시간(수정함)
-    private String destinationTime;       // 도착 시간(수정함)
-    private String duration;            // 소요시간(수정함)
+    private String boarding;            // 탑승시간(게이트 도착 시간)
+    private String departureTime;       // 출발시간
+    private String destinationTime;     // 도착시간
+    private String duration;            // 소요시간
     private int checkedIn;
     private int isBoarded;
     private String departureDate;
     private String destinationDate;
+    private String boardingTime;        // 실제 탑승시간
 
     // product 테이블
-    // private int productNo;
-    // private int routeNo;
-    // private String name;
-    // private String productCat;
     private int productPrice;
-    // private String departure;
-    // private String destination;
-    // private Date productRegDate;
-    // private Date productUpdDate;
 
     // flight 테이블
     private int flightNo;
     private String flightName;
-    // private String seatNo;
-    // private int routeNo;
-    // private int seatMax;
     private int seatRemaining;
-    // private int seatUsed;
-
 
     // 왕복 변수 정리
     /*
@@ -77,7 +64,6 @@ public class Booking {
      * 추가할 테이블 : ticket, route v
      * 돌아오는날 데이터 들어가는 행에있는 출발지 도착지는 반대로 값을 넣어야함
      */
-
 
     // 탑승권 처리 할 때 필요한 변수
     private int select;

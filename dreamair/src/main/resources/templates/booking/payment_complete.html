@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/main_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 완료</title>
+</head>
+<body layout:fragment="content">
+    <div class="container w-100">
+        <h1 class="text-center my-3">결제가 완료되었습니다.</h1>
+
+        <!-- 회원 -->
+        <th:block sec:authorize="isAuthenticated()">
+            <th:block th:object="Booking">
+                <h3>예매 번호 : <sapn th:text=#{bookingNo}></sapn></h3>
+        </th:block>
+
+        <!-- 비회원 -->
+        <th:block sec:authorize="isAnonymous()">
+            <th:block th:object="Booking">
+                <h3>예매 번호 : <sapn th:text=#{bookingNo2}></sapn></h3>
+        </th:block>
+
+                <th:block th:if="${PassengerList!=null}">
+                    <h3>탑승객 정보</h3>
+                    <h3 th:text="${ticketNo}"></h3>
+                    <h3 th:text="${passengerName}"></h3>
+                    <!-- QR코드 -->
+                    <tr>
+                        <td>QR CODE</td>
+                        <!-- /admin/Final_check?ticketNo=${ticketNo} -->
+                        <!-- <td><input type="text" name="url" placeholder="url을 입력하세요." th:value="|http://localhost:9090/admin/Final_check?ticketNo=${ticketNo}|"></td> -->
+                        
+                    </tr>
+                </th:block>
+            </th:block>
+        </th:block>
+    </div>
+</body>
+</html>

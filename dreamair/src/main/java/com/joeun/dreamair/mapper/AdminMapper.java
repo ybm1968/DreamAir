@@ -58,9 +58,10 @@ public interface AdminMapper {
     // 탑승권 목록 내역 조회(전체)
     public List<Booking> ticket_list(@Param("today") String today) throws Exception;
 
-    // 선택 조회
-    // public List<Booking> ticket_selectList(int flightNo, int checkedin, int isBoared) throws Exception;
-
-    // 탑승 처리 : (탑승완료1, 미탑승0)
+    // 탑승 처리 - (탑승완료1, 미탑승0)
     public int ticket_update(int ticketNo) throws Exception;
+
+    // 탑승권 조회 - ticketNo
+    public List<Booking> pas_ticketList(@Param("ticketNo") int ticketNo) throws Exception;
+
 }

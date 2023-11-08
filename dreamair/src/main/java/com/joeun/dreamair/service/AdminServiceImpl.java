@@ -94,7 +94,7 @@ public class AdminServiceImpl implements AdminService {
     return bookingList;
   }
 
-  // 항공권 번호로 당일의 탑승객 조회 (확인 필요)
+  // 항공권 번호로 당일의 탑승객 조회
     @Override
   public List<Booking> ticket_selectList(String departureDate, int flightNo, int checkedIn, int isBoarded) throws Exception {
     List<Booking> ticketList = adminMapper.ticket_selectList(departureDate, flightNo, checkedIn, isBoarded);
@@ -116,4 +116,10 @@ public class AdminServiceImpl implements AdminService {
     return result;
   }
   
+  // 탑승권 조회 - ticketNo
+  @Override
+  public List<Booking> pas_ticketList(int ticketNo) throws Exception {
+    List<Booking> pasTicketList = adminMapper.pas_ticketList(ticketNo);
+    return pasTicketList;
+  }
 }

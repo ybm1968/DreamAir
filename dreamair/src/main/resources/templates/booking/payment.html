@@ -2,19 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/layout/admin_layout}"
+      layout:decorate="~{/UI/layout/main_layout}"
       >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 로그인 성공 페이지</title>
+    <title>결제</title>
 
 </head>
 <body layout:fragment="content">
 
     <div class="container p-4">
-        <h1 class="text-center my-3" th:value="${adminId}"> 환영합니다.</h1>
+        <h1 class="text-center my-3">결제 페이지</h1>
+        <br>
+
+        <h3>결제 방법 선택하기</h3>
+
+        <!-- <h3 class="text-center my-3">예매 번호 : ${orderNo}</h3> -->
+
     </div>
-    <div style="height: 1000px;"></div>
-</body>  
+
+
+</body>
 </html>

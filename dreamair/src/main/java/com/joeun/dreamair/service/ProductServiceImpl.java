@@ -64,8 +64,8 @@ public class ProductServiceImpl implements ProductService {
         String parentTable = "flight";
         int parentNo = productMapper.flight_maxPk();
 
-        // 파일 업로드 
-        // List<MultipartFile> fileList = board.getFile();
+        // //파일 업로드 
+        // List<MultipartFile> fileList = flight.getFile();
 
         // if( !fileList.isEmpty() )
         // for (MultipartFile file : fileList) {

@@ -20,4 +20,5 @@ public class ProductIo {
     private int bookingNo;
     private int amount;
     private String type;
+    
 }

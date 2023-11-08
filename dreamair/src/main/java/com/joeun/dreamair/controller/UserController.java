@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
+import com.joeun.dreamair.service.BookingService;
 import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +34,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // @Autowired
-    // private BookingService bookingService;
+    @Autowired
+    private BookingService bookingService;
 
     @Autowired
     private PersistentTokenRepository persistentTokenRepository;
@@ -48,7 +49,7 @@ public class UserController {
     // @PreAuthorize("hasRole('ROLE_USER')")
     // @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     // @Secured("ROLE_USER")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    // @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value={"/", ""})
     public String index() {
         // int result = 10 / 0;
@@ -240,7 +241,7 @@ public class UserController {
      * 주문 내역 페이지
      * @throws Exception
      */
-    @GetMapping(value="/booking")
+    @GetMapping(value="/bookingList")
     public String booking(Model model, Principal principal, Booking booking) throws Exception {
         List<Booking> bookingList = null;
         // 회원 주문 내역 데이터 요청
@@ -254,32 +255,27 @@ public class UserController {
             model.addAttribute("booking", booking);
         }
         
-        return "user/booking";
+        return "user/bookingList";
     }
 
-
+    @PostMapping(value="/booking")
+    public String bookingPost(Model model, Principal principal, Booking booking) throws Exception {
+        List<Booking> bookingList = null;
+        // 비회원 주문 내역 데이터 요청
+        // ✅ 비회원 전화번호           - phone
+        // ✅ 비회원 주문 비밀번호      - bookingPw
+        if( principal == null && booking.getPhone() != null ) {
+            log.info("비회원 : " + booking.getPhone());
+            // bookingList = bookingService.listByGuest(booking);
+            // booking = bookingService.sumBookingByGuest(booking);
+            model.addAttribute("bookingList", bookingList);
+            model.addAttribute("booking", booking);
+        }
+        return "user/booking";
+    }
     
+        
 
-
-    // @PostMapping(value="/booking")
-    // public String bookingPost(Model model, Principal principal, Booking booking) throws Exception {
-    //     List<Booking> bookingList = null;
-    //     // 비회원 주문 내역 데이터 요청
-    //     // ✅ 비회원 전화번호           - phone
-    //     // ✅ 비회원 주문 비밀번호      - bookingPw
-    //     if( principal == null && booking.getPhone() != null ) {
-    //         log.info("비회원 : " + booking.getPhone());
-    //         bookingList = bookingService.listByGuest(booking);
-    //         booking = bookingService.sumBookingByGuest(booking);
-    //         model.addAttribute("bookingList", bookingList);
-    //         model.addAttribute("booking", booking);
-    //     }
-    //     return "user/booking";
-    // }
-    
-
-    
-    
     
 }
 

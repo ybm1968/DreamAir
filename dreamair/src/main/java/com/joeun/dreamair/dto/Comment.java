@@ -23,4 +23,5 @@ public class Comment {
     private Date upd_date;
     private int subCount;
     private String parentTable;
+
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class Users {
+
     // users 테이블
     private int userNo;
     private String userId;
@@ -49,7 +50,6 @@ public class Users {
     private String series; 
     private String token;
     private Date last_used;
-
 
 }
     

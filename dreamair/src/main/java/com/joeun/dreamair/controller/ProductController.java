@@ -79,10 +79,10 @@ public class ProductController {
 
     //* - 상품 수정   
     @GetMapping(value="/product_update")
-    public String productUpdate(Model model, int productNo) throws Exception {
+    public String productUpdate(Model model, int productNo, Product product) throws Exception {
         log.info("[GET] - /product/product_update");
-        int result = productService.product_update(productNo);
-        model.addAttribute("product", result);                    
+
+        model.addAttribute("product", product);                    
         return "product/product_update";
     }
 

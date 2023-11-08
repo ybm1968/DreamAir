@@ -1,31 +1,30 @@
 package com.joeun.dreamair.controller;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Files;
 import com.joeun.dreamair.dto.Product;
+import com.joeun.dreamair.dto.QR;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.AdminService;
+import com.joeun.dreamair.service.FileService;
+import com.joeun.dreamair.service.QRService;
 import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,20 +35,19 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class AdminController {
 
-    // @Autowired
-    // private UserService userService;
-
     @Autowired
     private AdminService adminService;
 
     @Autowired
     private UserService userService;
 
-     @Autowired
-    private PasswordEncoder passwordEncoder;        // 비밀번호 암호화 객체 
+    @Autowired
+    private FileService fileService;
 
-   // /admin/, /admin
-//    관리자 권한(ROLE_ADMIN)을 가진 사용자만 접근 허용
+    @Autowired
+    private QRService qrService;
+
+    // 관리자 권한(ROLE_ADMIN)을 가진 사용자만 접근 허용
     // @PreAuthorize("hasRole('ROLE_ADMIN')")
     // @GetMapping(value={"/", ""})
     // public String index() {
@@ -58,8 +56,9 @@ public class AdminController {
     // }
 
     // [관리자] index 화면 
-    @GetMapping(value={"/"})
+    @GetMapping(value={"/", ""})
     public String index() {
+        log.info("[GET] - /admin/");
         return "admin/index";
     }
     
@@ -77,23 +76,28 @@ public class AdminController {
     // 관리자 등록
     @GetMapping(value="/admin_insert")
     public String adminInsert() {
+        log.info("[GET] - /admin/admin_insert");
+
         return "admin/admin_insert";
     }
 
     // 관리자 등록 처리
     @PostMapping(value="/admin_insert")
     public String adminInsertPro(Admin admin, HttpServletRequest request) throws Exception {
+        log.info("[POST] - /admin/admin_insert");
+
         int result = adminService.admin_insert(admin);
 
         if(result > 0 ){
             log.info("관리자 등록 성공");
             return "redirect:/admin/index";
         }
-    return "redirect:/admin/admin_insert";
+
+        return "redirect:/admin/admin_insert";
     }
 
-    // // [사용자 관리]
-    // // 사용자 목록 조회
+    // [사용자 관리]
+    // 사용자 목록 조회
     @GetMapping(value="/user_list")
     public String userlist(Model model) throws Exception {
         log.info("[GET] - /admin/user_list");
@@ -107,25 +111,31 @@ public class AdminController {
     // 사용자 등록
     @GetMapping(value="/user_insert")
     public String userInsert() {
+        log.info("[GET] - /admin/user_insert");
+
         return "admin/user_insert";
     }
 
     // 관리자 등록 처리
     @PostMapping(value="/user_insert")
     public String userInsertPro(Users user, HttpServletRequest request) throws Exception {
+        log.info("[POST] - /admin/user_insert");
+
         int result = adminService.user_insert(user);
 
         if(result > 0 ){
             log.info("사용자 등록 성공");
             return "redirect:/admin/index";
         }
-    return "redirect:/admin/user_insert";
+
+        return "redirect:/admin/user_insert";
     }
 
     // 사용자 정보 수정
      @GetMapping(value="/user_insert/{userNo}")
      public String userUpdate(@PathVariable("userId") String userId, int userNo, Model model) throws Exception {
-    
+        log.info("[GET] - /admin/user_insert/{userNo}");
+
         model.addAttribute("Users", adminService.user_update(userNo));
         Users user = userService.selectById(userId);
         
@@ -137,6 +147,8 @@ public class AdminController {
     // 사용자 정보 수정 처리   
     @PostMapping(value="/user_update")
     public String userUpdatePro(@ModelAttribute Users users) throws Exception {
+        log.info("[GET] - /admin/user_update");
+
         int result = adminService.user_insert(users);
         if( result == 0 ) return "redirect:/admin/user_update";
 
@@ -146,7 +158,10 @@ public class AdminController {
     // 사용자 정보 삭제 처리      
     @PostMapping(value="/user_delete")
     public String userDelete(@RequestParam int userNo) throws Exception {
+        log.info("[POST]] - /admin/user_delete");
+
         adminService.user_delete(userNo);
+
         return "redirect:/admin/user_list";
     }
     
@@ -157,29 +172,17 @@ public class AdminController {
         log.info("[GET] - /admin/booking_list");
 
         List<Booking> bookinglist = adminService.booking_list();
+
         model.addAttribute("BookingList", bookinglist);
 
         return "admin/booking_list";
     }
 
     // [탑승권 관리]
-    // 탑승권 목록 조회 화면
-    // @GetMapping(value="/ticket_list")
-    // public String ticket_list(Model model, Booking ticket, Product product) throws Exception {
-    //     log.info("[GET] - /product/ticket_list");
-        
-        
-    //     List<Booking> ticketList = adminService.ticket_list();
-    //     model.addAttribute("product", product);
-    //     model.addAttribute("TicketList", ticketList);
-      
-        
-    //     return "admin/ticket_list";
-    // }
-
+    // 탑승권 목록 조회
     @GetMapping(value="/ticket_list")
     public String ticket_listPro(Model model, Booking ticket, Product product) throws Exception {
-        log.info("[POST] - /product/ticket_list");
+        log.info("[GET] - /product/ticket_list");
 
         // today : YYYY/MM/DD (String)
         Date now = new Date();
@@ -188,7 +191,6 @@ public class AdminController {
         log.info("today : " + today);
         ticket.setDepartureDate(today);
         
-
         int select  = ticket.getSelect();
         int checkedIn = ticket.getCheckedIn();
         int isBoarded = ticket.getIsBoarded();
@@ -220,18 +222,48 @@ public class AdminController {
         return "admin/ticket_list";
     }
 
+    // 탑승권 화면 - 탑승 최종 확인 위한
+    @GetMapping(value="/Final_check")
+    public String ticket_Checking(Model model, Booking ticket, Files files, QR qr) throws Exception{
+        log.info("[GET] - /admin/Final_check");       
+        log.info("ticketNo 확인 : " + ticket.getTicketNo());
 
-    // 항공기 조회    Booking booking = adminMapper.ticket_select(ticketNo);
- 
-    // 탑승 처리
-    // @PostMapping(value="ticket_list")
-    // public String ticketUsed(@PathVariable("ticketNo") int ticketNo, @PathVariable("final") int isBoarded, Model model) throws Exception {
+        int ticketNo = ticket.getTicketNo();
+        // ticketNo로 탑승권 조회
+        List<Booking> pasTicketList = adminService.pas_ticketList(ticketNo);
         
-    //     if(isBoarded == 1) { // 탑승 완료
+        files.setParentTable("booking");
+        files.setParentNo(ticketNo);
+        List<Files> fileList = fileService.listByParent(files);
 
-    //     }
-    //     model.addAttribute(null, model)
-    //     return "redirect:/admin/ticket_list";
-    // }
+        qr.setParentTable("booking");
+        qr.setParentNo(ticketNo);
+        List<QR> qrList = qrService.listByParent(qr);
+
+        model.addAttribute("pasTicketList", pasTicketList);
+        model.addAttribute("fileList", fileList);
+        model.addAttribute("qrList", qrList);
+        
+        return "admin/Final_check";
+    }
+
+    // 탑승권 처리 - 탑승 최종 확인 위한
+    @PostMapping(value="/Final_check")
+    public String ticket_CheckingPro(Model model, Booking ticket) throws Exception{
+        log.info("[POST] - /admin/Final_check");       
+
+        // ticketNo에 해당하는 정보 조회
+        int ticketNo = ticket.getTicketNo();
+
+        // adminService.ticket_update(ticketNo);
+        // 버튼을 클릭 하면, '탑승 완료'로 처리
+        ticket.setIsBoarded(1);
+        model.addAttribute("ticket", ticket);
+        // adminService.ticket_update(ticketNo);
+        
+        // 탑승처리가 완료되면 QR 코드 삭제
+
+        return "admin/ticket_list";
+    }
 
 }

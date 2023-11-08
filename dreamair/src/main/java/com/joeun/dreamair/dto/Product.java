@@ -24,7 +24,6 @@ public class Product {
     private String description;
     private String File;
     
-    
     // seat 테이블
     private String seatNo;
     private int bookingNo;
@@ -34,10 +33,7 @@ public class Product {
     private String status;
 
     // flight 테이블
-    // private int flightNo;
     private String flightName;
-
-    // private String seatNo;
     private int seatMax;
     private int seatRemaining;
     private int seatUsed;
@@ -48,10 +44,7 @@ public class Product {
     private int userNo2;
     private int cartCnt;
 
-    // route    
-    // private int routeNo;    
-    // private String departure;     
-    // private String destination;
+    // route 테이블
     private String departureTime;     
     private String destinationTime;
 
@@ -60,6 +53,7 @@ public class Product {
     private String fileName;
     private String fileType;
     
+    // 파일 등록
     private List<MultipartFile> file;
 
 }
