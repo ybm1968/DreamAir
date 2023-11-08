@@ -17,12 +17,25 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private TicketMapper ticketMapper;
     
-    @Override
-    public List<Booking> selectBookingByUser(String userId) throws Exception {
 
-        List<Booking> ticketList = ticketMapper.selectBookingByUser(userId);
+    // 탑승권 리스트 조회 - 회원
+    @Override
+    public List<Booking> selectBookingListByUser(String userId) throws Exception {
+
+        List<Booking> ticketList = ticketMapper.selectBookingListByUser(userId);
 
         return ticketList;
+
+    }
+
+
+    // 탑승권 상세 조회
+    @Override
+    public List<Booking> selectTicket(int bookingNo) throws Exception {
+
+        List<Booking> viewTicket = ticketMapper.selectTicket(bookingNo);
+
+        return viewTicket;
 
     }
 

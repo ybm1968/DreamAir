@@ -11,12 +11,77 @@
 
 </head>
 <body layout:fragment="content" class="">
+    
+    <!-- 티켓 정보 -->
+    <!-- 예약 번호 / 출발지 / 도착지 / 출발일 / 인원 / 결제 금액 / 선택 좌석 -->
 
+    <!-- 예약자 정보 -->
+    <!-- 예약자명 / 핸드폰 번호 / 이메일 -->
+    
     <div class="container p-4">
         <h1 class="text-center my-3">나의 탑승권 관리</h1>
 
         <br>
         <br>
+
+        <h3>• 티켓 정보</h3>
+
+        <br>
+        
+        <table class="table table-striped table-hover table-bordered text-center align-middle">
+            <thead>
+                <tr class="table-primary">
+                    <th>예매 번호</th>
+                    <th>출발지</th>
+                    <th>도착지</th>
+                    <th>출발일</th>
+                    <td>인원</td>
+                    <th>결제 금액</th>
+                    <th>선택 좌석</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <th:block th:each="ticketDetail : ${viewTicketDetail}">
+                    <tr>
+                        <td><span th:text="${ticketDetail.bookingNo}"></span></td>
+                        <td><span th:text="${ticketDetail.departure}"></span></td>                                
+                        <td><span th:text="${ticketDetail.destination}"></span></td>
+                        <td><span th:text="${ticketDetail.departureDate}"></span></td>
+                        <td><span>인원 여기 나와야 함</span></td>
+                        <td><span>결제금액 여기 나와야 함</span></td>
+                        <td><span th:text="${ticketDetail.seatNo}"></span></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+
+
+        <br><br><br>
+        
+        <h3>• 예매자 정보</h3>
+
+        <br>
+
+        <table class="table table-striped table-hover table-bordered text-center align-middle">
+            <thead>
+                <tr class="table-primary">
+                    <th>예매자 명</th>
+                    <th>핸드폰 번호</th>
+                    <th>이메일</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <th:block th:each="user : ${userInfo}">
+                    <tr>
+                        <td><span th:text="${user.name}"></span></td>
+                        <td><span th:text="${user.phone}"></span></td>                                
+                        <td><span th:text="${user.email}"></span></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
 
         
     </div>

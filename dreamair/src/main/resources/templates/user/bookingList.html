@@ -50,8 +50,7 @@
                                 </tr>
                             </table>
                             <div class="btn-box d-grid gap-2">
-                                <button type="submit" 
-                                        class="btn btn-outline-primary btn-lg px-4 gap-3">조회</button>
+                                <button type="submit" class="btn btn-outline-primary btn-lg px-4 gap-3">조회</button>
                             </div>
                         </div>
                     </form>
@@ -66,10 +65,13 @@
             <table class="table table-striped table-hover table-bordered text-center align-middle">
                 <thead>
                     <tr class="table-primary">
+                        <th>예매 번호</th>
+                        <th>티켓 번호</th>
                         <th>상품명</th>
                         <th>출발일</th>
                         <th>결제 금액</th>
-                        <th>상태</th>
+                        <td>체크인 여부</td>
+                        <th>탑승 여부</th>
                         <th>환불 / 좌석 변경 / 조회</th>
                     </tr>
                 </thead>
@@ -84,17 +86,26 @@
 
                     <th:block th:each="ticket : ${ticketList}">
                         <tr>
+                            <td><span th:text="${ticket.ticketNo}"></span></td>
+                            <td><span th:text="${ticket.bookingNo}"></span></td>
                             <td><span th:text="${ticket.name}"></span></td>                                
                             <td><span th:text="${ticket.departureDate}"></span></td>
-                            <td><span>50,000</span></td>
-                            <td><span th:text="${ticket.isBoarded}"></span></td>
+                            <td><span>결제 금액 여기 나와야 함</span></td>
+                            <td>
+                                <span th:if="${ticket.checkedIn == 0}">체크인 전</span>
+                                <span th:if="${ticket.checkedIn == 1}">체크인 완료</span>
+                            </td>
+                            <td>
+                                <span th:if="${ticket.isBoarded == 0}">탑승 전</span>
+                                <span th:if="${ticket.isBoarded == 1}">탑승 완료</span>
+                            </td>
                             <td>
                                 <span style="white-space: nowrap;">
                                 <button>환불</button>
                                 <p style="display: inline;">/</p>
                                 <button>좌석 변경</button>
                                 <p style="display: inline;">/</p>
-                                <button href="/dreamair/src/main/resources/templates/user/viewTicket.html">조회</button>
+                                <a th:href="@{/user/viewTicket(bookingNo=${ticket.bookingNo})}">조회</a>
                                 </span>
                             </td>
                         </tr>

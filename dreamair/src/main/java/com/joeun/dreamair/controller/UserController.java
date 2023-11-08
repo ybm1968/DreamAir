@@ -16,8 +16,10 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -249,12 +251,11 @@ public class UserController {
             log.info("회원 : " + principal.getName());
             String userId = principal.getName();
             
-            ticketList = ticketService.selectBookingByUser(userId);
+            ticketList = ticketService.selectBookingListByUser(userId);
             
             // ticket = ticketService.sumBooking(userId);
             
-            log.info("ticket : " + ticketList);
-            // log.info("booking : " + booking);
+            // log.info("ticket : " + ticketList);
 
             model.addAttribute("ticketList", ticketList);
             // model.addAttribute("booking", booking);
@@ -266,14 +267,30 @@ public class UserController {
 
     /**
      * 티켓 상세 정보 페이지
+     * @param bookingNo
+     * @param model
+     * @return
      * @throws Exception
      */
-    @GetMapping(value="/viewTicket")
-    public String viewTicekt(Model model, Principal principal, Booking booking) throws Exception {
-        
-        return "user/viewTicket";
-    }
+    @GetMapping(value="/viewTicket") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
+    public String viewTicket(@RequestParam int bookingNo, Model model, Principal principal) throws Exception {
 
+        String userId = principal.getName();
+
+        List<Booking> viewTicketDetail = ticketService.selectTicket(bookingNo);
+        Users userInfo = userService.selectById(userId);
+
+        log.info("viewTicketDetail : " + viewTicketDetail);
+        log.info("user : " + userInfo);
+        
+        // viewTicket을 모델에 추가
+        model.addAttribute("viewTicketDetail", viewTicketDetail);
+        model.addAttribute("userInfo", userInfo);
+    
+
+        return "user/viewTicket"; // 보여줄 뷰 페이지 이름을 반환
+    }
+    
     
     
 
