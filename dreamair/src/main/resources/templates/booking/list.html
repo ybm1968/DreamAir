@@ -7,6 +7,9 @@
 <html lang="en">
 
 <head>
+    <!-- 폰트 어썸 라이브러리 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
@@ -18,8 +21,7 @@
 
     <div class="container">
 
-        <h1 style="text-align: center;">항공권 조회</h1>
-        <h2 style="text-align: center;">가는편</h2>
+        <h1 style="text-align: center;">항공권 조회</h1> <br>
         <!-- 출발지 - 목적지를 보여주는 섹션 -->
         <section>
             
@@ -35,8 +37,8 @@
         <!-- 항공권 목록을 보여주는 섹션 -->
         <section id="goWay">
             
-            <!-- 
-            <table class="table table-striped table-hover table-bordered text-center align-middle" id="productTable" style="margin-top: 100px;">
+            
+            <!-- <table class="table table-striped table-hover table-bordered text-center align-middle"  style="margin-top: 100px;">
 
                 <tr class="table-primary">
                     <th>운항시간</th> 
@@ -70,15 +72,14 @@
                         </form>
                     </th:block>
                     
-            </table> 
-            -->
+            </table>  -->
+           
             <!-- <input type="hidden" name="producId" th:value="${booking.producId}" > -->
             <!-- 좌석번호, 예매번호는 나중에 insert문 말고 update문으로 값을 추가 -->
 
         </section>
 
         <!-- 오는편 -->
-        <h2 style="text-align: center;">오는편</h2>
         <section id="comeWay"> 
 
         </section>
@@ -95,10 +96,7 @@
         let destination = "[[${booking.destination}]]"
         let departureDate = "[[${booking.departureDate}]]"
         let pasCount = "[[${booking.pasCount}]]"
-        let productIdDep = "[[${bookingList.get(0).productId}]]"
-        let productIdDes = "[[${booking.productId}]]"
-        let productNoDep = "[[${booking.productNo}]]"
-        let productNoDes = "[[${booking.productNo}]]"
+
 
         goWay()
 
@@ -132,13 +130,13 @@
             
         }
 
+        
+
         $(function() {
 
             $('.btn-select').on("click", function() {
                 $('#goWay').hide();
-                // 값을 넘겨주는 처리?
                 roundTrip = '도착'
-                alert(productIdDep)
                 comeWay();
             })
 
@@ -153,13 +151,10 @@
                 roundTrip: roundTrip,
                 departure: destination,
                 destination: departure,
-                departureDate: departureDate,   // 돌아오는 날 값을 넘겨줘야해
-                pasCount: pasCount
-                // roundTrip: '도착',
-                // departure: '김포',
-                // destination: '제주',
-                // departureDate: '2023/11/06',
-                // pasCount: 4
+                departureDate: departureDate,   
+                pasCount: pasCount,
+                // productNoDep : productNoDep,
+                // productIdDep : productIdDep
             };
 
 
@@ -182,8 +177,7 @@
         // data에 히든값 포함해서 데이터 전송
         // 선택하기 눌렀을 때()
         
-
-        // 예매하기 눌렀을 때()
+    
         
     </script>
 

@@ -39,7 +39,7 @@ public class BookingController {
         model.addAttribute("bookingList", bookingList);     //??
         model.addAttribute("booking", booking);
 
-        return "user/list";
+        return "booking/list";
     }
 
 
@@ -57,6 +57,7 @@ public class BookingController {
     @GetMapping(value="/component/comelist")
     public String comebookingList(Model model, Booking booking) throws Exception {
         log.info("오는편 출발지 : " + booking.getDeparture());
+        log.info("오는편 getProductNoDep : " + booking.getProductNoDep());
         List<Booking> bookingList = bookingService.comelist(booking);
         model.addAttribute("bookingList", bookingList);
         model.addAttribute("bookingInfo", booking);
@@ -67,18 +68,24 @@ public class BookingController {
 
     @GetMapping(value="/info")
     public String info(Model model, Booking booking) {
-        log.info("상품번호 : " + booking.getProductNo());
-        log.info("노선번호 : " + booking.getRouteNo());
+        log.info("가는편 상품번호 : " + booking.getProductNoDep());
+        log.info("가는편 상품코드 : " + booking.getProductIdDep());
+        log.info("오는편 상품번호 : " + booking.getProductNoDes());
+        log.info("오는편 상품코드 : " + booking.getProductIdDes());
+        log.info("인원수 : " + booking.getPasCount());
+
         model.addAttribute("booking", booking);
         
-        return "user/info";
+        return "booking/info";
     }
 
     @PostMapping(value="/info")
     public String infoPro(Booking booking) throws Exception{
         int result = bookingService.info(booking);
+
+        // 탑승객 수 만큼 반복해서 인서트???
         
-        return "user/seat";
+        return "booking/seat";
     }
     
 
@@ -87,25 +94,25 @@ public class BookingController {
         // 값을 조회
         model.addAttribute("booking", booking);
       
-        return "user/seat";
+        return "booking/seat";
     }
     
     @PostMapping(value="/seat")
     public String seatPro() {
         
         
-        return "user/notice";
+        return "booking/notice";
     }
     
 
     @GetMapping(value="/notice")
     public String notice() {
-        return "user/notice";
+        return "booking/notice";
     }
 
     @GetMapping(value="/payment")
     public String payment() {
-        return "user/payment";
+        return "booking/payment";
     }
 
 

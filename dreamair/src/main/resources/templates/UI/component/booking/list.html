@@ -1,3 +1,14 @@
+<th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도') || #strings.equals(bookingInfo.roundTrip, '왕복')}">
+    <h2 style="text-align: center;">가는편</h2>
+    <h2 style="text-align: center;"><span th:text="${bookingInfo.departure}"></span> → <span th:text="${bookingInfo.destination}"></span></h2>
+</th:block>
+
+<th:block th:if="${#strings.equals(bookingInfo.roundTrip, '도착')}">
+    <h2 style="text-align: center;">오는편</h2>
+    <h2 style="text-align: center;"><span th:text="${bookingInfo.departure}"></span> → <span th:text="${bookingInfo.destination}"></span></h2>
+</th:block>
+
+<form action="/booking/info" id="fm" method="get">
 <table class="table table-striped table-hover table-bordered text-center align-middle" style="margin-top: 100px;">
 
     <tr class="table-primary">
@@ -6,96 +17,63 @@
         <th>편명</th> 
         <th>가격</th>  
         <th>잔여좌석</th>
+        <th>상품코드</th>
         <th>장바구니</th>
         <th>예매하기</th>
     </tr>
 
-    <th:block th:if="${bookingList.isEmpty()}">
+    <th:block th:if="${bookingList == null || bookingList.isEmpty()}">
         <tr>
             <td colspan="13">조회된 항공권이 없습니다.</td>
         </tr>
     </th:block>
     
+    
         <th:block th:each="booking : ${bookingList}">
-            <form action="/booking/info">
                 <tr>
                     <td><span th:text="${booking.duration}"></span></td> 
                     <td>DramAir</td> 
                     <td><span th:text="${booking.flightName}"></span></td> 
                     <td><span th:text="${booking.productPrice}"></span></td>  
                     <td><span th:text="${booking.seatRemaining}"></span></td>
+                    <th><span th:text="${booking.productId}"></span></th>
                     <td><a href="" class="btn btn-outline-primary btn-lg">장바구니</a></td>
                     
                     
                     <td>
                         <!-- 편도 -->
                         <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도')}">
-                            <!-- <input type="hidden" name="productNo" th:value="${booking.productNo}" >  -->
-                            <!-- <input type="hidden" name="productId" th:value="${booking.producId}" >  -->
+                            <input type="hidden" name="productNoDep" th:value="${booking.productNo}" > 
+                            <input type="hidden" name="productIdDep" th:value="${booking.productId}" > 
                             <!-- <input type="hidden" name="routeNo" th:value="${booking.routeNo}" > -->
                             <input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg">    
                         </th:block>
                         <!-- 왕복 출발-->
                         <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복')}">
-                            <!-- <input type="hidden" name="productNoDep" th:value="${booking.productNo}" > -->
-                            <!-- <input type="hidden" name="productIdDep" th:value="${booking.producId}" > -->
+                            <input type="hidden" name="productNoDep" th:value="${booking.productNo}" >
+                            <input type="hidden" name="productIdDep" th:value="${booking.productId}" >
                             <!-- <input type="hidden" name="routeNo" th:value="${booking.routeNo}" > -->
-                            <a href="javascript:;" class="btn btn-outline-primary btn-lg btn-select">선택하기</a>
+                            <a href="javascript:;" class="btn btn-outline-primary btn-lg btn-select" >선택하기</a>
                         </th:block>
                         <!-- 왕복 도착 -->
                         <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '도착')}">
-                            <!-- <input type="hidden" name="productNoDes" th:value="${booking.productNo}" > -->
-                            <!-- <input type="hidden" name="productIdDes" th:value="${booking.producId}" > -->
+                            <input type="hidden" name="productNoDes" th:value="${booking.productNo}" >
+                            <input type="hidden" name="productIdDes" th:value="${booking.productId}" >
+                            <input type="hidden" name="pasCount" th:value="${bookingInfo.pasCount}" >
                             <!-- <input type="hidden" name="routeNo" th:value="${booking.routeNo}" > -->
-                            <a href="javascript:;" class="btn btn-outline-primary btn-lg">예매하기</a>
+                            <input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg"> 
                         </th:block>
 
                     </td>
                     
                 </tr>
-            </form>
-        </th:block>
+            </th:block>
+        
     
 </table> 
-
+</form>
 <script>
 
-    // $(function() {
-
-    //     $('.btn-select').on("click", function() {
-    //         alert('선택')
-    //         comeWay()
-    //     })
-
-    // })
-
-    // // 가는편 조회
-    // function comeWay() {
-
-    //     const url = "/booking/component/list"
-
-    //     const data = {
-    //         roundTrip: '도착',
-    //         departure: '김포',
-    //         destination: '제주',
-    //         departureDate: '2023/11/06',
-    //         pasCount: 4 
-    //     };
 
 
-    //     $.ajax({
-    //         url     : url,
-    //         type    : 'GET',
-    //         data    : data,
-    //         success : function(response) {
-    //             console.log(response);
-    //             $('#comeWay').html(response)
-    //         },
-    //         error           : function(request, status, error){
-    //             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    //         }
-
-    //     })
-
-    //     }
 </script>

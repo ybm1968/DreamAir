@@ -1,6 +1,7 @@
 package com.joeun.dreamair.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -38,6 +39,8 @@ public class Booking {
     private String productIdDes;    // 상품코드(오는편)
     private int productNoDep;       // 상품번호(가는편)
     private int productNoDes;       // 상품번호(오는편)
+
+    private List<Booking> bookingList;
 
     // cart
     private int cartNo;
