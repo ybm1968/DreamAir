@@ -240,13 +240,13 @@ input:focus {
 	outline: none;
 }
 
-input[type=checkbox] {
+/* input[type=checkbox] {
 	display: none; 
 }
 
 input[type=checkbox]:disabled {
 	display: none;
-}
+} */
 .direction {
 	text-align: center;
     position: relative;

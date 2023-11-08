@@ -42,3 +42,6 @@
 - UserController.java 수정
 - UserMapper.xml & UserMapper.java 수정
 - 등등
+
+- 11/8
+- booking/seat 체크 박스 보이게 하느라 checkIn.css에서 checkbox 안 보이게 설정해둔 것들 다 주석 처리 함

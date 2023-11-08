@@ -8,13 +8,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
-    
-    </head>
 
 
+    <!-- JavaScript 추가 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // checkbox의 change 이벤트 핸들러 등록
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var depSeatInput = document.getElementById('depSeat');
 
-    <!-- 참고 -->
-<!-- th:text="${c}" -->
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    var selectedSeats = Array.from(checkboxes)
+                        .filter(function(checkbox) { return checkbox.checked; })
+                        .map(function(checkbox) { return checkbox.value; });
+
+                    depSeatInput.value = selectedSeats.join(', ');
+                });
+            });
+        });
+    </script>
+
+</head>
+
+
 <body layout:fragment="content">
 
     <div class="modal-content">
@@ -40,63 +57,72 @@
 
                                         <br>
 
-                                    </div>
-                                </div>
-
-
-                                <div class="arrAir">
-                                    <div class="arrSeat">
                                         <!-- 왼쪽 줄 -->
                                         <div class="seat1">
                                             <th:block th:each="i: ${#numbers.sequence(1, 10)}">
-
-                                                <!-- A, B, C 열 -->
-                                                <th:block th:each="j: ${#numbers.sequence(1, 3)}">
-                                                    <th:block th:if="${j == 1}">
-                                                        <th:with th:var="c" th:value="'A'" />
-                                                    </th:block>
-                                                    <th:block th:if="${j == 2}">
-                                                        <th:with th:var="c" th:value="'B'" />
-                                                    </th:block>
-                                                    <th:block th:unless="${j == 1 or j == 2}">
-                                                        <th:with th:var="c" th:value="'C'" />
-                                                    </th:block>
-
-                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "A1", "A2", ..., "C20"과 같은 식별자로 각각 표시 -->
-                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
-                                                </th:block>
-
+                                                <th:block th:each="j: ${#numbers.sequence(1, 1)}">
+                                                    <th:if test="${j == 1}">
+                                                        <th:block th:with="column = 'A'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                    <th:if test="${j == 2}">
+                                                        <th:block th:with="column = 'B'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                    <th:if test="${j != 1 and j != 2}">
+                                                        <th:block th:with="column = 'C'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                </th:each>
                                                 <br>
-
-                                            </th:block>
+                                            </th:each>
                                         </div>
+
+                                        <hr>
 
                                         <!-- 오른쪽 줄 -->
                                         <div class="seat2">
                                             <th:block th:each="i: ${#numbers.sequence(1, 10)}">
-
-                                                <!-- A, B, C 열 -->
-                                                <th:block th:each="j: ${#numbers.sequence(1, 3)}">
-                                                    <th:block th:if="${j == 1}">
-                                                        <th:with th:var="c" th:value="'D'" />
-                                                    </th:block>
-                                                    <th:block th:if="${j == 2}">
-                                                        <th:with th:var="c" th:value="'E'" />
-                                                    </th:block>
-                                                    <th:block th:unless="${j == 1 or j == 2}">
-                                                        <th:with th:var="c" th:value="'F'" />
-                                                    </th:block>
-
-                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "D1", "D2", ..., "F20"과 같은 식별자로 각각 표시 -->
-                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
-                                                </th:block>
-
+                                                <th:block th:each="j: ${#numbers.sequence(1, 1)}">
+                                                    <th:if test="${j == 1}">
+                                                        <th:block th:with="column = 'D'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                    <th:if test="${j == 2}">
+                                                        <th:block th:with="column = 'E'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                    <th:if test="${j != 1 and j != 2}">
+                                                        <th:block th:with="column = 'F'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                </th:each>
                                                 <br>
-
-                                            </th:block>
+                                            </th:each>
                                         </div>
+
                                     </div>
                                 </div>
+
+                                
                             </div>
 
                             <div class="seatWarning"><span class="warning">좌석지정 유의사항 안내</span></div>
@@ -125,49 +151,15 @@
                     </div>
                     
                 </div>
+
+                <!-- <button type="submit" class="modalInnerBottom" id="btn">
+                    <span>선택 완료</span>
+                </button> -->
                 <button type="button" class="modalInnerBottom" id="btn">
                     <span>선택 완료</span>
                 </button>
             </form>
         </div>
     </div>
-
-
-
-    <!-- <script th:inline="javascript">
-        /* 스크립트 코드 */
-        document.addEventListener("DOMContentLoaded", function() {
-            const bookableElements = document.querySelectorAll(".bookable");
-    
-            bookableElements.forEach(function(element) {
-                element.addEventListener("click", function() {
-                    if (!element.classList.contains("booking")) {
-                        /* "bookable" 클래스를 "booking" 클래스로 토글 */
-                        element.classList.toggle("booking");
-                        /* 배경 이미지 변경 */
-                        const img = element.querySelector("img");
-                        if (img) {
-                            img.src = "/img/bookingSeat.png";
-                        }
-                        
-                        // 선택한 좌석을 가는 편 좌석 input에 출력
-                        const seatTitle = element.getAttribute("title");
-                        document.getElementById("depSeat").value = seatTitle;
-
-                        // 선택한 좌석 정보를 가지고 오기 위해 Thymeleaf 변수를 사용
-                        const c = seatTitle.charAt(0);
-                        const i = seatTitle.substring(1);
-                        document.getElementById("depSeat").value = c + i;
-
-                        // 선택한 좌석 정보를 콘솔에 출력
-                        console.log("선택한 좌석:", c + i);
-
-                        
-
-                    }
-                });
-            });
-        });
-    </script> -->
 </body>
 </html>
