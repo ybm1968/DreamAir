@@ -11,10 +11,6 @@
     
     </head>
 
-
-
-    <!-- 참고 -->
-<!-- th:text="${c}" -->
 <body layout:fragment="content">
 
     <div class="modal-content">
@@ -40,11 +36,61 @@
 
                                         <br>
 
+                                        <!-- 왼쪽 줄 -->
+                                        <div class="seat1">
+                                            <th:block th:each="i: ${#numbers.sequence(1, 10)}">
+
+                                                <!-- A, B, C 열 -->
+                                                <th:block th:each="j: ${#numbers.sequence(1, 3)}">
+                                                    <th:block th:if="${j == 1}">
+                                                        <th:with th:var="c" th:value="'A'" />
+                                                    </th:block>
+                                                    <th:block th:if="${j == 2}">
+                                                        <th:with th:var="c" th:value="'B'" />
+                                                    </th:block>
+                                                    <th:block th:unless="${j == 1 or j == 2}">
+                                                        <th:with th:var="c" th:value="'C'" />
+                                                    </th:block>
+
+                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "A1", "A2", ..., "C20"과 같은 식별자로 각각 표시 -->
+                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
+                                                    <!-- <label for="dep${c}${i}" class="bookable" title="${c}${i}" ><input type="checkbox" id="${c}${i}" th:name="seatNo" value="|dep${c}${i}|" class="seat" title="${c}${i}"></label> -->
+                                                </th:block>
+
+                                                <br>
+
+                                            </th:block>
+                                        </div>
+
+                                        <!-- 오른쪽 줄 -->
+                                        <div class="seat2">
+                                            <th:block th:each="i: ${#numbers.sequence(1, 10)}">
+
+                                                <!-- A, B, C 열 -->
+                                                <th:block th:each="j: ${#numbers.sequence(1, 3)}">
+                                                    <th:block th:if="${j == 1}">
+                                                        <th:with th:var="c" th:value="'D'" />
+                                                    </th:block>
+                                                    <th:block th:if="${j == 2}">
+                                                        <th:with th:var="c" th:value="'E'" />
+                                                    </th:block>
+                                                    <th:block th:unless="${j == 1 or j == 2}">
+                                                        <th:with th:var="c" th:value="'F'" />
+                                                    </th:block>
+
+                                                    <!-- 최종 결과로, 20개의 행과 각 행당 3개의 열로 구성된 좌석 표가 생성되며, 좌석은 "D1", "D2", ..., "F20"과 같은 식별자로 각각 표시 -->
+                                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
+                                                </th:block>
+
+                                                <br>
+
+                                            </th:block>
+                                        </div>
                                     </div>
                                 </div>
 
 
-                                <div class="arrAir">
+                                <div class="arrAir" style="display: none;">
                                     <div class="arrSeat">
                                         <!-- 왼쪽 줄 -->
                                         <div class="seat1">
