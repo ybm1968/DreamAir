@@ -28,6 +28,15 @@
             });
         });
 
+        // 해당 좌석이 비활성화 상태인지 확인하는 함수
+        function isSeatDisabled(seatStatus, seatNo) {
+            for (var i = 0; i < seatStatus.length; i++) {
+                if (seatStatus[i].seatNo === seatNo && seatStatus[i].status === 1) {
+                    return null; // 활성 상태 (비활성화하지 않음)
+                }
+            }
+            return 'disabled'; // 비활성화 상태
+        }
     </script>
 
 </head>
@@ -71,11 +80,25 @@
 
                                         <!-- 왼쪽 줄 -->
                                         <div class="seat1">
-                                            <th:block th:each="seat : ${seatStatus}">
-                                                <input type="checkbox" class="seatBox" th:value="${seat.seatNo}" th:id="'seat-' + ${seat.seatNo}" th:disabled="${seat.status}==1" />
-                                                <label th:for="'seat-' + ${seat.seatNo}" th:text="${seat.seatNo}"></label>
+                                            <th:block th:each="i: ${#numbers.sequence(1, 10)}">
+                                                <th:block th:each="j: ${#numbers.sequence(1, 1)}">
+                                                    <th:if test="${j == 1}">
+                                                        <th:block th:with="column = 'A'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                    <th:if test="${j == 2}">
+                                                        <th:block th:with="column = 'B'">
+                                                            <!-- 좌석 이름 생성 -->
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
+                                                        </th:block>
+                                                    </th:if>
+                                                </th:each>
                                                 <br>
-                                            </th:block>
+                                            </th:each>
                                         </div>
 
 

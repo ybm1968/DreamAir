@@ -219,7 +219,7 @@ to {
 .seat1 {
 	width: inherit;
 	display: inline-table;
-	margin-left: 17px;
+	margin-left: 45px;
 	width: fit-content;
 }
 
@@ -259,11 +259,20 @@ input[type=checkbox] {
 	background-image: url(/img/bookableSeat.png);
 	background-size: cover; /* 이미지를 적절하게 확대/축소하여 채우도록 설정합니다. */
 
+	cursor: pointer;
+
 }
 
 .seat1 .seatBox:checked,
 .seat2 .seatBox:checked {
 	background-image: url(/img/bookingSeat.png);
+}
+
+
+.seat1 .seatBox:disabled,
+.seat2 .seatBox:disabled {
+	background-image: url(/img/bookedSeat.png);
+	cursor: default;
 }
 
 .seat1 label,

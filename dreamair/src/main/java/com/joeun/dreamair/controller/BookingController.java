@@ -103,9 +103,16 @@ public class BookingController {
     
 
     @GetMapping(value="/seat")
-    public String seat(Model model, Booking booking) {
+    public String seat(Model model, Booking booking) throws Exception {
+        
+        List<Booking> seatStatus = bookingService.selectSeatStatus();
+
+        log.info("좌석 어디 선택할 수 있는지 보자 : " + seatStatus);
+        
         // 값을 조회
         model.addAttribute("booking", booking);
+        model.addAttribute("seatStatus", seatStatus);
+        
       
         return "booking/seat";
     }
@@ -144,7 +151,7 @@ public class BookingController {
         model.addAttribute("selectSeat", depSeat);
 
         return "redirect:/booking/notice";
-    }    
+    }
 
 }
 

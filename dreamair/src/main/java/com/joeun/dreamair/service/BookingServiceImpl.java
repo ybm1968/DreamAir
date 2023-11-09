@@ -44,5 +44,17 @@ public class BookingServiceImpl implements BookingService{
         
         return result;
     }
+
+    /**
+     * 항공기 좌석 조회
+     */
+    @Override
+    public List<Booking> selectSeatStatus() throws Exception {
+
+        List<Booking> seatList = bookingMapper.selectSeatStatus();
+
+        return seatList;
+
+    }
     
 }
