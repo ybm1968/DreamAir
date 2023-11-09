@@ -4,10 +4,12 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{/UI/layout/main_layout}"
     >
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 목록</title>
+
 </head>
 <body layout:fragment="content">
     
@@ -19,7 +21,7 @@
         <div class="row">
             <div th:each="board : ${boardList}" class="col-md-4 mb-4">
                 <div class="card">
-                    <img th:src="|/${board.fileName}|" alt="게시글 이미지" class="card-img-top" th:if="${board.fileType == 'img'}" style="width: 200px;height: auto;"/><br>
+                    <img th:src="|/file/img/${board.thumbnail.fileNo}|" alt="게시글 이미지" class="card-img-top" th:if="${board.thumbnail != null }" style="width: 200px;height: auto;"/><br>
                     <div class="card-body">
                         <h5 class="card-title" th:text="${board.title}"></h5>
                         <p class="card-text">
