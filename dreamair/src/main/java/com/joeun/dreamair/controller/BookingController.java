@@ -23,11 +23,6 @@ import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
-
-
-
 @Slf4j
 @Controller
 @RequestMapping("/booking")
@@ -51,7 +46,6 @@ public class BookingController {
 
         return "booking/list";
     }
-
 
     // 가는 편
     @GetMapping(value="/component/golist")
@@ -78,8 +72,6 @@ public class BookingController {
         return "UI/component/booking/list";
     }
     
-
-
     // 탑승객 정보 입력
     @GetMapping(value="/info")
     public String info(Model model, Booking booking) {
@@ -92,60 +84,9 @@ public class BookingController {
         model.addAttribute("booking", booking);
         
         return "booking/info";
-    public String info(){
-        log.info("[GET] - /booking/list");
-        return "booking/info";
     }
 
-    // 탑승객 유의사항
-    @GetMapping(value="/notice")
-    public String notice(){
-        return "booking/notice";
-    }
-
-    // 좌석 선택
-    @GetMapping(value="/seat")
-    public String seat(){
-        return "booking/seat";
-    }
-
-
-    // 결제
-    @GetMapping(value="/payment")
-    public String payment(Model model, Principal principal, Booking booking) throws Exception {
-
-        // 결제가 완료가 되면, booking 테이블에 정보 추가
-        
-        
-        // 회원 : userNo 추출, 비회원 : userNo2 추출
-        String loginId = principal != null ? principal.getName() : "GUEST";
-        Users user = userService.selectById(loginId);
-        
-        // 초기값 설정
-        int userNo = 0;
-        int userNo2 = 0;
-
-        // loginId에서 userNo 추출
-        userNo = user.getUserNo();
-        userNo2 = user.getUserNo2();
-        
-        // booking 테이블에서 최근 bookingNo 추출
-        int bookingNo = bookingService.latest_user_bookingNo(userNo);
-        int bookingNo2 = bookingService.latest_user2_bookingNo(userNo2);
-
-        model.addAttribute("bookingNo", bookingNo);
-        model.addAttribute("bookingNo2",bookingNo2);
-
-        return "booking/payment";
-    }
-
-    // 결제 처리  - 예매 번호 발급
-    @PostMapping(value="/payment")
-    public String paymentPro(Booking booking) throws Exception {
-        // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking);
-
-        return "redirect:/booking/payment_complete";
+    // 탑승객 정보 입력 처리
     @PostMapping(value="/info")
     public String infoPro(Model model, Booking booking) throws Exception{ 
         // log.info("탑승객1 이름 : " + bookingList.get(0).getPassengerName());
@@ -165,37 +106,23 @@ public class BookingController {
         
         return "booking/seat";
     }
-    
 
+    // 탑승객 유의사항
+    @GetMapping(value="/notice")
+    public String notice(){
+        return "booking/notice";
+    }
+    
+    // 좌석 선택
     @GetMapping(value="/seat")
     public String seat(Model model, Booking booking) {
         // 값을 조회
         model.addAttribute("booking", booking);
       
         return "booking/seat";
-    @GetMapping(value="/payment_complete")
-    public String paymentComplete() {
-        return "booking/payment";
-    }
-    
-
-    @GetMapping(value="/notice")
-    public String notice() {
-        return "booking/notice";
-
-    // 탑승권 발행
-    @PostMapping(value="/ticket")
-    public String ticket() {
-        return "booking/ticket";
     }
 
-    // 좌석 선택
-    @GetMapping(value="/seat")
-    public String seat(){
-        return "booking/seat";
-    }
-
-    // 결제
+     // 결제
     @GetMapping(value="/payment")
     public String payment(Model model, Principal principal, Booking booking) throws Exception {
 
@@ -233,6 +160,7 @@ public class BookingController {
         return "redirect:/booking/payment_complete";
     }
 
+    // 결제 완료
     @GetMapping(value="/payment_complete")
     public String paymentComplete() {
         return "booking/payment";

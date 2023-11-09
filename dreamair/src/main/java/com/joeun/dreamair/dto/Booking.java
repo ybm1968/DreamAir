@@ -1,8 +1,6 @@
 package com.joeun.dreamair.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 
@@ -70,9 +68,6 @@ public class Booking {
     private String flightName;
     private int seatRemaining;
     // private int seatUsed;
-
-
-
 
     // 탑승권 처리 할 때 필요한 변수
     private int select;
