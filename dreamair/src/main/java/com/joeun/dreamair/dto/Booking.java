@@ -1,5 +1,6 @@
 package com.joeun.dreamair.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class Booking {
     private int productNoDep;       // 상품번호(가는편)
     private int productNoDes;       // 상품번호(오는편)
 
-    private List<Booking> bookingList;
+    private ArrayList<Booking> bookingList;
 
     // cart
     private int cartNo;

@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 가는편 조회 --> 
     <select id="golist" resultType="Booking">
       SELECT *
-        FROM flight f left join product p on f.route_no = p.route_no
+        FROM flight f left join product p on f.route_no = p.route_no 
 				              left join route r on f.route_no = r.route_no
         WHERE p.departure = #{departure}
           AND p.destination = #{destination}
@@ -39,12 +39,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 탑승객 정보 입력 -->
     <insert id="info">
-            INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
-            VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
+            INSERT INTO passengers ( product_no_dep, product_no_des, product_id_dep, product_id_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+            VALUES ( #{productNoDep}, #{productNoDes}, #{productIdDep}, #{productIdDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
             
             <!-- INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
             VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
     </insert>
+
+    <!-- 예매한 탑승권 정보 조회 -->
+    <select id="" resultType="Booking">
+      SELECT *
+      FROM 
+      WHERE
+        AND
+    </select>
 
 
 </mapper>

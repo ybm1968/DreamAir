@@ -1,5 +1,6 @@
 package com.joeun.dreamair.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.service.BookingService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -83,16 +83,19 @@ public class BookingController {
         return "booking/info";
     }
 
-    @PostMapping(value="/info")
-    public String infoPro(List<Booking> bookingList) throws Exception{
-        log.info("탑승객1 이름 : " + bookingList.get(0).getPassengerName());
-        log.info("탑승객2 이름 : " + bookingList.get(0).getPassengerName());
 
-        int result = 0;
-        for (Booking booking : bookingList) {
-            result = bookingService.info(booking);
-            result++;
-        }
+    @PostMapping(value="/info")
+    public String infoPro(Model model, Booking booking) throws Exception{ 
+        // log.info("탑승객1 이름 : " + bookingList.get(0).getPassengerName());
+        // log.info("탑승객2 이름 : " + bookingList.get(0).getPassengerName());
+
+        log.info("탑승객 이름 : " + booking.getPassengerName());
+        
+        int result = bookingService.info(booking);
+        // int result = 0;
+        // for (Booking booking : bookingList) {
+        //     result++;
+        // }
 
         log.info("인서트결과 : " + result);
 
