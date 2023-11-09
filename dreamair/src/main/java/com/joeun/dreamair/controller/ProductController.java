@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.ProductIo;
@@ -130,6 +128,10 @@ public class ProductController {
     @PostMapping(value="/flight_insert")
         public String flightInsertPro(Product flight) throws Exception {
         log.info("[POST] - /product/flight_lnsert");
+
+        // 좌석 초기 값 셋팅
+        int seat_remaining = flight.getSeatMax();
+        flight.setSeatRemaining(seat_remaining);
 
         int result = productService.flight_insert(flight);
         if( result == 0 ) return "redirect:/product/flight_insert";

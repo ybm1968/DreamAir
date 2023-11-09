@@ -14,7 +14,7 @@
 
     <div class="container">
         <h1 class="text-center my-3">장바구니</h1>
-        <td><button class="btn btn-outline-primary btn-lg" type="button"><a th:href="#">전체 삭제</button></td>  
+        <td><button class="btn btn-outline-primary btn-lg" type="button"><a>전체 삭제</button></a></td>  
 
         <th:block th:if="${OrderList != null}">
             <div class="cart_containerBox">
@@ -40,33 +40,41 @@
                     </tr>
                     
                     <tbody>
-                        <th:block th:if="${OrderList.isEmpty()}">
+                        <th:block th:if="${CartList.isEmpty()}">
                             <tr>
                                 <td colspan="14">결제된 정보가 없습니다.</td>
                             </tr>
                         </th:block>
-                        <th:block th:each="order : ${OrderList}">
+                        <th:block th:each="cart : ${CartList}">
                             <tr>
-                                <td><span th:text="${order.bookingNo}"></span></td>                                
-                                <td><span th:text="${order.Name}"></span></td>
-                                <td><span th:text="${order.flightName}"></span></td>
-                                <td><span th:text="${order.departure}"></span></td>
-                                <td><span th:text="${order.destination}"></span></td>
-                                <td><span th:text="${order.departureDate}"></span></td>
-                                <td><span th:text="${order.destinationDate}"></span></td>
-                                <td><span th:text="${order.departureTime}"></span></td>
-                                <td><span th:text="${order.destinationTime}"></span></td>
-                                <td><span th:text="${order.seatClass}"></span></td>
-                                <td><span th:text="${order.pasCount}"></span></td>
-                                <td><span th:text="${order.productPrice * order.pasCount}"></span></td>
+                                <td><span th:text="${cart.bookingNo}"></span></td>                                
+                                <td><span th:text="${cart.Name}"></span></td>
+                                <td><span th:text="${cart.flightName}"></span></td>
+                                <td><span th:text="${cart.departure}"></span></td>
+                                <td><span th:text="${cart.destination}"></span></td>
+                                <td><span th:text="${cart.departureDate}"></span></td>
+                                <td><span th:text="${cart.destinationDate}"></span></td>
+                                <td><span th:text="${cart.departureTime}"></span></td>
+                                <td><span th:text="${cart.destinationTime}"></span></td>
+                                <td><span th:text="${cart.seatClass}"></span></td>
+                                <td><span th:text="${cart.pasCount}"></span></td>
+                                <td><span th:text="${cart.productPrice * order.pasCount}"></span></td>
 
                                 <td colspan="2">
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <!-- <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/admin_update?adminId=${admin.adminId}|">환불</button></td>           -->
-                                        <td><button class="btn btn-primary me-md-2" type="button"><a th:href="#">예매하기</button></td>          
-                                        <td><button class="btn btn-primary me-md-2" type="button"><a th:href="#">삭제</button></td>          
-                                    </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <!-- <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|/booking/info?productNo=${booking.productNo}|">예매하기</button></td>           -->
+                                    <td><button class="btn btn-primary me-md-2" type="button"><a href="/booking/info">예매하기</button></td>          
+                                </div>
+                                <form action="/user/cart" method="POST" id="cartform" onsubmit="return deletePro()">
+                                    <!-- csrf -->
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <input type="hidden" name="cartNo" th:value="${product.cartNo}">
+                                    <button class="btn btn-primary" type="submit">삭제</button>
+                                </form>
                                 </td>
+
+
+
                             </tr>
                         </th:block>
                     </tbody>

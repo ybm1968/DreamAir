@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.BookingService;
@@ -61,9 +62,25 @@ public class UserController {
     /**
      * 장바구니 페이지
      * @return
+     * @throws Exception
      */
     @GetMapping(value = "/cart")
-    public String cart() {
+    public String cart(Model model, Principal principal, Users user) throws Exception {
+        String loginId = principal != null ? principal.getName() : "GUEST";
+        
+        // 회원 번호 추출
+        user = userService.selectById(loginId);
+        int userNo = user.getUserNo();
+
+        // 비회원 번호 추출
+        int userNo2 = 0;
+        if(loginId.equals("GUEST")){
+            
+        }
+        // 회원이 가지고 있는 장바구니 조회
+        List<Users> cartlist = userService.user_cart_list(userNo);
+        model.addAttribute("CartList", cartlist);
+
         return "user/cart";
     }
 
