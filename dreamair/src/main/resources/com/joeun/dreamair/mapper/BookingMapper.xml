@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="selectSeatStatus" resultType="Booking">
     SELECT *
     FROM seat
-    ORDER BY CAST(SUBSTRING(seat_no FROM 2) AS UNSIGNED), seat_no;
+    ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
   </select>
 
 </mapper>

@@ -219,16 +219,10 @@ to {
 .seat1 {
 	width: inherit;
 	display: inline-table;
-	margin-left: 45px;
+	margin-left: 70px;
 	width: fit-content;
 }
 
-.seat2 {
-	width: inherit;
-	display: inline-table;
-	margin-left: 35px;
-	width: fit-content;
-}
 
 input[type="text"] {
 	border: none;
@@ -263,20 +257,17 @@ input[type=checkbox] {
 
 }
 
-.seat1 .seatBox:checked,
-.seat2 .seatBox:checked {
+.seat1 .seatBox:checked {
 	background-image: url(/img/bookingSeat.png);
 }
 
 
-.seat1 .seatBox:disabled,
-.seat2 .seatBox:disabled {
+.seat1 .seatBox:disabled {
 	background-image: url(/img/bookedSeat.png);
 	cursor: default;
 }
 
-.seat1 label,
-.seat2 label {
+.seat1 label {
 	display: none;
 }
 

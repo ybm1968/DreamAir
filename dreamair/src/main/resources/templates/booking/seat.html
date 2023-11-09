@@ -53,14 +53,6 @@
 
                 <div class="modalInnerWrap">
                     <div class="modalInnerLeft">
-
-                        <th:block th:each="seat : ${seatStatus}">
-                            <span th:text="${seat.seatNo}"></span>
-                            <span>-</span>
-                            <span th:text="${seat.status}"></span>
-                            <span>/</span>
-                        </th:block>
-                        
                         <div class="left1">
                             <div class="nameView"><p class="nameViewInner"></p></div>
                             <div class="seatView">
@@ -69,36 +61,20 @@
 
                                         <br>
 
-                                        <!-- 왼쪽 줄 -->
+                                        <h4>A B C D</h4>
+
+                                        <!-- 좌석 -->
                                         <div class="seat1">
-                                            <th:block th:each="seat : ${seatStatus}">
+                                            <th:block th:each="seat, iterStat : ${seatStatus}">
                                                 <input type="checkbox" class="seatBox" th:value="${seat.seatNo}" th:id="'seat-' + ${seat.seatNo}" th:disabled="${seat.status}==1" />
                                                 <label th:for="'seat-' + ${seat.seatNo}" th:text="${seat.seatNo}"></label>
-                                                <br>
+                                                <th:block th:if="${iterStat.count % 4 == 0}">
+                                                    <br />
+                                                </th:block>
+                                                <th:block th:if="${iterStat.count % 40 == 0}">
+                                                    <br />
+                                                </th:block>
                                             </th:block>
-                                        </div>
-
-
-                                        <!-- 오른쪽 줄 -->
-                                        <div class="seat2">
-                                            <th:block th:each="i: ${#numbers.sequence(1, 10)}">
-                                                <th:block th:each="j: ${#numbers.sequence(1, 1)}">
-                                                    <th:if test="${j == 1}">
-                                                        <th:block th:with="column = 'C'">
-                                                            <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
-                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
-                                                        </th:block>
-                                                    </th:if>
-                                                    <th:if test="${j == 2}">
-                                                        <th:block th:with="column = 'D'">
-                                                            <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
-                                                            <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
-                                                        </th:block>
-                                                </th:each>
-                                                <br>
-                                            </th:each>
                                         </div>
 
                                     </div>
