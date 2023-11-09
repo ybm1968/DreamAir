@@ -24,16 +24,30 @@
         <!-- 예매한 탑승권 목록 보여주기 -->
         <section>
 
-            <table>
-                <th>
-                    <td>여정</td>
-                    <td>항공편</td>
-                    <td>출발일시</td>
-                    <td>도착일시</td>
-                    <td>좌석구분</td>
-                    <td>총요금</td>
-                    <td>요청좌석</td>
-                </th>
+            <table class="table table-striped table-hover table-bordered text-center align-middle">
+                <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
+                <tr>
+                    <th>여정</th>   
+                    <th>항공편</th>
+                    <th>출발일시</th>
+                    <th>도착일시</th>
+                    <th>좌석구분</th>
+                    <th>요금</th>
+                    <th>요청좌석</th>
+                </tr>
+
+                <th:block th:each="booking : ${bookingList}">
+                    <tr>
+                        <td><span th:text="${booking.departure}"></span> → <span th:text="${booking.destination}"></span></td>
+                        <td><span th:text="${booking.flightName}"></span></td>
+                        <td><span th:text="${booking.departureDate}"></span></td>
+                        <td><span th:text="${booking.destinationDate}"></span></td>
+                        <td><span th:text="${booking.productPrice}"></span></td>
+                        <td>일반석</td>
+                        <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
+                        <td>1석</td>
+                    </tr>
+                </th:block>
             </table>
            
 

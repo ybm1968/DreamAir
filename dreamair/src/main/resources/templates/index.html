@@ -11,8 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-    <!-- 폰트 어썸 라이브러리 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
 
    
 </head>
@@ -20,14 +19,12 @@
 <body layout:fragment="content">
 
     <div class="d-flex justify-content-center align-items-center" id="back">
-
-
         <section>
             <div class="card card-4">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
                     <div class="tab_wrap">
-
+                        
                         <form action="/booking/list" method="GET"  id="frm">
         
                             <div class="radio-row" style="margin-bottom: 20px;">
@@ -71,13 +68,6 @@
                                     <input class="input--style-11 d-none" type="text" name="departureDate" placeholder="yyyy/mm/dd"
                                         id="input-day" disabled>
                                 </div>
-
-                                <!-- 편도일 때는 안보여주고 왕복일때만 보여줌 -->
-                                <!-- <div class="input-group mid large">
-                                    <label class="label">오는날:</label> <input class="input--style-1"
-                                        type="date" name="departureTime" placeholder="yyyy/mm/dd"
-                                        id="input-return">
-                                </div> -->
         
                                 <div class="input-group mid last">
                                     
@@ -89,7 +79,7 @@
                                             <i class="fa fa-chevron-down input-icon" style="height: 100%; background-color: transparent;"></i> 
                                            
                                     </div>
-        
+         
         
                                     <div class="dropdown-select">
                                         <ul class="list-room">

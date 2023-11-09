@@ -205,11 +205,11 @@
         function updateRoom() {
             var totalAd = parseInt(countAdult());
             var totalChi = parseInt(countChildren());
-            var adults = '성인 ';
+            var adults = '탑승객 ';
             var rooms = 'Room';
     
             if (totalAd > 1) {
-                adults = '성인';
+                adults = '탑승객';
             }
     
             if (totalRoom > 1) {
@@ -217,7 +217,7 @@
             }
     
          /*   var infoText = totalAd + ' ' + adults + totalChi + ' ' + '유/소아 ';*/
-            var infoText = adults + ' ' + totalAd + ', 아이 ' + ' ' + totalChi;
+            var infoText = adults + ' ' + totalAd ;
     
             info.val(infoText);
         }
