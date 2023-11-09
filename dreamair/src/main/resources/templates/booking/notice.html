@@ -4,8 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/UI/layout/main_layout}"
       >
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,32 +14,57 @@
 
 <body layout:fragment="content">
 
-    <div class="container">
+    <div class="container p-4">
 
-        <h1 style="text-align: center;">탑승객 유의사항 안내</h1>
-        <h2>선택한 항공 스케줄</h2>
+        <h1 class="text-center my-3">나의 탑승권 관리</h1>
+        
+        <br>
+
+        <h3>• 선택한 항공 스케줄</h3>
 
         <!-- 예매한 탑승권 목록 보여주기 -->
-        <section>
+        <br>
 
-            <table>
-                <th>
-                    <td>여정</td>
-                    <td>항공편</td>
-                    <td>출발일시</td>
-                    <td>도착일시</td>
-                    <td>좌석구분</td>
-                    <td>총요금</td>
-                    <td>요청좌석</td>
-                </th>
-            </table>
-           
+        <table class="table table-striped table-hover table-bordered text-center align-middle">
+            <thead>
+                <tr class="table-primary">
+                    <th>여정</th>
+                    <th>항공편</th>
+                    <th>출발일시</th>
+                    <th>도착일시</th>
+                    <td>좌석 구분</td>
+                    <th>총 요금</th>
+                    <th>선택 좌석</th>
+                </tr>
+            </thead>
 
-        </section>
+            <tbody>
+                <!-- 아래 내용들 수정 필요 -->
+                <!-- <th:block th:each="ticketDetail : ${viewTicketDetail}"> -->
+                    <tr>
+                        <!-- <td><span th:text="${ticketDetail.bookingNo}"></span></td> -->
+                        <td><span>여기 여정</span></td>
+                        <td><span>여기 항공편</span></td>                                
+                        <td><span>여기 출발일시</span></td>
+                        <td><span>여기 도착일시</span></td>
+                        <td><span>인원 여기 나와야 함</span></td>
+                        <td><span>결제금액 여기 나와야 함</span></td>
+                        <td><span>여기 선택 좌석</span></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+
+        
+       <br>
+
 
         <!-- 취소/환불 안내사항 -->
         <section>
-            <h3>환불규정</h3>
+            <h3>• 환불 규정</h3>
+
+            <br>
+
             <p>* 본 항공권 환불에 따라 발생하는 수수료(위약금)는 아래와 같습니다.</p>
 
             <p>
@@ -57,30 +80,47 @@
             </p>
         </section>
 
+        <br>
 
         <!-- 비행기 반입 금지 물품 안내-->
         <section>
-            <h3>비행기 반입 금지 물품</h3>
+            <h3>• 비행기 반입 금지 물품</h3>
 
-            <h4>1.가지고 탈수 없는 물품입니다.(객실x수하물x)</h4>
+            <br>
+            
+            <h4>1. 가지고 탈 수 없는 물품입니다.(객실x수하물x)</h4>
             <p>
-                당연하게도 자신을 포함한 승객 모두에게 위험이 될수 있는 폭발물류나 방사성, 독성물질, 인화성 물질(라이터, 성냥도 포함됩니다! 다만 소형안전성냥 및 휴대용라이터는 각1개 한해 객실반입 가능합니다.),기타 위험물질은 반입이 금지됩니다.
-                <img src="/img/반입금지물품1.png" alt="반입금지물품1">
+                당연하게도 자신을 포함한 승객 모두에게 위험이 될수 있는 폭발물류나 방사성, 독성물질, 인화성 물질(라이터, 성냥도 포함됩니다! 다만 소형안전성냥 및 휴대용라이터는 각1개 한해 객실반입 가능합니다.)
             </p>
+            <p>
+            기타 위험물질은 반입이 금지됩니다.
+            </p>
+            <br>
+            <img src="/img/반입금지물품1.png" alt="반입금지물품1">
+            
+            <br>
             
             <h4>2. 수하물에 넣어 가지고 갈수 있으나, 기내에는 반입이 불가능합니다(객실x수하물o)</h4>
             <p>
                 과도나 커터칼, 다트등의 도검류와 총기류(다만 항공사의 소지허가서를 확인시켜야합니다), 스포츠용품류(배트, 골프채, 빙상스케이트등), 무술호신용품, 공구류(도끼,망치)등은 소지하고 기내에 탑승은 불가능하나, 수하물로 넣어 가져 갈 수 있습니다.
+                <br>
                 <img src="/img/반입금지물품2.png" alt="반입금지물품2">          
             </p>
+
+            
+            <br>
             
             <h4>3. 반입이 가능합니다.(객실o수하물o)</h4>
             <p>
                 수저,포크,손톱깎이등의 생활도구류, 주사바늘 체온계등의 의료장비, 화장품,염색약,욕실용품(100ml이하만 가능/위탁수화물의경우 500ml이하만 가능합니다), 구조용품,휴대용배터리,시계,카메라,노트북 등은 가능합니다.
+                <br>
                 <img src="/img/반입금지물품3.png" alt="반입금지물품3">
             </p>
-
-            <h4>액체류반입기준</h4>
+            
+            <br>
+            
+            <h3>• 액체류 반입 기준</h3>
+            <br>
             <img src="/img/반입금지물품4.png" alt="반입금지물품4">
         </section>
 

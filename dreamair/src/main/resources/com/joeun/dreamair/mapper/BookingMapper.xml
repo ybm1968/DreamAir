@@ -3,51 +3,47 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" -->
+<!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.joeun.dreamair.mapper.BookingMapper">
-
-    <!-- <select id="list" resultType="Booking">
-        SELECT f.flight_no
-              ,f.seat_remaining
-              ,p.product_price
-              ,t.departure
-              ,t.destination
-              ,t.duration
-        FROM 
-        WHERE t.departure = #{departure} 
-          AND t.destination = #{destination}
-          AND t.departure_time = #{departureTime}
-          AND b.round_trip = #{roundTrip}
-          AND f.seat_remaining > #{pasCount}
-    </select>  -->
-
-        <!-- <select id="list" resultType="Booking">
-         SELECT f.flight_no
-              ,f.seat_remaining
-              ,p.product_price
-              ,p.departure
-              ,p.destination
-              ,p.departure_time
-              ,p.destination_time
-              ,p.duration
-        FROM flight f left join product p on f.route_no = p.route_no
-        WHERE p.departure = #{departure}
-          AND p.destination = #{destination}; 
-    </select>  -->
     
-    <select id="list" resultType="Booking">
-         SELECT *
+    <!-- 가는편 조회 --> 
+    <select id="golist" resultType="Booking">
+      SELECT *
         FROM flight f left join product p on f.route_no = p.route_no
-				left join route r on f.route_no = r.route_no
+				              left join route r on f.route_no = r.route_no
         WHERE p.departure = #{departure}
-          AND p.destination = #{destination} 
-          AND SUBSTRING_INDEX(r.departure_time, ' ', 1) = #{departureTime};
-          <!-- 추후에 탑승객 조건도 추가해야함 -->
+          AND p.destination = #{destination}
+          AND f.seat_remaining > #{pasCount}
+          AND r.departure_date= SUBSTRING_INDEX(#{departureDate}, ' ~ ', 1)    
+          <!-- AND (
+                  r.departure_date= SUBSTRING_INDEX(#{departureDate}, ' ~ ', 1)
+              OR  r.departure_date= SUBSTRING_INDEX(#{departureDate}, ' ~ ', -1)
+          ) -->
+          <!-- and departure_date between #{departureDate} and #{departureDate} -->
+          
     </select> 
 
+    <!-- 오는편 조회 -->
+    <select id="comelist" resultType="Booking">
+      SELECT *
+        FROM flight f left join product p on f.route_no = p.route_no
+				              left join route r on f.route_no = r.route_no
+        WHERE p.departure = #{departure}
+          AND p.destination = #{destination}
+          AND f.seat_remaining > #{pasCount}
+          AND r.departure_date= SUBSTRING_INDEX(#{departureDate}, ' ~ ', -1)
+              
+          <!-- and departure_date between #{departureDate} and #{departureDate} -->
+          
+    </select> 
+
+    <!-- 탑승객 정보 입력 -->
     <insert id="info">
             INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
             VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
+            
+            <!-- INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+            VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
     </insert>
 
 

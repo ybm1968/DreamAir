@@ -1,6 +1,8 @@
 package com.joeun.dreamair.dto;
 
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,15 +15,17 @@ public class Booking {
     private int userNo2;
     private int productNo;
     private int routeNo;
+    private String productId;
     private int pasCount;       // 탑승 인원
-    private String roundTrip;      // 왕복 여부(수정함)
+    private String roundTrip;      // 왕복 여부
     private String status;
     private String regDate;
-    private String updDate;
+    private String upDate;
+    private String ticketType;
 
     // passengers 테이블
     private int pinType;
-    private int passengerNo;
+    private String passengerNo;
     private String passengerName;
     private String firstName;
     private String lastName;
@@ -29,6 +33,14 @@ public class Booking {
     private String birth;
     private String phone;
     private String email;
+    private String seatNoDep;       // 좌석번호(가는편)
+    private String seatNoDes;       // 좌석번호(오는편)
+    private String productIdDep;    // 상품코드(가는편)
+    private String productIdDes;    // 상품코드(오는편)
+    private int productNoDep;       // 상품번호(가는편)
+    private int productNoDes;       // 상품번호(오는편)
+
+    private List<Booking> bookingList;
 
     // cart
     private int cartNo;
@@ -38,15 +50,15 @@ public class Booking {
     private int ticketNo;
     private String departure;           // 출발지
     private String destination;         // 도착지
-    private String boarding;            // 탑승시간(수정함)
-    private String departureTime;         // 출발 시간(수정함)
-    private String destinationTime;       // 도착 시간(수정함)
-    private String duration;            // 소요시간(수정함)
+    private String boarding;            // 탑승시간
+    private String departureTime;         // 출발 시간
+    private String destinationTime;       // 도착 시간
+    private String departureDate;         // 출발 날짜
+    private String destinationDate;       // 도착 날짜
+    private String duration;            // 소요시간
     private int checkedIn;
     private int isBoarded;
-    private String boardingTime;    // 실제 탑승 시간
-    private String departureDate;
-    private String destinationDate;
+    private String boardingTime;          // 실제 탑승시간
 
     // product 테이블
     // private int productNo;
@@ -69,19 +81,12 @@ public class Booking {
     // private int seatUsed;
 
 
-    // 왕복 변수 정리
-    /*
-     * 필요한 변수
-     * 가는날 오는날
-     * 가는날 : 출발시간(가는날 날짜 + 출발시간) 도착시간(가는날 날짜 + 도착시간)
-     * 오는날 : 출발시간(오는날짜 + 출발시간) 도착시간(오는날짜 + 도착시간) null 허용
-     * 추가할 테이블 : ticket, route v
-     * 돌아오는날 데이터 들어가는 행에있는 출발지 도착지는 반대로 값을 넣어야함
-     */
 
-     
     private String userId;
     private String password;
+
+
+
+
    
 }
-
