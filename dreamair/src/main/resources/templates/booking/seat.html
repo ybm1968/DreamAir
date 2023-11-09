@@ -47,6 +47,8 @@
 
         <div class="modal-body">
             <form action="./checkInPage" method="post" id="frm3">
+            <!-- csrf -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <div class="modalInnerWrap">
                     <div class="modalInnerLeft">
                         <div class="left1">
@@ -64,21 +66,21 @@
                                                     <th:if test="${j == 1}">
                                                         <th:block th:with="column = 'A'">
                                                             <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
                                                             <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
                                                         </th:block>
                                                     </th:if>
                                                     <th:if test="${j == 2}">
                                                         <th:block th:with="column = 'B'">
                                                             <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
                                                             <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
                                                         </th:block>
                                                     </th:if>
                                                     <th:if test="${j != 1 and j != 2}">
                                                         <th:block th:with="column = 'C'">
                                                             <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
                                                             <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
                                                         </th:block>
                                                     </th:if>
@@ -87,7 +89,6 @@
                                             </th:each>
                                         </div>
 
-                                        <hr>
 
                                         <!-- 오른쪽 줄 -->
                                         <div class="seat2">
@@ -96,21 +97,21 @@
                                                     <th:if test="${j == 1}">
                                                         <th:block th:with="column = 'D'">
                                                             <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
                                                             <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
                                                         </th:block>
                                                     </th:if>
                                                     <th:if test="${j == 2}">
                                                         <th:block th:with="column = 'E'">
                                                             <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
                                                             <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
                                                         </th:block>
                                                     </th:if>
                                                     <th:if test="${j != 1 and j != 2}">
                                                         <th:block th:with="column = 'F'">
                                                             <!-- 좌석 이름 생성 -->
-                                                            <input type="checkbox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
+                                                            <input type="checkbox" class="seatBox" th:value="${column + i}" th:id="'seat-' + ${column + i}"/>
                                                             <label th:for="'seat-' + ${column + i}" th:text="${column + i}"></label>
                                                         </th:block>
                                                     </th:if>
@@ -152,12 +153,13 @@
                     
                 </div>
 
-                <!-- <button type="submit" class="modalInnerBottom" id="btn">
-                    <span>선택 완료</span>
-                </button> -->
-                <button type="button" class="modalInnerBottom" id="btn">
+                <button type="submit" class="modalInnerBottom" id="btn">
                     <span>선택 완료</span>
                 </button>
+                <!-- 기존 -->
+                <!-- <button type="button" class="modalInnerBottom" id="btn">
+                    <span>선택 완료</span>
+                </button> -->
             </form>
         </div>
     </div>

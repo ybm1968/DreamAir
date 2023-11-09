@@ -226,7 +226,7 @@ to {
 .seat2 {
 	width: inherit;
 	display: inline-table;
-	margin-left: 50px;
+	margin-left: 35px;
 	width: fit-content;
 }
 
@@ -240,13 +240,46 @@ input:focus {
 	outline: none;
 }
 
+/* 체크 박스 여기 */
+
+input[type=checkbox] {
+	/* checkbox의 실제 체크박스 부분을 숨깁니다. */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	outline: none;
+
+	/* checkbox의 크기와 여백을 조정합니다. */
+	width: 20px; /* 원하는 크기로 조정하세요 */
+	height: 20px; /* 원하는 크기로 조정하세요 */
+	margin: 5px; /* 원하는 여백으로 조정하세요 */
+	
+	/* 배경 이미지 설정 */
+	background-image: url(/img/bookableSeat.png);
+	background-size: cover; /* 이미지를 적절하게 확대/축소하여 채우도록 설정합니다. */
+
+}
+
+.seat1 .seatBox:checked,
+.seat2 .seatBox:checked {
+	background-image: url(/img/bookingSeat.png);
+}
+
+.seat1 label,
+.seat2 label {
+	display: none;
+}
+
+
 /* input[type=checkbox] {
-	display: none; 
+	display: none;
 }
 
 input[type=checkbox]:disabled {
 	display: none;
 } */
+
 .direction {
 	text-align: center;
     position: relative;
@@ -310,7 +343,7 @@ label {
 	margin-left: 5px;
 }
 .depSeat,.arrSeat {
-	width: 250px;
+	width: 310px;
 	margin-left: 75px;
 }
 .modalInnerBottom2 {
