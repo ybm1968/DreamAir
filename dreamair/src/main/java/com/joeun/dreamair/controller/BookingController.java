@@ -35,7 +35,7 @@ public class BookingController {
         List<Booking> bookingList = bookingService.list(booking);
         model.addAttribute("bookingList", bookingList);
 
-        return "user/list";
+        return "booking/list";
     }
 
     @GetMapping(value="/info")
@@ -44,30 +44,30 @@ public class BookingController {
         log.info("노선번호 : " + booking.getRouteNo());
         model.addAttribute("booking", booking);
         
-        return "user/info";
+        return "booking/info";
     }
 
     @PostMapping(value="/info")
     public String infoPro(Booking booking) throws Exception{
         int result = bookingService.info(booking);
         
-        return "user/seat";
+        return "booking/seat";
     }
     
 
     @GetMapping(value="/seat")
     public String seat() {
-        return "user/seat";
+        return "booking/seat";
     }
     
     @GetMapping(value="/notice")
     public String notice() {
-        return "user/notice";
+        return "booking/notice";
     }
 
     @GetMapping(value="/payment")
     public String payment() {
-        return "user/payment";
+        return "booking/payment";
     }
     
     
