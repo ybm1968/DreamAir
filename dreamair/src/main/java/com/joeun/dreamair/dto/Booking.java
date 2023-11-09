@@ -46,10 +46,6 @@ public class Booking {
     private String[] emails;
     private String seatNoDep;       // 좌석번호(가는편)
     private String seatNoDes;       // 좌석번호(오는편)
-    private String productIdDep;    // 상품코드(가는편)
-    private String[] productIdDeps;    // 상품코드(가는편)
-    private String productIdDes;    // 상품코드(오는편)
-    private String[] productIdDess;    // 상품코드(오는편)
     private int productNoDep;       // 상품번호(가는편)
     private int[] productNoDeps;       // 상품번호(가는편)
     private int productNoDes;       // 상품번호(오는편)

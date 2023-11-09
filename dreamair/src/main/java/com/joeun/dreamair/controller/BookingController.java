@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.service.BookingService;
@@ -32,10 +33,7 @@ public class BookingController {
     // 출발지 날짜 도착지(ticket), 탑승인원 왕복여부(booking) 를 정보()에 맞는 검색결과를 보여주기
     @GetMapping(value="/list")
     public String list(Model model, Booking booking) throws Exception {
-        log.info("리스트 출발지 : " + booking.getDeparture());
-        log.info("탑승인원 : " + booking.getPasCount());
         List<Booking> bookingList = bookingService.golist(booking);   //?
-        // log.info("bookingList 출력확인 : " + bookingList.get(0).getPasCount());
         model.addAttribute("bookingList", bookingList);     //??
         model.addAttribute("booking", booking);
 
@@ -46,9 +44,9 @@ public class BookingController {
     // 가는 편
     @GetMapping(value="/component/golist")
     public String gobookingList(Model model, Booking booking) throws Exception {
-        log.info("가는편 출발지 : " + booking.getDeparture());
-        log.info("*가는편 getProductNoDep : " + booking.getProductNoDep());
-
+        log.info("편도 여부: " + booking.getRoundTrip());
+        log.info("편도 인원수: " + booking.getPasCount());
+        
         List<Booking> bookingList = bookingService.golist(booking);
         model.addAttribute("bookingList", bookingList);
         model.addAttribute("bookingInfo", booking);
@@ -59,7 +57,6 @@ public class BookingController {
     @GetMapping(value="/component/comelist")
     public String comebookingList(Model model, Booking booking) throws Exception {
         log.info("오는편 출발지 : " + booking.getDeparture());
-        log.info("오는편 getProductNo : " + booking.getProductNo());
         log.info("*오는편 getProductNoDep : " + booking.getProductNoDep());
 
         List<Booking> bookingList = bookingService.comelist(booking);
@@ -73,10 +70,9 @@ public class BookingController {
     @GetMapping(value="/info")
     public String info(Model model, Booking booking) {
         log.info("가는편 상품번호 : " + booking.getProductNoDep());
-        log.info("가는편 상품코드 : " + booking.getProductIdDep());
         log.info("오는편 상품번호 : " + booking.getProductNoDes());
-        log.info("오는편 상품코드 : " + booking.getProductIdDes());
         log.info("인원수 : " + booking.getPasCount());
+        log.info("info 왕복여부 : " + booking.getRoundTrip());
 
         model.addAttribute("booking", booking);
         
@@ -85,31 +81,27 @@ public class BookingController {
 
 
     @PostMapping(value="/info")
-    public String infoPro(Model model, Booking booking) throws Exception{ 
-        // log.info("탑승객1 이름 : " + bookingList.get(0).getPassengerName());
-        // log.info("탑승객2 이름 : " + bookingList.get(0).getPassengerName());
-
+    public String infoPro(Model model, Booking booking, RedirectAttributes rttr) throws Exception{ 
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
-        log.info("productIdDep : " + booking.getProductIdDeps()[0]);
-        log.info("productIdDes : " + booking.getProductIdDess()[0]);
-        log.info("productNoDes : " + booking.getProductNoDess()[0]);
-        log.info("productNoDep : " + booking.getProductNoDeps()[0]);
+        log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
 
+        int result = 0;
 
-        int result = bookingService.infolist(booking);
-        
-
-        // log.info("인서트결과 : " + result);
-
-        // 탑승객 수 만큼 반복해서 인서트???
-        
-        return "booking/seat";
+        result = bookingService.infoList(booking);
+        rttr.addFlashAttribute("booking", booking);     
+    
+        return "redirect:/booking/seat";
     }
     
 
     @GetMapping(value="/seat")
     public String seat(Model model, Booking booking) {
         // 값을 조회
+        log.info("탑승객 수 : " + booking.getPasCount());
+        log.info("seat 왕복여부 : " + booking.getRoundTrip());
+        log.info("탑승객 이름 : " + booking.getPassengerName());
+        log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
+        
         model.addAttribute("booking", booking);
       
         return "booking/seat";

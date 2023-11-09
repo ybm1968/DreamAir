@@ -13,9 +13,6 @@ public interface BookingService {
     // 오는편 항공권 조회
     public List<Booking> comelist(Booking booking) throws Exception;
 
-    // 탑승객 정보 입력
-    public int info(Booking booking) throws Exception;
-
     // 탑승객들 정보 입력
-    public int infolist(Booking booking) throws Exception;
+    public int infoList(Booking booking) throws Exception;
 }

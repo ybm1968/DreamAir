@@ -37,16 +37,10 @@ public class BookingServiceImpl implements BookingService{
         return bookingList;
     }
 
-    @Override
-    public int info(Booking booking) throws Exception {
-        log.info("booking.email : " + booking.getEmail());
-        int result = bookingMapper.info(booking);
-        
-        return result;
-    }
+
 
     @Override
-    public int infolist(Booking booking) throws Exception {
+    public int infoList(Booking booking) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
         int result = 0;
@@ -54,9 +48,6 @@ public class BookingServiceImpl implements BookingService{
         for (int i = 0; i < booking.getPasCount(); i++) {
             Booking bookingItem = new Booking();
             bookingItem.setProductNoDep(booking.getProductNoDeps()[i]);
-            bookingItem.setProductIdDep(booking.getProductIdDeps()[i]);
-            bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
-            bookingItem.setProductIdDes(booking.getProductIdDess()[i]);
             bookingItem.setPassengerName(booking.getPassengerNames()[i]);
             bookingItem.setFirstName(booking.getFirstNames()[i]);
             bookingItem.setLastName(booking.getLastNames()[i]);
@@ -66,11 +57,15 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setPhone(booking.getPhones()[i]);
             bookingItem.setEmail(booking.getEmails()[i]);
 
+            if ( booking.getRoundTrip().equals("왕복")) {
+                bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
+            }
+
             bookingMapper.info(bookingItem);
             result++;
         }
 
-        log.info("등록결과 : " + result);
+        log.info("왕복 등록결과 : " + result);
         
         return result;
     }
