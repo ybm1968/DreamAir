@@ -63,8 +63,6 @@ public class FileController {
              response.setStatus(response.SC_BAD_REQUEST);
         }
     }
-
-
     
     /**
      *  파일 삭제

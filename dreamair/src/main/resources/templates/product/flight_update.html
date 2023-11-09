@@ -5,9 +5,6 @@
       layout:decorate="~{/UI/layout/admin_layout}"
       >
 <head>
-
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>항공기 정보 등록</title>
@@ -15,12 +12,15 @@
 
 <body layout:fragment="content">
 
-    <div class="container">
-        <h1 style="text-align: center;">항공기 정보 등록</h1>
+    <div class="flight_container">
+        <h1 style="text-align: center;">항공기 정보 수정</h1>
 
-        <form class="needs-validation" novalidate action="/product/flight_insert" method="post" th:object="${Product}">   
-            <!-- csrf -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <form class="needs-validation" novalidate action="|/product/flight_update?flightNo=${flight.flightNo}|" method="post" th:object="${Product}">   
+
+          <div class="input-group mb-3 row">
+            <label class="input-group-text col-md-2" id="">항공기 이미지</label>
+            <input type="file" class="form-control col-md-10" name="file" value="${flight.File}">
+          </div>	
 
             <div class="row g-3">
               <div class="input-group mb-3 row">

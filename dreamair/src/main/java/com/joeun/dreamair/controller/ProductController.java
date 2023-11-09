@@ -45,19 +45,19 @@ public class ProductController {
         
         return "product/product_list";
     }
-
+    
     //* - 상품 등록       
     @GetMapping(value="/product_insert")
-        public String productInsert(@ModelAttribute Product product) {
-            return "product/product_insert";
+    public String productInsert(@ModelAttribute Product product) {
+        return "product/product_insert";
     }
-
+    
     //* - 상품 등록 처리  
     @PostMapping(value="/product_insert")
-        public String productInsertPro(@ModelAttribute Product product) throws Exception {
-    
+    public String productInsertPro(@ModelAttribute Product product) throws Exception {
+        
         int result = productService.product_insert(product);
-
+        
         // 상품 입출고 처리(입고)
         int productNo = product.getProductNo();
         int amount = product.getUnitInStock();
@@ -68,7 +68,7 @@ public class ProductController {
         productIo.setAmount(amount);
         productIo.setType(type);
 
-        int result2 = productService.productIO_insert(product);
+        int result2 = productService.productIO_insert(productIo);
         if( result2 == 0 ){
             log.info("상품 입출고 중 에러 발생");
         }
@@ -101,6 +101,7 @@ public class ProductController {
     @PostMapping(value="/product_delete")
     public String productDelete(int productNo) throws Exception {
         log.info("[POST] - /product/product_delete");
+
         int result = productService.product_delete(productNo);
 
         if(result == 0) return "redirect:/product/product_update?productNo=" + productNo;

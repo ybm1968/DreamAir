@@ -31,21 +31,30 @@ WHERE user_id = #{userId}
 </insert>
 
 <!-- 관리자 조회 -->
-<select id="admin_list" resultType="Admin">
+<!-- <select id="admin_list" resultType="Admin">
     SELECT admin.*, auth.*
     FROM admin
     INNER JOIN auth ON admin.admin_id = auth.user_id
     WHERE auth.auth = 'ROLE_ADMIN'
+</select> -->
+<select id="admin_list" resultType="Admin">
+SELECT *
+FROM admin
 </select>
 
 <!-- 사용자 조회 -->
-<select id="user_list" resultType="Users">
+<!-- <select id="user_list" resultType="Users">
     SELECT users.*, auth.*
     FROM users
     INNER JOIN auth ON users.user_id = auth.user_id
     WHERE auth.auth = 'ROLE_USER'
     AND users.user_id NOT IN (SELECT user_id FROM auth WHERE auth = 'ROLE_ADMIN');
+</select> -->
+<select id="user_list" resultType="Users">
+    SELECT *
+    FROM users;
 </select>
+
 
 <!-- 사용자 등록 -->
 <insert id="user_insert">

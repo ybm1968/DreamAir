@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.joeun.dreamair.dto.Product;
+import com.joeun.dreamair.dto.ProductIo;
 
 @Mapper
 public interface ProductMapper {
@@ -55,5 +56,5 @@ public interface ProductMapper {
      * 상품 입출고 등록
      */
     // 상품이 등록되면 IN / 예매가 완료되면 OUT -> 예매가 환불되면 IN
-    public int productIO_insert(Product product) throws Exception;
+    public int productIO_insert(ProductIo productIo) throws Exception;
 }

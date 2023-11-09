@@ -5,26 +5,24 @@
       layout:decorate="~{/UI/layout/admin_layout}"
       >
 <head>
-
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품(항공권) 정보 등록</title>
+    <title>상품(항공권) 정보 수정</title>
 </head>
 
 <body layout:fragment="content">
 
     <div class="product_container">
-        <h1 style="text-align: center;">상품(항공권) 정보 등록</h1>
-
-        <form class="needs-validation" novalidate action="|/product/product_update?productNo=${product.productNo}|" method="post" enctype="multipart/form-data">   
+        <h1 style="text-align: center;">상품(항공권) 정보 수정</h1>
+        <br>
+        
+        <form class="needs-validation" novalidate th:action="|/product/product_update?productNo=${product.productNo}&${_csrf.parameterName}=${_csrf.token}|" method="post" enctype="multipart/form-data">   
             <!-- csrf -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
             
-            <div style="overflow: hidden">
+            <!-- <div style="overflow: hidden">
               <img src="|/img?id=${product.productId}|" class="w-100 p-2" />
-            </div>
+            </div> -->
             <div class="input-group mb-3 row">
               <label class="input-group-text col-md-2" id="">상품 이미지</label>
               <input type="file" class="form-control col-md-10" name="file" value="${product.File}">
@@ -68,8 +66,8 @@
 
             <div class="input-group mb-3 row">
               <label class="input-group-text col-md-2" id="">재고 수</label>
-              <input type="number" class="form-control col-md-10" name="unitsInStock"
-                  value="%{product.unitsInStock}">
+              <input type="number" class="form-control col-md-10" name="unitInStock"
+                  value="%{product.unitInStock}">
             </div>
 
             <div class="input-group mb-3 row">

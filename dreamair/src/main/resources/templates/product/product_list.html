@@ -12,17 +12,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품(항공권) 관리</title>
 </head>
-
 <body layout:fragment="content">
     <h1 class="text-center my-3">상품(항공권) 관리</h1>
 
-    <div class="btn-box d-grid gap-2 " >
+    <div class="btn-box d-grid gap-2 ">
         <span class="btn btn-outline-primary btn-lg"><a href="/product/product_insert">상품등록</a></span>
     </div>
     <br>
 
-    
-    <form action="/admin/product_delete" method="POST" id="productform">
+    <!-- <form action="/admin/product_delete" method="POST" id="productform" enctype="multipart/form-data"> -->
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
     <th:block th:if="${ProductList != null}" >
@@ -30,7 +28,7 @@
                 <thead>
                     <tr class="table-primary">
                         <th>상품번호</th>
-                        <!-- <th>이미지</th> -->
+                        <th>이미지</th>
                         <th>노선번호</th>
                         <th>상품명</th>
                         <th>카테고리</th>
@@ -44,18 +42,10 @@
                         <th colspan="2">비고</th>
                     </tr>
                     <tbody>
-                        <!-- 목록이 없을 때 -->
-                        <th:block th:if="${ProductList.isEmpty()}">
-                            <tr>
-                                <td colspan="14">등록된 상품(항공권)이 없습니다.</td>
-        
-                            </tr>
-                        </th:block>
-                        <!-- 목록이 있을 때 -->
                         <th:block th:each="product : ${ProductList}">
                             <tr>
                                 <td><a href="/product/product_list/${product.productNo}"></a><span th:text="${product.productNo}"></span></td>
-                                <!-- <td><img th:src="|/${product.fileName}|" alt="이미지" th:if="${product.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>                              -->
+                                <td><img th:src="|/${product.fileName}|" alt="이미지" th:if="${product.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>                             
                                 <td><span th:text="${product.routeNo}"></span></td>
                                 <td><span th:text="${product.name}"></span></td>
                                 <td><span th:text="${product.productCat}"></span></td>
@@ -64,13 +54,19 @@
                                 <td><span th:text="${product.destination}"></span></td>
                                 <td><span th:text="${product.departureTime}"></span></td>
                                 <td><span th:text="${product.destinationTime}"></span></td>
-                                <td><span th:text="${ #dates.format( product.productRegDate, 'yyyy-MM-dd HH:mm:ss') }"></span></td>
-                                <td><span th:text="${#dates.format( product.productUpdDate, 'yyyy-MM-dd HH:mm:ss') }"></span></td>
-                    
+                                <td><span th:text="${product.productRegDate}"></span></td>
+                                <td><span th:text="${product.productUpdDate}"></span></td>
+                                <!-- <td><span th:text="${#dates.format( product.productRegDate, 'yyyy-MM-dd HH:mm:ss') }"></span></td> -->
+                                <!-- <td><span th:text="${#dates.format( product.productUpdDate, 'yyyy-MM-dd HH:mm:ss') }"></span></td> -->
+
                                 <td colspan="2">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/product_update?productNo=${product.productNo}|">수정</button></td>          
-                                    <td><button class="btn btn-primary" type="button" onclick="deletePro()">삭제</button></td>
+                                        <button class="btn btn-primary me-md-2" type="button"><a th:href="|/product/product_update?productNo=${product.productNo}|">수정</button>         
+                                    <form action="/product/product_delete" method="POST" id="productform" onsubmit="return deletePro()">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                        <input type="hidden" name="productNo" th:value="${product.productNo}">
+                                        <button class="btn btn-primary" type="submit">삭제</button>
+                                    </form>
                                 </div>
                                 </td>
                             </tr>
@@ -87,20 +83,16 @@
                 </tr>
             </th:block>
         </th:block>
-</form>
-        <script>
-            let form = document.getElementById('productform')
-            let productdNo = "[[${product.productNo}]]"
-        
-            // 삭제 요청
-            function deletePro() {
-                let check = confirm('정말로 삭제하시겠습니까?')
-                if( check ) {
-                    form.action = '/product/product_delete'
-                    form.submit()
-                }
-            }
-        </script>
+
+    <script>
+        function deletePro() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if( check )
+                return true
+
+            return false
+        }
+    </script>
 
     </body>
 </html>        

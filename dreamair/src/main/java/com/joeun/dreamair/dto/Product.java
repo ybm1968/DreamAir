@@ -22,8 +22,8 @@ public class Product {
     private String productUpdDate;
     private int unitInStock;
     private String description;
-    private String File;
-    
+    private int amount;
+
     // seat 테이블
     private String seatNo;
     private int bookingNo;

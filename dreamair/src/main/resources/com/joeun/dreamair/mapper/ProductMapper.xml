@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   UPDATE flight
   SET flight_name = #{flightName}
     , seat_no = #{seatNo}
+    , file = #{file}
     , route_no = #{routeNo}
     , seat_Max = #{seatMax}
     , seat_remaining = #{seatRemaining}
@@ -62,8 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 상품 등록 -->
 <insert id="product_insert">
-  INSERT INTO product( product_id, route_no, name, product_cat, product_price, departure, destination, description, unitInStock, File  )
-  VALUES ( #{productId}, #{routeNo}, #{name}, #{productCat}, #{productPrice}, #{departure}, #{destination}, #{description}, #{unitInStock}, #{File}  )
+  INSERT INTO product( product_id, route_no, name, product_cat, product_price, departure, destination, description, unitInStock  )
+  VALUES ( #{productId}, #{routeNo}, #{name}, #{productCat}, #{productPrice}, #{departure}, #{destination}, #{description}, #{unitInStock}  )
 </insert>
 
 <!-- 상품 수정 -->
@@ -77,7 +78,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     , departure = #{departure}
     , destination = #{destination}
     , unitInStock = #{unitInStock}
-    , File = #{File}
   WHERE product_no = #{productNo}
 </update>
 
