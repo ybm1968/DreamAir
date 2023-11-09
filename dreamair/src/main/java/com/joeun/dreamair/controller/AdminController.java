@@ -90,10 +90,21 @@ public class AdminController {
 
         if(result > 0 ){
             log.info("관리자 등록 성공");
-            return "redirect:/admin/index";
+            return "redirect:/admin/";
         }
 
         return "redirect:/admin/admin_insert";
+    }
+
+    // 관리자 정보 삭제 처리
+    @PostMapping(value="/admin_delete")
+    public String adminDelete(int adminNo) throws Exception {
+        log.info("[POST]] - /admin/admin_delete");
+        log.info("adminNo 넘어 왔냐 : " + adminNo);
+
+        adminService.admin_delete(adminNo);
+
+        return "redirect:/admin/admin_list";
     }
 
     // [사용자 관리]
@@ -116,7 +127,7 @@ public class AdminController {
         return "admin/user_insert";
     }
 
-    // 관리자 등록 처리
+    // 사용자 등록 처리
     @PostMapping(value="/user_insert")
     public String userInsertPro(Users user, HttpServletRequest request) throws Exception {
         log.info("[POST] - /admin/user_insert");
@@ -125,7 +136,7 @@ public class AdminController {
 
         if(result > 0 ){
             log.info("사용자 등록 성공");
-            return "redirect:/admin/index";
+            return "redirect:/admin/";
         }
 
         return "redirect:/admin/user_insert";

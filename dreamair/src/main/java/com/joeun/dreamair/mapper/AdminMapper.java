@@ -24,6 +24,12 @@ public interface AdminMapper {
     
     // 회원 권한 등록
     public int insertAuth(Auth auth) throws Exception;
+
+    // 사용자 정보 삭제
+    public int admin_delete(int adminNo) throws Exception;
+
+    // 회원 권한 삭제
+    public int deleteAuth(Auth auth) throws Exception;
     
     // /**
     //  * 사용자 관리

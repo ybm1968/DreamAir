@@ -65,6 +65,26 @@ public class AdminServiceImpl implements AdminService {
      return userList;
   }
 
+  // 관리자 정보 삭제
+  @Override
+  public int admin_delete(int adminNo) throws Exception {
+    int result = adminMapper.admin_delete(adminNo);
+    log.info("관리자 삭제 : " + result);
+
+    Admin admin = new Admin();
+    admin.setAdminNo(adminNo);
+    String userId = admin.getAdminId();
+
+    // 관리자 권한도 삭제
+    if( result > 0 ) {
+        Auth Auth = new Auth();
+        Auth.setUserId( userId );
+        // Auth.setAuth("ROLE_ADMIN");
+        result = adminMapper.deleteAuth(Auth);
+    }
+    return result;
+  }
+
   // 사용자 수동 등록
   @Override
   public int user_insert(Users users) throws Exception {

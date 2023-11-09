@@ -70,11 +70,11 @@ public class BookingServiceImpl implements BookingService{
             // 회원
             if( !userId.contains("GUEST") ) {
                 bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
-                ticketNo = ???;
+                //ticketNo = ???;
             }
             else {
                 bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
-                ticketNo = ???;
+                //ticketNo = ???;
             }
             
             QR qr = new QR();

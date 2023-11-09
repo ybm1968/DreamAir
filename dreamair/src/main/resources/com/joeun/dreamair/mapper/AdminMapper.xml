@@ -12,6 +12,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     VALUES ( #{adminId}, #{adminPw} )
 </insert>
 
+<!-- 관리자 삭제 -->
+<delete id="admin_delete">
+DELETE FROM admin
+WHERE admin_no = #{adminNo}
+</delete>
+
+<!-- 권한 삭제 -->
+<delete id="deleteAuth">
+DELETE FROM auth
+WHERE user_id = #{userId}
+</delete>
+
 <!-- 회원 권한 등록 -->
 <insert id="insertAuth">
     INSERT INTO auth( user_id, auth ) 

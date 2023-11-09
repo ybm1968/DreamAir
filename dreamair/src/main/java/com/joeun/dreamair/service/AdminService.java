@@ -3,6 +3,7 @@ package com.joeun.dreamair.service;
 import java.util.List;
 
 import com.joeun.dreamair.dto.Admin;
+import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 
@@ -17,6 +18,9 @@ public interface AdminService {
     // 관리자 등록
     public int admin_insert(Admin admin) throws Exception;
 
+    // 관리자 정보 삭제
+    public int admin_delete(int adminNo) throws Exception;
+        
     // /**
     //  * 사용자 관리
     //  */
