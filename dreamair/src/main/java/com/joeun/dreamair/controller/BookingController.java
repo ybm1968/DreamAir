@@ -89,15 +89,17 @@ public class BookingController {
         // log.info("탑승객1 이름 : " + bookingList.get(0).getPassengerName());
         // log.info("탑승객2 이름 : " + bookingList.get(0).getPassengerName());
 
-        log.info("탑승객 이름 : " + booking.getPassengerName());
-        
-        int result = bookingService.info(booking);
-        // int result = 0;
-        // for (Booking booking : bookingList) {
-        //     result++;
-        // }
+        log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
+        log.info("productIdDep : " + booking.getProductIdDeps()[0]);
+        log.info("productIdDes : " + booking.getProductIdDess()[0]);
+        log.info("productNoDes : " + booking.getProductNoDess()[0]);
+        log.info("productNoDep : " + booking.getProductNoDeps()[0]);
 
-        log.info("인서트결과 : " + result);
+
+        int result = bookingService.infolist(booking);
+        
+
+        // log.info("인서트결과 : " + result);
 
         // 탑승객 수 만큼 반복해서 인서트???
         

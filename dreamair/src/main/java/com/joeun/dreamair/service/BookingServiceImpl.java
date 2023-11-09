@@ -44,5 +44,35 @@ public class BookingServiceImpl implements BookingService{
         
         return result;
     }
+
+    @Override
+    public int infolist(Booking booking) throws Exception {
+        log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
+        log.info("서비스임플 인원수 : " + booking.getPasCount());
+        int result = 0;
+        
+        for (int i = 0; i < booking.getPasCount(); i++) {
+            Booking bookingItem = new Booking();
+            bookingItem.setProductNoDep(booking.getProductNoDeps()[i]);
+            bookingItem.setProductIdDep(booking.getProductIdDeps()[i]);
+            bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
+            bookingItem.setProductIdDes(booking.getProductIdDess()[i]);
+            bookingItem.setPassengerName(booking.getPassengerNames()[i]);
+            bookingItem.setFirstName(booking.getFirstNames()[i]);
+            bookingItem.setLastName(booking.getLastNames()[i]);
+            bookingItem.setGender(booking.getGenders()[i]);
+            bookingItem.setBirth(booking.getBirths()[i]);
+            bookingItem.setPinType(booking.getPinTypes()[i]);
+            bookingItem.setPhone(booking.getPhones()[i]);
+            bookingItem.setEmail(booking.getEmails()[i]);
+
+            bookingMapper.info(bookingItem);
+            result++;
+        }
+
+        log.info("등록결과 : " + result);
+        
+        return result;
+    }
     
 }
