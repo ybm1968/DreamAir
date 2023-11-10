@@ -39,16 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 탑승객 정보 입력 -->
     <insert id="infoPassngers">
-            INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
-            VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
-            <!-- INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
-            VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
+            INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email, user_pw )
+            VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email}, #{userPw} )
     </insert>
 
-    <insert id="infoPassport">
+    <!-- <insert id="infoPassport">
             INSERT INTO passport ( passport_no, pin_type, last_name, first_name, nationality, expiration_date, user_id )
             VALUES ( #{passportNo}, #{pinType}, #{lastName}, #{firstName}, #{nationality}, #{expirationDate}, #{userId} )
-    </insert>
+    </insert> -->
 
     <!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
     <select id="goScheduleList" resultType="Booking">

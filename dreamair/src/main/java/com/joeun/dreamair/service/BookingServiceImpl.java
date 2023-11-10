@@ -59,15 +59,11 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setPinType(booking.getPinTypes()[i]);
             bookingItem.setPhone(booking.getPhones()[i]);
             bookingItem.setEmail(booking.getEmails()[i]);
+            bookingItem.setUserPw(booking.getUserPw());
 
             if ( booking.getRoundTrip().equals("왕복")) {
                 bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
             }
-
-            // if(!authentication.isAuthenticated()) {
-            //     bookingItem.setPassword(booking.getPasswords()[i]);
-            // } 
-            
 
             bookingMapper.infoPassngers(bookingItem);
             result++;

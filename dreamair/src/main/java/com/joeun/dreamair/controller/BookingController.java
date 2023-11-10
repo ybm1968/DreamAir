@@ -85,8 +85,7 @@ public class BookingController {
     public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr) throws Exception{ 
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
-        log.info("여권번호 : " + user.getPassportNos()[0]);
-        log.info("유저신분증종류 : " + user.getPinTypes()[0]);
+        
 
         int result1 = 0;
         int result2 = 0;
