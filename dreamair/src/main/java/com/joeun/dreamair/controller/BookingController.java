@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -196,8 +197,6 @@ public class BookingController {
     @PostMapping(value = "/notice")
     public String seatPro(@RequestParam("depSeat") String depSeat, Model model) {
 
-        
-        
         System.out.println("선택한 좌석: " + depSeat);
 
         model.addAttribute("selectSeat", depSeat);

@@ -1,13 +1,18 @@
 # 이유나 작업 사항
 
 
-[회원 가입]
-- 회원 가입 시, users 테이블 & auth 테이블 & mileage 테이블에 모두 데이터 삽입 필요 => 해결
+[좌석 선택]
+1) 유저가 좌석 선택 창 진입 시, DB의 seat 테이블에서 먼저 좌석 상태 조회해 옴
+2) 탑승 인원만큼, 편도 및 왕복 여부에 따라 좌석 선택하여 notice 페이지로 넘김(이 때, DB seat 테이블에 해당 좌석들의 status가 1로 update 되어야 함)
+
+- info에서 배열로 모델에 등록되어 넘어 옴
+- 좌석 선택하고 notice로 넘길 때 passenger_no랑 passenger_name 넘기기
+- 좌석 선택하고 notice로 넘길 때 update문으로 passengers 테이블에도 좌석 번호 데이터 업데이트하기
 
 
 [회원 탈퇴]
 - 회원 탈퇴는 정상적으로 작동하나(DB 삭제) 계속 예외로 튕김
-- 회원 탈퇴 시, mileage 테이블 & auth 테이블에 모두 ON DELETE CASCADE 적용하여 일괄 삭제 처리 필요
+- 회원 탈퇴 시, mileage 테이블 & auth 테이블에 모두 ON DELETE CASCADE 적용하여 일괄 삭제 처리 필요 => 그냥 각각 테이블마다 해당 유저 데이터 다 삭제하는걸로
 
 
 

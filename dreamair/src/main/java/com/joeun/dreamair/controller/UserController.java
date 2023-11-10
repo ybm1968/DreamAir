@@ -95,28 +95,28 @@ public class UserController {
         return "user/cart";
     }
 
-    @PostMapping("/cart")
-    public String CartPro(Product product, Users user) throws Exception {
+    // @PostMapping("/cart")
+    // public String CartPro(Product product, Users user) throws Exception {
 
-        int productNo = product.getProductNo();
-        int productPrice = product.getProductPrice();
-        int cartCnt = 0;
+    //     int productNo = product.getProductNo();
+    //     int productPrice = product.getProductPrice();
+    //     int cartCnt = 0;
 
-        // 회원일 경우
-        // userNo에 productNo를 cart 테이블에 데이터 저장
+    //     // 회원일 경우
+    //     // userNo에 productNo를 cart 테이블에 데이터 저장
         
-        // 비회원일 경우
-        // input box를 통해 phone이랑 password를 입력 받고,
-        // 장바구니 table에 데이터 저장
+    //     // 비회원일 경우
+    //     // input box를 통해 phone이랑 password를 입력 받고,
+    //     // 장바구니 table에 데이터 저장
 
-        return "";
-    }
+    //     return "";
+    // }
 
-    @GetMapping("/addCart")
-    public String addCart() {
+    // @GetMapping("/addCart")
+    // public String addCart() {
 
-        return 
-    }
+    //     return 
+    // }
 
     /**
      * 회원정보 수정 페이지
