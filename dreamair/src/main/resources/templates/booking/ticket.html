@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>탑승권</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #eaeaea;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .boarding-pass {
+    display: flex;
+    width: 803px;
+    background-color: #fff;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .left-section, .right-section {
+    padding: 10px;
+    position: relative;
+  }
+
+  .left-section {
+    width: 70%;
+    border-right: 2px dashed #bbb;
+  }
+
+  .right-section {
+    width: 30%;
+    background-color: #0046ad;
+    color: white;
+  }
+
+  .section {
+    margin-bottom: 10px;
+  }
+
+  .airline-logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0046ad;
+  }
+
+  .flight-details, .passenger-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .flight-detail-item, .passenger-detail-item {
+    margin-right: 20px;
+  }
+
+  .barcode img {
+    width: 10%;
+    height: 10%;
+  }
+
+  .boarding-pass-footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="boarding-pass">
+  <!-- Left Section -->
+  <div class="left-section">
+    <div class="section airline-logo">DreamAir</div>
+    <div class="section flight-details">
+      <div class="flight-detail-item"><strong>Flight:</strong> KLM 39</div>
+      <div class="flight-detail-item"><strong>Date:</strong> JANUARY 6, 2013</div>
+      <div class="flight-detail-item"><strong>Boarding time:</strong> 09:10</div>
+      <div class="flight-detail-item"><strong>Gate:</strong> D10</div>
+    </div>
+    <div class="section passenger-details">
+      <div class="passenger-detail-item"><strong>Passenger:</strong> Jane Doe</div>
+      <div class="passenger-detail-item"><strong>Seat:</strong> A22</div>
+      <div class="passenger-detail-item"><strong>Boarding Priority:</strong> 1 2 3 4</div>
+      <div class="passenger-detail-item"><strong>Frequent Flyer:</strong> 2073621000</div>
+    </div>
+    <div class="barcode">
+      <img src="/dreamair/src/main/resources/static/img/barcode.gif" alt="Barcode">
+    </div>
+    <div class="boarding-pass-footer"><strong>Class:</strong> Economy</div>
+  </div>
+  <!-- Right Section -->
+  <div class="right-section">
+    <div class="section"><strong>San Francisco to Amsterdam</strong></div>
+    <div class="section"><strong>Departure:</strong> 09:40</div>
+    <div class="section"><strong>Seat:</strong> A22</div>
+    <div class="section"><strong>Class:</strong> Economy</div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,113 +1,288 @@
+/* HEADER */
+.header_container {
+    display: inline-block;
+    align-items: right;
+    width: 100%;
+    height: 120px;
+    border: 1px solid orange;
+}
 
-/* 헤더 header.html */
+.header_inner {
+    position: absolute;
+    display: inline-block;
+
+    width: 100%;
+    height: 30px;
+    background-color: black;
+}
+
+.header_inner > ul {
+    display: flex;
+    border: 1px solid white;
+    justify-content: flex-end;
+}
+
+.header_inner > ul > li {
+   margin-right: 30px;
+}
+
+.header_inner > ul > li > a {
+    text-align: center;
+    color: whitesmoke
+}
+
+/* 장바구니 아이콘 */
 .header_image {
     width: 25px;
     height: 25px;
-    z-index: 1;
 }
 
-.navbar-brand > img {
-    width: 60px;
-    height: 30px;
-}
-
-
-/* 메인 index.html */
-#back {
+/* HEADER - gnb */
+.header_gnb {
     width: 100%;
-    height: 600px;
-    background-image: url(/img/main_background.jpg)
-
+    height: 90px;
+    /* background-color: black; */
+    background-color: whitesmoke;
+    margin-bottom: 20px;
 }
 
-.container {
-    margin-top: 100px;
-    margin-bottom: 100px;
+/* 로고 */
+.header_logo {
+    width: 80px;
+    height: 80px;
 }
 
-/** 푸터 footer.html */
-footer {
+.header_logo > img {
     width: 100%;
     height: 100%;
-    /* background-color: antiquewhite; */
+    margin: 5px 5px 5px 5px;
 }
 
-.copyright {
-    display: inline-block;
+.dropdown {
+    padding-right: 3%;
 }
 
-.name {
-    display: inline-block;
-}
-
-.font {
-    font-size: 20px;
-    font-weight: bold;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.team > .name {
-    display: inline-block;
-    padding-left: 130px;
+.dropdown strong {
+    padding-left: 10px;
+    color: whitesmoke;
     text-align: center;
 }
 
-.sns > span > a > img {
+.dropdown > li {
+    color: whitesmoke;
+    display: none;
+}
+
+.content_container {
+    display: block;
+    width: 100%;
+    height: 300px;
+    border: 1px solid red;
+}
+
+.content_container {
+    padding-top: 35px;
+}
+
+#main_index_back {
+    background-image: url(/img/background.png);
+}
+
+/* body ::content {
+    width: 100%;
+    height: 500px;
+    border: 1px solid green;
+} */
+
+/* body {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+} */
+/** ADMIN_FOOTER **/
+.admin_footer_container {
+  margin-top: 150px;
+  width: 100%;
+  height: 60px;
+}
+
+/* FOOTER */
+.footer_link {
+    display: felx;
+    justify-content: space-between;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.footer_link > p {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.footer_container {
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: black;
+  }
+  
+  .footer_section1 {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  
+  .footer_section2 {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer_section3 {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: end; */
+    align-items: center;
+  }
+
+  .logo {
+    float: left;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .logo ::after {
+    clear: left;
+    content: "";
+    display: block;
+  }
+
+  .logo > img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .copy_content {
+    text-align: center;
+    justify-content: space-around;
+    width: 900px;
+    color: whitesmoke;
+    line-height: 25px;
+  }
+  
+  .copy {
+    color: whitesmoke;
+    text-align: center;
+  }
+
+  .copy > p {
+    text-align: center;
+  }
+  
+  .sns {
+    float: right;
+    width: 300px;
+    clear: right;
+  }
+
+  .sns ::after {
+    clear: right;
+    content: "";
+    display: block;
+  }
+  
+  .sns > span > a > img {
     margin-right: 10px;
     width: 40px;
     height: 40px;
-}
+  }
 
-/* copyright */
-.copyright {
-    display: flex;
-    justify-content: space-between;
-}
-
-.logo {
-    padding-left: 20px;
-    float: left;
-    width: 10%;
-    height: 30px;
-    z-index: 1;
-}
-
-.logo:after {
-    display: block;
-    content: "";
-    clear: both;
-}
-
-.logo > img {
-    width: 70px;
-    height: 70px;
-}
-
-.copy_content {
-    width: 70%;
+  /* .footer .container .family > select {
+    width: 120px;
+    height: 5px;
+    border-radius: 10px;
+    margin-right: 10px;
     text-align: center;
+    background-color: #eee;
+  } */
+
+/* INDEX - CONTENT : 항공권 조회 */
+.content_container {
+    width: 1200px;
 }
 
-.copy {
-    text-align: center;
+#main_index_back {
+    width: 1100px;
+    height: 300px;
+    border: 1px solid red;
 }
 
-.sns {
-    padding-left: 30px;
-    width: 20%;
-    float: right;
-}
 
-.sns:after {
-    display: block;
-    content: "";
-    clear: both;
-}
+
+
+
+/* 슬라이드
+#image_slide {
+    height: 480px;
+  }
+   */
+/* 슬라이드 이미지 */
+/* .slide > img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover;
+  }
+   */
+  /* 기본 커스텀 */
+  /* .bx-wrapper {
+    box-shadow: 0 0 0 transparent;
+    border: 0 solid #fff;
+    background-color: #fff;
+  } */
+  
+  /************** 페이지네이션 커스텀 **************/
+  /* .bx-wrapper .bx-pager.bx-default-pager a {
+    background-color: rgb(182, 180, 180);
+  }
+  
+  .bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default-pager a:focus {
+    background-color: black;
+  }
+  
+  .bx-wrapper .bx-pager.bx-default-pager a {
+    border-radius: 50%;
+  } */
+  
+  /************** 네비게이션 화살표 커스텀 **************/
+  /* .bx-wrapper .bx-prev { 
+    background: url(../img/prev.png) no-repeat left center; 
+    background-size: 32px 32px;
+  }
+  .bx-wrapper .bx-next { 
+    background: url(../img/next.png) no-repeat left center; 
+    background-size: 32px 32px;
+  }
+  
+  .bx-wrapper .bx-prev:hover,
+  .bx-wrapper .bx-prev:focus { background-position: 0 0; }
+  .bx-wrapper .bx-prev:hover { filter: brightness(60%); }
+  
+  .bx-wrapper .bx-next:hover,
+  .bx-wrapper .bx-next:focus { background-position: 0 0; }
+  .bx-wrapper .bx-next:hover { filter: brightness(60%); } */
+
+
 
 /**
 * 탑승권 최종 확인 토글 버튼
 */
+
 /* label {
     display: block;
     position: relative;
@@ -209,6 +384,6 @@ label::before {
 } */
 
 
-.login_checkbox > input[type=checkbox] {
+/* .login_checkbox > input[type=checkbox] {
 	display: block; 
-}
+} */
