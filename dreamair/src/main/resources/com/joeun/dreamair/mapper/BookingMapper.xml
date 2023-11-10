@@ -76,12 +76,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-  <!-- seat 조회 -->
-  <select id="selectSeatStatus" resultType="Booking">
-    SELECT *
-    FROM seat
-    ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
-  </select>
+<!-- seat 조회 -->
+<select id="selectSeatStatus" resultType="Booking">
+  SELECT *
+  FROM seat
+  ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
+</select>
 
 
 </mapper>
