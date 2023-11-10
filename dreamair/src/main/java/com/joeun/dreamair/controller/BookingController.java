@@ -1,6 +1,5 @@
 package com.joeun.dreamair.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,6 @@ import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.BookingService;
 
 import lombok.extern.slf4j.Slf4j;
-
-
-
-
 
 
 @Slf4j
@@ -47,18 +42,20 @@ public class BookingController {
     public String gobookingList(Model model, Booking booking) throws Exception {
         log.info("편도 여부: " + booking.getRoundTrip());
         log.info("편도 인원수: " + booking.getPasCount());
+        log.info("가는편 노선번호 : " + booking.getRouteNo());
         
         List<Booking> bookingList = bookingService.golist(booking);
         model.addAttribute("bookingList", bookingList);
         model.addAttribute("bookingInfo", booking);
         return "UI/component/booking/list";
     }
-
+    
     // 오는 편
     @GetMapping(value="/component/comelist")
     public String comebookingList(Model model, Booking booking) throws Exception {
         log.info("오는편 출발지 : " + booking.getDeparture());
         log.info("*오는편 getProductNoDep : " + booking.getProductNoDep());
+        log.info("오는편 노선번호 : " + booking.getRouteNoDes());
 
         List<Booking> bookingList = bookingService.comelist(booking);
         model.addAttribute("bookingList", bookingList);
@@ -73,13 +70,15 @@ public class BookingController {
         log.info("가는편 상품번호 : " + booking.getProductNoDep());
         log.info("오는편 상품번호 : " + booking.getProductNoDes());
         log.info("인원수 : " + booking.getPasCount());
+        log.info("가는편 노선번호 : " + booking.getRouteNoDep());
+        log.info("오는편 노선번호 : " + booking.getRouteNoDes());
         log.info("info 왕복여부 : " + booking.getRoundTrip());
 
         model.addAttribute("booking", booking);
         
         return "booking/info";
     }
-
+ 
 
     @PostMapping(value="/info")
     public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr) throws Exception{ 
@@ -124,6 +123,11 @@ public class BookingController {
 
     @GetMapping(value="/notice")
     public String notice(Model model, Booking booking) throws Exception {
+        log.info("탑승객 이름 : " + booking.getPassengerName());
+        log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
+        log.info("탑승객 번호 : " + booking.getPassengerNo());
+        log.info("탑승객 수 : " + booking.getPasCount());
+        log.info("왕복 : " + booking.getRoundTrip());
 
         
         if (booking.getRoundTrip().equals("편도")) {
@@ -137,8 +141,8 @@ public class BookingController {
 
             List<Booking> comeBookingList = bookingService.comeScheduleList(booking);
             model.addAttribute("comeBookingList", comeBookingList);
-            
         }
+        model.addAttribute("bookingInfo", booking);
 
         return "booking/notice";
     }

@@ -97,6 +97,7 @@
         let departureDate = "[[${booking.departureDate}]]"
         let pasCount = "[[${booking.pasCount}]]"
         let productNoDep
+        let routeNoDep
      
 
         goWay()
@@ -138,7 +139,9 @@
             $('.btn-select').on("click", function() {
                 $('#goWay').hide();
                 productNoDep = $("#productNoDep").val();
+                routeNoDep = $("#routeNoDep").val();
                 console.log('productNoDep의 값:', productNoDep);
+                console.log('routeNoDep 값:', routeNoDep);
                 roundTrip = '왕복'
                 comeWay();
             })
@@ -157,6 +160,7 @@
                 departureDate: departureDate,   
                 pasCount: pasCount,
                 productNoDep : productNoDep,
+                routeNoDep : routeNoDep
             };
  
 

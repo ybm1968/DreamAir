@@ -52,8 +52,10 @@ public class Booking {
     private int[] productNoDess;       // 상품번호(오는편)
     private String userPw;
     private String[] userPws;
-
-    private ArrayList<Booking> bookingList;
+    private int routeNoDep;         // 노선번호(가는편)
+    private int[] routeNoDeps;         // 노선번호(가는편)
+    private int routeNoDes;         // 노선번호(오는편)
+    private int[] routeNoDess;         // 노선번호(오는편)
 
     // cart
     private int cartNo;

@@ -45,12 +45,12 @@ public class BookingServiceImpl implements BookingService{
     public int infoPassngers(Booking booking) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         int result = 0;
-        
+         
         for (int i = 0; i < booking.getPasCount(); i++) {
             Booking bookingItem = new Booking();
             bookingItem.setProductNoDep(booking.getProductNoDeps()[i]);
+            bookingItem.setRouteNoDep(booking.getRouteNoDeps()[i]);
             bookingItem.setPassengerName(booking.getPassengerNames()[i]);
             bookingItem.setFirstName(booking.getFirstNames()[i]);
             bookingItem.setLastName(booking.getLastNames()[i]);
@@ -63,6 +63,7 @@ public class BookingServiceImpl implements BookingService{
 
             if ( booking.getRoundTrip().equals("왕복")) {
                 bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
+                bookingItem.setRouteNoDes(booking.getRouteNoDess()[i]);
             }
 
             bookingMapper.infoPassngers(bookingItem);
