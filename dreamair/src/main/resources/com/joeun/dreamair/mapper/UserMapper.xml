@@ -136,5 +136,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ...
     </select> -->
 
+    <!-- 장바구니 -->
+    <select id="user_cart_list" resultType="Users">
+        SELECT *
+        FROM cart
+        WHERE user_no=#{userNo}
+    </select>
+
+    <select id="user2_cart_list" resultType="Users">
+        SELECT *
+        FROM cart
+        WHERE user_no2=#{userNo2}
+    </select>
+
 </mapper>
 

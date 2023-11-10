@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/admin_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR code</title>
+</head>
+    <body layout:fragment="content">
+        <h1 class="text-center my-3">QR code</h1>
+<!-- insert -->
+    <tr>
+        <td>QR CODE</td>
+        <td>
+            <input type="text" name="url" placeholder="QR Code와 연결될 URL">
+        </td>
+    </tr>
+
+<!-- read -->
+<tr>
+    <td>QR 코드</td>
+    <td>
+        <ul>
+            <!-- QR 목록 -->
+            <th:block th:each="qr : ${qrList}">
+                <li>
+                    <a th:href="|${qr.url}|" target="_blank" style="text-decoration: none;">
+                        <img th:src="|/qr/img?qrNo=${qr.qrNo}|" alt="">
+                    </a>          
+                    <button type="button" class="btn-file-delete" th:data="${qr.qrNo}">삭제</button>
+                </li>
+            </th:block>
+        </ul>
+    </td>
+</tr>
+
+</body>
+</html>

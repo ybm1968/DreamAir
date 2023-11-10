@@ -1,7 +1,8 @@
 package com.joeun.dreamair.dto;
 
-import java.util.Date;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -22,8 +23,12 @@ public class Admin {
     // flight 테이블
     private int flightNo;
     private String flightName;
-    private String seatNo;
+    private int routeNo;
     private int seatMax;
     private int seatRemaining;
     private int seatUsed;
+
+    // 파일 등록
+    private List<MultipartFile> file;
+
 }

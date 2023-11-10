@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
-import com.joeun.dreamair.service.TicketService;
+import com.joeun.dreamair.service.BookingService;
 import com.joeun.dreamair.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private TicketService ticketService;
+    private BookingService bookingService;
 
     @Autowired
     private PersistentTokenRepository persistentTokenRepository;
@@ -51,7 +52,7 @@ public class UserController {
     // @PreAuthorize("hasRole('ROLE_USER')")
     // @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     // @Secured("ROLE_USER")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    // @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value={"/", ""})
     public String index() {
         // int result = 10 / 0;
@@ -63,9 +64,25 @@ public class UserController {
     /**
      * 장바구니 페이지
      * @return
+     * @throws Exception
      */
     @GetMapping(value = "/cart")
-    public String cart() {
+    public String cart(Model model, Principal principal, Users user) throws Exception {
+        String loginId = principal != null ? principal.getName() : "GUEST";
+        
+        // 회원 번호 추출
+        user = userService.selectById(loginId);
+        int userNo = user.getUserNo();
+
+        // 비회원 번호 추출
+        int userNo2 = 0;
+        if(loginId.equals("GUEST")){
+            
+        }
+        // 회원이 가지고 있는 장바구니 조회
+        List<Users> cartlist = userService.user_cart_list(userNo);
+        model.addAttribute("CartList", cartlist);
+
         return "user/cart";
     }
 
@@ -244,8 +261,8 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value="/bookingList")
-    public String bookingList(Model model, Principal principal, Booking booking) throws Exception {
-        List<Booking> ticketList = null;
+    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+        List<Booking> bookingList = null;
         // 회원 주문 내역 데이터 요청
         if( principal != null ) {
             log.info("회원 : " + principal.getName());
@@ -262,6 +279,22 @@ public class UserController {
         }
         
         return "user/bookingList";
+    }
+
+    @PostMapping(value="/booking")
+    public String bookingPost(Model model, Principal principal, Booking booking) throws Exception {
+        List<Booking> bookingList = null;
+        // 비회원 주문 내역 데이터 요청
+        // ✅ 비회원 전화번호           - phone
+        // ✅ 비회원 주문 비밀번호      - bookingPw
+        if( principal == null && booking.getPhone() != null ) {
+            log.info("비회원 : " + booking.getPhone());
+            // bookingList = bookingService.listByGuest(booking);
+            // booking = bookingService.sumBookingByGuest(booking);
+            model.addAttribute("bookingList", bookingList);
+            model.addAttribute("booking", booking);
+        }
+        return "user/booking";
     }
 
 

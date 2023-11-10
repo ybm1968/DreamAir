@@ -1,12 +1,12 @@
 package com.joeun.dreamair.dto;
 
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 import lombok.Data;
 
 @Data
 public class Booking {
+
     // booking 테이블
     private int bookingNo;
     private String name;
@@ -40,7 +40,7 @@ public class Booking {
     private int productNoDep;       // 상품번호(가는편)
     private int productNoDes;       // 상품번호(오는편)
 
-    private List<Booking> bookingList;
+    private ArrayList<Booking> bookingList;
 
     // cart
     private int cartNo;
@@ -61,32 +61,15 @@ public class Booking {
     private String boardingTime;          // 실제 탑승시간
 
     // product 테이블
-    // private int productNo;
-    // private int routeNo;
-    // private String name;
-    // private String productCat;
     private int productPrice;
-    // private String departure;
-    // private String destination;
-    // private Date productRegDate;
-    // private Date productUpdDate;
 
     // flight 테이블
     private int flightNo;
     private String flightName;
-    // private String seatNo;
-    // private int routeNo;
-    // private int seatMax;
     private int seatRemaining;
     // private int seatUsed;
 
-
-
-    private String userId;
-    private String password;
-
-
-
-
-   
+    // 탑승권 처리 할 때 필요한 변수
+    private int select;
 }
+

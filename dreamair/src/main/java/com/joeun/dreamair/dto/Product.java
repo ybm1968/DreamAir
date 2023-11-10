@@ -1,6 +1,8 @@
 package com.joeun.dreamair.dto;
 
-import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -20,7 +22,7 @@ public class Product {
     private String productUpdDate;
     private int unitInStock;
     private String description;
-    private String File;
+    private int amount;
 
     // seat 테이블
     private String seatNo;
@@ -31,11 +33,7 @@ public class Product {
     private String status;
 
     // flight 테이블
-    // private int flightNo;
     private String flightName;
-    
-
-    // private String seatNo;
     private int seatMax;
     private int seatRemaining;
     private int seatUsed;
@@ -46,13 +44,16 @@ public class Product {
     private int userNo2;
     private int cartCnt;
 
-    // route    
-    // private int routeNo;    
-    // private String departure;     
-    // private String destination;
+    // route 테이블
     private String departureTime;     
-    private String departureDate;     
     private String destinationTime;
-    private String destinationDate;
+
+    private List<Files> files;
+    private Files thumbnail;
+    private String fileName;
+    private String fileType;
+    
+    // 파일 등록
+    private List<MultipartFile> file;
 
 }
