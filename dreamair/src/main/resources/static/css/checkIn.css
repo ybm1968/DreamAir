@@ -216,12 +216,6 @@ to {
 	color: white;
 }
 
-.seat1 {
-	width: inherit;
-	display: inline-table;
-	margin-left: 70px;
-	width: fit-content;
-}
 
 
 input[type="text"] {
@@ -232,6 +226,17 @@ input[type="text"] {
 
 input:focus {
 	outline: none;
+}
+
+.seat1 {
+	width: inherit;
+	display: inline-table;
+	margin-left: 60px;
+	width: fit-content;
+}
+
+.seatCol {
+	margin-left: 70px;
 }
 
 /* 체크 박스 여기 */
@@ -247,13 +252,15 @@ input[type=checkbox] {
 	/* checkbox의 크기와 여백을 조정합니다. */
 	width: 20px; /* 원하는 크기로 조정하세요 */
 	height: 20px; /* 원하는 크기로 조정하세요 */
-	margin: 5px; /* 원하는 여백으로 조정하세요 */
+	margin: 5px 10px 5px 5px; /* 원하는 여백으로 조정하세요 */
+
 	
 	/* 배경 이미지 설정 */
 	background-image: url(/img/bookableSeat.png);
 	background-size: cover; /* 이미지를 적절하게 확대/축소하여 채우도록 설정합니다. */
 
 	cursor: pointer;
+
 
 }
 

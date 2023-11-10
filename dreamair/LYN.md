@@ -1,5 +1,9 @@
 # 이유나 작업 사항
 
+*
+info에서 배열로 모델에 등록되어 넘어 옴
+좌석 선택하고 notice로 넘길 때 passenger_no랑 passenger_name 넘기기
+좌석 선택하고 notice로 넘길 때 update문으로 passengers 테이블에도 좌석 번호 데이터 업데이트하기
 
 [회원 가입]
 - 회원 가입 시, users 테이블 & auth 테이블 & mileage 테이블에 모두 데이터 삽입 필요 => 해결

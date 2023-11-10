@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
 
+    <!-- main_layout에 적용되어있는 style.css가 아닌 checkIn.css를 우선 적용 -->
+    <link rel="stylesheet" th:href="@{/css/checkIn.css}" />
+
 
     <!-- JavaScript 추가 -->
     <script>
@@ -62,8 +65,7 @@
 
                                         <br>
 
-                                        <h4>A B C D</h4>
-
+                                        <h5 class="seatCol">A　B　C　D</h5>
                                         <!-- 좌석 -->
                                         <div class="seat1">
                                             <th:block th:each="seat, iterStat : ${seatStatus}">
