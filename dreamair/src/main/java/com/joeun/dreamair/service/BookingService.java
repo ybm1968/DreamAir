@@ -14,7 +14,7 @@ public interface BookingService {
     public List<Booking> comelist(Booking booking) throws Exception;
 
     // 탑승객 정보 입력
-    public int info(Booking booking) throws Exception;
+    // public int info(Booking booking) throws Exception;
     
     // 회원 - 가장 최근 예매 번호 조회
     public int latest_user_bookingNo(int userNo) throws Exception;

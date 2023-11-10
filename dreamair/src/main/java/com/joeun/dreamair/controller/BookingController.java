@@ -84,16 +84,10 @@ public class BookingController {
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
 
         log.info("탑승객 이름 : " + booking.getPassengerName());
-        
-        int result = bookingService.info(booking);
-        // int result = 0;
-        // for (Booking booking : bookingList) {
-        //     result++;
-        // }
+        int result = 0;
 
-        log.info("인서트결과 : " + result);
-
-        // 탑승객 수 만큼 반복해서 인서트???
+        result = bookingService.infoList(booking);
+        rttr.addFlashAttribute("booking", booking);    
         
         return "booking/seat";
     }
