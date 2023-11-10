@@ -23,10 +23,19 @@
 
 
 --------------------------------------------------------------------------------------------------------
+- 11/10
+- header.html, user_layout.html, user/index.html, UI/fragment/sidebar.html 수정
 
-- 10/31
-- /user/index.html 생성
-- /layout/user_layout.html 생성
+
+
+
+- 11/2
+- user_layout.html 수정
+- user/index.html & user/update.html 레이아웃 연결 수정
+- user/delete.html 생성
+- UserController.java 수정
+- UserMapper.xml & UserMapper.java 수정
+- 등등
 
 - 11/1
 - UserMapper.java 수정
@@ -40,10 +49,6 @@
 - user/update.html 생성
 - 등등
 
-- 11/2
-- user_layout.html 수정
-- user/index.html & user/update.html 레이아웃 연결 수정
-- user/delete.html 생성
-- UserController.java 수정
-- UserMapper.xml & UserMapper.java 수정
-- 등등
+- 10/31
+- /user/index.html 생성
+- /layout/user_layout.html 생성
