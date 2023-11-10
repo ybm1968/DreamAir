@@ -48,7 +48,7 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public int infoList(Booking booking) throws Exception {
-        log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
+        // log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
         int result = 0;
         
@@ -140,9 +140,9 @@ public class BookingServiceImpl implements BookingService{
     @Override
     public List<Booking> selectBookingListByUser(String userId) throws Exception {
 
-        List<Booking> ticketList = bookingMapper.selectBookingListByUser(userId);
+        List<Booking> bookingList = bookingMapper.selectBookingListByUser(userId);
 
-        return ticketList;
+        return bookingList;
 
     }
 
@@ -155,6 +155,22 @@ public class BookingServiceImpl implements BookingService{
 
         return viewTicket;
 
+    }
+
+    @Override
+    public String selectDeparture(int productNoDeps) {
+
+        String departure = bookingMapper.selectDeparture(productNoDeps);
+
+        return departure;
+    }
+
+    @Override
+    public String selectDestination(int productNoDess) {
+
+        String destination = bookingMapper.selectDestination(productNoDess);
+
+        return destination;
     }
 
 

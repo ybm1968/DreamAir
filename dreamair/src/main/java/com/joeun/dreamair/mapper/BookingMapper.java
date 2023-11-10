@@ -3,6 +3,7 @@ package com.joeun.dreamair.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
 
@@ -35,5 +36,11 @@ public interface BookingMapper {
 
     // 탑승권 상세 조회
     public List<Booking> selectTicket(int bookingNo) throws Exception;
+
+    // 출발지 조회
+    public String selectDeparture(int productNoDeps);
+    
+    // 도착지 조회
+    public String selectDestination(int productNoDess);
 
 }

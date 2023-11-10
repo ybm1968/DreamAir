@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +34,8 @@ public class BookingController {
     // 항공권 조회 목록 -> 예매
     @GetMapping(value="/list")
     public String list(Model model, Booking booking) throws Exception {
-        log.info("리스트 출발지 : " + booking.getDeparture());
-        log.info("탑승인원 : " + booking.getPasCount());
+        // log.info("리스트 출발지 : " + booking.getDeparture());
+        // log.info("탑승인원 : " + booking.getPasCount());
         List<Booking> bookingList = bookingService.golist(booking);   //?
         // log.info("bookingList 출력확인 : " + bookingList.get(0).getPasCount());
         model.addAttribute("bookingList", bookingList);     //??
@@ -46,8 +47,8 @@ public class BookingController {
     // 가는 편
     @GetMapping(value="/component/golist")
     public String gobookingList(Model model, Booking booking) throws Exception {
-        log.info("가는편 출발지 : " + booking.getDeparture());
-        log.info("*가는편 getProductNoDep : " + booking.getProductNoDep());
+        // log.info("가는편 출발지 : " + booking.getDeparture());
+        // log.info("*가는편 getProductNoDep : " + booking.getProductNoDep());
 
         List<Booking> bookingList = bookingService.golist(booking);
         model.addAttribute("bookingList", bookingList);
@@ -58,9 +59,9 @@ public class BookingController {
     // 오는 편
     @GetMapping(value="/component/comelist")
     public String comebookingList(Model model, Booking booking) throws Exception {
-        log.info("오는편 출발지 : " + booking.getDeparture());
-        log.info("오는편 getProductNo : " + booking.getProductNo());
-        log.info("*오는편 getProductNoDep : " + booking.getProductNoDep());
+        // log.info("오는편 출발지 : " + booking.getDeparture());
+        // log.info("오는편 getProductNo : " + booking.getProductNo());
+        // log.info("*오는편 getProductNoDep : " + booking.getProductNoDep());
 
         List<Booking> bookingList = bookingService.comelist(booking);
         model.addAttribute("bookingList", bookingList);
@@ -71,9 +72,9 @@ public class BookingController {
     // 탑승객 정보 입력
     @GetMapping(value="/info")
     public String info(Model model, Booking booking) {
-        log.info("가는편 상품번호 : " + booking.getProductNoDep());
-        log.info("오는편 상품번호 : " + booking.getProductNoDes());
-        log.info("인원수 : " + booking.getPasCount());
+        // log.info("가는편 상품번호 : " + booking.getProductNoDep());
+        // log.info("오는편 상품번호 : " + booking.getProductNoDes());
+        // log.info("인원수 : " + booking.getPasCount());
 
         model.addAttribute("booking", booking);
         
@@ -82,13 +83,13 @@ public class BookingController {
 
     @PostMapping(value="/info")
     public String infoPro(Model model, Booking booking, RedirectAttributes rttr) throws Exception{ 
-        log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
-        log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
+        // log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
+        // log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
 
         int result = 0;
 
         result = bookingService.infoList(booking);
-        rttr.addFlashAttribute("booking", booking);     
+        rttr.addFlashAttribute("booking", booking);
     
         return "redirect:/booking/seat";
     }
@@ -101,17 +102,32 @@ public class BookingController {
     
     // 좌석 선택
     @GetMapping(value="/seat")
-    public String seat(Model model, Booking booking) throws Exception {
+    public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
         
         List<Booking> seatStatus = bookingService.selectSeatStatus();
 
-        log.info("좌석 어디 선택할 수 있는지 보자 : " + seatStatus);
-        
-        // 값을 조회
+        log.info("booking : " + booking);
+
+        int productNoDepValue = booking.getProductNoDeps()[0];
+        int productNoDesValue = booking.getProductNoDess()[0];
+
+        log.info("출발지 값 : " + productNoDepValue);
+        log.info("도착지 값 : " + productNoDesValue);
+
+        String departure = bookingService.selectDeparture(productNoDepValue);
+        String destination = bookingService.selectDeparture(productNoDesValue);
+
+        log.info("출발지 명 : " + departure);
+        log.info("도착지 명 : " + destination);
+
+
+
+        // 모델에 등록
         model.addAttribute("booking", booking);
         model.addAttribute("seatStatus", seatStatus);
+        model.addAttribute("departure", departure);
+        model.addAttribute("destination", destination);
         
-      
         return "booking/seat";
     }
 

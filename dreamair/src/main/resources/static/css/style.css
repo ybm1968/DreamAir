@@ -383,8 +383,3 @@ label::before {
     border-radius: 25px;
     color: #606267;    
 } */
-
-
-.form-check-input {
-  display: block;
-}

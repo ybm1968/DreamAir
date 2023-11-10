@@ -34,6 +34,11 @@ public interface BookingService {
     // 탑승권 상세 조회
     public List<Booking> selectTicket(int bookingNo) throws Exception;
 
+    // 출발지 조회
+    public String selectDeparture(int productNoDeps);
+    
+    // 출발지 조회
+    public String selectDestination(int productNoDess);
 
 
 }
