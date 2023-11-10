@@ -120,5 +120,14 @@ public class BookingServiceImpl implements BookingService{
         List<Booking> ticketList_bookingNo = bookingMapper.ticketList_bookingNo(bookingNo);
         return ticketList_bookingNo;
     }
+    @Override
+    public List<Booking> selectSeatStatus() throws Exception {
+        List<Booking> seatList = bookingMapper.selectSeatStatus();
+
+
+        return  seatList;
+    }
+
     
+
 }

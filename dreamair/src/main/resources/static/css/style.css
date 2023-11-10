@@ -114,8 +114,8 @@
 .footer_link {
     display: felx;
     justify-content: space-between;
-    padding-top: 20px;
-    margin-bottom: 30px;
+    padding-top: 10px;
+    margin-bottom: 40px;
 }
 
 .footer_link > p {
@@ -153,8 +153,9 @@
 
   .logo {
     float: left;
-    width: 200px;
-    height: 200px;
+    margin-top: 40px;
+    width: 120px;
+    height: 120px;
   }
   
   .logo ::after {
@@ -384,6 +385,6 @@ label::before {
 } */
 
 
-/* .login_checkbox > input[type=checkbox] {
-	display: block; 
-} */
+.form-check-input {
+  display: block;
+}

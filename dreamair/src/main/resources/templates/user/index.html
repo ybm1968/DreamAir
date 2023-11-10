@@ -15,7 +15,22 @@
     <div class="container p-4">
         <h1 class="text-center my-3">마이 페이지</h1>
 
-        <p>마이 페이지 인덱스~</p>
+        <br>
+
+        <form action="/logout" method="post">
+            <!-- csrf token -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    
+            <div class="btn-box d-grid gap-2">
+                <a href="/user/update" class="btn btn-outline-primary btn-lg">회원정보 수정</a>
+                <a href="/user/checkIn" class="btn btn-outline-primary btn-lg">체크인</a>
+                <a href="/user/mileage" class="btn btn-outline-primary btn-lg">마일리지 조회</a>
+                <a href="/user/delete" class="btn btn-outline-primary btn-lg">회원 탈퇴</a>
+                <a href="/user/cart" class="btn btn-outline-primary btn-lg">장바구니 조회</a>
+                <a href="/user/bookingList" class="btn btn-outline-primary btn-lg">나의 탑승권 관리</a>
+                <button type="submit" class="btn btn-outline-primary btn-lg">로그아웃</button>
+            </div>
+        </form>
     </div>
 
 

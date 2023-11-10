@@ -70,12 +70,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   VALUES ( #{passengerNo}, #{passengerName}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checked_in}, #{is_boarded}, #{routeNo}, #{flightNo} )
 </insert>
             
-<!-- 예매 번호로 탑승권 정보 조회 -->
-<select id="ticketList_bookingNo" resultType="Booking">
-SELECT * 
-FROM ticket LEFT JOIN booking 
-ON ticket.booking_no = #{bookingNo}
+<!-- 예매한 탑승권 정보 조회 -->
+
+
+
+
+
+<!-- seat 조회 -->
+<select id="selectSeatStatus" resultType="Booking">
+  SELECT *
+  FROM seat
+  ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
 </select>
 
-<!--  -->
+
 </mapper>

@@ -109,9 +109,16 @@ public class BookingController {
     
     // 좌석 선택
     @GetMapping(value="/seat")
-    public String seat(Model model, Booking booking) {
+    public String seat(Model model, Booking booking) throws Exception {
+        
+        List<Booking> seatStatus = bookingService.selectSeatStatus();
+
+        log.info("좌석 어디 선택할 수 있는지 보자 : " + seatStatus);
+        
         // 값을 조회
         model.addAttribute("booking", booking);
+        model.addAttribute("seatStatus", seatStatus);
+        
       
         return "booking/seat";
     }
@@ -181,4 +188,20 @@ public class BookingController {
     }
 
 
+
+    /**
+     * seat 페이지에서 좌석 선택하여 선택 완료 시 -> form 제출하며 notice 페이지로 이동
+     * @return
+     */
+    @PostMapping(value = "/notice")
+    public String seatPro(@RequestParam("depSeat") String depSeat, Model model) {
+
+        
+        
+        System.out.println("선택한 좌석: " + depSeat);
+
+        model.addAttribute("selectSeat", depSeat);
+
+        return "redirect:/booking/notice";
+    }
 }

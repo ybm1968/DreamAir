@@ -7,7 +7,7 @@
 .wrapper {
 	width: 250px;
 	height: 250px;
-	background: #C2185B;
+	background: #94e1ff;
 }
 
 .wrapper div {
@@ -109,7 +109,7 @@ to {
     font-size: 28px;
     position: relative;
     font-weight: bold;
-    bottom: 8px;
+    bottom: 2px;
 }
 
 .close:hover, .close:focus {
@@ -143,7 +143,7 @@ to {
 .modalInnerLeft {
 	width: 55%;
 	height: 600px;
-	background-color: red;
+	background-color: white;
 	float: left;
 	height: 85%;
 }
@@ -159,18 +159,18 @@ to {
 	height: 57%;
     padding: 15px;
     margin-left: 10px;
-    border: 1px solid #d60815;
+    border: 1px solid #94e1ff;
     margin-bottom: 10px;
 }
 
 .modal-header2 {
-	    background-color: #d60815;
+	    background-color: #b6b6b6;
     height: 95px;
     color: white;
 }
 
 .modalInnerBottom {
-	background-color: chocolate;
+	background-color: #94e1ff;
 	width: 45%;
 	margin: 0 auto;
 	display: inline-block;
@@ -184,7 +184,7 @@ to {
 }
 
 .nameView {
-	background-color: #d60815;
+	background-color: #fffbc6;
     height: 50px;
 }
 .nameViewInner{
@@ -212,23 +212,11 @@ to {
 
 .seatWarning {
 	height: 56px;
-	background-color: #6d6e70;
+	background-color: #aaaaaa;
 	color: white;
 }
 
-.seat1 {
-	width: inherit;
-	display: inline-table;
-	margin-left: 17px;
-	width: fit-content;
-}
 
-.seat2 {
-	width: inherit;
-	display: inline-table;
-	margin-left: 50px;
-	width: fit-content;
-}
 
 input[type="text"] {
 	border: none;
@@ -240,13 +228,65 @@ input:focus {
 	outline: none;
 }
 
+.seat1 {
+	width: inherit;
+	display: inline-table;
+	margin-left: 60px;
+	width: fit-content;
+}
+
+.seatCol {
+	margin-left: 70px;
+}
+
+/* 체크 박스 여기 */
+
 input[type=checkbox] {
-	display: none; 
+	/* checkbox의 실제 체크박스 부분을 숨깁니다. */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	outline: none;
+
+	/* checkbox의 크기와 여백을 조정합니다. */
+	width: 20px; /* 원하는 크기로 조정하세요 */
+	height: 20px; /* 원하는 크기로 조정하세요 */
+	margin: 5px 10px 5px 5px; /* 원하는 여백으로 조정하세요 */
+
+	
+	/* 배경 이미지 설정 */
+	background-image: url(/img/bookableSeat.png);
+	background-size: cover; /* 이미지를 적절하게 확대/축소하여 채우도록 설정합니다. */
+
+	cursor: pointer;
+
+
+}
+
+.seat1 .seatBox:checked {
+	background-image: url(/img/bookingSeat.png);
+}
+
+
+.seat1 .seatBox:disabled {
+	background-image: url(/img/bookedSeat.png);
+	cursor: default;
+}
+
+.seat1 label {
+	display: none;
+}
+
+
+/* input[type=checkbox] {
+	display: none;
 }
 
 input[type=checkbox]:disabled {
 	display: none;
-}
+} */
+
 .direction {
 	text-align: center;
     position: relative;
@@ -254,14 +294,14 @@ input[type=checkbox]:disabled {
     left: 338px;
     display: inline;
 }
+
 .bookable {
 	cursor: pointer;
 	display: inline-block;
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 22px;
-	background: url('/img/bookableSeat.png') left/22px
-		no-repeat;
+	background: url('/img/bookableSeat.png') left/22px no-repeat;
 	height: 30px;
 }
 
@@ -270,8 +310,7 @@ input[type=checkbox]:disabled {
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 22px;
-	background: url('/img/bookingSeat.png') left/22px
-		no-repeat;
+	background: url('/img/bookingSeat.png') left/22px no-repeat;
 	height: 30px;
 }
 
@@ -280,7 +319,7 @@ input[type=checkbox]:disabled {
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 22px;
-	background: url('/img/bookingSeat.png') left/22px	no-repeat;
+	background: url('/img/bookingSeat.png') left/22px no-repeat;
 	height: 30px;
 }
 
@@ -311,8 +350,8 @@ label {
 	margin-left: 5px;
 }
 .depSeat,.arrSeat {
-	width: 250px;
-	margin-left: 83px;
+	width: 310px;
+	margin-left: 75px;
 }
 .modalInnerBottom2 {
 	margin-top: 30px;
@@ -323,7 +362,7 @@ label {
 .depBookGo{
 	float: left;
     width: 150px;
-    background-color: indianred;
+    background-color: #94e1ff;
 }
 .bookOk {
 	margin-left: 50px;
@@ -340,7 +379,7 @@ label {
 	height: 334px;
     padding: 15px;
     box-sizing: border-box;
-    border: #E22B2A solid 1px;
+    border: #94e1ff solid 1px;
     margin-left: 10px;
 }
 .seatInfo_bookedSeat {
@@ -361,7 +400,7 @@ label {
 #btn ,#btn2 ,#btn3 {
 	height: 50px;
     border-radius: 4px;
-    background-color: #d60815;
+    background-color: #000000;
     border: none;
     color: #FFFFFF;
     font-size: 18px;
@@ -421,8 +460,8 @@ label {
 }
 .warning {
 	position: relative;
-    top: 15px;
-    left: 120px;
+    top: 20px;
+    left: 130px;
     font-size: 16px;
     text-shadow: -1px 0 #6b6b6b, 0 1px #6b6b6b, 1px 0 #6b6b6b, 0 -1px #6b6b6b;
 }
@@ -439,7 +478,7 @@ label {
     line-height: 40px;
 }
 .goSeat, .backSeat{
-	border-bottom: 1px red solid;
+	border-bottom: 1px #94e1ff solid;
 }
 input[type="text"]:hover{
 	    border: 1px solid #ccc;
