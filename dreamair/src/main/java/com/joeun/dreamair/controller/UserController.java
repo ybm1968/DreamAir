@@ -16,10 +16,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
@@ -267,15 +265,11 @@ public class UserController {
         if( principal != null ) {
             log.info("회원 : " + principal.getName());
             String userId = principal.getName();
-            
-            ticketList = ticketService.selectBookingListByUser(userId);
-            
-            // ticket = ticketService.sumBooking(userId);
-            
-            // log.info("ticket : " + ticketList);
-
-            model.addAttribute("ticketList", ticketList);
-            // model.addAttribute("booking", booking);
+            // bookingList = bookingService.listByUserId(userId);
+            // booking = bookingService.sumBooking(userId);
+            log.info("booking : " + booking);
+            model.addAttribute("bookingList", bookingList);
+            model.addAttribute("booking", booking);
         }
         
         return "user/bookingList";
@@ -296,57 +290,9 @@ public class UserController {
         }
         return "user/booking";
     }
-
-
-    /**
-     * 티켓 상세 정보 페이지
-     * @param bookingNo
-     * @param model
-     * @return
-     * @throws Exception
-     */
-    @GetMapping(value="/viewTicket") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
-    public String viewTicket(@RequestParam int bookingNo, Model model, Principal principal) throws Exception {
-
-        String userId = principal.getName();
-
-        List<Booking> viewTicketDetail = ticketService.selectTicket(bookingNo);
-        Users userInfo = userService.selectById(userId);
-
-        log.info("viewTicketDetail : " + viewTicketDetail);
-        log.info("user : " + userInfo);
+    
         
-        // viewTicket을 모델에 추가
-        model.addAttribute("viewTicketDetail", viewTicketDetail);
-        model.addAttribute("userInfo", userInfo);
-    
 
-        return "user/viewTicket"; // 보여줄 뷰 페이지 이름을 반환
-    }
-    
-    
-    
-
-
-    // @PostMapping(value="/booking")
-    // public String bookingPost(Model model, Principal principal, Booking booking) throws Exception {
-    //     List<Booking> bookingList = null;
-    //     // 비회원 주문 내역 데이터 요청
-    //     // ✅ 비회원 전화번호           - phone
-    //     // ✅ 비회원 주문 비밀번호      - bookingPw
-    //     if( principal == null && booking.getPhone() != null ) {
-    //         log.info("비회원 : " + booking.getPhone());
-    //         bookingList = bookingService.listByGuest(booking);
-    //         booking = bookingService.sumBookingByGuest(booking);
-    //         model.addAttribute("bookingList", bookingList);
-    //         model.addAttribute("booking", booking);
-    //     }
-    //     return "user/booking";
-    // }
-    
-
-    
-    
     
 }
 

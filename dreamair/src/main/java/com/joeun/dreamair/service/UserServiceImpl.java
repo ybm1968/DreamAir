@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
     }
     
 
-    // 회원 마일리지 조회
+    
     @Override
     public Users selectMileage(String userId) throws Exception {
         

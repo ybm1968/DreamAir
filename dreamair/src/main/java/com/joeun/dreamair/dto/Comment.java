@@ -19,8 +19,8 @@ public class Comment {
     private int superNo;
     private int depthNo;
     private int seqNo;
-    private String reg_date;
-    private String upd_date;
+    private Date reg_date;
+    private Date upd_date;
     private int subCount;
     private String parentTable;
 
