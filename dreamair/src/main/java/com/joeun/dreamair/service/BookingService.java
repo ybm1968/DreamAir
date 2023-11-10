@@ -13,8 +13,8 @@ public interface BookingService {
     // 오는편 항공권 조회
     public List<Booking> comelist(Booking booking) throws Exception;
 
-    // 탑승객 정보 입력
-    public int info(Booking booking) throws Exception;
+    // 탑승객들 정보 입력
+    public int infoList(Booking booking) throws Exception;
     
     // 회원 - 가장 최근 예매 번호 조회
     public int latest_user_bookingNo(int userNo) throws Exception;
@@ -27,5 +27,13 @@ public interface BookingService {
 
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus() throws Exception;
+
+    // 탑승권 리스트 조회 - 회원
+    public List<Booking> selectBookingListByUser(String userId) throws Exception;
+
+    // 탑승권 상세 조회
+    public List<Booking> selectTicket(int bookingNo) throws Exception;
+
+
 
 }

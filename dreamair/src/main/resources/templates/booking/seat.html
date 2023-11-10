@@ -14,19 +14,50 @@
 
 
     <!-- JavaScript 추가 -->
-    <script>
+    <script th:inline="javascript">
+
+        let booking = [[${booking}]]
+        let selectable = true             // 좌석 선택 가능 여부
+        console.log( booking );
+        console.log( booking.pasCount );
+
         document.addEventListener('DOMContentLoaded', function() {
+
             // checkbox의 change 이벤트 핸들러 등록
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
             var depSeatInput = document.getElementById('depSeat');
 
+            var selectedSeats = new Array()
+
             checkboxes.forEach(function(checkbox) {
                 checkbox.addEventListener('change', function() {
-                    var selectedSeats = Array.from(checkboxes)
-                        .filter(function(checkbox) { return checkbox.checked; })
-                        .map(function(checkbox) { return checkbox.value; });
 
+                    // 체크 해제인 경우 (🟦)
+                    if(  checkbox.classList.contains('checked')  ) {
+                        checkbox.classList.remove('checked')
+                        checkbox.checked = false                // 선택한 체크 박스를 선택 해제 (✅  -->  🟩)
+                    }
+                    
+                    selectedSeats = Array.from(checkboxes)
+                                        .filter(function(checkbox) { return checkbox.checked; })
+                                        .map(function(checkbox) { return checkbox.value; });
+                    console.log('selectedSeats : '+ selectedSeats);
+                    
+                    if( (booking.pasCount < selectedSeats.length) ) {
+                        alert('선택 불가')
+                        checkbox.checked = false
+                        return                   // 선택 좌석 수 > 탑승인원 수 (선택 불가)
+                    }
+
+                    // input 선택된 좌석 넣어주기
                     depSeatInput.value = selectedSeats.join(', ');
+
+                    // 체크 박스 선택(🟥)
+                    console.log('checkbox.checked : ' + checkbox.checked);
+                    if( checkbox.checked )
+                        checkbox.classList.add('checked')
+
+                    console.log('선택된 좌석 수 : ' +  selectedSeats.length );
                 });
             });
         });
@@ -100,7 +131,7 @@
                         </div>
                         
                         <div class="modalInnerRightDown">
-                            <div>인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople">여기 인원 몇</span>명</div>
+                            <div>인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople"></span>명</div>
                             <div class="goSeat">가는 편 좌석<input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
                             
                             <!-- 이건 왕복일 때만 -->
@@ -121,5 +152,6 @@
             </form>
         </div>
     </div>
+
 </body>
 </html>

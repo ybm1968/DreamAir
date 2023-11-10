@@ -264,7 +264,8 @@ input[type=checkbox] {
 
 }
 
-.seat1 .seatBox:checked {
+/* .seat1 .seatBox:checked { */
+.seat1 .seatBox.checked { 
 	background-image: url(/img/bookingSeat.png);
 }
 

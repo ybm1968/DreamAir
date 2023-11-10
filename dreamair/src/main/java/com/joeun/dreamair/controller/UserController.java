@@ -303,28 +303,39 @@ public class UserController {
         return "user/checkin_complete";
     }
 
+
+    // 충돌나면 여기 아래로 적용 필요!
     /**
-     * 주문 내역 페이지
+     * 예매 내역 페이지 - 회원
      * @throws Exception
      */
     @GetMapping(value="/bookingList")
-    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+    public String bookingList(Model model, Principal principal, Booking booking) throws Exception {
         List<Booking> bookingList = null;
         // 회원 주문 내역 데이터 요청
         if( principal != null ) {
             log.info("회원 : " + principal.getName());
             String userId = principal.getName();
-            // bookingList = bookingService.listByUserId(userId);
-            // booking = bookingService.sumBooking(userId);
-            log.info("booking : " + booking);
+            
+            bookingList = bookingService.selectBookingListByUser(userId);
+            
+            // ticket = ticketService.sumBooking(userId);
+            
+            // log.info("ticket : " + ticketList);
+
             model.addAttribute("bookingList", bookingList);
-            model.addAttribute("booking", booking);
+            // model.addAttribute("booking", booking);
         }
         
         return "user/bookingList";
     }
 
-    @PostMapping(value="/booking")
+
+    /**
+     * 예매 내역 페이지 - 비회원
+     * @throws Exception
+     */
+    @PostMapping(value="/bookingList")
     public String bookingPost(Model model, Principal principal, Booking booking) throws Exception {
         List<Booking> bookingList = null;
         // 비회원 주문 내역 데이터 요청
@@ -337,7 +348,33 @@ public class UserController {
             model.addAttribute("bookingList", bookingList);
             model.addAttribute("booking", booking);
         }
-        return "user/booking";
+        return "user/bookingList";
     }
     
+
+    /**
+     * 티켓 상세 정보 페이지
+     * @param bookingNo
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
+    public String viewTicket(@RequestParam int bookingNo, Model model, Principal principal) throws Exception {
+
+        String userId = principal.getName();
+
+        List<Booking> viewTicketDetail = bookingService.selectTicket(bookingNo);
+        Users userInfo = userService.selectById(userId);
+
+        log.info("viewTicketDetail : " + viewTicketDetail);
+        log.info("user : " + userInfo);
+        
+        // viewTicket을 모델에 추가
+        model.addAttribute("viewTicketDetail", viewTicketDetail);
+        model.addAttribute("userInfo", userInfo);
+    
+
+        return "/user/booking/ticketInfo"; // 보여줄 뷰 페이지 이름을 반환
+    }
 }

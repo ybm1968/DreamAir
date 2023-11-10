@@ -1,9 +1,9 @@
-<th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도') || #strings.equals(bookingInfo.roundTrip, '왕복')}">
+<th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도') || #strings.equals(bookingInfo.roundTrip, '왕복 가는편')}">
     <h2 style="text-align: center;">가는편</h2>
     <h2 style="text-align: center;"><i class="fa fa-solid fa-plane-departure"></i> <span th:text="${bookingInfo.departure}"></span> → <i class="fa fa-solid fa-plane-arrival"></i> <span th:text="${bookingInfo.destination}"></span></h2>
 </th:block>
 
-<th:block th:if="${#strings.equals(bookingInfo.roundTrip, '도착')}">
+<th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복')}">
     <h2 style="text-align: center;">오는편</h2>
     <h2 style="text-align: center;"><i class="fa fa-solid fa-plane-departure"></i> <span th:text="${bookingInfo.departure}"></span> → <i class="fa fa-solid fa-plane-arrival"></i> <span th:text="${bookingInfo.destination}"></span></h2>
 </th:block>
@@ -28,6 +28,16 @@
         </tr>
     </th:block>
     
+        <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도')}">
+            <input type="hidden" name="roundTrip" th:value="${bookingInfo.roundTrip}" > 
+            <input type="hidden" name="pasCount" th:value="${bookingInfo.pasCount}" >
+        </th:block>
+
+        <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복')}">
+            <input type="hidden" name="productNoDep" th:value="${bookingInfo.productNoDep}" >
+            <input type="hidden" name="pasCount" th:value="${bookingInfo.pasCount}" >
+            <input type="hidden" name="roundTrip" th:value="${bookingInfo.roundTrip}" >   
+        </th:block>
     
         <th:block th:each="booking : ${bookingList}">
                 <tr>
@@ -44,26 +54,19 @@
                         <!-- 편도 -->
                         <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도')}">
                             <input type="hidden" name="productNoDep" th:value="${booking.productNo}" > 
-                            <input type="hidden" name="productIdDep" th:value="${booking.productId}" > 
-                            <input type="hidden" name="pasCount" th:value="${bookingInfo.pasCount}" >
                             <!-- <input type="hidden" name="routeNo" th:value="${booking.routeNo}" > -->
                             <input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg">    
                         </th:block>
-                        <!-- 왕복 출발-->
-                        <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복')}">
+                        <!-- 왕복 가는편-->
+                        <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복 가는편')}">
                             <input type="hidden" name="productNoDep" id="productNoDep" th:value="${booking.productNo}" >
-                            <input type="hidden" name="productIdDep" id="productIdDep" th:value="${booking.productId}" >
                             <!-- <input type="hidden" name="routeNo" th:value="${booking.routeNo}" > -->
                             <a href="javascript:;" class="btn btn-outline-primary btn-lg btn-select">선택하기</a>
                             
                         </th:block>
-                        <!-- 왕복 도착 -->
-                        <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '도착')}">
-                            <input type="hidden" name="productNoDep" th:value="${bookingInfo.productNoDep}" >
-                            <input type="hidden" name="productIdDep" th:value="${bookingInfo.productIdDep}" >
+                        <!-- 왕복 오는편 -->
+                        <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복')}">
                             <input type="hidden" name="productNoDes" th:value="${booking.productNo}" >
-                            <input type="hidden" name="productIdDes" th:value="${booking.productId}" >
-                            <input type="hidden" name="pasCount" th:value="${bookingInfo.pasCount}" >
                             <!-- <input type="hidden" name="routeNo" th:value="${booking.routeNo}" > -->
                             <input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg"> 
                         </th:block>
@@ -77,7 +80,6 @@
 </table> 
 </form>
 <script>
-
 
 
 </script>

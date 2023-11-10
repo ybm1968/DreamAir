@@ -5,6 +5,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.joeun.dreamair.mapper.BookingMapper">
+
+
+    <resultMap type="Booking" id="bookingMap">
+        <id property="userNo" column="user_no" />
+        
+        <result property="userNo" column="user_no" />
+        <result property="userId" column="user_id" />
+
+        <result property="ticketNo" column="ticket_no" />
+        <result property="bookingNo" column="booking_no" />
+        <result property="departure" column="departure" />
+        <result property="destination" column="destination" />
+        <result property="departureDate" column="departure_date" />
+        <result property="isBoarded" column="is_boarded" />
+        <result property="checkedIn" column="checked_in" />
+        
+        <result property="password" column="password" />
+        <result property="phone" column="phone" />
+        
+    </resultMap>
     
 <select id="list" resultType="Booking">
     SELECT *
@@ -45,8 +65,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 탑승객 정보 입력 -->
 <insert id="info">
-    INSERT INTO passengers ( product_no_dep, product_no_des, product_id_dep, product_id_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
-    VALUES ( #{productNoDep}, #{productNoDes}, #{productIdDep}, #{productIdDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
+    INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+    VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
     
     <!-- INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
     VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
@@ -82,6 +102,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   FROM seat
   ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
 </select>
+
+
+  <!-- 탑승권 리스트 조회 - 회원 -->
+  <select id="selectBookingListByUser" resultMap="bookingMap">
+      SELECT *, CONCAT(departure, ' → ', destination) AS name
+      FROM ticket
+      WHERE user_id = #{userId}
+      ORDER BY ticket_no DESC
+  </select>
+
+
+  <!-- 탑승권 상세 조회 - by bookingNo -->
+  <select id="selectTicket" resultMap="bookingMap">
+      SELECT booking_no
+            , departure
+            , destination
+            , departure_date
+            , seat_no
+      FROM ticket
+      WHERE booking_no = #{bookingNo}
+  </select>
+
 
 
 </mapper>

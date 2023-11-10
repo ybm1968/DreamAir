@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -71,9 +72,7 @@ public class BookingController {
     @GetMapping(value="/info")
     public String info(Model model, Booking booking) {
         log.info("가는편 상품번호 : " + booking.getProductNoDep());
-        log.info("가는편 상품코드 : " + booking.getProductIdDep());
         log.info("오는편 상품번호 : " + booking.getProductNoDes());
-        log.info("오는편 상품코드 : " + booking.getProductIdDes());
         log.info("인원수 : " + booking.getPasCount());
 
         model.addAttribute("booking", booking);
@@ -81,25 +80,17 @@ public class BookingController {
         return "booking/info";
     }
 
-    // 탑승객 정보 입력 처리
     @PostMapping(value="/info")
-    public String infoPro(Model model, Booking booking) throws Exception{ 
-        // log.info("탑승객1 이름 : " + bookingList.get(0).getPassengerName());
-        // log.info("탑승객2 이름 : " + bookingList.get(0).getPassengerName());
+    public String infoPro(Model model, Booking booking, RedirectAttributes rttr) throws Exception{ 
+        log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
+        log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
 
-        log.info("탑승객 이름 : " + booking.getPassengerName());
-        
-        int result = bookingService.info(booking);
-        // int result = 0;
-        // for (Booking booking : bookingList) {
-        //     result++;
-        // }
+        int result = 0;
 
-        log.info("인서트결과 : " + result);
-
-        // 탑승객 수 만큼 반복해서 인서트???
-        
-        return "booking/seat";
+        result = bookingService.infoList(booking);
+        rttr.addFlashAttribute("booking", booking);     
+    
+        return "redirect:/booking/seat";
     }
 
     // 탑승객 유의사항
@@ -175,9 +166,9 @@ public class BookingController {
     }
 
     // 탑승권 상세 페이지
-    @PostMapping(value="/ticketinfo")
-    public String ticketinfo() {
-        return "booking/ticketinfo";
+    @PostMapping(value="/ticketInfo")
+    public String ticketInfo() {
+        return "booking/ticketInfo";
     }
 
 

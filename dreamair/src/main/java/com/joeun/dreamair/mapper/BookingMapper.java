@@ -30,4 +30,10 @@ public interface BookingMapper {
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus() throws Exception;
 
+    // 탑승권 리스트 조회 - 회원
+    public List<Booking> selectBookingListByUser(String userId) throws Exception;
+
+    // 탑승권 상세 조회
+    public List<Booking> selectTicket(int bookingNo) throws Exception;
+
 }
