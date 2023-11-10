@@ -3,9 +3,12 @@ package com.joeun.dreamair.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.BookingMapper; 
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,11 +41,11 @@ public class BookingServiceImpl implements BookingService{
     }
 
 
-
     @Override
-    public int infoList(Booking booking) throws Exception {
+    public int infoPassngers(Booking booking) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         int result = 0;
         
         for (int i = 0; i < booking.getPasCount(); i++) {
@@ -61,7 +64,12 @@ public class BookingServiceImpl implements BookingService{
                 bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
             }
 
-            bookingMapper.info(bookingItem);
+            // if(!authentication.isAuthenticated()) {
+            //     bookingItem.setPassword(booking.getPasswords()[i]);
+            // } 
+            
+
+            bookingMapper.infoPassngers(bookingItem);
             result++;
         }
 
@@ -69,5 +77,53 @@ public class BookingServiceImpl implements BookingService{
         
         return result;
     }
+
+    // @Override
+    // public int infoPassport(Users user) throws Exception {
+    //     log.info("여권번호 : " + user.getPassportNos()[0]);
+    //     log.info("라스트네임 : " + user.getLastNames()[0]);
+    //     log.info("여권만료일자 : " + user.getExpirationDates()[0]);
+    //     log.info("여권번호 : " + user.getUserId());
+
+    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+    //     int result = 0;
+        
+    //     for (int i = 0; i < user.getPassportNos().length; i++) {
+    //         Users userItem = new Users();
+    //         userItem.setPassportNo(user.getPassportNos()[i]);
+    //         userItem.setPinType(user.getPinTypes()[i]);
+    //         userItem.setLastName(user.getLastNames()[i]);
+    //         userItem.setFirstName(user.getFirstNames()[i]);
+    //         userItem.setNationality(user.getNationalitys()[i]);
+    //         userItem.setExpirationDate(user.getExpirationDates()[i]);
+            
+    //         if(authentication.isAuthenticated()) {
+    //             userItem.setUserId(user.getUserId()); 
+    //         } 
+
+    //         bookingMapper.infoPassport(userItem);
+    //         result++;
+    //     }
+
+    //     return result;
+    // }
+
+
+    @Override
+    public List<Booking> goScheduleList(Booking booking) throws Exception {
+        List<Booking> bookingList = bookingMapper.goScheduleList(booking);
+        
+        return bookingList;
+    }
+    
+    @Override
+    public List<Booking> comeScheduleList(Booking booking) throws Exception {
+        List<Booking> bookingList = bookingMapper.comeScheduleList(booking);
+
+        return bookingList;
+    }
+
+    
     
 }

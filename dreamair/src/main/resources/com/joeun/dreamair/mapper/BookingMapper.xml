@@ -38,20 +38,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select> 
 
     <!-- 탑승객 정보 입력 -->
-    <insert id="info">
+    <insert id="infoPassngers">
             INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
             VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
-            
-            <!-- INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
-            VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
+            <!-- INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+            VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
     </insert>
 
-    <!-- 예매한 탑승권 정보 조회 -->
-    <select id="" resultType="Booking">
+    <insert id="infoPassport">
+            INSERT INTO passport ( passport_no, pin_type, last_name, first_name, nationality, expiration_date, user_id )
+            VALUES ( #{passportNo}, #{pinType}, #{lastName}, #{firstName}, #{nationality}, #{expirationDate}, #{userId} )
+    </insert>
+
+    <!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+    <select id="goScheduleList" resultType="Booking">
       SELECT *
-      FROM 
-      WHERE
-        AND
+      FROM product p left JOIN route r ON p.route_no = r.route_no
+					           left JOIN flight f ON p.route_no = f.route_no
+                     left JOIN passengers ps  ON p.route_no = ps.route_no_dep
+      WHERE product_no IN (
+                           SELECT product_no_dep 
+                           FROM passengers
+                           WHERE passenger_name = #{passengerName}
+                             AND passenger_no = #{passengerNo} 
+		  );
+        
+    </select>
+
+    <!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+    <select id="comeScheduleList" resultType="Booking">
+      SELECT *
+      FROM product p left JOIN route r ON p.route_no = r.route_no
+					           left JOIN flight f ON p.route_no = f.route_no
+                     left JOIN passengers ps  ON p.route_no = ps.route_no_des
+      WHERE product_no IN (
+                           SELECT product_no_des 
+                           FROM passengers
+                           WHERE passenger_name = #{passengerName}
+                             AND passenger_no = #{passengerNo} 
+		  );
+        
     </select>
 
 

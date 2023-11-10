@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.BookingService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -81,13 +82,18 @@ public class BookingController {
 
 
     @PostMapping(value="/info")
-    public String infoPro(Model model, Booking booking, RedirectAttributes rttr) throws Exception{ 
+    public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr) throws Exception{ 
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
+        log.info("여권번호 : " + user.getPassportNos()[0]);
+        log.info("유저신분증종류 : " + user.getPinTypes()[0]);
 
-        int result = 0;
+        int result1 = 0;
+        int result2 = 0;
 
-        result = bookingService.infoList(booking);
+        result1 = bookingService.infoPassngers(booking);
+        // result2 = bookingService.infoPassport(user);
+        rttr.addFlashAttribute("user", user);     
         rttr.addFlashAttribute("booking", booking);     
     
         return "redirect:/booking/seat";
@@ -101,6 +107,8 @@ public class BookingController {
         log.info("seat 왕복여부 : " + booking.getRoundTrip());
         log.info("탑승객 이름 : " + booking.getPassengerName());
         log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
+        log.info("탑승객 번호 : " + booking.getPassengerNo());
+        log.info("신분증 종류 : " + booking.getPinTypes()[0]);
         
         model.addAttribute("booking", booking);
       
@@ -116,15 +124,41 @@ public class BookingController {
     
 
     @GetMapping(value="/notice")
-    public String notice() {
+    public String notice(Model model, Booking booking) throws Exception {
+
+        
+        if (booking.getRoundTrip().equals("편도")) {
+            // 편도 조회
+            List<Booking> goBookingList = bookingService.goScheduleList(booking);
+            model.addAttribute("goBookingList", goBookingList);
+        } else {
+            // 왕복 조회
+            List<Booking> goBookingList = bookingService.goScheduleList(booking);
+            model.addAttribute("goBookingList", goBookingList);
+
+            List<Booking> comeBookingList = bookingService.comeScheduleList(booking);
+            model.addAttribute("comeBookingList", comeBookingList);
+            
+        }
+
         return "booking/notice";
     }
 
     @GetMapping(value="/payment")
-    public String payment() {
+    public String payment() throws Exception {
         return "booking/payment";
     }
 
+
+    // 쿼리문은 2개 가는편 조회 오는편 조회
+    // 편도는 가는편 정보만 필요
+    // 왕복은 가는편 오는편 둘다 필요
+    // 편도는 그냥 조회해서 bookingList로 모델에 등록
+    // 왕복은 bookingList 2개 필요할듯 
+    // 서비스를 가는편 오는편 두개 만들고 컨트롤러에서 편도일때 가는편만호출 왕복일때는 두개다 호출
+
+    // 탑승객의 여러명 정보가 넘어오겠지 배열로 ???
+    //
 
     
     

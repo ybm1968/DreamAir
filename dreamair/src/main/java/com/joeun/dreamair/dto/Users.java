@@ -31,11 +31,17 @@ public class Users {
 
     // passport 테이블
     private String passportNo;
+    private String[] passportNos;
     private int pinType;
+    private int[] pinTypes;
     private String lastName;
+    private String[] lastNames;
     private String firstName;
+    private String[] firstNames;
     private String nationality;
+    private String[] nationalitys;
     private String expirationDate;
+    private String[] expirationDates;
 
     // PIN 테이블
     private String idCardNo;

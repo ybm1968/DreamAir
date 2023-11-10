@@ -25,6 +25,9 @@
         <form action="/booking/info" method="post" th:object="${booking}">
           <input type="hidden" name="pasCount" th:value="${booking.pasCount}">
           <input type="hidden" name="roundTrip" th:value="${booking.roundTrip}">
+          <!-- <div sec:authorize="isAuthenticated()">
+            <input type="hidden" name="userId" th:value="${#request.userPrincipal.name}">
+          </div> -->
           <th:block th:with="count=${booking.pasCount}">
             <th:block th:each="i : ${#numbers.sequence(1, count)}">
               <h2>탑승객 <span th:text="${i}"></span></h2>
@@ -74,10 +77,25 @@
                   <option value="3">운전면허증</option>
                 </select>
               </div>
+
+              <!-- <div class="input-group mb-3 row">
+                <label class="input-group-text col-md-2" id="">여권 번호</label>
+                <input type="text" class="form-control col-md-10" name="passportNos">
+              </div>
+
+              <div class="input-group mb-3 row">
+                <label class="input-group-text col-md-2" id="">국적</label>
+                <input type="text" class="form-control col-md-10" name="nationalitys">
+              </div>
+
+              <div class="input-group mb-3 row">
+                <label class="input-group-text col-md-2" id="">여권 만료 일자</label>
+                <input type="text" class="form-control col-md-10" name="expirationDates">
+              </div> -->
                
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">핸드폰 번호</label>
-                <input type="number" class="form-control col-md-10" name="phones">
+                <input type="text" class="form-control col-md-10" name="phones">
               </div>
           
               <div class="input-group mb-3 row">
@@ -87,7 +105,7 @@
 
               <!-- <div class="input-group mb-3 row" sec:authorize="isAnonymous()">
                 <label class="input-group-text col-md-2" id="">비밀번호</label>
-                <input type="password" class="form-control col-md-10" name="userPw" 
+                <input type="password" class="form-control col-md-10" name="passwords" 
                   placeholder="비회원 예매할때 사용할 비밀번호를 입력하세요.">
               </div> -->
             </th:block>
@@ -105,10 +123,7 @@
     
 
     <script>
-      // $('#test').on('keyup', function () {
-        
-        
-      // })
+
 
       $('.male').on('click', function() {
         let i = $(this).attr('data')
