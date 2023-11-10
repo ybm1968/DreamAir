@@ -45,8 +45,6 @@ public class BookingServiceImpl implements BookingService{
         return bookingList;
     }
 
-
-
     @Override
     public int infoList(Booking booking) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
@@ -146,11 +144,13 @@ public class BookingServiceImpl implements BookingService{
         return ticketList_bookingNo;
     }
     
+    // 좌석 선택 시 booking 상태 변경
+    
+
+    // 좌석 선택 시 seat 상태 변경
     @Override
     public List<Booking> selectSeatStatus() throws Exception {
         List<Booking> seatList = bookingMapper.selectSeatStatus();
-
-
         return  seatList;
     }
 

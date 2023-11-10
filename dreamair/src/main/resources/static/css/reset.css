@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/* @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); */
 
 /* 초기화 */
 * { margin: 0 auto;
@@ -61,5 +60,3 @@ width: 10px;
 	background-color: #e0dada;
 	border-radius: 7px;
 }
-
-

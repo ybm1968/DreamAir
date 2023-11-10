@@ -83,26 +83,20 @@ public class BookingController {
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
 
-        log.info("탑승객 이름 : " + booking.getPassengerName());
+        // log.info("탑승객 이름 : " + booking.getPassengerName());
         int result = 0;
 
         result = bookingService.infoList(booking);
         rttr.addFlashAttribute("booking", booking);    
         
-        return "booking/seat";
-    }
-
-    // 탑승객 유의사항
-    @GetMapping(value="/notice")
-    public String notice(){
-        return "booking/notice";
+        return "redirect:/booking/seat";
     }
     
     // 좌석 선택
     @GetMapping(value="/seat")
     public String seat(Model model, Booking booking) throws Exception {
         
-        List<Booking> seatStatus = bookingService.selectSeatStatus();
+        List<Booking> seatStatus = bookingService.selectSeatStatus(); // 선택 가능한 좌석
 
         log.info("좌석 어디 선택할 수 있는지 보자 : " + seatStatus);
         
@@ -110,13 +104,31 @@ public class BookingController {
         log.info("탑승객 수 : " + booking.getPasCount());
         log.info("seat 왕복여부 : " + booking.getRoundTrip());
         log.info("탑승객 이름 : " + booking.getPassengerName());
-        log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
+        log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]); // 탑승객 수에 따라서 passengerNames[i]로 조회
         
         model.addAttribute("booking", booking);
         model.addAttribute("seatStatus", seatStatus);
-        
       
         return "booking/seat";
+    }
+
+    // 좌석 선택 처리
+    @PostMapping(value="/seat")
+    public String seatPro(Booking booking){
+
+        // pas_count 수에 따라 선택 할 수 있는 좌석의 수가 정해짐
+
+        // 선택된 좌석에 대해서는 booking status 변경 해줘야 함 + seat status 변경 해줘야함
+
+        // passengerName이랑 선택된 seatNo를 맵핑해서 DB에 저장
+
+        return "booking/notice";
+    }
+
+    // 탑승객 유의사항
+    @GetMapping(value="/notice")
+    public String notice(){
+        return "booking/notice";
     }
 
      // 결제
@@ -151,16 +163,17 @@ public class BookingController {
     // 결제 처리  - 예매 번호 발급
     @PostMapping(value="/payment")
     public String paymentPro(Model model, Booking booking) throws Exception {
+
         // ✅ TODO 티켓 발행 등록 요청
         int result = bookingService.createTicket(booking);
 
-        // qr 발행
-        
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();
         List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);
         model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
 
+        // ticketNO 받아서 qr 발행
+        
         return "redirect:/booking/payment_complete";
     }
 

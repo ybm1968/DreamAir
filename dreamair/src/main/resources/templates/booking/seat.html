@@ -65,7 +65,7 @@
 
                                         <br>
 
-                                        <h5 class="seatCol">A　B　C　D</h5>
+                                        <h5 class="seatCol">A  B  C  D</h5>
                                         <!-- 좌석 -->
                                         <div class="seat1">
                                             <th:block th:each="seat, iterStat : ${seatStatus}">
@@ -100,15 +100,28 @@
                         </div>
                         
                         <div class="modalInnerRightDown">
-                            <div>인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople">여기 인원 몇</span>명</div>
-                            <div class="goSeat">가는 편 좌석<input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
+                            <span class="login_checkbox"><input class="form-check-input" type="checkbox" name="remember-id" id="remember-id" checked></span>
+                            <div>인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople" th:text="${booking.pasCount}"></span>명</div>
+                            
+                            <th:block th:if="${booking.roundTrip.equals('편도')}">
+                                <div class="goSeat">가는 편 좌석
+                                <!-- <th:block th:if="${booking.pasCount!=0}">  -->
+                                    <input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px">
+                                <!-- </th:block> -->
+                                </div>
+                            </th:block>
                             
                             <!-- 이건 왕복일 때만 -->
-                            <div class="roundOnly backSeat">오는 편 좌석<input type="text" id="arrSeat" name="arrSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
-                            
-                            <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
-                            <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
-                            <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden">
+                            <th:block th:if="${booking.roundTrip.equals('왕복')}">
+                                <div class="goSeat">가는 편 좌석<input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
+                                <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden">
+                                
+                                <div class="roundOnly backSeat">오는 편 좌석<input type="text" id="arrSeat" name="arrSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
+                                <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
+                                <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
+                                <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden">
+                            </th:block>
+                                
                         </div>
                     </div>
                     

@@ -240,9 +240,9 @@ input:focus {
 }
 
 /* 체크 박스 여기 */
+/* checkbox의 실제 체크박스 부분을 숨깁니다. */
 
 input[type=checkbox] {
-	/* checkbox의 실제 체크박스 부분을 숨깁니다. */
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;

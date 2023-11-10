@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/layout/main_layout}"
+      layout:decorate="~{/UI/layout/index_layout}"
       >
 <head>
     <meta charset="UTF-8">
@@ -10,15 +10,12 @@
     <title>개발을 꿈꾸는 항공사</title>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-    
-
    
 </head>
 
 <body layout:fragment="content">
 
-    <div class="d-flex justify-content-center align-items-center" id="back">
+    <div class="d-flex justify-content-center align-items-center" id="main_index_back">
         <section>
             <div class="card card-4">
                 <div class="tab-content">
@@ -121,7 +118,6 @@
     
 
     <script type="text/javascript">
-        /*** dateRangePicker ***/
      
         initDatePicker()
         initDay()
@@ -226,11 +222,7 @@
                 $('#input-day').removeAttr('disabled')
                 $('#input-start').attr('disabled', 'disabled')
                 
-                // $('#input-start').daterangepicker({
-                    //     // singleDatePicker:true,
-                    //     // autoApply: true,
-                    //     //  minDate: new Date()
-                    // }); 
+
             }
             // 왕복
             else{
@@ -239,15 +231,9 @@
 
                 $('#input-start').removeAttr('disabled')
                 $('#input-day').attr('disabled', 'disabled')
-                // $('#input-start').daterangepicker({
-                //     singleDatePicker:false,	
-                //     autoApply: true,
-                //     //  minDate: new Date()
-                // }); 	
             }
         });
 
-        /*** dateRangePicker 끝  ***/
     </script>
 </body>
 </html>
