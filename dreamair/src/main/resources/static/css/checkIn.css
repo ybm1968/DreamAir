@@ -231,12 +231,12 @@ input:focus {
 .seat1 {
 	width: inherit;
 	display: inline-table;
-	margin-left: 60px;
+	margin-left: 55px;
 	width: fit-content;
 }
 
 .seatCol {
-	margin-left: 70px;
+	margin-left: 65px;
 }
 
 /* 체크 박스 여기 */
@@ -252,7 +252,7 @@ input[type=checkbox] {
 	/* checkbox의 크기와 여백을 조정합니다. */
 	width: 20px; /* 원하는 크기로 조정하세요 */
 	height: 20px; /* 원하는 크기로 조정하세요 */
-	margin: 5px 10px 5px 5px; /* 원하는 여백으로 조정하세요 */
+	margin: 5px 15px 5px 5px; /* 원하는 여백으로 조정하세요 */
 
 	
 	/* 배경 이미지 설정 */
