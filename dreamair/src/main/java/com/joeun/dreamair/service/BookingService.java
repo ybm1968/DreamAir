@@ -31,4 +31,6 @@ public interface BookingService {
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus() throws Exception;
 
+    // 탑승객들 정보 입력
+    public int infoList(Booking booking) throws Exception;
 }

@@ -45,8 +45,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 탑승객 정보 입력 -->
 <insert id="info">
-    INSERT INTO passengers ( product_no_dep, product_no_des, product_id_dep, product_id_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
-    VALUES ( #{productNoDep}, #{productNoDes}, #{productIdDep}, #{productIdDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
+    INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+    VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
     
     <!-- INSERT INTO passengers ( product_no, route_no, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
     VALUES ( #{productNo}, #{routeNo}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} ) -->
@@ -69,6 +69,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   INSERT INTO ticket ( passenger_no, passenger_name, departure, destination, departure_date, destination_date, departure_time, destination_time, duration, boarding, checked_in, is_boarded, route_no, seat_no, flight_no )
   VALUES ( #{passengerNo}, #{passengerName}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checked_in}, #{is_boarded}, #{routeNo}, #{flightNo} )
 </insert>
+    <!-- 탑승객 정보 입력 -->
+    <insert id="info">
+            INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+            VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
             
 <!-- 예매 번호로 탑승권 정보 조회 -->
 <select id="ticketList_bookingNo" resultType="Booking">
