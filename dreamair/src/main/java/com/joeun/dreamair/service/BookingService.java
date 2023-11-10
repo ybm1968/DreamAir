@@ -25,4 +25,7 @@ public interface BookingService {
     // 티켓 발행 등록
     public int createTicket(Booking booking) throws Exception;
 
+    // 예매 번호로 탑승권 정보 조회
+    public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception;
+
 }

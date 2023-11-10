@@ -5,9 +5,6 @@
       layout:decorate="~{UI/layout/admin_layout}"
       >
 <head>
-
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품(항공권) 관리</title>
@@ -28,7 +25,7 @@
                 <thead>
                     <tr class="table-primary">
                         <th>상품번호</th>
-                        <th>이미지</th>
+                        <!-- <th>이미지</th> -->
                         <th>노선번호</th>
                         <th>상품명</th>
                         <th>카테고리</th>
@@ -45,7 +42,7 @@
                         <th:block th:each="product : ${ProductList}">
                             <tr>
                                 <td><a href="/product/product_list/${product.productNo}"></a><span th:text="${product.productNo}"></span></td>
-                                <td><img th:src="|/${product.fileName}|" alt="이미지" th:if="${product.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>                             
+                                <!-- <td><img th:src="|/${product.fileName}|" alt="이미지" th:if="${product.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>                              -->
                                 <td><span th:text="${product.routeNo}"></span></td>
                                 <td><span th:text="${product.name}"></span></td>
                                 <td><span th:text="${product.productCat}"></span></td>

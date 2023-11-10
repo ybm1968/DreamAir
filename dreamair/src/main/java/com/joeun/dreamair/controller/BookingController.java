@@ -1,7 +1,6 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.joeun.dreamair.dto.Board;
 import com.joeun.dreamair.dto.Booking;
-import com.joeun.dreamair.dto.QR;
 import com.joeun.dreamair.dto.Users;
-import com.joeun.dreamair.mapper.BookingMapper;
-import com.joeun.dreamair.mapper.UserMapper;
 import com.joeun.dreamair.service.BookingService;
 import com.joeun.dreamair.service.UserService;
 
@@ -153,28 +147,38 @@ public class BookingController {
 
     // 결제 처리  - 예매 번호 발급
     @PostMapping(value="/payment")
-    public String paymentPro(Booking booking) throws Exception {
+    public String paymentPro(Model model, Booking booking) throws Exception {
         // ✅ TODO 티켓 발행 등록 요청
         int result = bookingService.createTicket(booking);
+
+        // qr 발행
+        
+        // 같은 bookingNo에 대한 ticket 정보 조회
+        int bookingNo = booking.getBookingNo();
+        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);
+        model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
 
         return "redirect:/booking/payment_complete";
     }
 
-    // 결제 완료
+    // 결제 완료 화면
     @GetMapping(value="/payment_complete")
     public String paymentComplete() {
-        return "booking/payment";
+
+        return "booking/payment_complete";
     }
 
     // 탑승권 발행
-    @PostMapping(value="/ticket")
+    @GetMapping(value="/ticket")
     public String ticket() {
         return "booking/ticket";
     }
 
     // 탑승권 상세 페이지
-    @PostMapping(value="/ticketinfo")
+    @GetMapping(value="/ticketinfo")
     public String ticketinfo() {
         return "booking/ticketinfo";
     }
+
+
 }

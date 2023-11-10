@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/layout/main_layout}"
+    >
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공 버스 예약 페이지</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  .header {
+    background: #007bff; /* 부드러운 파란색 그라데이션 */
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 2em;
+  }
+  .main {
+    padding: 20px;
+    text-align: center;
+  }
+  .section-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .section {
+    background-color: white;
+    flex-basis: calc(25% - 40px); /* 네 개의 섹션을 균등하게 배치하되 여백을 고려 */
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 변환 효과 */
+  }
+  .section:hover {
+    transform: translateY(-5px); /* 호버 시 위로 부드럽게 이동 */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* 호버 시 그림자 강조 */
+  }
+  .section a {
+    display: block;
+    padding: 30px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  .footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+
+/* 모달 기본 스타일 */
+.modal {
+  display: none; /* 기본적으로 보이지 않도록 설정 */
+  position: fixed; /* 스크롤을 해도 모달 위치 고정 */
+  z-index: 1000; /* 컨텐츠 위에 모달이 뜨도록 설정 */
+  left: 0;
+  top: 0;
+  width: 100%; /* 전체 너비 */
+  height: 100%; /* 전체 높이 */
+  background-color: rgba(0,0,0,0.4); /* 뒷 배경 어둡게 */
+}
+
+/* 모달 컨텐츠 스타일 */
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* 상단 여백과 가운데 정렬 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%; /* 모달 너비 설정 */
+  height: 50%;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+  /* 모달을 왼쪽에 위치시키기 위해 왼쪽 마진 값을 조정 */
+  margin-left: 10%;
+}
+
+/* 모달 닫기 버튼 스타일 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main2 {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap; /* Ensure that items wrap on smaller screens */
+    align-items: flex-start; /* Align items at the top */
+  }
+  .ticket-option {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 20px;
+    flex: 1; /* Allow boxes to grow */
+    max-width: calc(33.333% - 20px); /* Three items per row with margin */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+    position: relative; /* For the ribbon positioning */
+  }
+  .ticket-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  .ticket-option img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+  }
+  .ticket-option div {
+    margin: 10px 0;
+  }
+  .footer {
+    background-color: #22223b;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  /* Style for the ribbon */
+  .ribbon {
+    position: absolute;
+    top: -5px; right: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px; height: 75px;
+    text-align: right;
+  }
+  .ribbon span {
+    font-size: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 100px; display: block;
+    background: #ff2e63;
+    background: linear-gradient(#ff2e63 0%, #ff2e63 100%);
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 19px; right: 19px;
+  }
+
+  .image-section {
+  text-align: center; /* 이미지를 중앙에 배치 */
+  margin: 20px 0; /* 위아래 여백 추가 */
+}
+
+.image-section img {
+  max-width: 100%; /* 너비를 화면에 맞춤 */
+  height: auto; /* 이미지 비율을 유지하면서 높이 자동 조절 */
+}
+
+
+
+</style>
+</head>
+<body layout:fragment="content">
+<div class="header">
+  <h1>항공 버스 예약 서비스</h1>
+</div>
+<div class="main">
+  <h2>편리하고 빠른 여행을 위한 선택</h2>
+  <p>국내외 모든 공항으로의 신속한 이동을 위한 항공 버스 예매를 시작하세요.</p>
+  <div class="section-container">
+    <div class="section"><a href="#timetable">운행 노선 및 시간표</a></div>
+    <div class="section"><a href="type.html">항공 버스 예약하기</a></div>
+    <div class="section"><a href="#guide">이용 안내</a></div>
+    <div class="section"><a href="#about">회사 소개</a></div>
+  </div>
+</div>
+
+<div class="image-section">
+  <img src="/resouces/dreamair/static/img/리무진버스 사진.jpg" alt="" />
+</div>
+
+<div class="main2">
+  <div class="ticket-option">
+    <div class="ribbon"><span>**인기</span></div>
+    <a href="/bus/reservation">
+      <img src="/static/img/리무진버스 사진.png" alt="">
+      <div>리무진 1회권</div>
+      <div>15,000원</div>
+    </a>
+  </div>
+  <div class="ticket-option">
+    <a href="/bus/link-to-next-page">
+      <img src="limousine-2.jpg" alt="">
+      <div>리무진 2회권</div>
+      <div>28,000원</div>
+    </a>
+  </div>
+  <div class="ticket-option">
+    <a href="/bus/link-to-next-page">
+      <img src="limousine-family.jpg" alt="">
+      <div>리무진 패밀리권(3~4인)</div>
+      <div>40,000원</div>
+    </a>
+  </div>
+</div>
+
+<!-- 공지사항 모달 시작 -->
+<div id="noticeModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>공지사항</h2>
+    <p>가족 3인 이상 타면 1인 무료 !!! <br> 어린이 동반 시, 어린이 1명 무료 적용 <br> (어린이 대상 : 만 6~13세)</p>
+  </div>
+</div>
+<!-- 공지사항 모달 끝 -->
+
+<script>
+  // 모달 가져오기
+  var modal = document.getElementById("noticeModal");
+  
+  // 모달을 여는 함수
+  function showModal() {
+    modal.style.display = "block";
+  }
+
+  window.onload = function() {
+  showModal();
+  };
+  
+  // 모달을 닫는 span 요소 가져오기
+  var span = document.getElementsByClassName("close")[0];
+  
+  // span (x 버튼) 클릭 시 모달 닫기
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+  // 모달 외부 영역 클릭 시 모달 닫기
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  </script>
+  
+</body>
+</html>
