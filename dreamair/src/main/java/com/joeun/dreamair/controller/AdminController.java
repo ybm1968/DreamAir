@@ -277,4 +277,13 @@ public class AdminController {
         return "admin/ticket_list";
     }
 
+    // 전체 항공편 조회
+    @GetMapping(value="/productFlightList")
+    public String list(Model model) throws Exception {
+
+        List<Product> productFlightList = adminService.product_flightList();
+        model.addAttribute("productFlightList", productFlightList);
+
+        return "admin/productFlightList";
+    }
 }

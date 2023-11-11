@@ -36,7 +36,7 @@
 						<th>이메일</th>
 						<th>등록일자</th>
 						<th>수정일자</th>
-                        <th colspan="2">비고</th>
+                        <th colspan="3">비고</th>
                     </tr>
                     <tbody>
                         <!-- 목록이 없을 때 -->
@@ -55,7 +55,7 @@
                                 <td><span th:text="${users.email}"></span></td> 
                                 <td><span th:text="${users.regDate}"></span></td> 
                                 <td><span th:text="${users.updDate}"></span></td> 
-                                <td colspan="2">
+                                <td colspan="3">
                                     <button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/user_update?userNo=${users.userNo}|">수정</button>         
                                     <form action="/admin/user_delete" method="POST" id="userform" onsubmit="return deletePro()">
                                     <!-- csrf -->

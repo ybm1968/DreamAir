@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.AdminMapper;
 
@@ -141,5 +142,12 @@ public class AdminServiceImpl implements AdminService {
   public List<Booking> pas_ticketList(int ticketNo) throws Exception {
     List<Booking> pasTicketList = adminMapper.pas_ticketList(ticketNo);
     return pasTicketList;
+  }
+
+  // 전체 탑승권 조회
+  @Override
+  public List<Product> product_flightList() throws Exception {
+    List<Product> productFlightList = adminMapper.product_flightList();
+    return productFlightList;
   }
 }
