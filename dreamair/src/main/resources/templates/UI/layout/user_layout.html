@@ -3,31 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS -->
     <th:block th:replace="~{UI/fragment/link::link}"></th:block>
 </head>
 <body>
-    <!-- <th:block th:replace="~{프래그먼트경로::프로그래먼트명}"></th:block> -->
 
-    <!-- header -->
     <th:block th:replace="~{UI/fragment/header::header}"></th:block>
-
+    
     <div class="row m-0 ">
-        <!-- sidebar -->
-        <th:block th:replace="~{UI/fragment/sidebar::sidebar}"></th:block>
-
-        <div class="col-sm-9">
-            <!-- content -->
+        <th:block th:replace="~{UI/fragment/admin_sidebar::admin_sidebar}"></th:block>
+        
+        <div class="container">
             <th:block layout:fragment="content"></th:block>
-
-            <!-- footer -->
-            <th:block th:replace="~{UI/fragment/footer::footer}"></th:block>
         </div>
     </div>
+               
+    <th:block th:replace="~{UI/fragment/admin_footer::footer}"></th:block>
     
-    
-    <!-- JS -->
     <th:block th:replace="~{UI/fragment/script::script}"></th:block>
 
 </body>

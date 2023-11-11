@@ -4,6 +4,8 @@
 	margin: 0;
 }
 
+
+
 .wrapper {
 	width: 250px;
 	height: 250px;
@@ -45,7 +47,7 @@ body {
 }
 
 /* The Modal (background) */
-.modal {
+.seat {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
@@ -60,7 +62,7 @@ body {
 }
 
 /* Modal Content */
-.modal-content {
+.seat-content {
 	position: relative;
 	background-color: #fefefe;
 	margin: auto;
@@ -118,29 +120,29 @@ to {
 	cursor: pointer;
 }
 
-.modal-header {
+.seat-header {
 	padding: 5px 16px;
     background-color: #f1f1f1;
 }
 
-.modal-body {
+.seat-body {
 	padding: 2px 16px;
 	margin-top: 20px;
 	height: 550px;
 }
 
-.modal-footer {
+.seat-footer {
 	padding: 15px 16px;
     background-color: #bbbbbb;
     color: black;
     text-align: right;
 }
 
-.modalInnerWrap {
+.seatInnerWrap {
 	height: 100%;
 }
 
-.modalInnerLeft {
+.seatInnerLeft {
 	width: 55%;
 	height: 600px;
 	background-color: white;
@@ -148,14 +150,14 @@ to {
 	height: 85%;
 }
 
-.modalInnerRight {
+.seatInnerRight {
 	width: 45%;
 	height: 600px;
 	float: left;
 	height: 85%;
 }
 
-.modalInnerRightTop {
+.seatInnerRightTop {
 	height: 57%;
     padding: 15px;
     margin-left: 10px;
@@ -163,13 +165,13 @@ to {
     margin-bottom: 10px;
 }
 
-.modal-header2 {
+.seat-header2 {
 	    background-color: #b6b6b6;
     height: 95px;
     color: white;
 }
 
-.modalInnerBottom {
+.seatInnerBottom {
 	background-color: #94e1ff;
 	width: 45%;
 	margin: 0 auto;
@@ -354,7 +356,7 @@ label {
 	width: 310px;
 	margin-left: 75px;
 }
-.modalInnerBottom2 {
+.seatInnerBottom2 {
 	margin-top: 30px;
     float: left;
     margin-left: 185px;
@@ -376,7 +378,7 @@ label {
     float: left;
 
 }
-.modalInnerRightDown {
+.seatInnerRightDown {
 	height: 334px;
     padding: 15px;
     box-sizing: border-box;
@@ -386,11 +388,11 @@ label {
 .seatInfo_bookedSeat {
 	margin-top: 10px;
 }
-.modalInnerRightDown input {
+.seatInnerRightDown input {
      background: transparent;
      margin-bottom: 5px;
  }
-.modalInnerRightDown div {
+.seatInnerRightDown div {
 	font-size:18px;
 	margin-bottom: 5px;
  }
@@ -467,7 +469,7 @@ label {
     text-shadow: -1px 0 #6b6b6b, 0 1px #6b6b6b, 1px 0 #6b6b6b, 0 -1px #6b6b6b;
 }
 
-.modalInnerRightDown input[type="text"]{
+.seatInnerRightDown input[type="text"]{
     height: 0;
     padding: 0 15px;
     margin-right: 10px;

@@ -157,21 +157,4 @@ public class BookingServiceImpl implements BookingService{
 
     }
 
-    @Override
-    public String selectDeparture(int productNoDeps) {
-
-        String departure = bookingMapper.selectDeparture(productNoDeps);
-
-        return departure;
-    }
-
-    @Override
-    public String selectDestination(int productNoDess) {
-
-        String destination = bookingMapper.selectDestination(productNoDess);
-
-        return destination;
-    }
-
-
 }

@@ -18,15 +18,18 @@ import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.BookingService;
 import com.joeun.dreamair.service.UserService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/booking")
+@RequiredArgsConstructor
 public class BookingController {
 
-    @Autowired
-    private UserService userService;
+    // @Autowired
+    // private UserService userService;
+    private final UserService userService;
 
     @Autowired
     private BookingService bookingService; 
@@ -100,7 +103,7 @@ public class BookingController {
         return "booking/notice";
     }
     
-    // 좌석 선택
+    // 좌석 선택 - 편도일 시
     @GetMapping(value="/seat")
     public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
         
@@ -108,28 +111,32 @@ public class BookingController {
 
         log.info("booking : " + booking);
 
-        int productNoDepValue = booking.getProductNoDeps()[0];
-        int productNoDesValue = booking.getProductNoDess()[0];
-
-        log.info("출발지 값 : " + productNoDepValue);
-        log.info("도착지 값 : " + productNoDesValue);
-
-        String departure = bookingService.selectDeparture(productNoDepValue);
-        String destination = bookingService.selectDeparture(productNoDesValue);
-
-        log.info("출발지 명 : " + departure);
-        log.info("도착지 명 : " + destination);
-
-
+        log.info("왕복 여부 : " + booking.getRoundTrip());
 
         // 모델에 등록
         model.addAttribute("booking", booking);
         model.addAttribute("seatStatus", seatStatus);
-        model.addAttribute("departure", departure);
-        model.addAttribute("destination", destination);
         
         return "booking/seat";
     }
+    
+    // 좌석 선택 - 왕복일 시
+    // @GetMapping(value="/seat")
+    // public String seat2(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
+        
+    //     List<Booking> seatStatus = bookingService.selectSeatStatus();
+
+    //     log.info("booking : " + booking);
+
+
+    //     // 모델에 등록
+    //     model.addAttribute("booking", booking);
+    //     model.addAttribute("seatStatus", seatStatus);
+        
+    //     return "booking/seat";
+    // }
+
+
 
      // 결제
     @GetMapping(value="/payment")
