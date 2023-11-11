@@ -42,10 +42,10 @@ public class BookingController {
     public String gobookingList(Model model, Booking booking) throws Exception {
         log.info("편도 여부: " + booking.getRoundTrip());
         log.info("편도 인원수: " + booking.getPasCount());
-        log.info("가는편 노선번호 : " + booking.getRouteNo());
         
         List<Booking> bookingList = bookingService.golist(booking);
         model.addAttribute("bookingList", bookingList);
+        log.info("가는편 노선번호 : " + bookingList.get(0).getRouteNo());
         model.addAttribute("bookingInfo", booking);
         return "UI/component/booking/list";
     }
@@ -54,8 +54,8 @@ public class BookingController {
     @GetMapping(value="/component/comelist")
     public String comebookingList(Model model, Booking booking) throws Exception {
         log.info("오는편 출발지 : " + booking.getDeparture());
-        log.info("*오는편 getProductNoDep : " + booking.getProductNoDep());
-        log.info("오는편 노선번호 : " + booking.getRouteNoDes());
+        log.info("오는편 상품번호(가는편) : " + booking.getProductNoDep());
+        log.info("오는편 노선번호(오는편) : " + booking.getRouteNoDes());
 
         List<Booking> bookingList = bookingService.comelist(booking);
         model.addAttribute("bookingList", bookingList);

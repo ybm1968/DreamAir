@@ -208,7 +208,7 @@
             let tel = document.getElementById('tel').value
             let email = document.getElementById('email').value
 
-            IMP.request_pay({
+            IMP.request_pay({ 
                 pg : 'kcp',                                 // PG사
                 pay_method : 'card',                        // 결제방식
                 merchant_uid: "IMP"+makeMerchantUid,        // 주문번호(상품ID)

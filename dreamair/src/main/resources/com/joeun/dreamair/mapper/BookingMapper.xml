@@ -39,8 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 탑승객 정보 입력 -->
     <insert id="infoPassngers">
-            INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email, user_pw )
-            VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email}, #{userPw} )
+            INSERT INTO passengers ( product_no_dep, product_no_des, route_no_dep, route_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email, user_pw )
+            VALUES ( #{productNoDep}, #{productNoDes}, #{routeNoDep}, #{routeNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email}, #{userPw} )
     </insert>
 
     <!-- <insert id="infoPassport">
@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert> -->
 
     <!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
-    <select id="goScheduleList" resultType="Booking">
+    <!-- <select id="goScheduleList" resultType="Booking">
       SELECT *
       FROM product p left JOIN route r ON p.route_no = r.route_no
 					           left JOIN flight f ON p.route_no = f.route_no
@@ -61,10 +61,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                              AND passenger_no = #{passengerNo} 
 		  );
         
+    </select> -->
+
+    <!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+    <select id="goScheduleList" resultType="Booking">
+      SELECT *
+      FROM product p left JOIN route r ON p.route_no = r.route_no
+					           left JOIN flight f ON p.route_no = f.route_no
+                     left JOIN passengers ps  ON p.route_no = ps.route_no_dep
+      WHERE passenger_name = #{passengerName}
+        AND passenger_no = #{passengerNo}      
+        
     </select>
 
     <!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
-    <select id="comeScheduleList" resultType="Booking">
+    <!-- <select id="comeScheduleList" resultType="Booking">
       SELECT *
       FROM product p left JOIN route r ON p.route_no = r.route_no
 					           left JOIN flight f ON p.route_no = f.route_no
@@ -75,6 +86,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                            WHERE passenger_name = #{passengerName}
                              AND passenger_no = #{passengerNo} 
 		  );
+        
+    </select> -->
+
+    <!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+    <select id="comeScheduleList" resultType="Booking">
+      SELECT *
+      FROM product p left JOIN route r ON p.route_no = r.route_no
+					           left JOIN flight f ON p.route_no = f.route_no
+                     left JOIN passengers ps  ON p.route_no = ps.route_no_des
+      WHERE passenger_name = #{passengerName}
+        AND passenger_no = #{passengerNo}   
         
     </select>
 
