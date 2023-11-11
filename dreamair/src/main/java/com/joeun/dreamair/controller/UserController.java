@@ -1,6 +1,7 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -95,28 +96,42 @@ public class UserController {
         return "user/cart";
     }
 
-    // @PostMapping("/cart")
-    // public String CartPro(Product product, Users user) throws Exception {
+    @PostMapping("/cart")
+    public String CartPro(Product product, Users user, Booking booking) throws Exception {
+        // double sum = cartList.stream().mapToDouble(Cart::getProductPrice).sum();
 
-    //     int productNo = product.getProductNo();
-    //     int productPrice = product.getProductPrice();
-    //     int cartCnt = 0;
+        // model.addAttribute("CartList", cartList);
+        // model.addAttribute("sum", sum);
+        List<Users> CartList = new ArrayList<Users>(); 
+        int productNo = product.getProductNo();
+        int productPrice = product.getProductPrice();
+        int cartCnt = 0;
+        int sum = 0;
 
-    //     // 회원일 경우
-    //     // userNo에 productNo를 cart 테이블에 데이터 저장
+        for(int i =0; i<CartList.size(); i++){
+            sum += productPrice;
+        }
+        // 회원일 경우
+        // userNo에 productNo를 cart 테이블에 데이터 저장
         
-    //     // 비회원일 경우
-    //     // input box를 통해 phone이랑 password를 입력 받고,
-    //     // 장바구니 table에 데이터 저장
+        // 비회원일 경우
+        // input box를 통해 phone이랑 password를 입력 받고,
+        // 장바구니 table에 데이터 저장
 
-    //     return "";
-    // }
+        return "";
+    }
 
-    // @GetMapping("/addCart")
-    // public String addCart() {
+    @PostMapping(value="/cart_delete")
+    public String cartDelete(){
 
-    //     return 
-    // }
+        return "";
+    }
+
+    @GetMapping(value="/addCart")
+    public String addCart() {
+
+        return 
+    }
 
     /**
      * 회원정보 수정 페이지

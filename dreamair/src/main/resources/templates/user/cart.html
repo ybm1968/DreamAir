@@ -29,12 +29,15 @@
                 <thead>
                     <tr class="table-primary">
                         <th>상품번호</th>
+                        <th>상품코드</th>
                         <th>상품명</th>
                         <th>항공명</th>
                         <th>출발지</th>
                         <th>도착지</th>
                         <th>출발일자</th>
+                        <th>도착일자</th>
                         <th>출발시간</th>
+                        <th>도착시간</th>
                         <th>요금</th>
                         <th colspan="2">비고</th>
                     </tr>
@@ -47,8 +50,9 @@
                         </th:block>
                         <th:block th:each="cart : ${CartList}">
                             <tr>
-                                <td><span th:text="${cart.bookingNo}"></span></td>                                
-                                <td><span th:text="${cart.Name}"></span></td>
+                                <td><span th:text="${cart.productNo}"></span></td>                                
+                                <td><span th:text="${cart.productId}"></span></td>
+                                <td><span th:text="${cart.productName}"></span></td>
                                 <td><span th:text="${cart.flightName}"></span></td>
                                 <td><span th:text="${cart.departure}"></span></td>
                                 <td><span th:text="${cart.destination}"></span></td>
@@ -56,8 +60,6 @@
                                 <td><span th:text="${cart.destinationDate}"></span></td>
                                 <td><span th:text="${cart.departureTime}"></span></td>
                                 <td><span th:text="${cart.destinationTime}"></span></td>
-                                <td><span th:text="${cart.seatClass}"></span></td>
-                                <td><span th:text="${cart.pasCount}"></span></td>
                                 <td><span th:text="${cart.productPrice}"></span></td>
 
                                 <td colspan="2">
