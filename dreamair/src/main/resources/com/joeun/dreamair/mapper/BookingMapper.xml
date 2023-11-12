@@ -124,5 +124,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       WHERE booking_no = #{bookingNo}
   </select>
 
+    <!-- 출발지 조회 -->
+  <select id="selectDeparture" resultType="String">
+    SELECT departure
+    FROM product
+    WHERE product_no = #{productNoDeps}
+  </select>
+
+  <!-- 도착지 조회 -->
+  <select id="selectDestination" resultType="String">
+    SELECT destination
+    FROM product
+    WHERE product_no = #{productNoDess}
+  </select>
+
  
 </mapper>
