@@ -146,20 +146,13 @@
                                 <input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px">
                             </div>
                             
-                            
-                            <!-- <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
-                                <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
-                                <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden"> -->
-                            </div>
                         </div>
-                        
                     </div>
+                        
+                </div>
                     
                 <th:block th:if="${booking.roundTrip == '왕복'}">
-                    다음 페이지로 가는 버튼
-                    <button type="submit" class="seatInnerBottom" id="btn">
-                        <span>선택 완료</span>
-                    </button>
+                    '이 부분'
                 </th:block>
                 <th:block th:unless="${booking.roundTrip == '왕복'}">
                     <button type="submit" class="seatInnerBottom" id="btn">
