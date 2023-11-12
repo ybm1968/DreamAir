@@ -75,7 +75,7 @@ public class BookingController {
     // 탑승객 정보 입력
     @GetMapping(value="/info")
     public String info(Model model, Booking booking) {
-        // log.info("가는편 상품번호 : " + booking.getProductNoDep());
+        log.info("가는편 상품번호 : " + booking.getProductNoDep());
         // log.info("오는편 상품번호 : " + booking.getProductNoDes());
         // log.info("인원수 : " + booking.getPasCount());
 
@@ -83,16 +83,19 @@ public class BookingController {
         
         return "booking/info";
     }
-
+    
     @PostMapping(value="/info")
     public String infoPro(Model model, Booking booking, RedirectAttributes rttr) throws Exception{ 
         // log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         // log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
-
+        
         int result = 0;
-
+        
         result = bookingService.infoList(booking);
         rttr.addFlashAttribute("booking", booking);
+        
+
+        log.info("info 페이지 부킹 객체 : " + booking);
     
         return "redirect:/booking/seat";
     }
@@ -103,15 +106,34 @@ public class BookingController {
         return "booking/notice";
     }
     
-    // 좌석 선택 - 편도일 시
+        // 좌석 선택
     @GetMapping(value="/seat")
     public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
+
+        log.info("로그 찍어보기 1 : " + booking);
+        int productNoDepValue = booking.getProductNoDeps()[0];
+        int productNoDesValue = booking.getProductNoDess()[0];
+
+        // 아래는 임시 : 편도일 때 도착지 값을 어떻게 가지고 오지..
+        if(productNoDesValue == 0) {
+            productNoDesValue = 5;
+        }
         
-        List<Booking> seatStatus = bookingService.selectSeatStatus();
+        String departure = bookingService.selectDeparture(productNoDepValue);
+        String destination = bookingService.selectDeparture(productNoDesValue);
+        
+        // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
+        int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
+        booking.setFlightNo(routeNoToFlightNo);
+        
 
-        log.info("booking : " + booking);
+        booking.setDeparture(departure);
+        booking.setDestination(destination);
+        booking.setFlightNo(productNoDepValue);
+        
+        log.info("부킹 객체 : " + booking);
 
-        log.info("왕복 여부 : " + booking.getRoundTrip());
+        List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
 
         // 모델에 등록
         model.addAttribute("booking", booking);
@@ -135,6 +157,23 @@ public class BookingController {
         
     //     return "booking/seat";
     // }
+
+
+    /**
+     * seat 페이지에서 좌석 선택하여 선택 완료 시 -> form 제출하며 notice 페이지로 이동
+     * @return
+     */
+    @PostMapping(value = "/notice")
+    public String seatPro(@RequestParam("depSeat") String depSeat, Model model) {
+
+        
+        
+        System.out.println("선택한 좌석: " + depSeat);
+
+        model.addAttribute("selectSeat", depSeat);
+
+        return "redirect:/booking/notice";
+    }
 
 
 
@@ -196,19 +235,5 @@ public class BookingController {
 
 
 
-    /**
-     * seat 페이지에서 좌석 선택하여 선택 완료 시 -> form 제출하며 notice 페이지로 이동
-     * @return
-     */
-    @PostMapping(value = "/notice")
-    public String seatPro(@RequestParam("depSeat") String depSeat, Model model) {
 
-        
-        
-        System.out.println("선택한 좌석: " + depSeat);
-
-        model.addAttribute("selectSeat", depSeat);
-
-        return "redirect:/booking/notice";
-    }
 }

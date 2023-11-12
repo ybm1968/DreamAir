@@ -128,8 +128,9 @@ public class BookingServiceImpl implements BookingService{
 
     // seat 테이블 좌석 상태 조회
     @Override
-    public List<Booking> selectSeatStatus() throws Exception {
-        List<Booking> seatList = bookingMapper.selectSeatStatus();
+    public List<Booking> selectSeatStatus(int flightNo) throws Exception {
+        
+        List<Booking> seatList = bookingMapper.selectSeatStatus(flightNo);
 
 
         return  seatList;
@@ -155,6 +156,33 @@ public class BookingServiceImpl implements BookingService{
 
         return viewTicket;
 
+    }
+
+    // 출발지 조회
+    @Override
+    public String selectDeparture(int productNoDeps) {
+
+        String departure = bookingMapper.selectDeparture(productNoDeps);
+
+        return departure;
+    }
+
+    // 도착지 조회
+    @Override
+    public String selectDestination(int productNoDess) {
+
+        String destination = bookingMapper.selectDestination(productNoDess);
+
+        return destination;
+    }
+
+    // 출발지명과 도착지명으로 노선 번호 조회
+    @Override
+    public int selectRouteNo(String departure, String destination) {
+        
+        int selectRouteNo = bookingMapper.selectRouteNo(departure, destination);
+
+        return selectRouteNo;
     }
 
 }

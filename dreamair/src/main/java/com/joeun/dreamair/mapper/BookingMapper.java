@@ -29,7 +29,7 @@ public interface BookingMapper {
     public int createTicket(Booking booking) throws Exception;
 
     // 항공기 좌석 조회
-    public List<Booking> selectSeatStatus() throws Exception;
+    public List<Booking> selectSeatStatus(int flightNo) throws Exception;
 
     // 탑승권 리스트 조회 - 회원
     public List<Booking> selectBookingListByUser(String userId) throws Exception;
@@ -42,5 +42,8 @@ public interface BookingMapper {
 
     // 도착지 조회
     public String selectDestination(int productNoDess);
+
+    // 출발지명과 도착지명으로 노선 번호 조회
+    public int selectRouteNo(@Param("departure") String departure, @Param("destination") String destination);
 
 }

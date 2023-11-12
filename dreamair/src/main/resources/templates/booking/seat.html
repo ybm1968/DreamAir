@@ -157,6 +157,9 @@
                     
                 <th:block th:if="${booking.roundTrip == '왕복'}">
                     다음 페이지로 가는 버튼
+                    <button type="submit" class="seatInnerBottom" id="btn">
+                        <span>선택 완료</span>
+                    </button>
                 </th:block>
                 <th:block th:unless="${booking.roundTrip == '왕복'}">
                     <button type="submit" class="seatInnerBottom" id="btn">

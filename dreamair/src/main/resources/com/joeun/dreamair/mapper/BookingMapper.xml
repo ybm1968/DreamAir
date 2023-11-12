@@ -100,6 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="selectSeatStatus" resultType="Booking">
   SELECT *
   FROM seat
+  WHERE flight_no = #{flightNo}
   ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
 </select>
 
@@ -136,6 +137,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT destination
     FROM product
     WHERE product_no = #{productNoDess}
+  </select>
+
+  <!-- 출발지명과 도착지명으로 route_no 조회 -->
+  <select id="selectRouteNo" resultType="Int">
+    SELECT route_no
+    FROM route
+    WHERE departure = #{departure} AND destination = #{destination}
   </select>
 
  
