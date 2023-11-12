@@ -72,12 +72,11 @@
 
     <div class="seat-content">
         <div class="seat-header">
-            <span class="close">&times;</span>
-            <h2 style="color: #6d6e70;cursor: context-menu;">좌석선택</h2>
+            <h2 class="text">좌석선택</h2>
         </div>
 
         <div class="seat-header2">
-            <h2>오는 편</h2>
+            <h2>가는 편</h2>
         </div>
 
 
@@ -89,7 +88,7 @@
                 <div class="seatInnerWrap">
                     <div class="seatInnerLeft">
                         <div class="left1">
-                            <div class="nameView"><p class="nameViewInner"></p></div>
+                            <div class="nameView"></div>
                             <div class="seatView">
                                 <div class="depAir">
                                     <div class="depSeat">
@@ -117,7 +116,6 @@
                                 
                             </div>
 
-                            <div class="seatWarning"><span class="warning">좌석지정 유의사항 안내</span></div>
                         </div>
                     </div>
 
@@ -132,24 +130,34 @@
                             </div>
                         </div>
                         
+                        
                         <div class="seatInnerRightDown">
-                            <div>인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople" th:text="${booking.pasCount}"></span>명</div>
-                            <div class="goSeat">가는 편 좌석<input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
+                            <div class="passengerName">탑승객 명
+                                <h5 th:each="passenger : ${booking.passengerNames}">
+                                    <span th:text="${passenger}"></span>
+                                </h5>
+                            </div>
+                            <br>
+                            <div>인원 수
+                                <span class="spanPeople" th:text="${booking.pasCount}"></span>명
+                            </div>
+                            <br>
+                            <div class="comeSeat">오는 편 좌석
+                                <input type="text" id="desSeat" name="desSeat" readonly="readonly" style="padding: 0; height: 17px">
+                            </div>
                             
-                            <!-- 이건 왕복일 때만 -->
-                            <div class="roundOnly backSeat">오는 편 좌석<input type="text" id="arrSeat" name="arrSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
                             
-                            <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
-                            <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
-                            <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden">
+                            <!-- <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
+                                <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
+                                <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden"> -->
+                            </div>
                         </div>
+                        
                     </div>
                     
-                </div>
-
-                <button type="submit" class="seatInnerBottom" id="btn">
-                    <span>선택 완료</span>
-                </button>
+                    <button type="submit" class="seatInnerBottom" id="btn">
+                        <span>선택 완료</span>
+                    </button>
  
             </form>
         </div>

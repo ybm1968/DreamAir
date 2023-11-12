@@ -106,11 +106,10 @@ public class BookingController {
         return "booking/notice";
     }
     
-        // 좌석 선택
+    // 좌석 선택
     @GetMapping(value="/seat")
     public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
 
-        log.info("로그 찍어보기 1 : " + booking);
         int productNoDepValue = booking.getProductNoDeps()[0];
         int productNoDesValue = booking.getProductNoDess()[0];
 
@@ -143,20 +142,20 @@ public class BookingController {
     }
     
     // 좌석 선택 - 왕복일 시
-    // @GetMapping(value="/seat")
-    // public String seat2(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
-        
-    //     List<Booking> seatStatus = bookingService.selectSeatStatus();
+    @GetMapping(value="/seat_rt")
+    public String seat2(Model model) {
+        // 기존 seat 메소드에서 등록한 booking 모델 객체를 가져와서 seat2 메소드에서도 사용
+        Booking booking = (Booking) model.getAttribute("booking");
 
-    //     log.info("booking : " + booking);
+        // 추가로 필요한 로직 수행
+        // 예: 왕복 여부에 따른 다른 로직 수행
 
+        // 모델에 등록
+        model.addAttribute("booking", booking);
+        log.info("왕복 페이지 부킹 객체 : " + booking);
 
-    //     // 모델에 등록
-    //     model.addAttribute("booking", booking);
-    //     model.addAttribute("seatStatus", seatStatus);
-        
-    //     return "booking/seat";
-    // }
+        return "booking/seat";
+    }
 
 
     /**
