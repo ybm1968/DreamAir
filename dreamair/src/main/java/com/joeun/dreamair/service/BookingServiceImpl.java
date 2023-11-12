@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class BookingServiceImpl implements BookingService{
     private BookingMapper bookingMapper;
 
     @Override
+    // 가는편 항공권 조회
     public List<Booking> golist(Booking booking) throws Exception {
         log.info("서비스임플 가는편 도착지 : " + booking.getDestination());
         log.info("시버스임플 가는편 출발날짜 : " + booking.getDepartureDate());
@@ -30,7 +32,8 @@ public class BookingServiceImpl implements BookingService{
         return bookingList;
     }
 
-     @Override
+    @Override
+    // 오는편 항공권 조회
     public List<Booking> comelist(Booking booking) throws Exception {
         log.info("서비스임플 오는편 도착지 : " + booking.getDestination());
         log.info("서비스임플 오는편 출발날짜 : " + booking.getDepartureDate());
@@ -42,6 +45,7 @@ public class BookingServiceImpl implements BookingService{
 
 
     @Override
+    // 탑승객들 정보 입력
     public int infoPassngers(Booking booking) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
@@ -76,6 +80,7 @@ public class BookingServiceImpl implements BookingService{
     }
 
     // @Override
+    // 여권 정보 입력
     // public int infoPassport(Users user) throws Exception {
     //     log.info("여권번호 : " + user.getPassportNos()[0]);
     //     log.info("라스트네임 : " + user.getLastNames()[0]);
@@ -108,19 +113,110 @@ public class BookingServiceImpl implements BookingService{
 
 
     @Override
+    // 편도 항공 스케줄(탑승객 유의사항 안내)
     public List<Booking> goScheduleList(Booking booking) throws Exception {
-        List<Booking> bookingList = bookingMapper.goScheduleList(booking);
+        log.info("탑승객 이름 배열 서비스: " + booking.getPassengerNames()[0]);
+        log.info("탑승객 인원: " + booking.getPasCount());
+        log.info("탑승객 번호: " + booking.getPhones()[0]);
+        List<Booking> bookingList = new ArrayList<Booking>();
+
+        for (int i = 0; i < booking.getPasCount(); i++) {
+            Booking bookingItem = new Booking();
+            bookingItem.setPassengerName(booking.getPassengerNames()[i]);
+            bookingItem.setPhone(booking.getPhones()[i]);
+            int passengerNo = bookingMapper.getPasNo(bookingItem);
+            bookingItem.setPassengerNo(passengerNo);
+
+            bookingItem = bookingMapper.goScheduleList(bookingItem);
+
+            bookingList.add(bookingItem);
+        }
         
         return bookingList;
     }
     
     @Override
+    // 왕복 항공 스케줄(탑승객 유의사항 안내)
     public List<Booking> comeScheduleList(Booking booking) throws Exception {
-        List<Booking> bookingList = bookingMapper.comeScheduleList(booking);
+         log.info("왕복 탑승객 이름 배열 서비스: " + booking.getPassengerNames()[0]);
+        log.info("왕복 탑승객 인원: " + booking.getPasCount());
+        log.info("왕복 탑승객 번호: " + booking.getPhones()[0]);
+        List<Booking> bookingList = new ArrayList<Booking>();
+
+        for (int i = 0; i < booking.getPasCount(); i++) {
+            Booking bookingItem = new Booking();
+            bookingItem.setPassengerName(booking.getPassengerNames()[i]);
+            bookingItem.setPhone(booking.getPhones()[i]);
+            int passengerNo = bookingMapper.getPasNo(bookingItem);
+            bookingItem.setPassengerNo(passengerNo);
+
+            bookingItem = bookingMapper.comeScheduleList(bookingItem);
+
+            bookingList.add(bookingItem);
+        }
 
         return bookingList;
     }
 
-    
-    
+    @Override
+    // 예매 테이블 등록
+    public int bookingInsert(Booking booking) throws Exception {
+        int result = bookingMapper.bookingInsert(booking);
+
+        return result;
+    }
+
+    // 탑승권 번호 발행 + QR 코드 발행
+    @Override
+    public int createTicket(Booking booking) throws Exception {
+        String userId = "";
+        int result = 0;
+        // int bookingNo = 0;
+        // int ticketNo = 0;
+        // // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
+        // for (int i = 0; i < booking.getPasCount(); i++) {
+        //     int count = bookingMapper.createTicket(booking);
+        //     // 조건 : 회원 비회원
+        //     // 회원
+        //     if( !userId.contains("GUEST") ) {
+        //         bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
+
+        //         List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+        //             for(int j = 0; j < ticketList.size(); j++){
+        //                 Booking ticket = new Booking();
+        //                 ticket = ticketList.get(i);
+        //                 ticketNo = ticket.getTicketNo();
+        //             }
+        //     }
+        //     else {
+        //         bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
+        //         List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+        //             for(int j = 0; j < ticketList.size(); j++){
+        //                 Booking ticket = new Booking();
+        //                 ticket = ticketList.get(i);
+        //                 ticketNo = ticket.getTicketNo();
+        //             }
+        //     }
+            
+        //     QR qr = new QR();
+        //     qr.setParentTable("booking");
+        //     qr.setParentNo(ticketNo);
+        //     String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
+        //     qr.setUrl( url );
+        //     qr.setName("QR_" + ticketNo + "B" + bookingNo);
+
+        //     qrService.makeQR(qr);
+
+        //     result += count;
+        // }
+
+        return result;
+    }
+
+     // 예매 번호로 탑승권 정보(번호) 조회
+    @Override
+    public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception {
+        List<Booking> ticketList_bookingNo = bookingMapper.ticketList_bookingNo(bookingNo);
+        return ticketList_bookingNo;
+    }
 }

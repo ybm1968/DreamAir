@@ -11,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
 
+    <link rel="stylesheet" href="/css/checkIn.css">
+
+
  
 </head>
 
@@ -19,15 +22,22 @@
    
 
     <form action="/booking/notice">
-        <input type="hidden" name="passengerName" value="홍길동"> 
-        <input type="hidden" name="passengerNames" th:value="${booking.passengerNames}"> 
+
+        
+        <!-- <input type="hidden" name="passengerNames" th:value="${#arrays.toString(booking.passengerNames)}">  -->
+        <input type="hidden" name="passengerNames" value="갑13, 값14"> 
+        <input type="hidden" name="phones" value="789456123, 789123"> 
+
+        <ul>
+            <li th:each="name : ${booking.passengerNames}" th:text="${name}"></li>
+        </ul>
         <input type="hidden" name="pasCount" th:value="${booking.pasCount}"> 
-        <input type="hidden" name="passengerNo" value="59"> 
-        <input type="hidden" name="roundTrip" value="왕복"> 
+        <input type="hidden" name="roundTrip" th:value="${booking.roundTrip}"> 
 
         <input type="submit" value="다음" class="btn btn-outline-primary btn-lg">
 
     </form>
     
+   
 </body>
 </html>

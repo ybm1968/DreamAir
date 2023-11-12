@@ -9,6 +9,7 @@ import lombok.Data;
 public class Users {
     // users 테이블
     private int userNo;
+    private int[] userNos;
     private int authNo;
     private String userId;
     private String userPw;
@@ -25,6 +26,7 @@ public class Users {
 
     // user2 테이블
     private int userNo2;
+    private int[] userNos2;
 
     // auth 테이블
     private String auth;

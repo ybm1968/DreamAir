@@ -1,5 +1,7 @@
 package com.joeun.dreamair.service;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.joeun.dreamair.dto.Users;
@@ -13,7 +15,7 @@ public interface UserService {
     public Users select(int userNo) throws Exception;
 
     // 회원 조회 - id
-    public Users selectById(String userId) throws Exception;
+    public Users selectById(Principal principal) throws Exception;
 
     // 로그인
     public void login(Users user, HttpServletRequest requset) throws Exception;

@@ -11,42 +11,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
 
+    <link rel="stylesheet" href="/css/payment.css">
+
 
 </head>
 
 <body layout:fragment="content">
-    <div class="container">
+    <div class="container-pay">
         <h1>주문/결제</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>상품정보</th>
-              <th>정상가</th>
-              <th>할인</th>
-              <th>할인금액</th>
-              <th>수량</th>
-              <th>금액</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>공항 리무진버스 1회권</td>
-              <td>15,000원</td>
-              <td>-</td>
-              <td>0원</td>
-              <td>
-                <select name="quantity" id="quantity" onchange="updatePrice()">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-              </td>
-              <td class="total"><span id="totalPrice">15,000원</span></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="input-group">
+        <h2>가는편</h2>
+        <table class="table table-striped table-hover table-bordered text-center align-middle">
+          <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
+          <tr>
+              <th>여정</th>   
+              <th>항공편</th>
+              <th>출발일시</th>
+              <th>도착일시</th>
+              <th>좌석구분</th>
+              <th>요금</th>
+              <th>요청좌석</th>
+              <th>이름</th>
+          </tr>
+
+          <th:block th:each="booking : ${goBookingList}">
+              <tr>
+                  <td><span th:text="${booking.departure}"></span> → <span th:text="${booking.destination}"></span></td>
+                  <td><span th:text="${booking.flightName}"></span></td>
+                  <td><span th:text="${booking.departureDate}"></span></td>
+                  <td><span th:text="${booking.destinationDate}"></span></td>
+                  <td>일반석</td>
+                  <td><span th:text="${booking.productPrice}"></span></td>
+                  <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
+                  <td>1석</td>
+                  <td><span th:text="${booking.passengerName}"></span></td>
+                  <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
+                  <input type="hidden" name="productNo" id="productNo" th:value="${booking.productNo}">
+                  <input type="hidden" name="productId" id="productId" th:value="${booking.productId}">
+                  <input type="hidden" name="routeNoDep" id="routeNoDep" th:value="${booking.routeNoDep}">
+                  <input type="hidden" name="productPriceDep" id="productPriceDep" th:value="${booking.productPrice}">
+                  <div sec:authorize="isAuthenticated()">
+                    <input type="hidden" name="userNos" id="userNos" th:value="${booking.userNo}">
+                  </div>
+                  <div sec:authorize="isAnonymous()">
+                    <input type="hidden" name="userNos2" id="userNos2" th:value="${booking.userNo2}">
+                  </div>
+
+              </tr>
+          </th:block>
+
+      </table>
+
+      <th:block th:unless="${ comeBookingList == null || comeBookingList.isEmpty()}">
+        <h2>오는편</h2>
+          <table class="table table-striped table-hover table-bordered text-center align-middle">
+              <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
+              <tr>
+                  <th>여정</th>   
+                  <th>항공편</th>
+                  <th>출발일시</th>
+                  <th>도착일시</th>
+                  <th>좌석구분</th>
+                  <th>요금</th>
+                  <th>요청좌석</th>
+                  <th>이름</th>
+              </tr>
+
+              <th:block th:each="booking : ${comeBookingList}">
+                  <tr>
+                      <td><span th:text="${booking.departure}"></span> → <span th:text="${booking.destination}"></span></td>
+                      <td><span th:text="${booking.flightName}"></span></td>
+                      <td><span th:text="${booking.departureDate}"></span></td>
+                      <td><span th:text="${booking.destinationDate}"></span></td>
+                      <td>일반석</td>
+                      <td><span th:text="${booking.productPrice}"></span></td>
+                      <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
+                      <td>1석</td>
+                      <td><span th:text="${booking.passengerName}"></span></td>
+                      <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
+                      <input type="hidden" name="productNo" id="productNo" th:value="${booking.productNo}">
+                      <input type="hidden" name="productId" id="productId" th:value="${booking.productId}">
+                      <input type="hidden" name="routeNoDes" id="routeNoDes" th:value="${booking.routeNoDes}">
+                      <input type="hidden" name="productPriceDes" id="productPriceDes" th:value="${booking.productPrice}">
+                      <div sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="userNos" id="userNos" th:value="${booking.userNo}">
+                      </div>
+                      <div sec:authorize="isAnonymous()">
+                        <input type="hidden" name="userNos2" id="userNos2" th:value="${booking.userNo2}">
+                      </div>
+                  </tr>
+              </th:block>
+
+          </table>
+      </th:block> 
+
+      <table>
+        <tr>
+            <td><label for="productName">상품명</label></td>
+            <td><input type="text" name="productName" id="productName" placeholder="상품명"
+                    value="기본 상품"></td>
+        </tr>
+        <tr>
+            <td><label for="price">결제금액</label></td>
+            <td><input type="text" name="price" id="price" placeholder="결제금액"
+                    value="1000"></td>
+        </tr>
+        <tr>
+            <td><label for="name">이름</label></td>
+            <td><input type="text" name="name" id="name" placeholder="이름"></td>
+        </tr>
+        <tr>
+            <td><label for="tel">전화번호</label></td>
+            <td><input type="text" name="tel" id="tel" placeholder="전화번호"></td>
+        </tr>
+        <tr>
+            <td><label for="email">이메일</label></td>
+            <td><input type="text" name="email" id="email" placeholder="이메일"></td>
+        </tr>
+        <tr>
+            <td><label for="address">주소</label></td>
+            <td><input type="text" name="address" id="address" placeholder="주소"></td>
+        </tr>
+        <tr>
+            <td><label for="postcode">우편번호</label></td>
+            <td><input type="text" name="postcode" id="postcode" placeholder="우편번호"></td>
+        </tr>
+    </table>
+
+        <!-- <div class="input-group">
           <label for="name">이름:</label>
           <input type="text" id="name" placeholder="이름 입력">
           
@@ -55,7 +146,7 @@
           
           <label for="email">이메일:</label>
           <input type="email" id="email" placeholder="이메일 입력">
-        </div>
+        </div> -->
         
         <div class="privacy-policy">
           <p>본인은 <strong>개인정보 수집 및 이용</strong>에 관한 내용을 충분히 이해하고, 다음과 같은 목적으로 개인정보 수집 및 이용에 동의합니다:</p>
@@ -68,21 +159,150 @@
           <p>수집하는 개인정보 항목은 이름, 연락처, 이메일 등이며, 서비스 제공 목적 이외의 용도로는 사용되지 않습니다. 보유 및 이용 기간은 서비스 제공 종료 후 6개월까지이며, 이후 해당 정보는 지체 없이 파기합니다.</p>
           <p>동의를 거부할 권리가 있으며, 거부 시에는 서비스 이용에 제한을 받을 수 있습니다.</p>
         </div>
-        
-        <button class="btn">결제하기</button>
+        <button class="btn" onclick="requestPay()">결제하기</button>
       </div>
       
+      <!-- 1️⃣ 포트원 라이브러리 추가  -->
+      <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
       <script>
-        const pricePerTicket = 15000; // 티켓 당 가격
+
+        // 2️⃣  객체 초기화 하기
+         var IMP = window.IMP; 
+        // IMP.init("imp67011510"); 
+        IMP.init("imp48458232"); 
         
-        function updatePrice() {
-          var quantity = document.getElementById('quantity').value;
-          var totalPrice = pricePerTicket * quantity;
-          document.getElementById('totalPrice').innerText = totalPrice.toLocaleString() + '원';
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+
+        // "[[${booking.roundTrip}]]"
+        // $("#productNoDep").val();
+        let productIdArray = $("#productId").val().split(',');
+
+        // booking 테이블 insert 데이터
+        let names = $("#names").val();
+        let userNos = $("#userNos").val(); // 회원비회원구분
+        let userNos2 = $("#userNos2").val();
+        console.log("회원 : " + userNo[0])
+        console.log("비회원 : " + userNo2[0])
+        let productNo = $("#productNo").val();
+        let productId = productIdArray[0];
+        let routeNoDep = $("#routeNoDep").val();    // 값이 없는경우??   
+        let routeNoDes = $("#routeNoDes").val();
+        console.log("루트출발 : " + routeNoDep)
+        console.log("루트도착 : " + routeNoDes)
+        let roundTrip = "[[${bookingInfo.roundTrip}]]"
+        let ticketType 
+
+        // 총 금액
+        let productPriceDep = $("#productPriceDep").val();
+        let productPriceDes = $("#productPriceDes").val();
+        console.log("가는비용 : " + productPriceDep)
+        console.log("오는비용 : " + productPriceDes)
+        let pasNum = "[[${bookingInfo.pasCount}]]"
+        let totalPrice = (productPriceDep + productPriceDes) * pasNum
+ 
+
+
+        
+        
+        // 3️⃣ 결제 요청하기
+        function requestPay() {
+
+            // 결제 정보 가져오기
+            let productName = document.getElementById('productName').value
+            // let productName = productId
+            let price = document.getElementById('price').value
+            let name = document.getElementById('name').value
+            let tel = document.getElementById('tel').value
+            let email = document.getElementById('email').value
+
+            IMP.request_pay({
+                pg : 'kcp',                                 // PG사
+                pay_method : 'card',                        // 결제방식
+                merchant_uid: "IMP"+makeMerchantUid,        // 주문번호(상품ID)
+                name : productName,                         // 상품명
+                amount : price,                              // 결제금액
+                buyer_email : email,                        // 결제자 이메일 
+                buyer_name : name,                          // 결제자 이름
+                buyer_tel : tel,                            // 결제자 전화번호
+                buyer_addr : address,                       // 결제자 주소
+                buyer_postcode : postcode,                   // 결제자 우편번호 x
+                // m_redirect_url : "success"          //  "리디렉션 URL", (리디렉션 방식의 경우 callback은 실행되지 않습니다.)
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    // 결제 성공
+                    console.log(rsp);
+
+                    // booking 테이블 bookingInsert함수 호출
+                    bookingInsert();
+
+                    // 결제처리??
+
+                    // 상품입출고 처리
+
+                    
+                    // 결제 완료 페이지로 이동
+                    location.href = 'success?result=ok&proudctId=' + ("IMP"+makeMerchantUid)
+
+                    // 또는 ajax 요청 처리 후 이동
+                } else {
+                    // 결제 실패
+                    console.log(rsp);
+                }
+            });
         }
+
+        // booking 테이블에 insert 함수
+        function bookingInsert() {
+          
+          const url="/booking/booingInsert"
+
+          const data = {
+            names: names,
+            userNos: userNos,
+            userNos2: userNos2,
+            productNo: productNo,
+            productId: productId,
+            routeNoDep: routeNoDep,  // ??
+            routeNoDes: routeNoDes,  // ??
+            pasCount: 1,
+            roundTrip: roundTrip,
+            status: '예매완료',
+            // ticketType: ticketType
+          };
+
+          $.ajax({
+            url     : url,
+            type    : 'POST',
+            data    : data,
+            success : function(response) {
+              console.log(response)
+            },
+            error           : function(request, status, error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+
+          }) 
+
+        }
+
+
+
+        // const pricePerTicket = 15000; // 티켓 당 가격
+        
+        // function updatePrice() {
+        //   var quantity = document.getElementById('quantity').value;
+        //   var totalPrice = pricePerTicket * quantity;
+        //   document.getElementById('totalPrice').innerText = totalPrice.toLocaleString() + '원';
+        // }
       
-        // 페이지 로드 시 수량에 따른 가격을 업데이트합니다.
-        window.onload = updatePrice;
+        // // 페이지 로드 시 수량에 따른 가격을 업데이트합니다.
+        // window.onload = updatePrice;
       </script>
 
     

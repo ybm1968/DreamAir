@@ -40,7 +40,7 @@
             <input type="hidden" name="roundTrip" th:value="${bookingInfo.roundTrip}" >   
         </th:block>
     
-        <th:block th:each="booking : ${bookingList}">
+        <th:block th:each="booking : ${bookingList}"> 
                 <tr>
                     <td><i class="fa fa-solid fa-plane fa-2x" style="color: skyblue;"></i><br><span th:text="${booking.flightName}"></span></td>
                     <td><span th:text="${booking.departureTime}"></span> <span th:text="${booking.duration}"></span> <span th:text="${booking.destinationTime}"></span></td> 

@@ -23,8 +23,23 @@ public interface BookingMapper {
     // public int infoPassport(Users user) throws Exception;
     
     // 가는편 선택한 항공 스케줄(탑승객 유의사항 안내)
-    public List<Booking> goScheduleList(Booking booking) throws Exception;
+    public Booking goScheduleList(Booking booking) throws Exception;
     
     // 오는편 선택한 항공 스케줄(탑승객 유의사항 안내)
-    public List<Booking> comeScheduleList(Booking booking) throws Exception;
+    public Booking comeScheduleList(Booking booking) throws Exception;
+
+    // 예매 테이블 등록
+    public int bookingInsert(Booking booking) throws Exception;
+
+    // 티켓 발행 등록
+    public int createTicket(Booking booking) throws Exception;
+
+    // 항공기 좌석 조회
+    public List<Booking> selectSeatStatus() throws Exception;
+
+    // 예매 번호로 탑승권 정보 조회
+    public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception;
+
+    // passengerNo 조회
+    public int getPasNo(Booking booking) throws Exception;
 }

@@ -13,6 +13,7 @@ public class Booking {
     // booking 테이블
     private int bookingNo;
     private String name;
+    private String[] names;
     private String seatNo;
     private int userNo;
     private int userNo2;
@@ -29,7 +30,8 @@ public class Booking {
     // passengers 테이블
     private int pinType;
     private int[] pinTypes;
-    private String passengerNo;
+    private int passengerNo;
+    private int[] passengerNos;
     private String passengerName;
     private String[] passengerNames;
     private String firstName;

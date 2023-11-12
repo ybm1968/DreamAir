@@ -25,4 +25,13 @@ public interface BookingService {
 
     // 왕복 항공 스케줄(탑승객 유의사항 안내)
     public List<Booking> comeScheduleList(Booking booking) throws Exception;
+
+    // 예매 테이블 등록
+    public int bookingInsert(Booking booking) throws Exception;
+
+    // 티켓 발행 등록
+    public int createTicket(Booking booking) throws Exception;
+
+    // 예매 번호로 탑승권 정보 조회
+    public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception;
 }
