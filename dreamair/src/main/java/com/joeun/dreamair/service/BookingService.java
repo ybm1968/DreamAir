@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.security.Principal;
 import java.util.List;
 
 import com.joeun.dreamair.dto.Booking;
@@ -27,7 +28,7 @@ public interface BookingService {
     public List<Booking> comeScheduleList(Booking booking) throws Exception;
 
     // 예매 테이블 등록
-    public int bookingInsert(Booking booking) throws Exception;
+    public int bookingInsert(Booking booking, Principal principal) throws Exception;
 
     // 티켓 발행 등록
     public int createTicket(Booking booking) throws Exception;

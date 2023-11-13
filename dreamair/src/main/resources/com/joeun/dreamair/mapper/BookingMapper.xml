@@ -107,10 +107,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select> 
 
 
-    <!-- 예매 테이블 등록 -->
-    <insert id="bookingInsert">
+    <!-- 가는편 예매 테이블 등록 -->
+    <insert id="goBookingInsert">
       INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
-      VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNo}, #{routeNo}, #{productId}, #{pasCount}, #{roundTrip}, #{status} )
+      VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status} )
+    </insert>
+
+    <!-- 오는편 예매 테이블 등록 -->
+    <insert id="comeBookingInsert">
+      INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
+      VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status} )
     </insert>
 
     <!-- 티켓 발행 등록 -->

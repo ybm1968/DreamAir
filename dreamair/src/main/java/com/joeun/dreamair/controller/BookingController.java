@@ -176,9 +176,8 @@ public class BookingController {
         } else {
             log.info("회원 유저번호 : " + user.getUserNo());
         }
-        
+         
         model.addAttribute("user", user);
-        // model.addAttribute("booking", booking);
 
         return "booking/payment";
     }
@@ -202,9 +201,9 @@ public class BookingController {
     
 
     @PostMapping(value = "/bookingInsert")
-    public String bookingInsert(Booking booking) throws Exception {
-        log.info("이름 : " + booking.getPassengerNames()[0]);
-        int result = bookingService.bookingInsert(booking);
+    public String bookingInsert(Booking booking, Principal principal) throws Exception {
+        log.info("이름 : " + booking.getNames()[0]);
+        int result = bookingService.bookingInsert(booking, principal);
 
         return "booking/success";
     }

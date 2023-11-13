@@ -28,8 +28,11 @@ public interface BookingMapper {
     // 오는편 선택한 항공 스케줄(탑승객 유의사항 안내)
     public Booking comeScheduleList(Booking booking) throws Exception;
 
-    // 예매 테이블 등록
-    public int bookingInsert(Booking booking) throws Exception;
+    // 가는편 예매 테이블 등록
+    public int goBookingInsert(Booking booking) throws Exception;
+
+    // 오는편 예매 테이블 등록
+    public int comeBookingInsert(Booking booking) throws Exception;
 
     // 티켓 발행 등록
     public int createTicket(Booking booking) throws Exception;

@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,22 +161,50 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     // 예매 테이블 등록
-    public int bookingInsert(Booking booking) throws Exception {
+    public int bookingInsert(Booking booking, Principal principal) throws Exception {
+        log.info("회원이름 : " + booking.getNames()[0]);
+        log.info("가는편 상품 번호 : " + booking.getProductNoDep());
+        log.info("가는편 상품 아이디 : " + booking.getProductIdDeps()[0]);  
+        log.info("탑승인원 : " + booking.getPasCount());            
+        log.info("왕복여부 : " + booking.getRoundTrip());          
+        log.info("상태 : " + booking.getStatus());           
+        log.info("비회원넘버 : " + booking.getUserNo2());
         int result = 0;
-        for (int i = 0; i < booking.getPassengerNames().length; i++) {
+        int result1 = 0;
+        int result2 = 0;
+        for (int i = 0; i < booking.getPasCount(); i++) {
             Booking bookingItem = new Booking();
+            String loginId = principal != null ? principal.getName() : "GUEST";
             bookingItem.setName(booking.getNames()[i]);
-            bookingItem.setUserNo(booking.getUserNos()[i]);
-            bookingItem.setUserNo2(booking.getUserNos2()[i]);
-            bookingItem.setProductNo(booking.getProductNo());
-            bookingItem.setProductId(booking.getProductId());
+
+            if (loginId.equals("GUEST")) {
+                bookingItem.setUserNo2(booking.getUserNo2());
+                log.info("비회원넘버if : " + booking.getUserNo2());
+            } else {
+                bookingItem.setUserNo(booking.getUserNo());
+                log.info("회원넘버if : " + booking.getUserNo());
+            }
+            
             bookingItem.setPasCount(booking.getPasCount());
             bookingItem.setRoundTrip(booking.getRoundTrip());
             bookingItem.setStatus(booking.getStatus());
-
-            result = bookingMapper.bookingInsert(bookingItem);
+            bookingItem.setProductNoDep(booking.getProductNoDep());
+            bookingItem.setProductIdDep(booking.getProductIdDeps()[0]);
+            bookingItem.setRouteNoDep(booking.getRouteNoDep());
+            log.info("가는편 상품 아이디 : " + bookingItem.getProductIdDep());
+            
+            if (booking.getRoundTrip().equals("왕복")) {
+                bookingItem.setProductNoDes(booking.getProductNoDes());
+                bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
+                bookingItem.setRouteNoDes(booking.getRouteNoDes());
+                log.info("오는편 상품 번호 : " + booking.getProductNoDes());
+                log.info("오는편 상품 아이디 : " + bookingItem.getProductIdDes());
+                result2 = bookingMapper.comeBookingInsert(bookingItem);
+            }
+                result1 = bookingMapper.goBookingInsert(bookingItem);
         }
 
+        result = result1 + result2;
 
         return result;
     }
