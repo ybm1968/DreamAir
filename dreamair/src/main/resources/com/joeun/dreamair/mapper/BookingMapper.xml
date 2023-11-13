@@ -25,12 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="phone" column="phone" />
         
     </resultMap>
-    
-<select id="list" resultType="Booking">
-    SELECT *
-    FROM flight f left join product p on f.route_no = p.route_no
-    left join route r on f.route_no = r.route_no
-</select>
+
 
 <!-- 가는편 조회 --> 
 <select id="golist" resultType="Booking">
@@ -159,12 +154,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNo}, #{routeNo}, #{productId}, #{pasCount}, #{roundTrip}, #{status} )
 </insert>
 
-<!-- 티켓 발행 등록 -->
-<!-- ✅ TODO -->
-<insert id="createTicket">
-  INSERT INTO ticket ( passenger_no, passenger_name, departure, destination, departure_date, destination_date, departure_time, destination_time, duration, boarding, checked_in, is_boarded, route_no, seat_no, flight_no )
-  VALUES ( #{passengerNo}, #{passengerName}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checked_in}, #{is_boarded}, #{routeNo}, #{flightNo} )
-</insert>
 
 <!-- 예매 번호로 탑승권 정보 조회 -->
 <select id="ticketList_bookingNo" resultType="Booking">
@@ -172,15 +161,6 @@ SELECT *
 FROM ticket LEFT JOIN booking 
 ON ticket.booking_no = #{bookingNo}
 </select>
-
-<!-- seat 조회 -->
-<select id="selectSeatStatus" resultType="Booking">
-  SELECT *
-  FROM seat
-  ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
-</select>
-
-
 
 
 <!-- seat 조회 -->

@@ -3,29 +3,23 @@ package com.joeun.dreamair.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.joeun.dreamair.dto.Files;
 import com.joeun.dreamair.mapper.FileMapper;
 
-import groovy.util.logging.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class FileServiceImpl implements FileService {
-
-    @Value("${upload.path}")            // application.properties 에 설정한 업로드 경로 속성명
-    private String uploadPath;          // 업로드 경로
 
     @Autowired
     private FileMapper fileMapper;
@@ -117,56 +111,6 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public int upload(String parentTable, int parentNo, List<MultipartFile> fileList) throws Exception {
-        int count = 0;
-
-        if( !fileList.isEmpty() )
-        for (MultipartFile file : fileList) {
-
-            if( file.isEmpty() ) continue;
-            
-            // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
-            String originName = file.getOriginalFilename();
-            long fileSize = file.getSize();
-            byte[] fileData = file.getBytes();
-            
-            // 업로드 경로
-            // 파일명 중복 방지 방법(정책)
-            // - 날짜_파일명.확장자
-            // - UID_파일명.확장자
-
-            // UID_강아지.png
-            String fileName = UUID.randomUUID().toString() + "_" + originName;
-
-            // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
-
-            // 파일업로드
-            // - 서버 측, 파일 시스템에 파일 복사
-            // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
-            FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
-
-            // FileOutputStream fos = new FileOutputStream(uploadFile);
-            // fos.write(fileData);
-            // fos.close();
-
-            Files uploadedFile = new Files();
-            uploadedFile.setParentTable(parentTable);
-            uploadedFile.setParentNo(parentNo);
-            uploadedFile.setFileName(fileName);
-            uploadedFile.setFilePath(filePath);
-            uploadedFile.setOriginName(originName);
-            uploadedFile.setFileSize(fileSize);
-            uploadedFile.setFileCode(0);
-
-            int result = fileMapper.insert(uploadedFile);
-            count += result;
-        }
-        return count;
-    }
-
-    @Override
     public List<Files> getFilesByBoardNo(int boardNo) throws Exception {
         return fileMapper.selectFilesByBoardNo(boardNo);
     }
@@ -197,7 +141,7 @@ public class FileServiceImpl implements FileService {
         // - Content-Disposition    : attachment, filename="파일명.확장자"
         int index = fileName.lastIndexOf(".");
         String ext = fileName.substring(index).toUpperCase();
-        // log.info("확장자 : " + ext);
+        log.info("확장자 : " + ext);
         String mediaType = null;
         switch (ext) {
             case "JPG":
