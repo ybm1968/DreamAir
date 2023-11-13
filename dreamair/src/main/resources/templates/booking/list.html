@@ -41,7 +41,7 @@
             <!-- <table class="table table-striped table-hover table-bordered text-center align-middle"  style="margin-top: 100px;">
 
                 <tr class="table-primary">
-                    <th>운항시간</th> 
+                    <th>운항시간</th>  
                     <th>항공사</th> 
                     <th>편명</th> 
                     <th>가격</th>  
@@ -97,6 +97,7 @@
         let departureDate = "[[${booking.departureDate}]]"
         let pasCount = "[[${booking.pasCount}]]"
         let productNoDep
+        let routeNoDep
      
 
         goWay()
@@ -138,9 +139,11 @@
             $('.btn-select').on("click", function() {
                 $('#goWay').hide();
                 productNoDep = $("#productNoDep").val();
+                routeNoDep = $("#routeNoDep").val();
                 console.log('productNoDep의 값:', productNoDep);
+                console.log('routeNoDep 값:', routeNoDep);
                 roundTrip = '왕복'
-                comeWay();
+                comeWay(); 
             })
 
         })
@@ -157,6 +160,7 @@
                 departureDate: departureDate,   
                 pasCount: pasCount,
                 productNoDep : productNoDep,
+                routeNoDep : routeNoDep
             };
  
 

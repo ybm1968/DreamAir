@@ -8,7 +8,7 @@ import lombok.Data;
 public class Files {
 
     private int fileNo;
-    private int board_no;
+    private int boardNo;
     private String parentTable;
     private int parentNo;
     private String fileName;

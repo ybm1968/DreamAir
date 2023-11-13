@@ -9,8 +9,7 @@
             <ul class="nav nav-pills flex-column">
 
               <!-- 회원 메뉴 -->
-              <!-- <th:block sec:authorize="isAuthenticated()"> -->
-                <th:block>
+              <th:block sec:authorize="isAuthenticated()">
                 <li class="nav-item">
                   <a href="/user" class="nav-link d-flex align-items-center gap-2" aria-current="page" >
                     마이페이지
@@ -27,11 +26,6 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="/user/cart" class="nav-link d-flex align-items-center gap-2" >
-                    장바구니 조회
-                  </a>
-                </li>
-                <li class="nav-item">
                   <a href="/user/mileage" class="nav-link d-flex align-items-center gap-2" >
                     마일리지 조회
                   </a>
@@ -45,6 +39,11 @@
               
               
               <!-- 회원 / 비회원 모두 조회 가능 메뉴 -->
+              <li class="nav-item">
+                <a href="/user/cart" class="nav-link d-flex align-items-center gap-2" >
+                  장바구니 조회
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/user/bookingList" class="nav-link d-flex align-items-center gap-2">
                   나의 탑승권 관리

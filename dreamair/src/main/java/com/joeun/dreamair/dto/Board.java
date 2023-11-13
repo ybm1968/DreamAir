@@ -28,4 +28,5 @@ public class Board {
     
     private List<MultipartFile> file;
 
+
 }

@@ -21,6 +21,9 @@ public interface UserMapper {
 
     // 회원 조회
     public Users selectById(String userId) throws Exception;
+
+    // 비회원 조회
+    public Users selectByUser2Id(String userId) throws Exception;
     
     // 회원 로그인 - id
     public Users login(String username);

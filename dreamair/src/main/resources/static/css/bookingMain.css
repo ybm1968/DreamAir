@@ -58,7 +58,48 @@ html {
 	box-sizing: inherit;
 }
 
+/* ==========================================================================
+   #RESET
+   ========================================================================== */
+/**
+ * A very simple reset that sits on top of Normalize.css.
+ */
+body, h1, h2, h3, h4, h5, h6, blockquote, p, pre, dl, dd, ol, ul, figure,
+	hr, fieldset, legend {
+	margin: 0;
+	padding: 0;
+}
 
+/**
+ * Remove trailing margins from nested lists.
+ */
+li>ol, li>ul {
+	margin-bottom: 0;
+}
+
+/**
+ * Remove default table spacing.
+ */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+fieldset {
+	min-width: 0;
+	/* [1] */
+	border: 0;
+}
+
+button {
+	outline: none;
+	background: none;
+	border: none;
+}
 
 /* ==========================================================================
    #PAGE WRAPPER
@@ -687,6 +728,67 @@ font-size: 15px;
 /* Radio button */
 .radio-row {
 	padding-top: 10px;
+}
+
+.radio-container {
+	display: inline-block;
+	position: relative;
+	padding-left: 30px;
+	cursor: pointer;
+	font-size: 15px;
+	color: #6d6e70;
+	font-weight: 700;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.radio-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.radio-checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	background-color: #fff;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.radio-container:hover input ~ .radio-checkmark {
+	background-color: #fff;
+}
+
+.radio-container input:checked ~ .radio-checkmark {
+	background-color: #fff;
+}
+
+.radio-checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.radio-container input:checked ~ .radio-checkmark:after {
+	display: block;
+}
+
+.radio-container .radio-checkmark:after {
+	top: 4px;
+	left: 4px;
+	width: 12px;
+	height: 12px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	background: skyblue;
 }
 
 /* ==========================================================================

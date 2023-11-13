@@ -5,12 +5,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- namespace="매퍼 인터페이스 경로" --> 
 <mapper namespace="com.joeun.dreamair.mapper.BookingMapper">
-    
-<select id="list" resultType="Booking">
-    SELECT *
-    FROM flight f left join product p on f.route_no = p.route_no
-    left join route r on f.route_no = r.route_no
-</select>
+
+
+    <resultMap type="Booking" id="bookingMap">
+        <id property="userNo" column="user_no" />
+        
+        <result property="userNo" column="user_no" />
+        <result property="userId" column="user_id" />
+
+        <result property="ticketNo" column="ticket_no" />
+        <result property="bookingNo" column="booking_no" />
+        <result property="departure" column="departure" />
+        <result property="destination" column="destination" />
+        <result property="departureDate" column="departure_date" />
+        <result property="isBoarded" column="is_boarded" />
+        <result property="checkedIn" column="checked_in" />
+        
+        <result property="password" column="password" />
+        <result property="phone" column="phone" />
+        
+    </resultMap>
+
 
 <!-- 가는편 조회 --> 
 <select id="golist" resultType="Booking">
@@ -73,13 +88,161 @@ SELECT *
 FROM ticket LEFT JOIN booking 
 ON ticket.booking_no = #{bookingNo}
 </select>
+            
+<!-- 예매한 탑승권 정보 조회 -->
+<!-- 탑승객 정보 입력 -->
+<insert id="infoPassngers">
+        INSERT INTO passengers ( product_no_dep, product_no_des, route_no_dep, route_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email, user_pw )
+        VALUES ( #{productNoDep}, #{productNoDes}, #{routeNoDep}, #{routeNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email}, #{userPw} )
+</insert>
+
+<!-- <insert id="infoPassport">
+        INSERT INTO passport ( passport_no, pin_type, last_name, first_name, nationality, expiration_date, user_id )
+        VALUES ( #{passportNo}, #{pinType}, #{lastName}, #{firstName}, #{nationality}, #{expirationDate}, #{userId} )
+</insert> -->
+
+<!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+<!-- <select id="goScheduleList" resultType="Booking">
+  SELECT *
+  FROM product p left JOIN route r ON p.route_no = r.route_no
+                  left JOIN flight f ON p.route_no = f.route_no
+                  left JOIN passengers ps  ON p.route_no = ps.route_no_dep
+  WHERE product_no IN (
+                        SELECT product_no_dep 
+                        FROM passengers
+                        WHERE passenger_name = #{passengerName}
+                          AND passenger_no = #{passengerNo} 
+  );
+    
+</select> -->
+
+<!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+<select id="goScheduleList" resultType="Booking">
+  SELECT *
+  FROM product p left JOIN route r ON p.route_no = r.route_no
+                  left JOIN flight f ON p.route_no = f.route_no
+                  left JOIN passengers ps  ON p.route_no = ps.route_no_dep
+  WHERE passenger_name = #{passengerName}
+    AND passenger_no = #{passengerNo}      
+</select>
+
+<!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+<!-- <select id="comeScheduleList" resultType="Booking"> 
+  SELECT *
+  FROM product p left JOIN route r ON p.route_no = r.route_no
+                  left JOIN flight f ON p.route_no = f.route_no
+                  left JOIN passengers ps  ON p.route_no = ps.route_no_des
+  WHERE product_no IN (
+                        SELECT product_no_des 
+                        FROM passengers
+                        WHERE passenger_name = #{passengerName}
+                          AND passenger_no = #{passengerNo} 
+  );
+    
+</select> -->
+
+<!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+<select id="comeScheduleList" resultType="Booking">
+  SELECT *
+  FROM product p left JOIN route r ON p.route_no = r.route_no
+                  left JOIN flight f ON p.route_no = f.route_no
+                  left JOIN passengers ps  ON p.route_no = ps.route_no_des
+  WHERE passenger_name = #{passengerName}
+    AND passenger_no = #{passengerNo}   
+</select>
+
+<!-- 예매번호 조회 -->
+<select id="getPasNo" resultType="int">
+  SELECT passenger_no
+  FROM passengers
+  WHERE passenger_name = #{passengerName}
+    AND phone = #{phone}
+</select> 
+
+
+<!-- 예매 테이블 등록 -->
+<insert id="bookingInsert">
+  INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
+  VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNo}, #{routeNo}, #{productId}, #{pasCount}, #{roundTrip}, #{status} )
+</insert>
+
+
+<!-- 예매 번호로 탑승권 정보 조회 -->
+<select id="ticketList_bookingNo" resultType="Booking">
+SELECT * 
+FROM ticket LEFT JOIN booking 
+ON ticket.booking_no = #{bookingNo}
+</select>
+
 
 <!-- seat 조회 -->
 <select id="selectSeatStatus" resultType="Booking">
   SELECT *
   FROM seat
+  WHERE flight_no = #{flightNo}
   ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
 </select>
 
 
+  <!-- 탑승권 리스트 조회 - 회원 -->
+  <select id="selectBookingListByUser" resultMap="bookingMap">
+      SELECT *, CONCAT(departure, ' → ', destination) AS name
+      FROM ticket
+      WHERE user_id = #{userId}
+      ORDER BY ticket_no DESC
+  </select>
+
+
+  <!-- 탑승권 상세 조회 - by bookingNo -->
+  <select id="selectTicket" resultMap="bookingMap">
+      SELECT booking_no
+            , departure
+            , destination
+            , departure_date
+            , seat_no
+      FROM ticket
+      WHERE booking_no = #{bookingNo}
+  </select>
+
+    <!-- 출발지 조회 -->
+  <select id="selectDeparture" resultType="String">
+    SELECT departure
+    FROM product
+    WHERE product_no = #{productNoDeps}
+  </select>
+
+  <!-- 도착지 조회 -->
+  <select id="selectDestination" resultType="String">
+    SELECT destination
+    FROM product
+    WHERE product_no = #{productNoDess}
+  </select>
+
+  <!-- 출발지명과 도착지명으로 route_no 조회 -->
+  <select id="selectRouteNo" resultType="Int">
+    SELECT route_no
+    FROM route
+    WHERE departure = #{departure} AND destination = #{destination}
+  </select>
+
+  <!-- 도착지명으로 route_no 조회 -->
+  <select id="selectRouteNoByDes" resultType="Int">
+    SELECT route_no
+    FROM route
+    WHERE departure = #{destination}
+  </select>
+
+  <!-- 입력된 pasCount 수 만큼 passengerNo 조회 -->
+  <select id="selectLastPasNos" resultType="String" parameterType="int">
+      SELECT passenger_no
+      FROM (
+          SELECT passenger_no
+          FROM passengers
+          ORDER BY passenger_no DESC
+          LIMIT #{pasCount}
+      ) AS subquery
+      ORDER BY passenger_no ASC;
+  </select>
+
+ 
 </mapper>

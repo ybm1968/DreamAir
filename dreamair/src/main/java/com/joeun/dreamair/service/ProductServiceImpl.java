@@ -106,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
             Files uploadedFile = new Files();
             uploadedFile.setParentTable(parentTable);
             uploadedFile.setParentNo(parentNo);
-            uploadedFile.setBoard_no(parentNo);
+            uploadedFile.setBoardNo(parentNo);
             uploadedFile.setFileName(fileName);
             uploadedFile.setFilePath(filePath);
             uploadedFile.setOriginName(originName);
@@ -208,7 +208,7 @@ public class ProductServiceImpl implements ProductService {
             Files uploadedFile = new Files();
             uploadedFile.setParentTable(parentTable);
             uploadedFile.setParentNo(parentNo);
-            uploadedFile.setBoard_no(parentNo);
+            uploadedFile.setBoardNo(parentNo);
             uploadedFile.setFileName(fileName);
             uploadedFile.setFilePath(filePath);
             uploadedFile.setOriginName(originName);

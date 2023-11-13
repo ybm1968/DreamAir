@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
@@ -39,6 +37,10 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AdminService adminService;
+    
 
     @Autowired
     private AdminService adminService;
@@ -79,6 +81,10 @@ public class UserController {
         String phone = "";
         String userPw = "";
 
+        
+        String phone = "";
+        String userPw = "";
+
         // 회원 번호 추출
         user = userService.selectById(loginId);
         int userNo = user.getUserNo();
@@ -86,14 +92,13 @@ public class UserController {
         // 비회원 번호 추출 - 연락처, 비밀번호 정보 저장
         int userNo2 = 0;
         if(loginId.equals("GUEST")){
-            userNo2 = user.getUserNo2();
-            
-
             return "user/addCart";
         }
 
-       
-    
+        // 회원이 가지고 있는 장바구니 조회
+        List<Users> cartlist = userService.user_cart_list(userNo);
+        model.addAttribute("CartList", cartlist);
+
         return "user/cart";
     }
 
@@ -138,6 +143,28 @@ public class UserController {
 
         return "";
     }
+    // @PostMapping("/cart")
+    // public String CartPro(Product product, Users user) throws Exception {
+
+    //     int productNo = product.getProductNo();
+    //     int productPrice = product.getProductPrice();
+    //     int cartCnt = 0;
+
+    //     // 회원일 경우
+    //     // userNo에 productNo를 cart 테이블에 데이터 저장
+        
+    //     // 비회원일 경우
+    //     // input box를 통해 phone이랑 password를 입력 받고,
+    //     // 장바구니 table에 데이터 저장
+
+    //     return "";
+    // }
+
+    // @GetMapping("/addCart")
+    // public String addCart() {
+
+    //     return 
+    // }
 
     /**
      * 회원정보 수정 페이지
@@ -206,7 +233,7 @@ public class UserController {
     public String userDelete(Model model, Principal principal) throws Exception {
         String loginId = principal != null ? principal.getName() : null;
 
-        Users user = userService.selectById(loginId);
+        Users user = userService.selectById(loginId); 
 
         model.addAttribute("user", user);
 
@@ -294,12 +321,29 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value="/checkin")
+    @GetMapping(value="/checkin")
     public String checkin(Model model, Principal principal) throws Exception {
         String loginId = principal != null ? principal.getName() : null;
 
         Users user = userService.selectById(loginId);
         model.addAttribute("user", user);
 
+        return "user/checkin";
+    }
+
+    // 체크인 처리
+    @PostMapping(value="/checkin")
+    public String checkinPro(@RequestParam int ticketNo, Model model, Booking booking) throws Exception {
+
+        // 입력받은 탑승권 번호를 조회
+       List<Booking> ticketList = adminService.pas_ticketList(ticketNo);
+       model.addAttribute("TicketList", ticketList);
+
+       // 체크인 버튼을 누르면, ticketNo를 받아서 체크인 완료로 처리
+       booking.setTicketNo(ticketNo);
+       booking.setCheckedIn(1); // 체크인 완료
+
+       return "redirect:/user/checkin_complete";
         return "user/checkin";
     }
 
@@ -324,28 +368,38 @@ public class UserController {
         return "user/checkin_complete";
     }
 
+    // 충돌나면 여기 아래로 적용 필요!
     /**
-     * 주문 내역 페이지
+     * 예매 내역 페이지 - 회원
      * @throws Exception
      */
     @GetMapping(value="/bookingList")
-    public String booking(Model model, Principal principal, Booking booking) throws Exception {
+    public String bookingList(Model model, Principal principal, Booking booking) throws Exception {
         List<Booking> bookingList = null;
         // 회원 주문 내역 데이터 요청
         if( principal != null ) {
             log.info("회원 : " + principal.getName());
             String userId = principal.getName();
-            // bookingList = bookingService.listByUserId(userId);
-            // booking = bookingService.sumBooking(userId);
-            log.info("booking : " + booking);
+            
+            bookingList = bookingService.selectBookingListByUser(userId);
+            
+            // ticket = ticketService.sumBooking(userId);
+            
+            // log.info("ticket : " + ticketList);
+
             model.addAttribute("bookingList", bookingList);
-            model.addAttribute("booking", booking);
+            // model.addAttribute("booking", booking);
         }
         
         return "user/bookingList";
     }
 
-    @PostMapping(value="/booking")
+
+    /**
+     * 예매 내역 페이지 - 비회원
+     * @throws Exception
+     */
+    @PostMapping(value="/bookingList")
     public String bookingPost(Model model, Principal principal, Booking booking) throws Exception {
         List<Booking> bookingList = null;
         // 비회원 주문 내역 데이터 요청
@@ -358,7 +412,7 @@ public class UserController {
             model.addAttribute("bookingList", bookingList);
             model.addAttribute("booking", booking);
         }
-        return "user/booking";
+        return "user/bookingList";
     }
     
         // 전체 항공편 조회
@@ -370,6 +424,32 @@ public class UserController {
     
             return "user/productFlightList";
         }
+
+
+
+    /**
+     * 티켓 상세 정보 페이지
+     * @param bookingNo
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
+    public String viewTicket(@RequestParam int bookingNo, Model model, Principal principal) throws Exception {
+
+        String userId = principal.getName();
+
+        List<Booking> viewTicketDetail = bookingService.selectTicket(bookingNo);
+        Users userInfo = userService.selectById(userId);
+
+        log.info("viewTicketDetail : " + viewTicketDetail);
+        log.info("user : " + userInfo);
+        
+        // viewTicket을 모델에 추가
+        model.addAttribute("viewTicketDetail", viewTicketDetail);
+        model.addAttribute("userInfo", userInfo);
+    
+
+        return "/user/booking/ticketInfo"; // 보여줄 뷰 페이지 이름을 반환
+    }
 }
-
-

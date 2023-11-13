@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 파일 등록 -->
     <insert id="insert">
         INSERT INTO file( parent_table, parent_no, file_name, origin_name, file_path, file_size, file_code, board_no )
-        VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{filePath}, #{fileSize}, #{fileCode}, #{board_no} )
+        VALUES ( #{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{filePath}, #{fileSize}, #{fileCode}, #{boardNo} )
     </insert>
 
     <!-- 파일 수정 -->
@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 파일 삭제 -->
     <delete id="delete">
         DELETE FROM file
-        WHERE board_no = #{board_no}
+        WHERE board_no = #{boardNo}
     </delete>
 
 
@@ -84,14 +84,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectFilesByBoardNo" resultType="Files">
         SELECT * FROM Files WHERE parentNo = #{boardNo}
-    </select>
-
-    <select id="selectFilesByFlightNo" resultType="Files">
-        SELECT * FROM Files WHERE parentNo = #{flightNo}
-    </select>
-
-    <select id="selectFilesByProductNo" resultType="Files">
-        SELECT * FROM Files WHERE parentNo = #{productNo}
     </select>
 
 

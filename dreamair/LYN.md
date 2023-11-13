@@ -1,5 +1,8 @@
 # 이유나 작업 사항
 
+로그인 페이지의 아이디 저장 & 자동 로그인 체크 박스는 link에 있는 common css 때문에 안 나오는거고,
+info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때문에 안 나옴
+
 
 [좌석 선택]
 1) 유저가 좌석 선택 창 진입 시, DB의 seat 테이블에서 먼저 좌석 상태 조회해 옴
@@ -23,10 +26,24 @@
 
 
 --------------------------------------------------------------------------------------------------------
+- 11/10
+- [header.html], [user_layout.html], [user/index.html], [UI/fragment/sidebar.html] : 위치 등등 수정
+- [BookingMapper.xml] : selectBookingListByUser(주문 내역 조회), selectTicket(티켓 상세 조회) 메소드 추가
+- [BookingMapper.java] : 이하 동문
+- [BookingService.java] : 이하 동문
+- [BookingServiceImpl.java] : 이하 동문
+- [dto/booking.java] : userId 변수 추가
 
-- 10/31
-- /user/index.html 생성
-- /layout/user_layout.html 생성
+
+
+
+- 11/2
+- user_layout.html 수정
+- user/index.html & user/update.html 레이아웃 연결 수정
+- user/delete.html 생성
+- UserController.java 수정
+- UserMapper.xml & UserMapper.java 수정
+- 등등
 
 - 11/1
 - UserMapper.java 수정
@@ -40,10 +57,6 @@
 - user/update.html 생성
 - 등등
 
-- 11/2
-- user_layout.html 수정
-- user/index.html & user/update.html 레이아웃 연결 수정
-- user/delete.html 생성
-- UserController.java 수정
-- UserMapper.xml & UserMapper.java 수정
-- 등등
+- 10/31
+- /user/index.html 생성
+- /layout/user_layout.html 생성

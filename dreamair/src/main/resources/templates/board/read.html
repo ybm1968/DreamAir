@@ -40,7 +40,7 @@
                         <!-- 파일 목록 -->
                         <th:block th:each="file : ${fileList}">
                             <li>
-                            	<img id="imgId" th:src="@{/img/}+${file.fileName}" alt="첨부이미지" th:if="${file.filePath != null} and ${file.fileType == 'img'}" style="width: 400px;height: auto;"/>
+                                <img th:src="|/file/img/${board.thumbnail.fileNo}|" alt="게시글 이미지" class="card-img-top" th:if="${board.thumbnail != null }" style="width: 200px;height: auto;"/>
                             	<br/>
                                 <!-- 파일 다운로드 -->
                                 <a th:href="|/file/${file.fileNo}|" th:text="${file.originName}"></a>         

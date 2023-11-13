@@ -2,25 +2,29 @@ package com.joeun.dreamair.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/bus")
 public class BusController {
 
-   @GetMapping(value={"/", ""})
+     /**
+     * 공항버스 예매 화면
+     * @param param
+     * @return
+     */
+    @GetMapping(value={"/", ""})
     public String index() {
-        log.info("[GET] - /bus/");
         return "bus/index";
     }
 
-    @GetMapping(value={"/bus/reservation"})
-    public String busReservation() {
-        log.info("[GET] - /bus/reservation");
-        return "bus/reservation";
+
+    @GetMapping(value="/{sub}")
+    public String index(@PathVariable String sub) {
+        return "bus/" + sub;
     }
+
+    
     
 }
