@@ -104,81 +104,81 @@ public class BookingController {
     }
     
         
-    // 좌석 선택
+    // // 좌석 선택
     @GetMapping(value="/seat")
     public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
 
-        int productNoDepValue = booking.getProductNoDeps()[0];
-        int productNoDesValue = booking.getProductNoDess()[0];
+        // int productNoDepValue = booking.getProductNoDeps()[0];
+        // int productNoDesValue = booking.getProductNoDess()[0];
 
-        // 아래는 임시 : 편도일 때 도착지 값을 어떻게 가지고 오지..
-        if(productNoDesValue == 0) {
-            productNoDesValue = 5;
-        }
+        // // 아래는 임시 : 편도일 때 도착지 값을 어떻게 가지고 오지..
+        // if(productNoDesValue == 0) {
+        //     productNoDesValue = 5;
+        // }
         
-        String departure = bookingService.selectDeparture(productNoDepValue);
-        String destination = bookingService.selectDeparture(productNoDesValue);
+        // String departure = bookingService.selectDeparture(productNoDepValue);
+        // String destination = bookingService.selectDeparture(productNoDesValue);
         
-        // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
-        int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
-        booking.setFlightNo(routeNoToFlightNo);
+        // // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
+        // int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
+        // booking.setFlightNo(routeNoToFlightNo);
 
-        booking.setDeparture(departure);
-        booking.setDestination(destination);
-        booking.setFlightNo(productNoDepValue);
+        // booking.setDeparture(departure);
+        // booking.setDestination(destination);
+        // booking.setFlightNo(productNoDepValue);
         
         
-        List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
-        List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
+        // List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
+        // List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
         
-        booking.setPassengerNoss(selectLastPasNoss);
+        // booking.setPassengerNoss(selectLastPasNoss);
         
-        log.info("seat 페이지 부킹 객체 : " + booking);
+        // log.info("seat 페이지 부킹 객체 : " + booking);
         
         // 모델에 등록
         model.addAttribute("booking", booking);
-        model.addAttribute("seatStatus", seatStatus);
+        // model.addAttribute("seatStatus", seatStatus);
 
         return "booking/seat";
     }
 
-    // 좌석 선택 - 왕복일 시
-    @PostMapping(value = "/seat")
-    public String seatPro(Model model, @ModelAttribute("booking") Booking booking) {
+    // // 좌석 선택 - 왕복일 시
+    // @PostMapping(value = "/seat")
+    // public String seatPro(Model model, @ModelAttribute("booking") Booking booking) {
 
-        if ("왕복".equals(booking.getRoundTrip())) {
-            // "왕복"일 경우 seat_rt 페이지로 이동
-            return "redirect:/booking/seat_rt";
-        } else {
-            // "왕복"이 아닐 경우 notice 페이지로 이동
+    //     if ("왕복".equals(booking.getRoundTrip())) {
+    //         // "왕복"일 경우 seat_rt 페이지로 이동
+    //         return "redirect:/booking/seat_rt";
+    //     } else {
+    //         // "왕복"이 아닐 경우 notice 페이지로 이동
 
-            // JavaScript 코드 추가
-            model.addAttribute("booking", booking); // 필요한 경우 모델에 객체 추가
-            return "redirect:/booking/notice";
-        }
-    }
+    //         // JavaScript 코드 추가
+    //         model.addAttribute("booking", booking); // 필요한 경우 모델에 객체 추가
+    //         return "redirect:/booking/notice";
+    //     }
+    // }
 
     
-    // 좌석 선택 - 왕복일 시
-    @GetMapping(value="/seat_rt")
-    public String seatRt(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
+    // // 좌석 선택 - 왕복일 시
+    // @GetMapping(value="/seat_rt")
+    // public String seatRt(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
 
-        String destination = booking.getDestination();
+    //     String destination = booking.getDestination();
 
-        int routeNoToFlightNo = bookingService.selectRouteNoByDes(destination);
+    //     int routeNoToFlightNo = bookingService.selectRouteNoByDes(destination);
 
-        booking.setFlightNo(routeNoToFlightNo);
+    //     booking.setFlightNo(routeNoToFlightNo);
 
-        List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
+    //     List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
 
-        log.info("왕복 페이지 부킹 객체 : " + booking);
+    //     log.info("왕복 페이지 부킹 객체 : " + booking);
 
-        // 모델에 등록
-        model.addAttribute("booking", booking);
-        model.addAttribute("seatStatus", seatStatus);
+    //     // 모델에 등록
+    //     model.addAttribute("booking", booking);
+    //     model.addAttribute("seatStatus", seatStatus);
         
-        return "booking/seat_rt";
-    }
+    //     return "booking/seat_rt";
+    // }
 
     // 탑승객 유의사항
     @GetMapping(value="/notice")
@@ -253,8 +253,9 @@ public class BookingController {
     }
 
     // 결제 처리  - 예매 번호 발급
-    @PostMapping(value="/payment")
+    @PostMapping(value="/paymentPro")
     public String paymentPro(Model model, Booking booking) throws Exception {
+        log.info("결제처리");
 
         // ✅ TODO 티켓 발행 등록 요청
         int result = bookingService.createTicket(booking);
@@ -271,11 +272,35 @@ public class BookingController {
     
 
     @PostMapping(value = "/bookingInsert")
-    public String bookingInsert(Booking booking, Principal principal) throws Exception {
+    public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr) throws Exception {
         log.info("이름 : " + booking.getNames()[0]);
-        int result = bookingService.bookingInsert(booking, principal);
+        int result1 = bookingService.bookingInsert(booking, principal);
 
-        return "booking/success";
+        log.info("예매번호 조회");
+        
+        Users user = userService.selectById2(principal);
+        log.info("비회원 번호 : " + user.getUserNo2());
+        int bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  // 배열?
+        booking.setBookingNo2(bookingNum);
+
+        // log.info("결제처리");
+
+        // // ✅ TODO 티켓 발행 등록 요청
+        // int result = bookingService.createTicket(booking);
+
+        // // 같은 bookingNo에 대한 ticket 정보 조회
+        // int bookingNo = booking.getBookingNo();
+        // List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);
+        // model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
+
+        // ticketNO 받아서 qr 발행
+
+        rttr.addFlashAttribute("booking", booking);
+
+        // return "booking/paymentPro";
+        // return "redirect:/booking/paymentPro";
+        // return "booking/success";
+        return "redirect:/booking/payment_complete";
     }
 
     @GetMapping(value="/success")

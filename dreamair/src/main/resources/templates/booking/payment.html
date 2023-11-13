@@ -21,133 +21,103 @@
         <h1>주문/결제</h1>
         <h2>가는편</h2>
         <form action="/booking/bookingInsert" method="POST" id="fm">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input type="hidden" name="pasCount" id="pasCount" th:value="${bookingInfo.pasCount}">
-        <input type="hidden" name="roundTrip" id="roundTrip" th:value="${bookingInfo.roundTrip}">
-        
-        
-        <input type="hidden" name="status" id="roundTrip" value="예매완료">
-        <div sec:authorize="isAuthenticated()">
-          <input type="hidden" name="userNo" id="userNo" th:value="${use.userNo}">
-        </div>
-        <div sec:authorize="isAnonymous()">
-          <input type="hidden" name="userNo2" id="userNo2" th:value="${user.userNo2}">
-        </div>
-        <table class="table table-striped table-hover table-bordered text-center align-middle">
-          <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
-          <tr>
-              <th>여정</th>   
-              <th>항공편</th>
-              <th>출발일시</th>
-              <th>도착일시</th>
-              <th>좌석구분</th>
-              <th>요금</th>
-              <th>요청좌석</th>
-              <th>이름</th>
-          </tr>
-
-          <th:block th:each="booking : ${goBookingList}">
-              <tr>
-                  <td><span th:text="${booking.departure}"></span> → <span th:text="${booking.destination}"></span></td>
-                  <td><span th:text="${booking.flightName}"></span></td>
-                  <td><span th:text="${booking.departureDate}"></span></td>
-                  <td><span th:text="${booking.destinationDate}"></span></td>
-                  <td>일반석</td>
-                  <td><span th:text="${booking.productPrice}"></span></td>
-                  <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
-                  <td>1석</td>
-                  <td><span th:text="${booking.passengerName}"></span></td>
-                  <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
-                  <input type="hidden" name="productNoDep" id="productNoDep" th:value="${booking.productNo}">
-                  <input type="hidden" name="routeNoDep" id="routeNoDep" th:value="${booking.routeNoDep}">
-                  <input type="hidden" name="productIdDeps" id="productIdDeps" th:value="${booking.productId}">
-              
-
-              </tr>
-          </th:block>
-
-      </table>
-
-      <th:block th:unless="${ comeBookingList == null || comeBookingList.isEmpty()}">
-        <h2>오는편</h2>
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <input type="hidden" name="pasCount" id="pasCount" th:value="${bookingInfo.pasCount}">
+          <input type="hidden" name="roundTrip" id="roundTrip" th:value="${bookingInfo.roundTrip}">
+          <input type="hidden" name="status" id="status" value="예매완료">
+          <div sec:authorize="isAuthenticated()">
+            <input type="hidden" name="userNo" id="userNo" th:value="${use.userNo}">
+          </div>
+          <div sec:authorize="isAnonymous()">
+            <input type="hidden" name="userNo2" id="userNo2" th:value="${user.userNo2}">
+          </div>
           <table class="table table-striped table-hover table-bordered text-center align-middle">
-              <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
-              <tr>
-                  <th>여정</th>   
-                  <th>항공편</th>
-                  <th>출발일시</th>
-                  <th>도착일시</th>
-                  <th>좌석구분</th>
-                  <th>요금</th>
-                  <th>요청좌석</th>
-                  <th>이름</th>
-              </tr>
+            <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
+            <tr>
+                <th>여정</th>   
+                <th>항공편</th>
+                <th>출발일시</th>
+                <th>도착일시</th>
+                <th>좌석구분</th>
+                <th>요금</th>
+                <th>요청좌석</th>
+                <th>이름</th>
+            </tr>
 
-              <th:block th:each="booking : ${comeBookingList}">
-                  <tr>
-                      <td><span th:text="${booking.departure}"></span> → <span th:text="${booking.destination}"></span></td>
-                      <td><span th:text="${booking.flightName}"></span></td>
-                      <td><span th:text="${booking.departureDate}"></span></td>
-                      <td><span th:text="${booking.destinationDate}"></span></td>
-                      <td>일반석</td>
-                      <td><span th:text="${booking.productPrice}"></span></td>
-                      <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
-                      <td>1석</td>
-                      <td><span th:text="${booking.passengerName}"></span></td>
-                      <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
-                      <input type="hidden" name="productNoDes" id="productNoDes" th:value="${booking.productNo}">
-                      <input type="hidden" name="routeNoDes" id="routeNoDes" th:value="${booking.routeNoDes}">
-                      <input type="hidden" name="productIdDess" id="productIdDess" th:value="${booking.productId}">
-                  </tr> 
-              </th:block>
+            <th:block th:each="booking : ${goBookingList}">
+                <tr>
+                    <td><span th:text="${booking.departure}"></span> → <span th:text="${booking.destination}"></span></td>
+                    <td><span th:text="${booking.flightName}"></span></td>
+                    <td><span th:text="${booking.departureDate}"></span></td>
+                    <td><span th:text="${booking.destinationDate}"></span></td>
+                    <td>일반석</td>
+                    <td><span th:text="${booking.productPrice}"></span></td>
+                    <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
+                    <td>1석</td>
+                    <td><span th:text="${booking.passengerName}"></span></td>
+                    <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
+                    <input type="hidden" name="productNoDep" id="productNoDep" th:value="${booking.productNo}">
+                    <input type="hidden" name="routeNoDep" id="routeNoDep" th:value="${booking.routeNoDep}">
+                    <input type="hidden" name="productIdDeps" id="productIdDeps" th:value="${booking.productId}">
+                    <input type="hidden" name="productPriceDep" id="productPriceDep" th:value="${booking.productPrice}">
+                </tr>
+            </th:block>
 
           </table>
-      </th:block>
-    </form> 
 
-      <table>
-        <tr>
-            <td><label for="productName">상품명</label></td>
-            <td><input type="text" name="productName" id="productName" placeholder="상품명"
-                    value="기본 상품"></td>
-        </tr>
-        <tr>
-            <td><label for="price">결제금액</label></td>
-            <td><input type="text" name="price" id="price" placeholder="결제금액"
-                    value="1000"></td>
-        </tr>
-        <tr>
-            <td><label for="name">이름</label></td>
-            <td><input type="text" name="name" id="name" placeholder="이름"></td>
-        </tr>
-        <tr>
-            <td><label for="tel">전화번호</label></td>
-            <td><input type="text" name="tel" id="tel" placeholder="전화번호"></td>
-        </tr>
-        <tr>
-            <td><label for="email">이메일</label></td>
-            <td><input type="text" name="email" id="email" placeholder="이메일"></td>
-        </tr>
-        <tr>
-            <td><label for="address">주소</label></td>
-            <td><input type="text" name="address" id="address" placeholder="주소"></td>
-        </tr>
-        <tr>
-            <td><label for="postcode">우편번호</label></td>
-            <td><input type="text" name="postcode" id="postcode" placeholder="우편번호"></td>
-        </tr>
-    </table>
+          <th:block th:unless="${ comeBookingList == null || comeBookingList.isEmpty()}">
+            <h2>오는편</h2>
+            <table class="table table-striped table-hover table-bordered text-center align-middle">
+                <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
+                <tr>
+                    <th>여정</th>   
+                    <th>항공편</th>
+                    <th>출발일시</th>
+                    <th>도착일시</th>
+                    <th>좌석구분</th>
+                    <th>요금</th>
+                    <th>요청좌석</th>
+                    <th>이름</th>
+                </tr>
 
-        <!-- <div class="input-group">
+                <th:block th:each="booking : ${comeBookingList}">
+                    <tr>
+                        <td><span th:text="${booking.departure}"></span> → <span th:text="${booking.destination}"></span></td>
+                        <td><span th:text="${booking.flightName}"></span></td>
+                        <td><span th:text="${booking.departureDate}"></span></td>
+                        <td><span th:text="${booking.destinationDate}"></span></td>
+                        <td>일반석</td>
+                        <td><span th:text="${booking.productPrice}"></span></td>
+                        <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
+                        <td>1석</td>
+                        <td><span th:text="${booking.passengerName}"></span></td>
+                        <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
+                        <input type="hidden" name="productNoDes" id="productNoDes" th:value="${booking.productNo}">
+                        <input type="hidden" name="routeNoDes" id="routeNoDes" th:value="${booking.routeNoDes}">
+                        <input type="hidden" name="productIdDess" id="productIdDess" th:value="${booking.productId}">
+                        <input type="hidden" name="productPriceDes" id="productPriceDes" th:value="${booking.productPrice}">
+                    </tr> 
+                </th:block>
+
+            </table>
+          </th:block>
+        </form> 
+        <div class="input-group">
+          <label for="name">상품명:</label>
+          <input type="text" name="productName" id="productName" value="" readonly>
+
+          <label for="name">결제금액:</label>
+          <input type="text" name="price" id="price" value="" readonly >
+
           <label for="name">이름:</label>
-          <input type="text" id="name" placeholder="이름 입력">
+          <input type="text" name="name" id="name" placeholder="이름 입력">
           
           <label for="contact">연락처:</label>
-          <input type="text" id="contact" placeholder="연락처 입력">
+          <input type="text" name="tel" id="tel" placeholder="연락처 입력">
           
           <label for="email">이메일:</label>
-          <input type="email" id="email" placeholder="이메일 입력">
-        </div> -->
+          <input type="email" name="email" id="email"  placeholder="이메일 입력">
+        </div>
         
         <div class="privacy-policy">
           <p>본인은 <strong>개인정보 수집 및 이용</strong>에 관한 내용을 충분히 이해하고, 다음과 같은 목적으로 개인정보 수집 및 이용에 동의합니다:</p>
@@ -161,7 +131,7 @@
           <p>동의를 거부할 권리가 있으며, 거부 시에는 서비스 이용에 제한을 받을 수 있습니다.</p>
         </div>
         <button class="btn" onclick="requestPay()">결제하기</button>
-      </div>
+    </div>
       
       <!-- 1️⃣ 포트원 라이브러리 추가  -->
       <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
@@ -179,41 +149,17 @@
         var seconds = today.getSeconds();  // 초
         var milliseconds = today.getMilliseconds();
         var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-
-        // "[[${booking.roundTrip}]]"
-        // $("#productNoDep").val();
-        // let productIdDepArray = $("#productIdDep").val().split(',');
-        // let productIdDesArray = $("#productIdDes").val().split(',');
-
-        // // booking 테이블 insert 데이터 
-        // let names = $("#names").val();
-        // let userNos = $("#userNos").val(); // 회원비회원구분
-        // let userNos2 = $("#userNos2").val();
-        // let productNoDep = $("#productNoDep").val();
-        // let productNoDes = $("#productNoDes").val();  // 값이 없는경우?? 
-        // let productIdDep = productIdDepArray[0];
-        // let productIdDes = productIdDesArray[0];    // 값이 없는경우?? 
-        // let routeNoDep = $("#routeNoDep").val();      
-        // let routeNoDes = $("#routeNoDes").val();    // 값이 없는경우??  
-        // let roundTrip = "[[${bookingInfo.roundTrip}]]"
-        let ticketType 
         
         // 총 금액
-        // let productPriceDep = $("#productPriceDep").val();
-        // let productPriceDes = $("#productPriceDes").val();
-        // let pasNum = "[[${bookingInfo.pasCount}]]"
-        // let totalPrice = (productPriceDep + productPriceDes) * pasNum
+        let productPriceDep = parseInt($("#productPriceDep").val()) || 0;
+        let productPriceDes = parseInt($("#productPriceDes").val()) || 0;
+        let pasNum = parseInt("[[${bookingInfo.pasCount}]]") || 0;
+        let totalPrice = (productPriceDep + productPriceDes) * pasNum
+        let pName = '항공권';
+        let price = $("#price").val(totalPrice);
+        let productName = $("#productName").val(pName);
         
-        
-        console.log("회원 : " + userNos[0])
-        console.log("비회원 : " + userNos2[0])
-        console.log("루트출발 : " + routeNoDep)
-        console.log("루트도착 : " + routeNoDes)
-        console.log("가는비용 : " + productPriceDep)
-        console.log("오는비용 : " + productPriceDes)
-        
-        
-        
+ 
         // 3️⃣ 결제 요청하기
         function requestPay() {
 
@@ -233,26 +179,15 @@
                 buyer_email : email,                        // 결제자 이메일 
                 buyer_name : name,                          // 결제자 이름
                 buyer_tel : tel,                            // 결제자 전화번호
-                buyer_addr : address,                       // 결제자 주소
-                buyer_postcode : postcode,                   // 결제자 우편번호 x
                 // m_redirect_url : "success"          //  "리디렉션 URL", (리디렉션 방식의 경우 callback은 실행되지 않습니다.)
             }, function (rsp) { // callback
                 if (rsp.success) {
                     // 결제 성공
                     console.log(rsp);
-
-                    // booking 테이블 bookingInsert함수 호출
-
-                    // 결제처리??
-
-                    // 상품입출고 처리
-                    // bookingInsert()
                     $("#fm").submit();
 
-                    
                     // 결제 완료 페이지로 이동
                     //location.href = '/booking/success?result=ok&proudctId=' + ("IMP"+makeMerchantUid)
-
                     // 또는 ajax 요청 처리 후 이동
                 } else {
                     // 결제 실패
@@ -260,61 +195,6 @@
                 }
             });
         }
-
-        // function submit() {
-        //   let productIdDepArray = $("#productIdDep").val().split(',');
-        //   let productIdDesArray = $("#productIdDes").val().split(',');
-
-        //   // booking 테이블 insert 데이터 
-        //   let names = $("#names").val();
-        //   let userNos = $("#userNos").val(); // 회원비회원구분
-        //   let userNos2 = $("#userNos2").val();
-        //   let productNoDep = $("#productNoDep").val();
-        //   let productNoDes = $("#productNoDes").val();  // 값이 없는경우?? 
-        //   let productIdDep = productIdDepArray[0];
-        //   let productIdDes = productIdDesArray[0];    // 값이 없는경우?? 
-        //   let routeNoDep = $("#routeNoDep").val();      
-        //   let routeNoDes = $("#routeNoDes").val();    // 값이 없는경우??  
-        //   let roundTrip = "[[${bookingInfo.roundTrip}]]"
-
-        //   $("#fm").submit();
-        // }
-
-        // booking 테이블에 insert 함수
-        function bookingInsert() {
-          
-          const url="/booking/booingInsert"
-
-          const data = {
-            names: names,
-            userNos: userNos,
-            userNos2: userNos2,
-            productNo: productNo,
-            productId: productId,
-            routeNoDep: routeNoDep,  // ??
-            routeNoDes: routeNoDes,  // ??
-            pasCount: 1,
-            roundTrip: roundTrip,
-            status: '예매완료',
-            // ticketType: ticketType
-          };
-
-          $.ajax({
-            url     : url,
-            type    : 'POST',
-            data    : data,
-            success : function(response) {
-              console.log(response)
-            },
-            error           : function(request, status, error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-
-          }) 
-
-        }
-
-
 
       </script>
 
