@@ -124,54 +124,54 @@ public class BookingController {
         // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
         int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
         booking.setFlightNo(routeNoToFlightNo);
-        
 
         booking.setDeparture(departure);
         booking.setDestination(destination);
         booking.setFlightNo(productNoDepValue);
         
-        log.info("부킹 객체 : " + booking);
-
+        
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
-
+        List<String> selectLastPasNos = bookingService.selectLastPasNos(booking.getPasCount());
+        
+        booking.setPassengerNos(selectLastPasNos);
+        
+        log.info("seat 페이지 부킹 객체 : " + booking);
+        
         // 모델에 등록
         model.addAttribute("booking", booking);
         model.addAttribute("seatStatus", seatStatus);
-        
+
         return "booking/seat";
+    }
+
+    // 좌석 선택 - 왕복일 시
+    @PostMapping(value = "/seat")
+    public String seatPro(Model model, @ModelAttribute("booking") Booking booking) {
+
+        if ("왕복".equals(booking.getRoundTrip())) {
+            // "왕복"일 경우 seat_rt 페이지로 이동
+            return "redirect:/booking/seat_rt";
+        } else {
+            // "왕복"이 아닐 경우 notice 페이지로 이동
+            return "redirect:/booking/notice";
+        }
     }
     
     // 좌석 선택 - 왕복일 시
     @GetMapping(value="/seat_rt")
-    public String seat2(Model model) {
-        // 기존 seat 메소드에서 등록한 booking 모델 객체를 가져와서 seat2 메소드에서도 사용
-        Booking booking = (Booking) model.getAttribute("booking");
+    public String seatRt(Model model, @ModelAttribute("booking") Booking booking) {
 
-        // 추가로 필요한 로직 수행
-        // 예: 왕복 여부에 따른 다른 로직 수행
-
-        // 모델에 등록
-        model.addAttribute("booking", booking);
         log.info("왕복 페이지 부킹 객체 : " + booking);
-
-        return "booking/seat";
+        // 여기서 "왕복"일 때 처리할 로직 추가
+        return "booking/seat_rt";
     }
 
 
-    /**
-     * seat 페이지에서 좌석 선택하여 선택 완료 시 -> form 제출하며 notice 페이지로 이동
-     * @return
-     */
-    @PostMapping(value = "/notice")
-    public String seatPro(@RequestParam("depSeat") String depSeat, Model model) {
-
-        
-        
-        System.out.println("선택한 좌석: " + depSeat);
-
-        model.addAttribute("selectSeat", depSeat);
-
-        return "redirect:/booking/notice";
+    // notice 페이지로 이동
+    @PostMapping("/notice")
+    public String goToNotice(@ModelAttribute("booking") Booking booking) {
+        // notice 페이지로 이동할 때 필요한 로직 추가
+        return "booking/notice";
     }
 
 

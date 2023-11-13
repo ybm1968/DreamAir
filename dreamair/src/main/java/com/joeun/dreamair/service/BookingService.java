@@ -2,6 +2,8 @@ package com.joeun.dreamair.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.joeun.dreamair.dto.Booking;
 
 public interface BookingService {
@@ -42,5 +44,8 @@ public interface BookingService {
     
     // 출발지명과 도착지명으로 노선 번호 조회
     public int selectRouteNo(String departure, String destination);
+
+    // 탑승객 수만큼 info 테이블의 passenger_no 조회
+    public List<String> selectLastPasNos(@Param("pasCount") int pasCount);
 
 }

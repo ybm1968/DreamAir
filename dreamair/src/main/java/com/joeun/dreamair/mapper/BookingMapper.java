@@ -46,4 +46,7 @@ public interface BookingMapper {
     // 출발지명과 도착지명으로 노선 번호 조회
     public int selectRouteNo(@Param("departure") String departure, @Param("destination") String destination);
 
+    // 탑승객 수만큼 info 테이블의 passenger_no 조회
+    public List<String> selectLastPasNos(@Param("pasCount") int pasCount);
+
 }

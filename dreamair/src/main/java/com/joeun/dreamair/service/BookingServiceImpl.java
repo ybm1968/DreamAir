@@ -185,4 +185,13 @@ public class BookingServiceImpl implements BookingService{
         return selectRouteNo;
     }
 
+    // 탑승객 수만큼 info 테이블의 passenger_no 조회
+    @Override
+    public List<String> selectLastPasNos(int pasCount) {
+
+        List<String> selectLastPasNos = bookingMapper.selectLastPasNos(pasCount);
+
+        return selectLastPasNos;
+    }
+
 }

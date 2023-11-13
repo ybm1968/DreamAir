@@ -146,5 +146,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE departure = #{departure} AND destination = #{destination}
   </select>
 
+  <!-- 입력된 pasCount 수 만큼 passengerNo 조회 -->
+  <select id="selectLastPasNos" resultType="String" parameterType="int">
+      SELECT passenger_no
+      FROM (
+          SELECT passenger_no
+          FROM passengers
+          ORDER BY passenger_no DESC
+          LIMIT #{pasCount}
+      ) AS subquery
+      ORDER BY passenger_no ASC;
+  </select>
+
  
 </mapper>
