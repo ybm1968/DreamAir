@@ -168,11 +168,11 @@ ON ticket.booking_no = #{bookingNo}
 
 
 <!-- 예매 번호로 탑승권 정보 조회 -->
-<select id="ticketList_bookingNo" resultType="Booking">
+<!-- <select id="ticketList_bookingNo" resultType="Booking">
 SELECT * 
 FROM ticket LEFT JOIN booking 
 ON ticket.booking_no = #{bookingNo}
-</select>
+</select> -->
 
 
 <!-- seat 조회 -->

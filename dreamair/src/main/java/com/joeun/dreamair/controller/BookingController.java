@@ -263,8 +263,7 @@ public class BookingController {
 
     // 결제 처리  - 예매 번호 발급
     @PostMapping(value="/payment")
-    public String paymentPro(Model model, Model model, Booking booking) throws Exception {
-
+    public String paymentPro(Model model, Booking booking) throws Exception {
 
         // ✅ TODO 티켓 발행 등록 요청
         int result = bookingService.createTicket(booking);
@@ -278,6 +277,24 @@ public class BookingController {
         
         return "redirect:/booking/payment_complete";
     }
+    
+
+    @PostMapping(value = "/bookingInsert")
+    public String bookingInsert(Booking booking) throws Exception {
+        log.info("이름 : " + booking.getPassengerNames()[0]);
+        int result = bookingService.bookingInsert(booking);
+
+        return "booking/success";
+    }
+
+    @GetMapping(value="/success")
+    public String success(String result, String productId) {
+        log.info("결제 성공!!!");
+        log.info("result : " + result);
+        log.info("productId : " + productId);
+        return "booking/success";
+    }
+
 
     // 결제 완료 화면
     @GetMapping(value="/payment_complete")
@@ -293,7 +310,7 @@ public class BookingController {
     }
 
     // 탑승권 상세 페이지
-    @GetMapping(value="/ticketInfo")
+    @PostMapping(value="/ticketInfo")
     public String ticketInfo() {
         return "booking/ticketInfo";
     }
