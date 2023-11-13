@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Users;
 
 public interface BookingService {
     
@@ -16,13 +17,25 @@ public interface BookingService {
     public List<Booking> comelist(Booking booking) throws Exception;
 
     // 탑승객들 정보 입력
-    public int infoList(Booking booking) throws Exception;
+    public int infoPassngers(Booking booking) throws Exception;
     
     // 회원 - 가장 최근 예매 번호 조회
     public int latest_user_bookingNo(int userNo) throws Exception;
 
     // 비회원 - 가장 최근 예매 번호 조회
     public int latest_user2_bookingNo(int userNo2) throws Exception;
+    
+    // 여권 정보 입력 
+    // public int infoPassport(Users user) throws Exception;
+
+    // 편도 항공 스케줄(탑승객 유의사항 안내)
+    public List<Booking> goScheduleList(Booking booking) throws Exception;
+
+    // 왕복 항공 스케줄(탑승객 유의사항 안내)
+    public List<Booking> comeScheduleList(Booking booking) throws Exception;
+
+    // 예매 테이블 등록
+    public int bookingInsert(Booking booking) throws Exception;
 
     // 티켓 발행 등록
     public int createTicket(Booking booking) throws Exception;
@@ -48,4 +61,6 @@ public interface BookingService {
     // 탑승객 수만큼 info 테이블의 passenger_no 조회
     public List<String> selectLastPasNos(@Param("pasCount") int pasCount);
 
+    // 예매 번호로 탑승권 정보 조회
+    public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception;
 }

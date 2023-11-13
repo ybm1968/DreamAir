@@ -1,6 +1,7 @@
 package com.joeun.dreamair.service;
 
 import java.util.List;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +17,9 @@ public interface UserService {
 
     // 회원 조회 - id
     public Users selectById(String userId) throws Exception;
+
+    // 회원 조회 - id
+    public Users selectById2(Principal principal) throws Exception;
 
     // 로그인
     public void login(Users user, HttpServletRequest requset) throws Exception;

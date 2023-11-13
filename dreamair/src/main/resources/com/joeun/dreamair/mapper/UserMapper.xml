@@ -70,11 +70,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-
     <!-- 회원 조회 - id -->
     <select id="selectById" resultType="Users">
         SELECT *
         FROM users
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 비회원 조회 - id -->
+    <select id="selectByUser2Id" resultType="Users">
+        SELECT *
+        FROM user2
         WHERE user_id = #{userId}
     </select>
 

@@ -1,6 +1,7 @@
 package com.joeun.dreamair.service;
 
 import java.util.List;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -95,10 +96,27 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public Users selectById(String userId) throws Exception {
         Users user = userMapper.selectById(userId);
+        return user;
+    }
+
+
+    @Override
+    public Users selectById2(Principal principal) throws Exception {
+
+        String loginId = principal != null ? principal.getName() : "GUEST";
+        Users user = new Users();
+        log.info("유저아이디 : " + loginId);
+        if (loginId.equals("GUEST")) {
+            // 비회원 조회
+            user = userMapper.selectByUser2Id(loginId);
+        } else {
+            // 회원 조회
+            user = userMapper.selectById(loginId);
+        }
+
         return user;
     }
 

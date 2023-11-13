@@ -185,7 +185,7 @@ public class UserController {
     public String userDelete(Model model, Principal principal) throws Exception {
         String loginId = principal != null ? principal.getName() : null;
 
-        Users user = userService.selectById(loginId);
+        Users user = userService.selectById(loginId); 
 
         model.addAttribute("user", user);
 
