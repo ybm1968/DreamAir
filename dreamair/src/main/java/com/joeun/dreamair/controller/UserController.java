@@ -66,7 +66,6 @@ public class UserController {
         return "user/index";
     }
 
-
     /**
      * 장바구니 페이지
      * @return
@@ -74,6 +73,7 @@ public class UserController {
      */
     @GetMapping(value = "/cart")
     public String cart(Model model, Principal principal, Users user) throws Exception {
+
         String loginId = principal != null ? principal.getName() : "GUEST";
         
         String phone = "";
@@ -86,18 +86,20 @@ public class UserController {
         // 비회원 번호 추출 - 연락처, 비밀번호 정보 저장
         int userNo2 = 0;
         if(loginId.equals("GUEST")){
+            userNo2 = user.getUserNo2();
+            
+
             return "user/addCart";
         }
 
-        // 회원이 가지고 있는 장바구니 조회
-        List<Users> cartlist = userService.user_cart_list(userNo);
-        model.addAttribute("CartList", cartlist);
-
+       
+    
         return "user/cart";
     }
 
     @PostMapping("/cart")
     public String CartPro(Product product, Users user, Booking booking) throws Exception {
+        int result = 0;
         // double sum = cartList.stream().mapToDouble(Cart::getProductPrice).sum();
 
         // model.addAttribute("CartList", cartList);
@@ -121,16 +123,20 @@ public class UserController {
         return "";
     }
 
+    // 장바구니 삭제 처리
     @PostMapping(value="/cart_delete")
-    public String cartDelete(){
+    public String cartDelete(int cartNo) throws Exception {
+        log.info("[POST] - /user/cart_delete");
 
-        return "";
+        int result = userService.cart_delete(cartNo);
+        if(result == 0) return "redirect:/user/addCart?cartNo=" + cartNo;
+        return "redirect:/user/cart";
     }
 
     @GetMapping(value="/addCart")
     public String addCart() {
 
-        return 
+        return "";
     }
 
     /**
@@ -355,6 +361,15 @@ public class UserController {
         return "user/booking";
     }
     
+        // 전체 항공편 조회
+        @GetMapping(value="/productFlightList")
+        public String list(Model model) throws Exception {
+    
+            List<Product> productFlightList = userService.product_flightList();
+            model.addAttribute("productFlightList", productFlightList);
+    
+            return "user/productFlightList";
+        }
 }
 
 

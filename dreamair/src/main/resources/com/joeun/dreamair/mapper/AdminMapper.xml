@@ -144,11 +144,6 @@ WHERE user_no = #{userNo}
     WHERE ticket_no = #{ticketNo}
 </select>
 
-<!-- 전체 항공권 조회 -->
-<select id="product_flightList" resultType="Product">
-    SELECT *
-    FROM flight f left join product p on f.route_no = p.route_no 
-                  left join route r on f.route_no = r.route_no
-</select>
+
 
 </mapper>

@@ -61,6 +61,4 @@ public interface AdminService {
     // 탑승권 조회 - ticketNo
     public List<Booking> pas_ticketList(int ticketNo) throws Exception;
 
-    // 전체 탑승권 조회
-    public List<Product> product_flightList() throws Exception;
 }

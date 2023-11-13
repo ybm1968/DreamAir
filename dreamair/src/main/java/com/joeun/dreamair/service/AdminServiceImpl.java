@@ -144,10 +144,5 @@ public class AdminServiceImpl implements AdminService {
     return pasTicketList;
   }
 
-  // 전체 탑승권 조회
-  @Override
-  public List<Product> product_flightList() throws Exception {
-    List<Product> productFlightList = adminMapper.product_flightList();
-    return productFlightList;
-  }
+
 }

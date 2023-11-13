@@ -1,6 +1,4 @@
-/* @charset "UTF-8";
-
-/******************* bookingMain1 ********************/
+/* 
 .mid {
 	height: 50px;
 	float: left;
@@ -23,11 +21,6 @@
 	float: left;
 }
 
-#booking_btn {
-	float: left;
-	position: absolute;
-	margin-left: 20px;
-}
 
 #locSearch {
 	margin-left: 95px;
@@ -56,4 +49,4 @@
 
 .loctdd:hover {
 	color: red;
-}
+}  */

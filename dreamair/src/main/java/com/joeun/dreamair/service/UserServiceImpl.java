@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
 import com.joeun.dreamair.dto.Auth;
+import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.UserMapper;
 
@@ -144,7 +145,28 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public List<Users> user2_cart_list(int userNo2) throws Exception {
-        return userMapper.user2_cart_list(userNo2);
+    public List<Users> user2_cart_list(int phone, int userPw) throws Exception {
+        return userMapper.user2_cart_list(phone, userPw);
+    }
+
+    // 장바구니 추가
+    @Override
+    public int cartadd(Users user) throws Exception {
+        int result = userMapper.cartadd(user);
+        return result;
+    }
+
+    // 장바구니 삭제
+    @Override
+    public int cart_delete(int cartNo) throws Exception {
+        int result = userMapper.cart_delete(cartNo);
+        return result;
+    }
+
+    // 전체 탑승권 조회
+    @Override
+    public List<Product> product_flightList() throws Exception {
+        List<Product> productFlightList = userMapper.product_flightList();
+        return productFlightList;
     }
 }

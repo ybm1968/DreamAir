@@ -21,7 +21,7 @@ button { cursor: pointer; }
 body { font-family: "Noto Sans KR", sans-serif !important; }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+/* article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -50,7 +50,6 @@ width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-	/* background-color: #fcfcf0; */
 	background-color:transparent;
 	border-radius: 7px;
 }
@@ -59,4 +58,4 @@ width: 10px;
 	width:30px;
 	background-color: #e0dada;
 	border-radius: 7px;
-}
+} */
