@@ -153,16 +153,20 @@ public class BookingController {
             return "redirect:/booking/seat_rt";
         } else {
             // "왕복"이 아닐 경우 notice 페이지로 이동
+
+            // JavaScript 코드 추가
+            model.addAttribute("booking", booking); // 필요한 경우 모델에 객체 추가
             return "redirect:/booking/notice";
         }
     }
+
     
     // 좌석 선택 - 왕복일 시
     @GetMapping(value="/seat_rt")
     public String seatRt(Model model, @ModelAttribute("booking") Booking booking) {
 
         log.info("왕복 페이지 부킹 객체 : " + booking);
-        // 여기서 "왕복"일 때 처리할 로직 추가
+        
         return "booking/seat_rt";
     }
 

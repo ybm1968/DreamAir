@@ -174,27 +174,29 @@
 
     <script th:inline="javascript">
 
-        let pasCount 
-        let roundTrip
-        // let passengerNames
-        let seatNoDeps
-
+        let pasCount;
+        let roundTrip;
+        let seatNoDeps;
+    
         function goToNextStep() {
-
             roundTrip = $("#roundTrip").val();
             pasCount = $("#pasCount").val();
             seatNoDeps = $("#seatNoDeps").val();
-            
+    
             var passengerNames = [];
             for (var i = 0; i < pasCount; i++) {
                 var inputValue = $("#passengerNames[data-index='" + i + "']").val();
                 passengerNames.push(inputValue);
             }
-
-        // 배열을 콤마로 구분된 문자열로 변환
-        var commaSeparatedPassengerNames = passengerNames.join(',');
-
-            window.location.href = "/booking/seat_rt?roundTrip=" + roundTrip + "&pasCount=" + pasCount + "&passengerNames=" + commaSeparatedPassengerNames + "%seatNoDeps=" + seatNoDeps;
+    
+            // 배열을 콤마로 구분된 문자열로 변환
+            var commaSeparatedPassengerNames = passengerNames.join(',');
+    
+            // URL에 파라미터 추가
+            var url = "/booking/seat_rt?roundTrip=" + roundTrip + "&pasCount=" + pasCount + "&passengerNames=" + commaSeparatedPassengerNames + "&seatNoDeps=" + seatNoDeps;
+            
+            // 이동
+            window.location.href = url;
         }
     </script>
 </body>
