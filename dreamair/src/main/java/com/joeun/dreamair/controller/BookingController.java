@@ -129,9 +129,9 @@ public class BookingController {
         
         
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
-        List<String> selectLastPasNos = bookingService.selectLastPasNos(booking.getPasCount());
+        List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
         
-        booking.setPassengerNos(selectLastPasNos);
+        booking.setPassengerNoss(selectLastPasNoss);
         
         log.info("seat 페이지 부킹 객체 : " + booking);
         

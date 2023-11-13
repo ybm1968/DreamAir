@@ -33,6 +33,7 @@ public class Booking {
    private int pinType;
    private int[] pinTypes;
    private int passengerNo;
+   private int[] passengerNos;
    private String passengerName;
    private String[] passengerNames;
    private String firstName;
@@ -95,7 +96,7 @@ public class Booking {
     // 예매 리스트 확인 시 필요한 변수
     private String userId;
 
-    private List<String> passengerNos;  // info에서 탑승객 정보 DB 등록된 후에 탑승객 번호 조회
+    private List<String> passengerNoss;  // info에서 탑승객 정보 DB 등록된 후에 탑승객 번호 조회
     private List<String> seatNoDeps;    // 좌석 번호 가는 편
     private List<String> seatNoDess;    // 좌석 번호 오는 편
 
