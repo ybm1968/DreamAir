@@ -213,6 +213,13 @@ ON ticket.booking_no = #{bookingNo}
     WHERE departure = #{departure} AND destination = #{destination}
   </select>
 
+  <!-- 도착지명으로 route_no 조회 -->
+  <select id="selectRouteNoByDes" resultType="Int">
+    SELECT route_no
+    FROM route
+    WHERE departure = #{destination}
+  </select>
+
   <!-- 입력된 pasCount 수 만큼 passengerNo 조회 -->
   <select id="selectLastPasNos" resultType="String" parameterType="int">
       SELECT passenger_no

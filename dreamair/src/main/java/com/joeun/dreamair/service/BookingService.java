@@ -63,4 +63,7 @@ public interface BookingService {
 
     // 예매 번호로 탑승권 정보 조회
     public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception;
+
+    // 도착지명으로 노선 번호 조회
+    public int selectRouteNoByDes(String destination);
 }

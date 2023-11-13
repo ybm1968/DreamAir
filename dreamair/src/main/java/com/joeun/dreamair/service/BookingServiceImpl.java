@@ -316,4 +316,13 @@ public class BookingServiceImpl implements BookingService{
         List<Booking> ticketList_bookingNo = bookingMapper.ticketList_bookingNo(bookingNo);
         return ticketList_bookingNo;
     }
+
+    @Override
+    public int selectRouteNoByDes(String destination) {
+
+        int selectRouteNoByDes = bookingMapper.selectRouteNoByDes(destination);
+
+        return selectRouteNoByDes;
+    }
+
 }

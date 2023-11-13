@@ -25,7 +25,7 @@
 
             // checkbox의 change 이벤트 핸들러 등록
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            var depSeatInput = document.getElementById('depSeat');
+            var desSeatInput = document.getElementById('desSeat');
 
             var selectedSeats = new Array()
 
@@ -50,7 +50,7 @@
                     }
 
                     // input 선택된 좌석 넣어주기
-                    depSeatInput.value = selectedSeats.join(', ');
+                    desSeatInput.value = selectedSeats.join(', ');
 
                     // 체크 박스 선택(🟥)
                     console.log('checkbox.checked : ' + checkbox.checked);
@@ -91,7 +91,7 @@
                             <div class="nameView"></div>
                             <div class="seatView">
                                 <div class="depAir">
-                                    <div class="depSeat">
+                                    <div class="desSeat">
 
                                         <br>
 
@@ -146,11 +146,6 @@
                                 <input type="text" id="desSeat" name="desSeat" readonly="readonly" style="padding: 0; height: 17px">
                             </div>
                             
-                            
-                            <!-- <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
-                                <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
-                                <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden"> -->
-                            </div>
                         </div>
                         
                     </div>

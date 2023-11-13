@@ -68,4 +68,7 @@ public interface BookingMapper {
 
     // passengerNo 조회
     public int getPasNo(Booking booking) throws Exception;
+
+    // 도착지 명으로 노선 번호 조회
+    public int selectRouteNoByDes(@Param("destination") String destination);
 }

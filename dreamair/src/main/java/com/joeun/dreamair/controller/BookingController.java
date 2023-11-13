@@ -161,9 +161,21 @@ public class BookingController {
     
     // 좌석 선택 - 왕복일 시
     @GetMapping(value="/seat_rt")
-    public String seatRt(Model model, @ModelAttribute("booking") Booking booking) {
+    public String seatRt(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
+
+        String destination = booking.getDestination();
+
+        int routeNoToFlightNo = bookingService.selectRouteNoByDes(destination);
+
+        booking.setFlightNo(routeNoToFlightNo);
+
+        List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
 
         log.info("왕복 페이지 부킹 객체 : " + booking);
+
+        // 모델에 등록
+        model.addAttribute("booking", booking);
+        model.addAttribute("seatStatus", seatStatus);
         
         return "booking/seat_rt";
     }
