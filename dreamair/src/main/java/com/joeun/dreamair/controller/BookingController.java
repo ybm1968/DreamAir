@@ -153,7 +153,7 @@ public class BookingController {
             // "왕복"이 아닐 경우 notice 페이지로 이동
 
             // JavaScript 코드 추가
-            model.addAttribute("booking", booking); // 필요한 경우 모델에 객체 추가
+            model.addAttribute("booking", booking);
             return "redirect:/booking/notice";
         }
     }
@@ -179,6 +179,15 @@ public class BookingController {
         
         return "booking/seat_rt";
     }
+
+    // 좌석 선택 - 왕복일 시
+    @PostMapping(value = "/seat_rt")
+    public String seatRtPro(Model model, @ModelAttribute("booking") Booking booking) {
+
+        model.addAttribute("booking", booking);
+        return "redirect:/booking/notice";
+    }
+
 
     // 탑승객 유의사항
     @GetMapping(value="/notice")
@@ -207,10 +216,10 @@ public class BookingController {
 
     // notice 페이지로 이동
     @PostMapping("/notice")
-    public String goToNotice(@ModelAttribute("booking") Booking booking) {
-        // notice 페이지로 이동할 때 필요한 로직 추가
-    
-
+    public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) {
+        
+        model.addAttribute("booking", booking);
+        
         return "booking/notice";
     }
 
