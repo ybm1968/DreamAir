@@ -104,124 +104,125 @@ public class BookingController {
     }
     
         
-    // 좌석 선택
-    @GetMapping(value="/seat")
-    public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
-
-        int productNoDepValue = booking.getProductNoDeps()[0];
-        int productNoDesValue = booking.getProductNoDess()[0];
-
-        // 아래는 임시 : 편도일 때 도착지 값을 어떻게 가지고 오지..
-        if(productNoDesValue == 0) {
-            productNoDesValue = 5;
+        // 좌석 선택
+        @GetMapping(value="/seat")
+        public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
+    
+            int productNoDepValue = booking.getProductNoDeps()[0];
+            int productNoDesValue = booking.getProductNoDess()[0];
+    
+            // 아래는 임시 : 편도일 때 도착지 값을 어떻게 가지고 오지..
+            if(productNoDesValue == 0) {
+                productNoDesValue = 5;
+            }
+            
+            String departure = bookingService.selectDeparture(productNoDepValue);
+            String destination = bookingService.selectDeparture(productNoDesValue);
+            
+            // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
+            int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
+            booking.setFlightNo(routeNoToFlightNo);
+    
+            booking.setDeparture(departure);
+            booking.setDestination(destination);
+            booking.setFlightNo(productNoDepValue);
+            
+            
+            List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
+            List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
+            
+            booking.setPassengerNoss(selectLastPasNoss);
+            
+            log.info("seat 페이지 부킹 객체 : " + booking);
+            
+            // 모델에 등록
+            model.addAttribute("booking", booking);
+            model.addAttribute("seatStatus", seatStatus);
+    
+            return "booking/seat";
         }
+    
+        // 좌석 선택 - 왕복일 시
+        @PostMapping(value = "/seat")
+        public String seatPro(Model model, @ModelAttribute("booking") Booking booking) {
+    
+            if ("왕복".equals(booking.getRoundTrip())) {
+                // "왕복"일 경우 seat_rt 페이지로 이동
+                return "redirect:/booking/seat_rt";
+            } else {
+                // "왕복"이 아닐 경우 notice 페이지로 이동
+    
+                // JavaScript 코드 추가
+                model.addAttribute("booking", booking);
+                return "redirect:/booking/notice";
+            }
+        }
+    
         
-        String departure = bookingService.selectDeparture(productNoDepValue);
-        String destination = bookingService.selectDeparture(productNoDesValue);
-        
-        // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
-        int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
-        booking.setFlightNo(routeNoToFlightNo);
-
-        booking.setDeparture(departure);
-        booking.setDestination(destination);
-        booking.setFlightNo(productNoDepValue);
-        
-        
-        List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
-        List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
-        
-        booking.setPassengerNoss(selectLastPasNoss);
-        
-        log.info("seat 페이지 부킹 객체 : " + booking);
-        
-        // 모델에 등록
-        model.addAttribute("booking", booking);
-        model.addAttribute("seatStatus", seatStatus);
-
-        return "booking/seat";
-    }
-
-    // 좌석 선택 - 왕복일 시
-    @PostMapping(value = "/seat")
-    public String seatPro(Model model, @ModelAttribute("booking") Booking booking) {
-
-        if ("왕복".equals(booking.getRoundTrip())) {
-            // "왕복"일 경우 seat_rt 페이지로 이동
-            return "redirect:/booking/seat_rt";
-        } else {
-            // "왕복"이 아닐 경우 notice 페이지로 이동
-
-            // JavaScript 코드 추가
+        // 좌석 선택 - 왕복일 시
+        @GetMapping(value="/seat_rt")
+        public String seatRt(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
+    
+            String destination = booking.getDestination();
+    
+            int routeNoToFlightNo = bookingService.selectRouteNoByDes(destination);
+    
+            booking.setFlightNo(routeNoToFlightNo);
+    
+            List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
+    
+            log.info("왕복 페이지 부킹 객체 : " + booking);
+    
+            // 모델에 등록
+            model.addAttribute("booking", booking);
+            model.addAttribute("seatStatus", seatStatus);
+            
+            return "booking/seat_rt";
+        }
+    
+        // 좌석 선택 - 왕복일 시
+        @PostMapping(value = "/seat_rt")
+        public String seatRtPro(Model model, @ModelAttribute("booking") Booking booking) {
+    
             model.addAttribute("booking", booking);
             return "redirect:/booking/notice";
         }
-    }
-
     
-    // 좌석 선택 - 왕복일 시
-    @GetMapping(value="/seat_rt")
-    public String seatRt(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
-
-        String destination = booking.getDestination();
-
-        int routeNoToFlightNo = bookingService.selectRouteNoByDes(destination);
-
-        booking.setFlightNo(routeNoToFlightNo);
-
-        List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
-
-        log.info("왕복 페이지 부킹 객체 : " + booking);
-
-        // 모델에 등록
-        model.addAttribute("booking", booking);
-        model.addAttribute("seatStatus", seatStatus);
+    
+        // 탑승객 유의사항
+        @GetMapping(value="/notice")
+        public String notice(Model model, Booking booking) throws Exception {
+                log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
+                log.info("탑승객 수 : " + booking.getPasCount());
+                log.info("왕복 : " + booking.getRoundTrip());
+                // phone
+    
+                List<Booking> goBookingList = new ArrayList<Booking>();
+                List<Booking> comeBookingList = new ArrayList<Booking>();
+                
+                if (booking.getRoundTrip().equals("편도")) {
+                    // 편도 조회
+                    goBookingList = bookingService.goScheduleList(booking);
+                } else {
+                    // 왕복 조회
+                    goBookingList = bookingService.goScheduleList(booking);
+                    comeBookingList = bookingService.comeScheduleList(booking);
+                }
+                model.addAttribute("goBookingList", goBookingList);
+                model.addAttribute("comeBookingList", comeBookingList);
+                model.addAttribute("bookingInfo", booking);
         
-        return "booking/seat_rt";
-    }
-
-    // 좌석 선택 - 왕복일 시
-    @PostMapping(value = "/seat_rt")
-    public String seatRtPro(Model model, @ModelAttribute("booking") Booking booking) {
-
-        model.addAttribute("booking", booking);
-        return "redirect:/booking/notice";
-    }
-
-
-    // 탑승객 유의사항
-    @GetMapping(value="/notice")
-    public String notice(Model model, Booking booking) throws Exception {
-            log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
-            log.info("탑승객 수 : " + booking.getPasCount());
-            log.info("왕복 : " + booking.getRoundTrip());
-
-            List<Booking> goBookingList = new ArrayList<Booking>();
-            List<Booking> comeBookingList = new ArrayList<Booking>();
+                return "booking/notice";
+        }
+    
+        // notice 페이지로 이동
+        @PostMapping("/notice")
+        public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) {
             
-            if (booking.getRoundTrip().equals("편도")) {
-                // 편도 조회
-                goBookingList = bookingService.goScheduleList(booking);
-            } else {
-                // 왕복 조회
-                goBookingList = bookingService.goScheduleList(booking);
-                comeBookingList = bookingService.comeScheduleList(booking);
-            }
-            model.addAttribute("goBookingList", goBookingList);
-            model.addAttribute("comeBookingList", comeBookingList);
-            model.addAttribute("bookingInfo", booking);
-    
+            model.addAttribute("booking", booking);
+            
             return "booking/notice";
-    }
-
-    // notice 페이지로 이동
-    @PostMapping("/notice")
-    public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) {
-        
-        model.addAttribute("booking", booking);
-        
-        return "booking/notice";
-    }
+        }
 
 
 
