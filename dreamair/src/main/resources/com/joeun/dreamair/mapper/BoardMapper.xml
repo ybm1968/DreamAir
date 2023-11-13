@@ -13,6 +13,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY reg_date DESC
     </select>
 
+    <!-- 최신 목록 -->
+    <select id="mainList" resultType="Board">
+        SELECT *
+        FROM board
+        ORDER BY reg_date DESC
+        LIMIT 0, 3
+    </select>
+
     <!-- 게시글 조회 -->
     <select id="select" resultType="Board">
         SELECT *

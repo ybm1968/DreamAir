@@ -1,7 +1,6 @@
 package com.joeun.dreamair.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -10,6 +9,7 @@ import lombok.Data;
 
 @Data
 public class Booking {
+
     // booking 테이블
     private int bookingNo;
     private String name;
@@ -84,29 +84,24 @@ public class Booking {
     private String boardingTime;          // 실제 탑승시간
 
     // product 테이블
-    // private int productNo;
-    // private int routeNo;
-    // private String name;
-    // private String productCat;
     private int productPrice;
-    // private String departure;
-    // private String destination;
-    // private Date productRegDate;
-    // private Date productUpdDate;
 
     // flight 테이블
     private int flightNo;
     private String flightName;
-    // private String seatNo;
-    // private int routeNo;
-    // private int seatMax;
     private int seatRemaining;
     // private int seatUsed;
 
+    // 탑승권 처리 할 때 필요한 변수
+    private int select;
+
+    // 예매 리스트 확인 시 필요한 변수
+    private String userId;
+
+    private List<String> passengerNoss;  // info에서 탑승객 정보 DB 등록된 후에 탑승객 번호 조회
+    private List<String> seatNoDeps;    // 좌석 번호 가는 편
+    private List<String> seatNoDess;    // 좌석 번호 오는 편
 
 
-
-
-   
 }
 

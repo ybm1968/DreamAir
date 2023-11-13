@@ -137,6 +137,16 @@
         $('#male_' + i).prop('checked', false)
       })
 
+      $('.male').on('click', function() {
+        let i = $(this).attr('data')
+        $('#female_' + i).prop('checked', false)
+      })
+
+      $('.female').on('click', function() {
+        let i = $(this).attr('data')
+        $('#male_' + i).prop('checked', false)
+      })
+
     </script>
 
 </body>

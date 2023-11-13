@@ -25,6 +25,7 @@
 }
 
 .sidebar .nav-link.active {
+  text-align: center;
   color: #2470dc;
 }
 

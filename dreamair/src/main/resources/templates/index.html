@@ -9,6 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
 
+    <style>
+        .card-columns { column-count: 3; row-gap: 20px; }
+        .card { margin: 20px 0; break-inside: avoid-column; }
+    </style>
+
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <link rel="stylesheet" href="/css/bookingMain.css">
@@ -113,6 +118,32 @@
             </div>
         </section>
     </div>
+
+    <section>
+        <div class="container">
+            <h1>최근 게시글</h1>
+            <!-- <div class="row"> -->
+            <div class="card-columns">
+                <th:block th:each="board : ${mainList}">
+                    <div class="card">
+                        <img th:src="|/file/img/${board.thumbnail.fileNo}|" alt="게시글 이미지" 
+                                class="card-img-top w-100 p-4" th:if="${board.thumbnail != null }" />
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${board.title}"></h5>
+                            <p class="card-text">
+                                작성자: <span th:text="${board.writer}"></span><br>
+                                등록일자: <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
+                                수정일자: <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
+                                조회수: <span th:text="${board.views}"></span>
+                            </p>
+                            <a th:href="|/board/read?boardNo=${board.boardNo}|" class="btn btn-primary">게시글 조회</a>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+
+        </div>
+    </section>
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

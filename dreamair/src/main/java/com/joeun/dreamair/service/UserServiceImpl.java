@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.util.List;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -152,5 +153,16 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectMileage(userId);
         
     }
+
+
+    // 장바구니
+    @Override
+    public List<Users> user_cart_list(int userNo) throws Exception {
+        return userMapper.user_cart_list(userNo);
+    }
     
+    @Override
+    public List<Users> user2_cart_list(int userNo2) throws Exception {
+        return userMapper.user2_cart_list(userNo2);
+    }
 }

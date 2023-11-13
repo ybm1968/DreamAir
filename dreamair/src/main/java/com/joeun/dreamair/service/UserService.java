@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.util.List;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,4 +33,7 @@ public interface UserService {
     // 회원 마일리지 조회
     public Users selectMileage(String userId) throws Exception;
 
+    // 장바구니
+    public List<Users> user_cart_list(int userNo) throws Exception;
+    public List<Users> user2_cart_list(int userNo2) throws Exception;
 }

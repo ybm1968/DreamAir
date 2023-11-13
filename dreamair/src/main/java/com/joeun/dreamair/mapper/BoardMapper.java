@@ -11,6 +11,8 @@ public interface BoardMapper {
 
     // 게시글 목록
     public List<Board> list() throws Exception;
+    // 메인 이미지 목록
+     public List<Board> mainList() throws Exception;
     // 게시글 조회
     public Board select(int boardNo) throws Exception;
     // 게시글 등록

@@ -41,7 +41,4 @@ public class CustomUser extends User {
         this.users = users;
     }
 
-
-
-    
 }

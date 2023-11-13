@@ -18,10 +18,9 @@
     <div class="container">
         <h1 style="text-align: center;">항공기 정보 등록</h1>
         <br>
-        <!-- <form class="needs-validation" novalidate action="/product/flight_insert" method="post" th:object="${Product}">    -->
-        <form class="needs-validation" novalidate action="/product/flight_insert" method="post" th:object="${product}">   
-            <!-- csrf -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="container">
+        <form class="needs-validation" th:action="|/product/flight_insert?${_csrf.parameterName}=${_csrf.token}|" method="POST" id="flightform" enctype="multipart/form-data">   
 
             <div class="row g-3">
               <div class="input-group mb-3 row">
@@ -29,6 +28,11 @@
                 <input type="text" class="form-control col-md-10" name="flightName" placeholder="항공기명" >
               </div>
 
+              <div class="input-group mb-3 row">
+                <label class="input-group-text col-md-2" id="">항공기 이미지</label>
+                <input type="file" class="form-control col-md-10" name="file">
+              </div>	
+              
               <div class="input-group mb-3 row">
                 <label for="routeNo" class="input-group-text col-md-2" id="">노선번호</label>
                 <input type="text" class="form-control col-md-10" name="routeNo" placeholder="노선번호" >
@@ -79,7 +83,7 @@
             </div>
         </form>
 
-       
+       </div>
 
     </div>
     

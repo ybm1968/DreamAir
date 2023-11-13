@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/layout/admin_layout}"
+      layout:decorate="~{/UI/layout/main_layout}"
       >
 <head>
     <meta charset="UTF-8">
@@ -65,43 +65,36 @@ function airinfo() {
 <tr>
 <th class="text-center" colspan="2">상세 예약정보</th>
 </tr>
+<!-- QR코드 READ -->
+
 <tr>
 	<td class="text-center">예매자</td>
-	<td class="text-center">${dto.g_id }</td>
+	<td class="text-center"><span th:text="#{Booking.name}"></span></td>
 </tr>
 <tr>
 	<td class="text-center">인원 수</td>
-	<td class="text-center">
-	${fn:substring(dto.t_no ,11,12)} 명
-
-	</td>
+	<td class="text-center"><span th:text="${Booking.name.pas_count}"></span>명</td>
 </tr>
-		<c:if test="${fn:substring(dto.t_no ,0,1) eq 'D'}">
+		<!-- <c:if test="${fn:substring(dto.t_no ,0,1) eq 'D'}"> -->
 <tr>
 	<td class="text-center">출발지</td>
-	<td class="text-center">인천(ICN)</td>
+	<td class="text-center" th:block th:switch="${Booking.departure}">    
+		<em th:case="01">01</em>    
+		<em th:case="02">02</em>    
+		<em th:case="*">그 외 (생략가능)</em>
+	</td>
 </tr>
 <tr>
 	<td class="text-center">도착지</td>
-	<td class="text-center">
-			<c:choose>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '1'}">제주(CJU)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '2'}">도쿄(NPT)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '3'}">오사카(KIX)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '4'}">후쿠오카(FUK)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '5'}">홍콩(HKG)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '6'}">방콕(BKK)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '7'}">코타키나발루(BKI)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '8'}">블라디보스토크(WO)</c:when>
-				<c:when test="${fn:substring(dto.air_name,2,3) eq '9'}">뉴욕(JFK)</c:when>			
-			</c:choose>
-		</td>
-		</tr>
-		</c:if>
-
-		<c:if test="${fn:substring(dto.t_no ,0,1) eq 'R'}">
+	<td class="text-center" th:block th:switch="${Booking.destination}">    
+		<em th:case="01">01</em>    
+		<em th:case="02">02</em>    
+		<em th:case="*">그 외 (생략가능)</em>
+	</td>
+			
+		<!-- <c:if test="${fn:substring(dto.t_no ,0,1) eq 'R'}"> -->
 <tr>
-	<td class="text-center">출발지</td>
+<!--	<td class="text-center">출발지</td>
 	<td class="text-center">
 	<c:choose>
 				<c:when test="${fn:substring(dto.air_name,2,3) eq '1'}">제주(CJU)</c:when>
@@ -120,12 +113,12 @@ function airinfo() {
 	<td class="text-center">도착지</td>
 	<td class="text-center">인천(ICN)</td>
 		</tr>
-</c:if>
+</c:if> -->
 
 
-<tr>
+<!-- <tr>
 	<td class="text-center">출발날짜</td>
-	<td class="text-center">${fn:substring(dto.t_no ,1,5)}-${fn:substring(dto.t_no ,5,7)}-${fn:substring(dto.t_no ,7,9)}</td>
+	<td class="text-center"></td>
 </tr>
 <tr>
 	<td class="text-center">출발시간</td>
@@ -167,7 +160,7 @@ function airinfo() {
 	</c:choose>
 </tr>
 </table>
-<br><br>
+<br><br> -->
 
 <a href="javascript:functview('${dto.t_no }', '${dto.s_no}')"  target="f_main">티켓미리보기</a> &nbsp;&nbsp;&nbsp;&nbsp;
 

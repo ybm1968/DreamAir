@@ -1,7 +1,8 @@
 package com.joeun.dreamair.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Users;
@@ -40,6 +41,10 @@ public interface UserMapper {
 
     // 마일리지 조회
     public Users selectMileage(String username) throws Exception;
+
+    // 장바구니
+    public List<Users> user_cart_list(int userNo) throws Exception;
+    public List<Users> user2_cart_list(int userNo2) throws Exception;
 
 
     

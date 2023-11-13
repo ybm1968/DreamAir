@@ -26,7 +26,7 @@ public class Board {
     private String fileName;
     private String fileType;
     
-     private List<MultipartFile> file;
+    private List<MultipartFile> file;
 
 
 }

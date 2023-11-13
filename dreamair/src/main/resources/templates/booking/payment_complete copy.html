@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/main_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 완료</title>
+
+</head>
+<body layout:fragment="content">
+    <div class="container w-100">
+        <h1 class="text-center my-3">결제가 완료되었습니다.</h1>
+
+        <th:block th:if="${OrderList != null}">
+            <table class="table table-striped table-hover table-bordered text-center align-middle">
+                <thead>
+                    <tr class="table-primary">
+                        <th>예매번호</th>
+                        <th>상품명</th>
+                        <th>항공명</th>
+                        <th>출발지</th>
+                        <th>도착지</th>
+                        <th>출발일자</th>
+                        <th>도착일자</th>
+                        <th>출발시간</th>
+                        <th>도착시간</th>
+                        <th>클래스</th>
+                        <th>탑승인원</th>
+                        <th>총 요금</th>
+                        <th colspan="2">비고</th>
+                    </tr>
+                    
+                    <tbody>
+                        <th:block th:if="${OrderList.isEmpty()}">
+                            <tr>
+                                <td colspan="14">결제된 정보가 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="order : ${OrderList}">
+                            <tr>
+                                <td><span th:text="${order.bookingNo}"></span></td>                                
+                                <td><span th:text="${order.Name}"></span></td>
+                                <td><span th:text="${order.flightName}"></span></td>
+                                <td><span th:text="${order.departure}"></span></td>
+                                <td><span th:text="${order.destination}"></span></td>
+                                <td><span th:text="${order.departureDate}"></span></td>
+                                <td><span th:text="${order.destinationDate}"></span></td>
+                                <td><span th:text="${order.departureTime}"></span></td>
+                                <td><span th:text="${order.destinationTime}"></span></td>
+                                <td><span th:text="${order.seatClass}"></span></td>
+                                <td><span th:text="${order.pasCount}"></span></td>
+                                <td><span th:text="${order.productPrice * order.pasCount}"></span></td>
+
+                                <td colspan="2">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <!-- <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/admin_update?adminId=${admin.adminId}|">환불</button></td>           -->
+                                        <td><button class="btn btn-primary me-md-2" type="button"><a th:href="/user/ticketInfo">상세정보</button></td>          
+                                        <td><button class="btn btn-primary me-md-2" type="button"><a th:href="#">환불</button></td>          
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </tbody>
+                </thead>
+            </table>
+        </th:block>
+
+        <th:block th:if="${OrderLis==null}" >
+            <th:block th:if="${OrderLis.isEmpty()}">
+                <tr>
+                    <td colspan="14">결제된 정보가 없습니다.</td>
+                </tr>
+            </th:block>
+        </th:block>
+        </div>
+</body>
+</html>

@@ -4,10 +4,12 @@
 	margin: 0;
 }
 
+
+
 .wrapper {
 	width: 250px;
 	height: 250px;
-	background: #C2185B;
+	background: #94e1ff;
 }
 
 .wrapper div {
@@ -44,37 +46,6 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 60px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-	position: relative;
-	background-color: #fefefe;
-	margin: auto;
-	padding: 0;
-	border: 1px solid #888;
-	width: 80%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
-	-webkit-animation-name: animatetop;
-	-webkit-animation-duration: 0.4s;
-	animation-name: animatetop;
-	animation-duration: 0.4s;
-	width: 42%;
-}
 
 /* Add Animation */
 @-webkit-keyframes 
@@ -102,75 +73,59 @@ to {
 
 }
 
-/* The Close Button */
-.close {
-	color: #6d6e70;
-    float: right;
-    font-size: 28px;
-    position: relative;
-    font-weight: bold;
-    bottom: 8px;
+.seat-content {
+	width: 100%;
 }
 
-.close:hover, .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.modal-header {
+.seat-header {
+	text-align: center;
 	padding: 5px 16px;
     background-color: #f1f1f1;
 }
 
-.modal-body {
-	padding: 2px 16px;
-	margin-top: 20px;
-	height: 550px;
-}
-
-.modal-footer {
-	padding: 15px 16px;
-    background-color: #bbbbbb;
-    color: black;
-    text-align: right;
-}
-
-.modalInnerWrap {
-	height: 100%;
-}
-
-.modalInnerLeft {
-	width: 55%;
-	height: 600px;
-	background-color: red;
-	float: left;
-	height: 85%;
-}
-
-.modalInnerRight {
-	width: 45%;
-	height: 600px;
-	float: left;
-	height: 85%;
-}
-
-.modalInnerRightTop {
-	height: 57%;
-    padding: 15px;
-    margin-left: 10px;
-    border: 1px solid #d60815;
-    margin-bottom: 10px;
-}
-
-.modal-header2 {
-	    background-color: #d60815;
+.seat-header2 {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	background-color: #b6b6b6;
     height: 95px;
     color: white;
 }
 
-.modalInnerBottom {
-	background-color: chocolate;
+.seat-body {
+	justify-content: center;
+	padding: 2px;
+	margin-top: 20px;
+	width: 100%;
+	height: 550px;
+}
+
+.seatInnerLeft {
+	width: 55%;
+	background-color: white;
+	float: left;
+	height: 100%;
+}
+
+.seatInnerRight {
+	width: 45%;
+	float: left;
+	height: 100%;
+}
+
+.seatInnerRightTop {
+	height: 57%;
+    padding: 15px;
+    margin-left: 10px;
+    border: 1px solid #94e1ff;
+    margin-bottom: 10px;
+}
+
+
+
+.seatInnerBottom {
+	background-color: #94e1ff;
 	width: 45%;
 	margin: 0 auto;
 	display: inline-block;
@@ -184,23 +139,18 @@ to {
 }
 
 .nameView {
-	background-color: #d60815;
+	background-color: #fffbc6;
     height: 50px;
 }
-.nameViewInner{
-	display: inline;
-    top: 10px;
-    position: relative;
-    left: 195px;
-    font-size: 20px;
-    color: white;
-}
+
 .seatView {
 	overflow-y: scroll;
+	width: 100%;
 	/* height: -webkit-fill-available; */
-	height: 362px;
-	background: url('/img/backgroundTest.png');
+	height: 365px;
+	background-image: url('/img/backgroundTest.png');
 	background-attachment:local;
+	background-position-x: center;
 }
 
 .seatView input {
@@ -210,25 +160,6 @@ to {
 	opacity: 1;
 }
 
-.seatWarning {
-	height: 56px;
-	background-color: #6d6e70;
-	color: white;
-}
-
-.seat1 {
-	width: inherit;
-	display: inline-table;
-	margin-left: 17px;
-	width: fit-content;
-}
-
-.seat2 {
-	width: inherit;
-	display: inline-table;
-	margin-left: 50px;
-	width: fit-content;
-}
 
 input[type="text"] {
 	border: none;
@@ -240,13 +171,66 @@ input:focus {
 	outline: none;
 }
 
+.seat1 {
+	width: inherit;
+	display: inline-table;
+	margin-left: 38%;
+	width: fit-content;	
+}
+
+.seatCol {
+	margin-left: 65px;
+}
+
+/* 체크 박스 여기 */
+
 input[type=checkbox] {
-	display: none; 
+	/* checkbox의 실제 체크박스 부분을 숨깁니다. */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	outline: none;
+
+	/* checkbox의 크기와 여백을 조정합니다. */
+	width: 20px; /* 원하는 크기로 조정하세요 */
+	height: 20px; /* 원하는 크기로 조정하세요 */
+	margin: 5px 15px 5px 5px; /* 원하는 여백으로 조정하세요 */
+
+	
+	/* 배경 이미지 설정 */
+	background-image: url(/img/bookableSeat.png);
+	background-size: cover; /* 이미지를 적절하게 확대/축소하여 채우도록 설정합니다. */
+
+	cursor: pointer;
+
+
+}
+
+/* .seat1 .seatBox:checked { */
+.seat1 .seatBox.checked { 
+	background-image: url(/img/bookingSeat.png);
+}
+
+
+.seat1 .seatBox:disabled {
+	background-image: url(/img/bookedSeat.png);
+	cursor: default;
+}
+
+.seat1 label {
+	display: none;
+}
+
+
+/* input[type=checkbox] {
+	display: none;
 }
 
 input[type=checkbox]:disabled {
 	display: none;
-}
+} */
+
 .direction {
 	text-align: center;
     position: relative;
@@ -254,14 +238,14 @@ input[type=checkbox]:disabled {
     left: 338px;
     display: inline;
 }
+
 .bookable {
 	cursor: pointer;
 	display: inline-block;
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 22px;
-	background: url('/img/bookableSeat.png') left/22px
-		no-repeat;
+	background: url('/img/bookableSeat.png') left/22px no-repeat;
 	height: 30px;
 }
 
@@ -270,8 +254,7 @@ input[type=checkbox]:disabled {
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 22px;
-	background: url('/img/bookingSeat.png') left/22px
-		no-repeat;
+	background: url('/img/bookingSeat.png') left/22px no-repeat;
 	height: 30px;
 }
 
@@ -280,7 +263,7 @@ input[type=checkbox]:disabled {
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 22px;
-	background: url('/img/bookingSeat.png') left/22px	no-repeat;
+	background: url('/img/bookingSeat.png') left/22px no-repeat;
 	height: 30px;
 }
 
@@ -311,10 +294,9 @@ label {
 	margin-left: 5px;
 }
 .depSeat,.arrSeat {
-	width: 250px;
-	margin-left: 83px;
+	justify-content: center;
 }
-.modalInnerBottom2 {
+.seatInnerBottom2 {
 	margin-top: 30px;
     float: left;
     margin-left: 185px;
@@ -323,7 +305,7 @@ label {
 .depBookGo{
 	float: left;
     width: 150px;
-    background-color: indianred;
+    background-color: #94e1ff;
 }
 .bookOk {
 	margin-left: 50px;
@@ -336,21 +318,21 @@ label {
     float: left;
 
 }
-.modalInnerRightDown {
+.seatInnerRightDown {
 	height: 334px;
     padding: 15px;
     box-sizing: border-box;
-    border: #E22B2A solid 1px;
+    border: #94e1ff solid 1px;
     margin-left: 10px;
 }
 .seatInfo_bookedSeat {
 	margin-top: 10px;
 }
-.modalInnerRightDown input {
+.seatInnerRightDown input {
      background: transparent;
      margin-bottom: 5px;
  }
-.modalInnerRightDown div {
+.seatInnerRightDown div {
 	font-size:18px;
 	margin-bottom: 5px;
  }
@@ -361,7 +343,7 @@ label {
 #btn ,#btn2 ,#btn3 {
 	height: 50px;
     border-radius: 4px;
-    background-color: #d60815;
+    background-color: #000000;
     border: none;
     color: #FFFFFF;
     font-size: 18px;
@@ -421,13 +403,13 @@ label {
 }
 .warning {
 	position: relative;
-    top: 15px;
-    left: 120px;
+    top: 20px;
+    left: 130px;
     font-size: 16px;
     text-shadow: -1px 0 #6b6b6b, 0 1px #6b6b6b, 1px 0 #6b6b6b, 0 -1px #6b6b6b;
 }
 
-.modalInnerRightDown input[type="text"]{
+.seatInnerRightDown input[type="text"]{
     height: 0;
     padding: 0 15px;
     margin-right: 10px;
@@ -439,7 +421,7 @@ label {
     line-height: 40px;
 }
 .goSeat, .backSeat{
-	border-bottom: 1px red solid;
+	border-bottom: 1px #94e1ff solid;
 }
 input[type="text"]:hover{
 	    border: 1px solid #ccc;

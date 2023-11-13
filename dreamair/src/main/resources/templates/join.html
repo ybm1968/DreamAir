@@ -9,6 +9,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type = "text/javascript">
+$(document).ready(function() {
+  $("idCheck").click(function(event) {
+    event.preventDefault();
+    var inputId = $("#inputId").val();
+    alert(inputId);
+  })
+});
+
+$.ajax({
+				
+				type : 'post',
+				url : '/idCheck',
+				data : {
+					inputId : inputId
+				},
+				dataType : 'text',
+				success : function(result) {
+					
+					if (result == 1) {
+						alert("중복된 Id");
+					} else {
+						alert("사용가능 Id");
+					}
+				}
+			});
+
+</script>
 <body layout:fragment="content">
     <main class="form-signin my-5 w-100 m-auto" style="max-width: 400px;">
         <h1 class="text-center py-3">회원가입</h1>
@@ -28,6 +57,7 @@
                   <div class="invalid-feedback">
                     Your username is required.
                   </div>
+                  <button class="btn btn-default btn-sm" id="idCheck">ID 중복체크</button>
                 </div>
               </div>
 

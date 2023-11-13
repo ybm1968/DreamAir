@@ -11,26 +11,32 @@
 </head>
 
 <body layout:fragment="content">
+  <h1 style="text-align: center;">상품(항공권) 정보 등록</h1>
 
     <div class="container">
-        <h1 style="text-align: center;">상품(항공권) 정보 등록</h1>
-        <br>
-        <form class="needs-validation" novalidate action="/product/product_insert" method="post" th:object="${product}" enctype="multipart/form-data">   
-            <!-- csrf -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-            <div style="overflow: hidden">
-              <img src="|/img?id=${product.productId}|" class="w-100 p-2" />
-            </div>
-            <div class="input-group mb-3 row">
-              <label class="input-group-text col-md-2" id="">상품 이미지</label>
-              <input type="file" class="form-control col-md-10" name="file">
-            </div>	
+        <form class="needs-validation" th:action="|/product/product_insert?${_csrf.parameterName}=${_csrf.token}|" method="POST" enctype="multipart/form-data">  
+            <!-- csrf -->
+            <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
             
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">상품코드</label>
+              <input type="text" class="form-control col-md-10" name="productId" >
+            </div>
+
             <div class="input-group mb-3 row">
               <label class="input-group-text col-md-2" id="">상품명</label>
               <input type="text" class="form-control col-md-10" name="name" >
             </div>
+            
+            <!-- <div style="overflow: hidden">
+              <img src="|/img?id=${product.productId}|" class="w-100 p-2"/>
+            </div> -->
+
+            <div class="input-group mb-3 row">
+              <label class="input-group-text col-md-2" id="">상품 이미지</label>
+              <input type="file" class="form-control col-md-10" name="file">
+            </div>	
             
             <div class="input-group mb-3 row">
               <label class="input-group-text col-md-2" id="">상품 가격</label>
@@ -39,8 +45,7 @@
 
             <div class="input-group mb-3 row">
               <label class="input-group-text w-100" id="">상세 정보</label>
-              <textarea class="form-control" name="description" style="height: 200px !important;"
-                  ></textarea>
+              <textarea class="form-control" name="description" style="height: 200px !important;"></textarea>
             </div>
 
             <div class="input-group mb-3 row">
@@ -60,28 +65,28 @@
 
             <div class="input-group mb-3 row">
               <label class="input-group-text col-md-2" id="">재고 수</label>
-              <input type="number" class="form-control col-md-10" name="unitsInStock">
+              <input type="number" class="form-control col-md-10" name="unitInStock"/>
             </div>
 
             <div class="input-group mb-3 row">
               <div class="col-md-2 p-0">
-                <label class="input-group-text" id="">카테고리</label>
+                <label class="input-group-text" name="productCat" id="">카테고리</label>
               </div>
               <div class="col-md-10 d-flex align-items-center">
-                <input type="hidden" name="temp-category" id="temp-category" />
+                <input type="hidden" name="temp-category" id="temp-category"/>
                 <div class="radio-box d-flex">
                   <div class="radio-item mx-5">
-                    <input type="radio" class="form-check-input" name="category" value="ticket" id="category-ticket"> 
+                    <input type="radio" class="form-check-input" name="productCat" value="ticket" id="category-ticket"/> 
                     <label for="category-ticket">항공권</label>
                   </div>
                   
                   <div class="radio-item mx-5">
-                    <input type="radio" class="form-check-input " name="category" value="travle" id="category-travle"> 
+                    <input type="radio" class="form-check-input " name="productCat" value="travle" id="category-travle"/> 
                     <label for="category-old">여행상품</label>
                   </div>
                   
                   <div class="radio-item mx-5">
-                    <input type="radio" class="form-check-input " name="category" value="goods" id="category-goods"> 
+                    <input type="radio" class="form-check-input " name="productCat" value="goods" id="category-goods"/> 
                     <label for="category-re">여행 필수품</label>
                   </div>
                 </div>
@@ -121,6 +126,8 @@
   // $(function(){
   //   $("input[name="publeYear').datepicker(config);
   // });
+
+      
  </script>   
 </body>
 </html>
