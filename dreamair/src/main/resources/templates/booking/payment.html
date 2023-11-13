@@ -20,6 +20,7 @@
     <div class="container-pay">
         <h1>주문/결제</h1>
         <h2>가는편</h2>
+        <form action="/booking/bookingInsert" method="POST" id="fm">
         <table class="table table-striped table-hover table-bordered text-center align-middle">
           <!-- 출발지 도착지 항공기이름 출발날짜시간 도착날짜시간 요금 요청좌석-->
           <tr>
@@ -45,8 +46,8 @@
                   <td>1석</td>
                   <td><span th:text="${booking.passengerName}"></span></td>
                   <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
-                  <input type="hidden" name="productNo" id="productNo" th:value="${booking.productNo}">
-                  <input type="hidden" name="productId" id="productId" th:value="${booking.productId}">
+                  <input type="hidden" name="productNoDep" id="productNoDep" th:value="${booking.productNo}">
+                  <input type="hidden" name="productIdDep" id="productIdDep" th:value="${booking.productId}">
                   <input type="hidden" name="routeNoDep" id="routeNoDep" th:value="${booking.routeNoDep}">
                   <input type="hidden" name="productPriceDep" id="productPriceDep" th:value="${booking.productPrice}">
                   <div sec:authorize="isAuthenticated()">
@@ -88,8 +89,8 @@
                       <td>1석</td>
                       <td><span th:text="${booking.passengerName}"></span></td>
                       <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
-                      <input type="hidden" name="productNo" id="productNo" th:value="${booking.productNo}">
-                      <input type="hidden" name="productId" id="productId" th:value="${booking.productId}">
+                      <input type="hidden" name="productNoDes" id="productNoDes" th:value="${booking.productNo}">
+                      <input type="hidden" name="productIdDes" id="productIdDes" th:value="${booking.productId}">
                       <input type="hidden" name="routeNoDes" id="routeNoDes" th:value="${booking.routeNoDes}">
                       <input type="hidden" name="productPriceDes" id="productPriceDes" th:value="${booking.productPrice}">
                       <div sec:authorize="isAuthenticated()">
@@ -102,7 +103,8 @@
               </th:block>
 
           </table>
-      </th:block> 
+      </th:block>
+    </form> 
 
       <table>
         <tr>
@@ -181,33 +183,36 @@
 
         // "[[${booking.roundTrip}]]"
         // $("#productNoDep").val();
-        let productIdArray = $("#productId").val().split(',');
+        // let productIdDepArray = $("#productIdDep").val().split(',');
+        // let productIdDesArray = $("#productIdDes").val().split(',');
 
-        // booking 테이블 insert 데이터
-        let names = $("#names").val();
-        let userNos = $("#userNos").val(); // 회원비회원구분
-        let userNos2 = $("#userNos2").val();
-        console.log("회원 : " + userNo[0])
-        console.log("비회원 : " + userNo2[0])
-        let productNo = $("#productNo").val();
-        let productId = productIdArray[0];
-        let routeNoDep = $("#routeNoDep").val();    // 값이 없는경우??   
-        let routeNoDes = $("#routeNoDes").val();
-        console.log("루트출발 : " + routeNoDep)
-        console.log("루트도착 : " + routeNoDes)
-        let roundTrip = "[[${bookingInfo.roundTrip}]]"
+        // // booking 테이블 insert 데이터 
+        // let names = $("#names").val();
+        // let userNos = $("#userNos").val(); // 회원비회원구분
+        // let userNos2 = $("#userNos2").val();
+        // let productNoDep = $("#productNoDep").val();
+        // let productNoDes = $("#productNoDes").val();  // 값이 없는경우?? 
+        // let productIdDep = productIdDepArray[0];
+        // let productIdDes = productIdDesArray[0];    // 값이 없는경우?? 
+        // let routeNoDep = $("#routeNoDep").val();      
+        // let routeNoDes = $("#routeNoDes").val();    // 값이 없는경우??  
+        // let roundTrip = "[[${bookingInfo.roundTrip}]]"
         let ticketType 
-
+        
         // 총 금액
         let productPriceDep = $("#productPriceDep").val();
         let productPriceDes = $("#productPriceDes").val();
-        console.log("가는비용 : " + productPriceDep)
-        console.log("오는비용 : " + productPriceDes)
         let pasNum = "[[${bookingInfo.pasCount}]]"
         let totalPrice = (productPriceDep + productPriceDes) * pasNum
- 
-
-
+        
+        
+        console.log("회원 : " + userNos[0])
+        console.log("비회원 : " + userNos2[0])
+        console.log("루트출발 : " + routeNoDep)
+        console.log("루트도착 : " + routeNoDes)
+        console.log("가는비용 : " + productPriceDep)
+        console.log("오는비용 : " + productPriceDes)
+        
         
         
         // 3️⃣ 결제 요청하기
@@ -215,7 +220,6 @@
 
             // 결제 정보 가져오기
             let productName = document.getElementById('productName').value
-            // let productName = productId
             let price = document.getElementById('price').value
             let name = document.getElementById('name').value
             let tel = document.getElementById('tel').value
@@ -224,9 +228,9 @@
             IMP.request_pay({
                 pg : 'kcp',                                 // PG사
                 pay_method : 'card',                        // 결제방식
-                merchant_uid: "IMP"+makeMerchantUid,        // 주문번호(상품ID)
-                name : productName,                         // 상품명
-                amount : price,                              // 결제금액
+                merchant_uid: "IMP"+makeMerchantUid,        // 주문번호(상품ID) *
+                name : productName,                         // 상품명 *
+                amount : price,                              // 결제금액 *
                 buyer_email : email,                        // 결제자 이메일 
                 buyer_name : name,                          // 결제자 이름
                 buyer_tel : tel,                            // 결제자 전화번호
@@ -239,15 +243,16 @@
                     console.log(rsp);
 
                     // booking 테이블 bookingInsert함수 호출
-                    bookingInsert();
 
                     // 결제처리??
 
                     // 상품입출고 처리
+                    // bookingInsert()
+                    submit()
 
                     
                     // 결제 완료 페이지로 이동
-                    location.href = 'success?result=ok&proudctId=' + ("IMP"+makeMerchantUid)
+                    //location.href = '/booking/success?result=ok&proudctId=' + ("IMP"+makeMerchantUid)
 
                     // 또는 ajax 요청 처리 후 이동
                 } else {
@@ -255,6 +260,25 @@
                     console.log(rsp);
                 }
             });
+        }
+
+        function submit() {
+          let productIdDepArray = $("#productIdDep").val().split(',');
+          let productIdDesArray = $("#productIdDes").val().split(',');
+
+          // booking 테이블 insert 데이터 
+          let names = $("#names").val();
+          let userNos = $("#userNos").val(); // 회원비회원구분
+          let userNos2 = $("#userNos2").val();
+          let productNoDep = $("#productNoDep").val();
+          let productNoDes = $("#productNoDes").val();  // 값이 없는경우?? 
+          let productIdDep = productIdDepArray[0];
+          let productIdDes = productIdDesArray[0];    // 값이 없는경우?? 
+          let routeNoDep = $("#routeNoDep").val();      
+          let routeNoDes = $("#routeNoDes").val();    // 값이 없는경우??  
+          let roundTrip = "[[${bookingInfo.roundTrip}]]"
+
+          $("#fm").submit();
         }
 
         // booking 테이블에 insert 함수
@@ -293,16 +317,6 @@
 
 
 
-        // const pricePerTicket = 15000; // 티켓 당 가격
-        
-        // function updatePrice() {
-        //   var quantity = document.getElementById('quantity').value;
-        //   var totalPrice = pricePerTicket * quantity;
-        //   document.getElementById('totalPrice').innerText = totalPrice.toLocaleString() + '원';
-        // }
-      
-        // // 페이지 로드 시 수량에 따른 가격을 업데이트합니다.
-        // window.onload = updatePrice;
       </script>
 
     

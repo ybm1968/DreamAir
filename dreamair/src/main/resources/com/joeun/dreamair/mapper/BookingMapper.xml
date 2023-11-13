@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
-    <!-- <select id="comeScheduleList" resultType="Booking">
+    <!-- <select id="comeScheduleList" resultType="Booking"> 
       SELECT *
       FROM product p left JOIN route r ON p.route_no = r.route_no
 					           left JOIN flight f ON p.route_no = f.route_no
@@ -109,8 +109,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 예매 테이블 등록 -->
     <insert id="bookingInsert">
-      INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, ticket_type )
-      VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNo}, #{routeNo}, #{productId}, #{pasCount}, #{roundTrip}, #{status}, #{ticketType} )
+      INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
+      VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNo}, #{routeNo}, #{productId}, #{pasCount}, #{roundTrip}, #{status} )
     </insert>
 
     <!-- 티켓 발행 등록 -->

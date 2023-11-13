@@ -125,7 +125,7 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setPassengerName(booking.getPassengerNames()[i]);
             bookingItem.setPhone(booking.getPhones()[i]);
             int passengerNo = bookingMapper.getPasNo(bookingItem);
-            bookingItem.setPassengerNo(passengerNo);
+            bookingItem.setPassengerNo(passengerNo); 
 
             bookingItem = bookingMapper.goScheduleList(bookingItem);
 
@@ -161,7 +161,21 @@ public class BookingServiceImpl implements BookingService{
     @Override
     // 예매 테이블 등록
     public int bookingInsert(Booking booking) throws Exception {
-        int result = bookingMapper.bookingInsert(booking);
+        int result = 0;
+        for (int i = 0; i < booking.getPassengerNames().length; i++) {
+            Booking bookingItem = new Booking();
+            bookingItem.setName(booking.getNames()[i]);
+            bookingItem.setUserNo(booking.getUserNos()[i]);
+            bookingItem.setUserNo2(booking.getUserNos2()[i]);
+            bookingItem.setProductNo(booking.getProductNo());
+            bookingItem.setProductId(booking.getProductId());
+            bookingItem.setPasCount(booking.getPasCount());
+            bookingItem.setRoundTrip(booking.getRoundTrip());
+            bookingItem.setStatus(booking.getStatus());
+
+            result = bookingMapper.bookingInsert(bookingItem);
+        }
+
 
         return result;
     }
@@ -177,7 +191,7 @@ public class BookingServiceImpl implements BookingService{
         // for (int i = 0; i < booking.getPasCount(); i++) {
         //     int count = bookingMapper.createTicket(booking);
         //     // 조건 : 회원 비회원
-        //     // 회원
+        //     // 회원 
         //     if( !userId.contains("GUEST") ) {
         //         bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
 

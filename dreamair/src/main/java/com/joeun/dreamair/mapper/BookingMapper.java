@@ -37,7 +37,7 @@ public interface BookingMapper {
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus() throws Exception;
 
-    // 예매 번호로 탑승권 정보 조회
+    // 예매 번호로 탑승권 정보 조회 
     public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception;
 
     // passengerNo 조회

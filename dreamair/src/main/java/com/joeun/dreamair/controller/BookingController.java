@@ -108,7 +108,6 @@ public class BookingController {
         // 값을 조회
         log.info("탑승객 수 : " + booking.getPasCount());
         log.info("seat 왕복여부 : " + booking.getRoundTrip());
-        log.info("탑승객 이름 : " + booking.getPassengerName());
         log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
         
         model.addAttribute("booking", booking);
@@ -171,7 +170,7 @@ public class BookingController {
         model.addAttribute("bookingInfo", booking);
 
         // 회원 : userNo 추출, 비회원 : userNo2 추출
-        Users user = userService.selectById(principal);
+        Users user = userService.selectById2(principal);
         if (user.getUserId().equals("GUEST")) {
             log.info("비회원 유저번호 : " + user.getUserNo2());
         } else {
@@ -203,23 +202,22 @@ public class BookingController {
     
 
     @PostMapping(value = "/bookingInsert")
-    public int bookingInsert(Booking booking) throws Exception {
-
+    public String bookingInsert(Booking booking) throws Exception {
+        log.info("이름 : " + booking.getPassengerNames()[0]);
         int result = bookingService.bookingInsert(booking);
 
-        return result;
+        return "booking/success";
+    }
+
+    @GetMapping(value="/success")
+    public String success(String result, String productId) {
+        log.info("결제 성공!!!");
+        log.info("result : " + result);
+        log.info("productId : " + productId);
+        return "booking/success";
     }
 
 
-    // 쿼리문은 2개 가는편 조회 오는편 조회
-    // 편도는 가는편 정보만 필요
-    // 왕복은 가는편 오는편 둘다 필요
-    // 편도는 그냥 조회해서 bookingList로 모델에 등록
-    // 왕복은 bookingList 2개 필요할듯 
-    // 서비스를 가는편 오는편 두개 만들고 컨트롤러에서 편도일때 가는편만호출 왕복일때는 두개다 호출
-
-    // 탑승객의 여러명 정보가 넘어오겠지 배열로 ???
-    //
 
     
     

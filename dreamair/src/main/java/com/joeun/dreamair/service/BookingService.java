@@ -17,7 +17,7 @@ public interface BookingService {
     // 탑승객들 정보 입력
     public int infoPassngers(Booking booking) throws Exception;
     
-    // 여권 정보 입력
+    // 여권 정보 입력 
     // public int infoPassport(Users user) throws Exception;
 
     // 편도 항공 스케줄(탑승객 유의사항 안내)

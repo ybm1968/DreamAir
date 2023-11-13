@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <!-- 회원 조회 - id -->
-    <select id="selectByUserId" resultType="Users">
+    <select id="selectById" resultType="Users">
         SELECT *
         FROM users
         WHERE user_id = #{userId}
