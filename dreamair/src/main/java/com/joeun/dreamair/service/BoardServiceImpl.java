@@ -49,6 +49,26 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public List<Board> mainList() throws Exception {
+        List<Board> boardMainList = boardMapper.mainList();
+
+        for (int i = 0; i < boardMainList.size(); i++) {
+            Files file = new Files();
+            file.setParentTable("board");
+            file.setParentNo(boardMainList.get(i).getBoardNo());
+
+            file = fileMapper.selectThumbnail(file);
+            if(file != null) {
+        		boardMainList.get(i).setFileName(file.getFileName());
+        		boardMainList.get(i).setFileType(file.getFileType());
+            }
+            boardMainList.get(i).setThumbnail(file);
+        }
+
+        return boardMainList;
+    }
+
+    @Override
     public Board select(int boardNo) throws Exception {
         Board board = boardMapper.select(boardNo);
         // 조회수 증가...
