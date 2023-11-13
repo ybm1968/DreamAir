@@ -55,7 +55,7 @@ public interface BookingMapper {
     public String selectDeparture(int productNoDeps);
 
     // 도착지 조회
-    public String selectDestination(int productNoDess);
+    public String selectDestination(int productNoDeps);
 
     // 출발지명과 도착지명으로 노선 번호 조회
     public int selectRouteNo(@Param("departure") String departure, @Param("destination") String destination);

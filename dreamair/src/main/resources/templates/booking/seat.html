@@ -105,6 +105,11 @@
                     </th:block>
                 </th:block>
                 <input type="hidden" name="destination" id="destination" th:value="${booking.destination}">
+                <th:block th:with="count=${booking.pasCount}">
+                    <th:block th:each="i : ${#numbers.sequence(1, count)}">
+                        <input type="hidden" name="phones" id="phones" th:value="${booking.phones[i-1]}" th:attr="data-index=${i-1}" />
+                    </th:block>
+                </th:block>
 
 
             <!-- csrf -->
@@ -224,6 +229,14 @@
             }
             
             var commaSeparatedRouteNoDess = routeNoDess.join(',');    // 배열을 콤마로 구분된 문자열로 변환
+            
+            var phones = [];
+            for (var i = 0; i < pasCount; i++) {
+                var inputValue4 = $("#phones[data-index='" + i + "']").val();
+                phones.push(inputValue4);
+            }
+            
+            var commaSeparatedPhones = phones.join(',');    // 배열을 콤마로 구분된 문자열로 변환
     
             // URL에 파라미터 추가
             var url =   "/booking/seat_rt?roundTrip=" + roundTrip
@@ -233,6 +246,7 @@
                       + "&passengerNames=" + commaSeparatedPassengerNames
                       + "&passengerNoss=" + commaSeparatedPassengerNoss
                       + "&routeNoDess=" + commaSeparatedRouteNoDess
+                      + "&phones=" + commaSeparatedPhones
                       ;
             
             // 이동

@@ -109,15 +109,10 @@ public class BookingController {
         public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
     
             int productNoDepValue = booking.getProductNoDeps()[0];
-            int productNoDesValue = booking.getProductNoDess()[0];
-    
-            // 아래는 임시 : 편도일 때 도착지 값을 어떻게 가지고 오지..
-            if(productNoDesValue == 0) {
-                productNoDesValue = 5;
-            }
-            
+            int productNoDesValue = booking.getProductNoDeps()[0];
+
             String departure = bookingService.selectDeparture(productNoDepValue);
-            String destination = bookingService.selectDeparture(productNoDesValue);
+            String destination = bookingService.selectDestination(productNoDesValue);
             
             // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
             int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
@@ -220,6 +215,8 @@ public class BookingController {
         public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) {
             
             model.addAttribute("booking", booking);
+
+            log.info("notice 페이지 부킹 객체 : " + booking);
             
             return "booking/notice";
         }

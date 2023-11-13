@@ -183,9 +183,9 @@ public class BookingServiceImpl implements BookingService{
 
     // 도착지 조회
     @Override
-    public String selectDestination(int productNoDess) {
+    public String selectDestination(int productNoDeps) {
 
-        String destination = bookingMapper.selectDestination(productNoDess);
+        String destination = bookingMapper.selectDestination(productNoDeps);
 
         return destination;
     }

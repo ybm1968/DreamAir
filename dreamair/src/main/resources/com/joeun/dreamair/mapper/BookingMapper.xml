@@ -203,7 +203,7 @@ ON ticket.booking_no = #{bookingNo}
   <select id="selectDestination" resultType="String">
     SELECT destination
     FROM product
-    WHERE product_no = #{productNoDess}
+    WHERE product_no = #{productNoDeps}
   </select>
 
   <!-- 출발지명과 도착지명으로 route_no 조회 -->
@@ -221,7 +221,7 @@ ON ticket.booking_no = #{bookingNo}
   </select>
 
   <!-- 입력된 pasCount 수 만큼 passengerNo 조회 -->
-  <select id="selectLastPasNos" resultType="String" parameterType="int">
+  <select id="selectLastPasNos" resultType="String" parameterType="Int">
       SELECT passenger_no
       FROM (
           SELECT passenger_no

@@ -25,7 +25,7 @@
 
             // checkbox의 change 이벤트 핸들러 등록
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            var desSeatInput = document.getElementById('desSeat');
+            var seatNoDessInput = document.getElementById('seatNoDess');
 
             var selectedSeats = new Array()
 
@@ -50,7 +50,7 @@
                     }
 
                     // input 선택된 좌석 넣어주기
-                    desSeatInput.value = selectedSeats.join(', ');
+                    seatNoDessInput.value = selectedSeats.join(', ');
 
                     // 체크 박스 선택(🟥)
                     console.log('checkbox.checked : ' + checkbox.checked);
@@ -96,6 +96,16 @@
                     <input type="hidden" name="passengerNoss" id="passengerNoss" th:value="${booking.passengerNoss[i-1]}" th:attr="data-index=${i-1}" />
                 </th:block>
             </th:block>
+            <th:block th:with="count=${booking.pasCount}">
+                <th:block th:each="i : ${#numbers.sequence(1, count)}">
+                    <input type="hidden" name="seatNoDeps" id="seatNoDeps" th:value="${booking.seatNoDeps[i-1]}" th:attr="data-index=${i-1}" />
+                </th:block>
+            </th:block>
+            <th:block th:with="count=${booking.pasCount}">
+                <th:block th:each="i : ${#numbers.sequence(1, count)}">
+                    <input type="hidden" name="phones" id="phones" th:value="${booking.phones[i-1]}" th:attr="data-index=${i-1}" />
+                </th:block>
+            </th:block>
 
                 <div class="seatInnerWrap">
                     <div class="seatInnerLeft">
@@ -103,7 +113,7 @@
                             <div class="nameView"></div>
                             <div class="seatView">
                                 <div class="depAir">
-                                    <div class="desSeat">
+                                    <div class="seatNoDess">
 
                                         <br>
 
@@ -155,7 +165,7 @@
                             </div>
                             <br>
                             <div class="comeSeat">오는 편 좌석
-                                <input type="text" id="desSeat" name="desSeat" readonly="readonly" style="padding: 0; height: 17px">
+                                <input type="text" id="seatNoDess" name="seatNoDess" readonly="readonly" style="padding: 0; height: 17px">
                             </div>
                             
                         </div>

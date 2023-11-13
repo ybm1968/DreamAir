@@ -53,7 +53,7 @@ public interface BookingService {
     public String selectDeparture(int productNoDeps);
 
     // 출발지 조회
-    public String selectDestination(int productNoDess);
+    public String selectDestination(int productNoDeps);
     
     // 출발지명과 도착지명으로 노선 번호 조회
     public int selectRouteNo(String departure, String destination);
