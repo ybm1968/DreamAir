@@ -350,6 +350,7 @@
 
 .form-check, .form-check-input, .radio-row, .login_checkbox {
   display: block;
+  margin-left: 20px;
 }
 
 
