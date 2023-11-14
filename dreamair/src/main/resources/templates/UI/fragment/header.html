@@ -24,7 +24,7 @@
             <!-- 로그인 시 -->
             <th:block sec:authorize="isAuthenticated()">
               <div class="dropdown text-end mx-3">
-                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-2">
                   <strong sec:authentication="principal.users.userId">아이디</strong>
                 </a>

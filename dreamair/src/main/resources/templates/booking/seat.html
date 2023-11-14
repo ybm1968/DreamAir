@@ -178,6 +178,7 @@
 <body layout:fragment="content">
 
     <div class="seat-content">
+        <br>
         <div class="seat-header">
             <h2 class="text">좌석선택</h2>
         </div>
@@ -284,7 +285,7 @@
                     </div>
                         
                 </div>
-                    
+                
                 <th:block th:if="${booking.roundTrip == '왕복'}">
                     <button type="button" class="seatInnerBottom" id="btn" onclick="goToNextStep()">
                         <span>다음 단계로</span>

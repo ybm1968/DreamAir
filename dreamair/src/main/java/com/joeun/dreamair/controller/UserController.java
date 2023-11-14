@@ -92,6 +92,8 @@ public class UserController {
 
         // 회원이 가지고 있는 장바구니 조회
         List<Users> cartlist = userService.user_cart_list(userNo);
+
+        log.info("카트 리스트 : " + cartlist);
         model.addAttribute("CartList", cartlist);
 
             return "user/addCart";
