@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                   left JOIN flight f ON p.route_no = f.route_no
                   left JOIN passengers ps  ON p.route_no = ps.route_no_dep
   WHERE passenger_name = #{passengerName}
-    AND passenger_no = #{passengerNo}      
+    AND passenger_no = #{passengerNo}       
 </select>
 
 <!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
@@ -226,17 +226,17 @@ ON ticket.booking_no = #{bookingNo}
   </select>
 
 
-    <!-- 가는편 예매 테이블 등록 -->
-    <insert id="goBookingInsert">
-      INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
-      VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status} )
-    </insert>
+  <!-- 가는편 예매 테이블 등록 -->
+  <insert id="goBookingInsert">
+    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
+    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status} )
+  </insert>
 
-    <!-- 오는편 예매 테이블 등록 -->
-    <insert id="comeBookingInsert">
-      INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
-      VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status} )
-    </insert>
+  <!-- 오는편 예매 테이블 등록 -->
+  <insert id="comeBookingInsert">
+    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
+    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status} )
+  </insert>
 
     
 
