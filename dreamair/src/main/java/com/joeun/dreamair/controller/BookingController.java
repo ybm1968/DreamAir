@@ -186,7 +186,7 @@ public class BookingController {
     
         // 탑승객 유의사항
         @GetMapping(value="/notice")
-        public String notice(Model model, Booking booking) throws Exception {
+        public String notice(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
                 log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
                 log.info("탑승객 수 : " + booking.getPasCount());
                 log.info("왕복 : " + booking.getRoundTrip());
@@ -212,12 +212,16 @@ public class BookingController {
     
         // notice 페이지로 이동
         @PostMapping("/notice")
-        public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) {
-            
+        public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
+            log.info("seat탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
+            log.info("seat탑승객 수 : " + booking.getPasCount());
+            log.info("seat왕복 : " + booking.getRoundTrip());
+            // phone
+
             model.addAttribute("booking", booking);
 
             log.info("notice 페이지 부킹 객체 : " + booking);
-            
+    
             return "booking/notice";
         }
 
