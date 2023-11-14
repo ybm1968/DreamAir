@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Booking;
@@ -122,7 +123,6 @@ public class BookingController {
         booking.setDestination(destination);
         booking.setFlightNo(productNoDepValue);
         
-        
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
         List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
         
@@ -136,6 +136,18 @@ public class BookingController {
 
         return "booking/seat";
     }
+
+
+    // 예약된 좌석 데이터 가져오기
+    @ResponseBody       // 데이터만 응답
+    @GetMapping(value="/booked")
+    public List<Booking> bookedSeatList(int flightNo) throws Exception {
+        log.info("filghtNo : " + flightNo);
+        List<Booking> bookedSeatList = bookingService.bookedSeatStatus(flightNo);
+        return bookedSeatList;
+    }
+    
+
 
     // 왕복 여부에 따라 페이지 처리
     @PostMapping(value = "/seat")
@@ -303,6 +315,7 @@ public class BookingController {
     public String ticketInfo() {
         return "booking/ticketInfo";
     }
+
 
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.joeun.dreamair.dto.Auth;
+import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 
 @Mapper
@@ -46,6 +47,8 @@ public interface UserMapper {
     public List<Users> user_cart_list(int userNo) throws Exception;
     public List<Users> user2_cart_list(int userNo2) throws Exception;
 
+    // 전체 탑승권 조회
+    public List<Product> product_flightList() throws Exception;
 
     
 }

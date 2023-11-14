@@ -47,6 +47,8 @@ public class Product {
     // route 테이블
     private String departureTime;     
     private String destinationTime;
+    private String departureDate;     
+    private String destinationDate;
 
     private List<Files> files;
     private Files thumbnail;

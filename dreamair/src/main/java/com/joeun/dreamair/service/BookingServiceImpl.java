@@ -325,4 +325,10 @@ public class BookingServiceImpl implements BookingService{
         return selectRouteNoByDes;
     }
 
+    @Override
+    public List<Booking> bookedSeatStatus(int flightNo) throws Exception {
+        List<Booking> bookedSeatStatus = bookingMapper.bookedSeatStatus(flightNo);
+        return bookedSeatStatus; 
+    }
+
 }

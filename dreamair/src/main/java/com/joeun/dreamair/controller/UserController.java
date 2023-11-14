@@ -73,6 +73,7 @@ public class UserController {
      */
     @GetMapping(value = "/cart")
     public String cart(Model model, Principal principal, Users user) throws Exception {
+
         String loginId = principal != null ? principal.getName() : "GUEST";
         
         String phone = "";
@@ -92,7 +93,7 @@ public class UserController {
         List<Users> cartlist = userService.user_cart_list(userNo);
         model.addAttribute("CartList", cartlist);
 
-        return "user/cart";
+            return "user/addCart";
     }
 
     // @PostMapping("/cart")
@@ -351,8 +352,17 @@ public class UserController {
         return "user/bookingList";
     }
     
+    // 전체 항공편 조회
+    @GetMapping(value="/productFlightList")
+    public String list(Model model) throws Exception {
 
-    /**
+        List<Product> productFlightList = userService.product_flightList();
+        model.addAttribute("productFlightList", productFlightList);
+
+        return "user/productFlightList";
+    }
+
+        /**
      * 티켓 상세 정보 페이지
      * @param bookingNo
      * @param model

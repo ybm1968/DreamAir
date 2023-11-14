@@ -2,120 +2,144 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/layout/main_layout}"
+      layout:decorate="~{/UI/layout/index_layout}"
       >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
-
     <style>
+        .footer_container {
+          position: relative!important;
+        }
+
         .card-columns { column-count: 3; row-gap: 20px; }
         .card { margin: 20px 0; break-inside: avoid-column; }
-    </style>
+      </style>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-    <link rel="stylesheet" href="/css/bookingMain.css">
-    <link rel="stylesheet" href="/css/booking.css">
-    
+      
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 </head>
 
 <body layout:fragment="content">
-
-    <div class="d-flex justify-content-center align-items-center" id="back">
-        <section>
-            <div class="card card-4">
+    <div class="d-flex justify-content-center align-items-center" id="main_index_back">
+        <section id="searchFlight">
+            <div class="card card-4" style="height: 100%; height: 100%;background-color: #e7f5fac7;">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
                     <div class="tab_wrap">
                         
                         <form action="/booking/list" method="GET"  id="frm">
-        
-                            <div class="radio-row" style="margin-bottom: 20px;">
-                                <label class="radio-container m-r-45">왕복 <input
-                                    type="radio" name="roundTrip" value="왕복 가는편" id="round" checked="checked">
-                                    <span class="radio-checkmark"></span>
-                                </label> <label class="radio-container m-r-45">편도 <input
-                                    type="radio" name="roundTrip" value="편도" id="eachWay"> <span
-                                    class="radio-checkmark"></span>
-                                </label>
+                        <!-- 가는편/오는편 radioButton -->
+                        <div class="d-flex py-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="roundTrip" value="왕복 가는편" id="round" checked>
+                                <label class="form-check-label" for="flexRadioDefault2" > 왕복</label>
                             </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="roundTrip" value="편도" id="eachWay">
+                                <label class="form-check-label" for="flexRadioDefault2"> 편도</label>
+                            </div>
+                        </div>
 
-                            <div id="body">
-
-                                <div class="input-group mid small">
-                                    <label class="label">출발지:</label>
-                                    <select name="departure" id="loc">
+                        <!-- 출발지/도착지 : select -->
+                        <div id="index_body">
+                            <div class="container d-flex justify-content-between">
+                                <div class="start_departure">
+                                    <div class="form-floating">
+                                    <select class="form-select" name="departure" id="floatingSelectGrid" aria-label="Floating label select example">
+                                        <option selected>출발지</option>
                                         <option value="김포">김포</option>
                                         <option value="제주">제주</option>
                                         <option value="울산">울산</option>
                                         <option value="부산">부산</option>
                                         <option value="여수">여수</option>
-                                      </select>
-                                </div>
-                                
-                                <div class="input-group mid small">
-                                    <label class="label">도착지:</label>
-                                    <select name="destination" id="arrloc">
-                                        <option value="김포">김포</option>
-                                        <option value="제주">제주</option>
-                                        <option value="울산">울산</option>
-                                        <option value="부산">부산</option>
-                                        <option value="여수">여수</option>
-                                      </select>
-                                </div> 
-        
-                                <div class="input-group mid large">
-                                    <label class="label">여정:</label> 
-                                    <input class="input--style-11" type="text" name="departureDate" placeholder="yyyy/mm/dd"
-                                        id="input-start">
-                                    <input class="input--style-11 d-none" type="text" name="departureDate" placeholder="yyyy/mm/dd"
-                                        id="input-day" disabled>
-                                </div>
-        
-                                <div class="input-group mid last">
-                                    
-                                    <label class="label">탑승객:</label>
-                                    <div class="input-group-icon" id="js-select-special">
-                                        <input class="input--style-1-small" type="text"
-                                            name="pasCount" value="탑승객 1" disabled="disabled"
-                                            id="info">
-                                            <i class="fa fa-chevron-down input-icon" style="height: 100%; background-color: transparent;"></i> 
-                                           
+                                    </select>
+                                    <label for="floatingSelectGrid">출발지</label>
                                     </div>
-         
-        
-                                    <div class="dropdown-select">
-                                        <ul class="list-room">
-                                            <li class="list-room__item">
-                                                <ul class="list-person">
-                                                    <li class="list-person__item"><span class="name">인원</span>
-                                                        <div class="quantity quantity1">
-                                                            <span class="minus" id="a_minus">-</span> 
-                                                            <input class="inputQty" type="number" min="0" value="1" name="pasCount" id="adult"> 
-                                                            <span class="plus">+</span>
-                                                        </div>
-                                                    </li>
-                                                    
-                                    
+                                </div>
+
+                                <div class="end_departure">
+                                    <div class="form-floating">
+                                    <select class="form-select" name="destination" id="floatingSelectGrid" aria-label="Floating label select example">
+                                        <option selected>도착지</option>
+                                        <option value="김포">김포</option>
+                                        <option value="제주">제주</option>
+                                        <option value="울산">울산</option>
+                                        <option value="부산">부산</option>
+                                        <option value="여수">여수</option>
+                                    </select>
+                                    <label for="floatingSelectGrid">도착지</label>
+                                    </div>
+                                </div>
+
+                                <!-- 여정 : 달력 -->
+                                <div class="calander">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" name="departureDate" placeholder="yyyy/mm/dd" id="input-start">
+                                        <input class="form-control d-none" type="text" name="departureDate" placeholder="yyyy/mm/dd" id="input-day" disabled>
+                                        <label for="floatingSelectGrid">여정</label>
+                                    </div>
+                                </div>
+
+                                <!-- 탑승객 -->
+                                <div class="passenger">
+                                    <div class="form-floating input-group mid last">
+                                        <div class="input-group-icon form-floating position-relative">
+                                            <a class="text-center" href="javascript:;" id="icon_click">탑승객<input class="form-control"  readonly/></a>
+                                                <div class="number_box">
+                                                <div class="d-flex position-absolute bottom-0">
+                                                    <button type="button" class="down btn btn-danger" id="a_minus">-</button>
+                                                    <input class="inputQty text-center" type="number" min="0" max="999" value="1" name="pasCount" id="adult">
+                                                    <button type="button" class="up btn btn-success">+</button>
+                                                </div>
                                                 </ul>
-                                            </li>
-                                        </ul>
-                                        
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-        
-                                <div class="col-2">
-                                    <button class="btn-submit" id="booking_btn" type="submit">검색</button>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#icon_click').on('click', function() {
+                                            // alert('a')
+                                            $('.number_box').show();
+                                        });
+
+                                        $('.down').click(function(e) {
+                                            e.preventDefault();
+                                            var input = $('#adult');
+                                            if(input.val() < input.attr('max')) {
+                                                input.val(parseInt(input.val()) - 1);
+                                            }
+                                            if(input.val() <= 1) {
+                                                input.val(1);
+                                            }
+                                        })
+                                        $('.up').click(function(e) {
+                                            e.preventDefault();
+                                            var input = $('#adult');
+                                            if(input.val() >= input.attr('min')) {
+                                                input.val(parseInt(input.val()) + 1);
+                                            }
+                                            if(input.val() <= 1) {
+                                                input.val(1);
+                                            }
+                                        })
+                                    })
+                                </script>
+                                <!-- 검색 버튼 -->
+                                <div class="search_btn pt-2">
+                                    <button id="booking_btn" type="submit" class="btn btn-primary">검색</button>
                                 </div>
-        
                             </div>
+                        </div>
                         </form>
+
                     </div>
                     </div>
                 </div>
             </div>
+        </div>
         </section>
     </div>
 
@@ -149,10 +173,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-    
-
     <script type="text/javascript">
-        /*** dateRangePicker ***/
      
         initDatePicker()
         initDay()
@@ -257,11 +278,7 @@
                 $('#input-day').removeAttr('disabled')
                 $('#input-start').attr('disabled', 'disabled')
                 
-                // $('#input-start').daterangepicker({
-                    //     // singleDatePicker:true,
-                    //     // autoApply: true,
-                    //     //  minDate: new Date()
-                    // }); 
+
             }
             // 왕복
             else{
@@ -270,15 +287,9 @@
 
                 $('#input-start').removeAttr('disabled')
                 $('#input-day').attr('disabled', 'disabled')
-                // $('#input-start').daterangepicker({
-                //     singleDatePicker:false,	
-                //     autoApply: true,
-                //     //  minDate: new Date()
-                // }); 	
             }
         });
 
-        /*** dateRangePicker 끝  ***/
     </script>
 </body>
 </html>

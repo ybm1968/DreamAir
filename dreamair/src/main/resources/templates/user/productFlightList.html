@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/main_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 항공권 조회</title>
+</head>
+<body layout:fragment="content">
+    <h1 class="text-center my-3">전체 출도착 항공편 조회</h1>
+    <br>
+    <br> 
+
+        <th:block th:if="${ productFlightList != null}">
+            <table class="table table-striped table-hover table-bordered text-center align-middle">
+                <thead>
+                    <tr class="table-primary">
+                        <th>항공편</th>
+                        <th>출발지</th>
+                        <th>도착지</th>
+                        <th>출발일자</th>
+                        <th>도착일자</th>
+                        <th>출발시간</th>
+                        <th>도착시간</th>
+                        <th>잔여석</th>
+                        <th colspan="2">비고</th>
+                    </tr>
+                  
+                    <tbody>
+                        <!-- 목록이 없을 때 -->
+                        <th:block th:if="${productFlightList.isEmpty()}">
+                            <tr>
+                                <td colspan="10">등록된 항공편이 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        <th:block th:each="product : ${productFlightList}">
+                            <tr>
+                                <td><span th:text="${product.flightName}"></span></td>                                
+                                <td><span th:text="${product.departure}"></span></td>                                
+                                <td><span th:text="${product.destination}"></span></td>                                                                
+                                <td><span th:text="${product.departureDate}"></span></td>                                
+                                <td><span th:text="${product.destinationDate}"></span></td>                                
+                                <td><span th:text="${product.departureTime}"></span></td>                                
+                                <td><span th:text="${product.destinationTime}"></span></td>                                
+                                <td><span th:text="${product.seatRemaining}"></span></td> 
+                                <td colspan="2"></td>                                                              
+                            </tr>
+                        </th:block>
+                    </tbody>
+                </thead>
+            </table>
+        </th:block>
+            
+            <th:block th:if="${productFlightList==null}" >
+                <th:block th:if="${productFlightList.isEmpty()}">
+                    <tr>
+                        <td colspan="10">등록된 항공편이 없습니다.</td>
+                    </tr>
+                </th:block>
+             </th:block>
+    </th:block>
+</body>
+</html>        
+    

@@ -5,6 +5,7 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 
 public interface UserService {
@@ -36,4 +37,7 @@ public interface UserService {
     // 장바구니
     public List<Users> user_cart_list(int userNo) throws Exception;
     public List<Users> user2_cart_list(int userNo2) throws Exception;
+
+    // 전체 탑승권 조회
+    public List<Product> product_flightList() throws Exception;
 }

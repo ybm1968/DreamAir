@@ -10,7 +10,7 @@
     <title>예매 관리</title>
 </head>
 <body layout:fragment="content">
-    <h1 class="text-center my-3">사용자 항공권 예매 관리</h1>
+    <h1 class="text-center my-5">사용자 항공권 예매 관리</h1>
     <br>
     <br> 
 
@@ -46,11 +46,8 @@
                                 <td><span th:text="${booking.pasCount}"></span></td>                                
                                 <td><span th:text="${booking.roundTrip}"></span></td>                                
                                 <td><span th:text="${booking.status}"></span></td>                                                               
-                                <td></td>
-                                <td></td>
                                 <!-- <td><a th:href="|/admin/booking_update?bookingNo=${admin.bookingNo}|">수정</span></td> -->
-                                    <td><a href="javascript:;">삭제</a></td>
-                                    <td></td>
+                                <td colspan="2"><a href="javascript:;">삭제</a></td>
                             </tr>
                         </th:block>
                     </tbody>

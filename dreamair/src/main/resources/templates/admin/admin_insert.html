@@ -12,8 +12,8 @@
 
 <body layout:fragment="content">
     <div class="container">
-        <h1 style="text-align: center;">관리자 정보 등록</h1>
-          <br><br><br><br><br><br>
+        <h1 class="text-center my-5">관리자 정보 등록</h1>
+          <br><br><br><br>
         <form class="needs-validation" novalidate action="/admin/admin_insert" method="post" th:object="${admin}">   
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
