@@ -108,49 +108,84 @@ public class BookingServiceImpl implements BookingService{
     
   // 탑승권 번호 발행 + QR 코드 발행
   @Override
-  public int createTicket(Booking booking) throws Exception {
-      String userId = "";
-      int result = 0;
-      int bookingNo = 0;
-      int ticketNo = 0;
-      // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
-      for (int i = 0; i < booking.getPasCount(); i++) {
-          int count = bookingMapper.createTicket(booking);
-          // 조건 : 회원 비회원
-          // 회원
-          if( !userId.contains("GUEST") ) {
-              bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
+  public int createTicket(Booking booking, Principal principal) throws Exception {
+    String userId = "";
+    int result = 0;
+    int bookingNo = 0;
+    int ticketNo = 0;
+    int count1 = 0;
+    int count2 = 0;
+    
+    // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
+    for (int i = 0; i < booking.getPasCount(); i++) {
+        int bookingNum = (principal == null) ? booking.getBookingNo2() : booking.getBookingNo();
+        booking.setName(booking.getNames()[i]);
+        booking.setPassengerNo(booking.getPassengerNos()[i]);
 
-              List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
-                  for(int j = 0; j < ticketList.size(); j++){
-                      Booking ticket = new Booking();
-                      ticket = ticketList.get(i);
-                      ticketNo = ticket.getTicketNo();
-                  }
-          }
-          else {
-              bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
-              List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
-                  for(int j = 0; j < ticketList.size(); j++){
-                      Booking ticket = new Booking();
-                      ticket = ticketList.get(i);
-                      ticketNo = ticket.getTicketNo();
-                  }
-          }
-          
-          QR qr = new QR();
-          qr.setParentTable("booking");
-          qr.setParentNo(ticketNo);
-          String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
-          qr.setUrl( url );
-          qr.setName("QR_" + ticketNo + "B" + bookingNo);
+        Booking gobooking = bookingMapper.goTickeData(booking);
+        gobooking.setUserId(principal == null ? "GUEST" : principal.getName());
+        gobooking.setBoarding("0");
+        gobooking.setRouteNo(booking.getRouteNoDep());
+        
+        if( principal == null ) {
+            gobooking.setBookingNo2(bookingNum);
+        } else {
+            gobooking.setBookingNo(bookingNum);
+        }
+        
+        count1 = bookingMapper.createTicket(gobooking);
+       
+        if(booking.getRoundTrip().equals("왕복")) {
+            Booking comeBooking = bookingMapper.comeTicketData(booking);
+            comeBooking.setUserId(principal == null ? "GUEST" : principal.getName());
+            comeBooking.setBoarding("0");
+            comeBooking.setRouteNo(booking.getRouteNoDes());
+            
+            if( principal == null ) {
+                comeBooking.setBookingNo2(bookingNum);
+            } else {
+                comeBooking.setBookingNo(bookingNum);
+            }
 
-          qrService.makeQR(qr);
+            count2 = bookingMapper.createTicket(comeBooking);
+        }
+       
+        int count = count1 + count2;
+        // 조건 : 회원 비회원
+        // 회원
+        if( !userId.contains("GUEST") ) {
+            bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
 
-          result += count;
-      }
+            List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                for(int j = 0; j < ticketList.size(); j++){
+                    Booking ticket = new Booking();
+                    ticket = ticketList.get(i);
+                    ticketNo = ticket.getTicketNo();
+                }
+        }
+        else {
+            bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
+            List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                for(int j = 0; j < ticketList.size(); j++){
+                    Booking ticket = new Booking();
+                    ticket = ticketList.get(i);
+                    ticketNo = ticket.getTicketNo();
+                }
+        }
+        
+        QR qr = new QR();
+        qr.setParentTable("booking");
+        qr.setParentNo(ticketNo);
+        String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
+        qr.setUrl( url );
+        qr.setName("QR_" + ticketNo + "B" + bookingNo);
 
-      return result;
+        qrService.makeQR(qr);
+
+        result += count;
+    }
+
+    return result;
   }
 
     // seat 테이블 좌석 상태 조회

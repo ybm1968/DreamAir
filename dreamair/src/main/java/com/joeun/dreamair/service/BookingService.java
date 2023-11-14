@@ -39,7 +39,7 @@ public interface BookingService {
     public int bookingInsert(Booking booking, Principal principal) throws Exception;
 
     // 티켓 발행 등록
-    public int createTicket(Booking booking) throws Exception;
+    public int createTicket(Booking booking, Principal principal) throws Exception;
 
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus(int flightNo) throws Exception;

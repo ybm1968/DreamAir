@@ -64,8 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 티켓 발행 등록 -->
 <!-- ✅ TODO -->
 <insert id="createTicket">
-  INSERT INTO ticket ( passenger_no, passenger_name, route_no, booking_no, departure, destination, departure_date, destination_date, departure_time, destination_time, duration, boarding, checked_in, is_boarded, seat_no, flight_no, phone, user_pw, user_id )
-  VALUES ( #{passengerNo}, #{passengerName}, #{routeNo}, #{bookingNo}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checkedIn}, #{isBoarded}, #{seatNo}, #{flightNo}, #{phone}, #{userPw}, #{userId} )
+  INSERT INTO ticket ( pin_type, passenger_no, passenger_name, route_no, booking_no, booking_no2,  departure, destination, departure_date, destination_date, departure_time, destination_time, duration, boarding, checked_in, is_boarded, seat_no, flight_no, phone, user_pw, user_id )
+  VALUES ( #{pinType}, #{passengerNo}, #{passengerName}, #{routeNo}, #{bookingNo}, #{bookingNo2}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checkedIn}, #{isBoarded}, #{seatNo}, #{flightNo}, #{phone}, #{userPw}, #{userId} )
 </insert>
             
 <!-- 예매한 탑승권 정보 조회 -->
@@ -229,7 +229,23 @@ ON ticket.booking_no = #{bookingNo}
     VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status} )
   </insert>
 
-    
+  <!-- 가는편 티켓 테이블 insert할 값 조회 -->
+  <select id="goTickeData" resultType="Booking">
+    SELECT *
+    FROM passengers ps left join product p on ps.product_no_dep = p.product_no
+                       left join route r on ps.route_no_dep = r.route_no 
+    WHERE passenger_name = #{name} AND passenger_no = #{passengerNo};
+  </select>
+  
+
+  <!-- 오는편 티켓 테이블 insert할 값 조회 -->
+  <select id="comeTicketData" resultType="Booking">
+    SELECT *
+    FROM passengers ps left join product p on ps.product_no_des = p.product_no
+                       left join route r on ps.route_no_des = r.route_no 
+    WHERE passenger_name = #{name} AND passenger_no = #{passengerNo};
+  </select>
+
 
    
      
