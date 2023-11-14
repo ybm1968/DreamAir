@@ -215,7 +215,7 @@
 }
 
 #searchFlight {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 1280px;
   height: 300px;
 }

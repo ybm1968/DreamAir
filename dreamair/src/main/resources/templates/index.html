@@ -34,7 +34,6 @@
 
                         <!-- 출발지/도착지 : select -->
                         <div id="index_body">
-
                             <div class="container d-flex justify-content-between">
                                 <div class="start_departure">
                                     <div class="form-floating">
@@ -76,53 +75,18 @@
                                 <!-- 탑승객 -->
                                 <div class="passenger">
                                     <div class="form-floating input-group mid last">
-                                        <div class="input-group-icon form-floating">
-                                            <!-- <input class="input--style-1-small" type="text" name="pasCount" value="탑승객 1" disabled="disabled" id="info"> -->
-                                            <a href="javascript:;" id="icon_click">클릭</a>
-                                                <!-- <label class="label">탑승객:</label> -->
-                                                
+                                        <div class="input-group-icon form-floating position-relative">
+                                            <a class="text-center" href="javascript:;" id="icon_click">탑승객<input class="form-control"  readonly/></a>
+                                                <div class="number_box">
+                                                <div class="d-flex position-absolute bottom-0">
+                                                    <button type="button" class="down btn btn-danger" id="a_minus">-</button>
+                                                    <input class="inputQty text-center" type="number" min="0" max="999" value="1" name="pasCount" id="adult">
+                                                    <button type="button" class="up btn btn-success">+</button>
+                                                </div>
+                                                </ul>
                                             </div>
-                                        </select>
+                                        </div>
                                     </div>
-                                    <div class="number_box none">
-                                        <!-- 탑승객 인원 선택 -->
-                                        <!-- <div class="dropdown-select">
-                                            <ul class="list-room">
-                                                <li class="list-room__item">
-                                                    <ul class="list-person">
-                                                 <li class="list-person__item"><span class="name">인원</span>
-                                                   <div class="quantity quantity1">
-                                                    <span class="minus" id="a_minus">-</span><input class="inputQty" type="number" min="0" value="1" name="pasCount" id="adult"><span class="plus">+</span>
-                                                </div>
-                                                 </li>
-                                                </ul>
-                                               </li>
-                                            </ul>
-                                        </div> -->
-                                    <!-- <input type="number"> -->
-                                    <!-- <input type="text" value="123"> -->
-                                        <!-- <div class="list-room">
-                                            <ul class="list-room">
-                                                <li class="list-room__item">
-                                                    <ul class="list-person">
-                                                 <li class="list-person__item"><span class="name">인원</span>
-                                                   <div class="quantity quantity1">
-                                                    <button class="down" id="a_minus">-</span>
-                                                    <input class="inputQty" type="number" min="0" value="1" name="pasCount" id="adult">
-                                                    <button class="up">+</span>
-                                                </div>
-                                                 </li>
-                                                </ul>
-                                               </li>
-                                            </ul>
-                                    </div> -->
-                                    <div class="d-flex">
-                                        <button type="button" class="down btn btn-danger" id="a_minus">-</button>
-                                        <input class="inputQty text-center" type="number" min="0" max="999" value="1" name="pasCount" id="adult">
-                                        <button type="button" class="up btn btn-success">+</button>
-                                    </div>
-                                    </ul>
-                                </div>
                                 </div>
                                 <script>
                                     $(document).ready(function() {
@@ -198,8 +162,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-    
 
     <script type="text/javascript">
      
