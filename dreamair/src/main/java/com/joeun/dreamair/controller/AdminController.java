@@ -233,6 +233,12 @@ public class AdminController {
         return "admin/ticket_list";
     }
 
+    @PostMapping(value="/ticket_list")
+    public String checkTicket(){
+
+        return "redirect:/admin/Final_check";
+    }
+
     // 탑승권 화면 - 탑승 최종 확인 위한
     @GetMapping(value="/Final_check")
     public String ticket_Checking(Model model, Booking ticket, Files files, QR qr) throws Exception{
@@ -274,7 +280,7 @@ public class AdminController {
         
         // 탑승처리가 완료되면 QR 코드 삭제
 
-        return "admin/ticket_list";
+        return "redirect:/admin/ticket_list";
     }
 
 
