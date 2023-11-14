@@ -25,8 +25,10 @@
           <input type="hidden" name="pasCount" id="pasCount" th:value="${bookingInfo.pasCount}">
           <input type="hidden" name="roundTrip" id="roundTrip" th:value="${bookingInfo.roundTrip}">
           <input type="hidden" name="status" id="status" value="예매완료">
+          <input type="hidden" name="seatNoDeps" th:value="${bookingInfo.seatNoDeps}"> 
+          <input type="hidden" name="seatNoDess" th:value="${bookingInfo.seatNoDess}">
           <div sec:authorize="isAuthenticated()">
-            <input type="hidden" name="userNo" id="userNo" th:value="${use.userNo}">
+            <input type="hidden" name="userNo" id="userNo" th:value="${user.userNo}">
           </div>
           <div sec:authorize="isAnonymous()">
             <input type="hidden" name="userNo2" id="userNo2" th:value="${user.userNo2}">
@@ -52,8 +54,7 @@
                     <td><span th:text="${booking.destinationDate}"></span></td>
                     <td>일반석</td>
                     <td><span th:text="${booking.productPrice}"></span></td>
-                    <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
-                    <td>1석</td>
+                    <td><span th:text="${bookingInfo.seatNoDeps}"></span></td>
                     <td><span th:text="${booking.passengerName}"></span></td>
                     <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
                     <input type="hidden" name="productNoDep" id="productNoDep" th:value="${booking.productNo}">
@@ -88,8 +89,7 @@
                         <td><span th:text="${booking.destinationDate}"></span></td>
                         <td>일반석</td>
                         <td><span th:text="${booking.productPrice}"></span></td>
-                        <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
-                        <td>1석</td>
+                        <td><span th:text="${bookingInfo.seatNoDess}"></span></td>
                         <td><span th:text="${booking.passengerName}"></span></td>
                         <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
                         <input type="hidden" name="productNoDes" id="productNoDes" th:value="${booking.productNo}">

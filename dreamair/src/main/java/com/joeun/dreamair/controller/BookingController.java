@@ -188,7 +188,7 @@ public class BookingController {
             log.info("탑승객 수 : " + booking.getPasCount());
             log.info("왕복 : " + booking.getRoundTrip());
 
-            // log.info("noticeGET 페이지 부킹 객체 : " + booking);
+            log.info("noticeGET 페이지 부킹 객체 : " + booking);
 
             List<Booking> goBookingList = new ArrayList<Booking>();
             List<Booking> comeBookingList = new ArrayList<Booking>();
@@ -207,33 +207,6 @@ public class BookingController {
     
             return "booking/notice";
     }
-
-    // notice 페이지로 이동
-    // @PostMapping("/notice")
-    // public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
-    //     // notice 페이지로 이동할 때 필요한 로직 추가
-
-    //     List<Booking> goBookingList = new ArrayList<Booking>();
-    //     List<Booking> comeBookingList = new ArrayList<Booking>();
-        
-    //     if (booking.getRoundTrip().equals("편도")) {
-    //         // 편도 조회
-    //         goBookingList = bookingService.goScheduleList(booking);
-    //     } else {
-    //         // 왕복 조회
-    //         goBookingList = bookingService.goScheduleList(booking);
-    //         comeBookingList = bookingService.comeScheduleList(booking);
-    //     }
-    //     model.addAttribute("goBookingList", goBookingList);
-    //     model.addAttribute("comeBookingList", comeBookingList);
-    //     model.addAttribute("bookingInfo", booking);
-        
-
-    //     log.info("notice 페이지 부킹 객체 : " + booking);
-
-    //     return "booking/notice";
-    // }
-
 
 
      // 결제
@@ -293,25 +266,31 @@ public class BookingController {
 
     @PostMapping(value = "/bookingInsert")
     public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr) throws Exception {
-        log.info("이름 : " + booking.getNames()[0]);
+        log.info("booking 객체 조회 : " + booking);
         int result1 = bookingService.bookingInsert(booking, principal);
-
-        log.info("예매번호 조회");
+        int bookingNum = 0;
         
         Users user = userService.selectById2(principal);
-        log.info("비회원 번호 : " + user.getUserNo2());
-        int bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  // 배열?
-        booking.setBookingNo2(bookingNum);
+        if( (principal == null) ) {
+            log.info("비회원 번호 : " + user.getUserNo2());
+            bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  
+            booking.setBookingNo2(bookingNum);
+        } else {
+            bookingNum = bookingService.latest_user_bookingNo(user.getUserNo());  
+            booking.setBookingNo(bookingNum);
+        }
 
-        // log.info("결제처리");
+        log.info("결제처리");
+        log.info("예매번호 : " + booking.getBookingNo2());
 
+        booking.setBookingNo(bookingNum);
         // // ✅ TODO 티켓 발행 등록 요청
-        // int result = bookingService.createTicket(booking);
+        int result = bookingService.createTicket(booking);
 
-        // // 같은 bookingNo에 대한 ticket 정보 조회
-        // int bookingNo = booking.getBookingNo();
-        // List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);
-        // model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
+        // 같은 bookingNo에 대한 ticket 정보 조회
+        int bookingNo = booking.getBookingNo();
+        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);        // 정수형으로 반환값 설정
+        model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
 
         // ticketNO 받아서 qr 발행
 
@@ -319,23 +298,18 @@ public class BookingController {
 
         // return "booking/paymentPro";
         // return "redirect:/booking/paymentPro";
-        // return "booking/success";
         return "redirect:/booking/payment_complete";
     }
 
-    @GetMapping(value="/success")
-    public String success(String result, String productId) {
-        log.info("결제 성공!!!");
-        log.info("result : " + result);
-        log.info("productId : " + productId);
-        return "booking/success";
-    }
-
-
     // 결제 완료
     @GetMapping(value="/payment_complete")
-    public String paymentComplete() {
-        return "booking/payment";
+    public String paymentComplete(Model model, Booking booking) {
+        log.info("결제완료 booking" + booking);
+        
+        model.addAttribute("booking", booking);
+
+
+        return "booking/payment_complete";
     }
 
     // 탑승권 발행

@@ -112,6 +112,11 @@ public class BookingServiceImpl implements BookingService{
         int result = 0;
         int bookingNo = 0;
         int ticketNo = 0;
+        // 필요한것 : 이름 배열 하나만, pinType,
+        // pinType=0, pinTypes=null, passengerNo=0 routeNo=0, departure=null, destination=null boarding=null departureTime=null, destinationTime=null
+
+        log.info("티켓 발행 : " + booking);
+
         // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
         for (int i = 0; i < booking.getPasCount(); i++) {
             int count = bookingMapper.createTicket(booking);
@@ -125,6 +130,7 @@ public class BookingServiceImpl implements BookingService{
                 bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
                 //ticketNo = ???;
             }
+
             
             QR qr = new QR();
             qr.setParentTable("booking");
@@ -135,7 +141,7 @@ public class BookingServiceImpl implements BookingService{
 
             qrService.makeQR(qr);
 
-            result += count;
+            // result += count;
         }
 
         return result;
