@@ -105,6 +105,7 @@ public class BookingServiceImpl implements BookingService{
         return result;
     }
     
+    // 탑승권 번호 발행 + QR 코드 발행
     @Override
     public int createTicket(Booking booking) throws Exception {
         String userId = "";
@@ -118,11 +119,22 @@ public class BookingServiceImpl implements BookingService{
             // 회원
             if( !userId.contains("GUEST") ) {
                 bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
-                //ticketNo = ???;
+
+                List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                    for(int j = 0; j < ticketList.size(); j++){
+                        Booking ticket = new Booking();
+                        ticket = ticketList.get(i);
+                        ticketNo = ticket.getTicketNo();
+                    }
             }
             else {
                 bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
-                //ticketNo = ???;
+                List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                    for(int j = 0; j < ticketList.size(); j++){
+                        Booking ticket = new Booking();
+                        ticket = ticketList.get(i);
+                        ticketNo = ticket.getTicketNo();
+                    }
             }
             
             QR qr = new QR();
@@ -130,7 +142,7 @@ public class BookingServiceImpl implements BookingService{
             qr.setParentNo(ticketNo);
             String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
             qr.setUrl( url );
-            qr.setName("???");
+            qr.setName("QR_" + ticketNo + "B" + bookingNo);
 
             qrService.makeQR(qr);
 
@@ -140,6 +152,13 @@ public class BookingServiceImpl implements BookingService{
         return result;
     }
 
+    // 예매 번호로 탑승권 정보(번호) 조회
+    @Override
+    public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception {
+        List<Booking> ticketList_bookingNo = bookingMapper.ticketList_bookingNo(bookingNo);
+        return ticketList_bookingNo;
+    }
+    
     // seat 테이블 좌석 상태 조회
     @Override
     public List<Booking> selectSeatStatus(int flightNo) throws Exception {
@@ -149,6 +168,7 @@ public class BookingServiceImpl implements BookingService{
 
         return  seatList;
     }
+
 
 
     // 탑승권 리스트 조회 - 회원
@@ -311,11 +331,11 @@ public class BookingServiceImpl implements BookingService{
 
    
      // 예매 번호로 탑승권 정보(번호) 조회
-    @Override
-    public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception {
-        List<Booking> ticketList_bookingNo = bookingMapper.ticketList_bookingNo(bookingNo);
-        return ticketList_bookingNo;
-    }
+    // @Override
+    // public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception {
+    //     List<Booking> ticketList_bookingNo = bookingMapper.ticketList_bookingNo(bookingNo);
+    //     return ticketList_bookingNo;
+    // }
 
     @Override
     public int selectRouteNoByDes(String destination) {

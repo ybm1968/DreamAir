@@ -30,8 +30,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="auth" column="auth" />
     </resultMap>
 
-
-
     <!-- 회원 등록 -->
     <!-- users 테이블에 회원 등록 -->
     <insert id="insertUsers" parameterType="Users">
@@ -51,8 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES ( #{userId}, #{auth} )
     </insert>
 
-
-
     <!-- 회원 조회 - id -->
     <select id="login" resultMap="userMap">
         SELECT u.user_no
@@ -69,7 +65,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE u.user_id = #{userId}
     </select>
 
-
     <!-- 회원 조회 - id -->
     <select id="selectById" resultType="Users">
         SELECT *
@@ -77,23 +72,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE user_id = #{userId}
     </select>
 
-    <!-- 비회원 조회 - id -->
-    <select id="selectByUser2Id" resultType="Users">
-        SELECT *
-        FROM user2
-        WHERE user_id = #{userId}
-    </select>
-
-
-
     <!-- user_no 조회 - id -->
     <select id="selectUserNoByUserId" resultType="int">
         SELECT user_no
         FROM users
         WHERE user_id = #{userId}
     </select>
-
-
 
     <!-- 회원 수정 -->
     <update id="update">
@@ -107,8 +91,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE user_id = #{userId}
     </update>
 
-
-
     <!-- 회원 삭제 -->
     <delete id="delete">
         DELETE users, auth
@@ -116,39 +98,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE users.user_id = #{userId} AND auth.user_id = #{userId}
     </delete>
     
-
     <select id="selectMileage" resultType="Users">
         SELECT mileage
         FROM mileage
         WHERE user_id = #{userId}
     </select>
 
-
-
-    <!-- 회원 / 비회원 선생님 예시 -->
-    <!-- <select id="login" resultType="Users">
-        SELECT *
-        FROM user
-        ...
-    </select>
-
-    <select id="login2" resultType="Users">
-        SELECT *
-        FROM user2
-        ...
-    </select> -->
-
-    <!-- 장바구니 -->
+    <!-- 장바구니 : 회원 -->
     <select id="user_cart_list" resultType="Users">
         SELECT *
         FROM cart
         WHERE user_no=#{userNo}
     </select>
 
+    <!-- 장바구니 : 비회원 -->
     <select id="user2_cart_list" resultType="Users">
         SELECT *
         FROM cart
-        WHERE user_no2=#{userNo2}
+        WHERE phone=#{phone} AND user_pw = #{userPw}
+    </select>
+
+    <!-- 장바구니 추가 -->
+    <insert id="cartadd">
+        INSERT INTO cart ( product_no, user_no, user_no2, cart_cnt )
+        VALUES ( #{productNo}, #{userNo}, #{userNo2}, #{cartCnt} )
+    </insert>
+
+
+
+    <!-- 장바구니 삭제 -->
+    <insert id="cart_delete">
+        DELETE cart
+        WHERE cart_no = #{cartNo}
+    </insert>
+
+    <!-- 전체 항공권 조회 -->
+    <select id="product_flightList" resultType="Product">
+        SELECT *
+        FROM flight f left join product p on f.route_no = p.route_no 
+                    left join route r on f.route_no = r.route_no
     </select>
 
     <!-- 전체 항공권 조회 -->

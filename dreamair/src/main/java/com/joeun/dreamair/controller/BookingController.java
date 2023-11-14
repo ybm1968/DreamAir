@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -92,7 +93,6 @@ public class BookingController {
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
         
-
         int result1 = 0;
         int result2 = 0;
 
@@ -298,14 +298,15 @@ public class BookingController {
     }
 
 
-    // 결제 완료
+    // 결제 완료 화면
     @GetMapping(value="/payment_complete")
     public String paymentComplete() {
-        return "booking/payment";
+
+        return "booking/payment_complete";
     }
 
     // 탑승권 발행
-    @PostMapping(value="/ticket")
+    @GetMapping(value="/ticket")
     public String ticket() {
         return "booking/ticket";
     }

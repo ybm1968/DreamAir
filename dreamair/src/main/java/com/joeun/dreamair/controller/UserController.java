@@ -1,14 +1,15 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -17,11 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.WebUtils;
 
-import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
@@ -65,7 +67,6 @@ public class UserController {
         return "user/index";
     }
 
-
     /**
      * 장바구니 페이지
      * @return
@@ -97,12 +98,21 @@ public class UserController {
     }
 
     // @PostMapping("/cart")
-    // public String CartPro(Product product, Users user) throws Exception {
+    // public String CartPro(Product product, Users user, Booking booking) throws Exception {
+    //     int result = 0;
+    //     // double sum = cartList.stream().mapToDouble(Cart::getProductPrice).sum();
 
+    //     // model.addAttribute("CartList", cartList);
+    //     // model.addAttribute("sum", sum);
+    //     List<Users> CartList = new ArrayList<Users>(); 
     //     int productNo = product.getProductNo();
     //     int productPrice = product.getProductPrice();
     //     int cartCnt = 0;
+    //     int sum = 0;
 
+    //     for(int i =0; i<CartList.size(); i++){
+    //         sum += productPrice;
+    //     }
     //     // 회원일 경우
     //     // userNo에 productNo를 cart 테이블에 데이터 저장
         
@@ -113,11 +123,21 @@ public class UserController {
     //     return "";
     // }
 
-    // @GetMapping("/addCart")
-    // public String addCart() {
+    // 장바구니 삭제 처리
+    @PostMapping(value="/cart_delete")
+    public String cartDelete(int cartNo) throws Exception {
+        log.info("[POST] - /user/cart_delete");
 
-    //     return 
-    // }
+        int result = userService.cart_delete(cartNo);
+        if(result == 0) return "redirect:/user/addCart?cartNo=" + cartNo;
+        return "redirect:/user/cart";
+    }
+
+    @GetMapping(value="/addCart")
+    public String addCart() {
+
+        return "";
+    }
 
     /**
      * 회원정보 수정 페이지
@@ -304,7 +324,6 @@ public class UserController {
         return "user/checkin_complete";
     }
 
-
     // 충돌나면 여기 아래로 적용 필요!
     /**
      * 예매 내역 페이지 - 회원
@@ -362,7 +381,7 @@ public class UserController {
         return "user/productFlightList";
     }
 
-        /**
+    /**
      * 티켓 상세 정보 페이지
      * @param bookingNo
      * @param model

@@ -93,6 +93,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   VALUES ( #{productNo}, #{routeNo}, #{bookingNo}, #{amount}, #{type} )
 </insert>
 
-<!-- 상품 목록 검색 -->
+<!-- 장바구니 추가 -->
+<insert id="addCart">
+  INSERT INTO cart ( product_no, user_no, user_no2, cart_cnt )
+  VALUES ( #{productNo}, #{userNo}, #{userNo2}, #{cartCnt} )
+</insert>
 
 </mapper>

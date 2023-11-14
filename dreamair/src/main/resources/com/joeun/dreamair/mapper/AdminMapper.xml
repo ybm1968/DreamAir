@@ -144,4 +144,6 @@ WHERE user_no = #{userNo}
     WHERE ticket_no = #{ticketNo}
 </select>
 
+
+
 </mapper>

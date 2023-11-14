@@ -10,7 +10,9 @@
     <title>결제 완료</title>
 </head>
 <body layout:fragment="content">
-    <div class="container w-100">
+    <th:block>
+    <div class="container w-100 text-center">
+        <i class="fa-regular fa-circle-check"></i>
         <h1 class="text-center my-3">결제가 완료되었습니다.</h1>
 
         <!-- 회원 -->
@@ -25,19 +27,22 @@
                 <h3>예매 번호 : <sapn th:text=#{bookingNo2}></sapn></h3>
         </th:block>
 
-                <th:block th:if="${PassengerList!=null}">
-                    <h3>탑승객 정보</h3>
-                    <h3 th:text="${ticketNo}"></h3>
-                    <h3 th:text="${passengerName}"></h3>
-                    <!-- QR코드 -->
-                    <tr>
-                        <td>QR CODE</td>
-                        <!-- /admin/Final_check?ticketNo=${ticketNo} -->
-                        <!-- <td><input type="text" name="url" placeholder="url을 입력하세요." th:value="|http://localhost:9090/admin/Final_check?ticketNo=${ticketNo}|"></td> -->
-                        
-                    </tr>
+                <th:block th:if="${BookingList!=null}">
+                    <th:block th:each="passenger : ${PassengerList}">
+                        <tr>
+                            <h3>[탑승객]</h3>
+                            <h3>티켓번호 : <span th:text="${passenger.ticketNo}"></h3>
+                            <h3>탑승객 이름 : <span th:text="${passenger.passengerName}"></h3>
+                            <!-- QR코드 -->
+                            <tr>
+                                <td>QR CODE</td>
+                                <td><input type="text" name="url" placeholder="url을 입력하세요." th:value="|http://localhost:9090/admin/Final_check?ticketNo=${ticketNo}|"></td>
+                            </tr>
+                        </tr>
+                    </th:block>
                 </th:block>
-            </th:block>
+
+        <button class="btn btn-primary me-md-2" type="button"><a th:href="|/booking/ticketInfo?bookingNo=${ticket.bookingNo}|">예매 상세 내역 보기</button>   
         </th:block>
     </div>
 </body>
