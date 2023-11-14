@@ -187,11 +187,4 @@ public class UserServiceImpl implements UserService {
         List<Product> productFlightList = userMapper.product_flightList();
         return productFlightList;
     }
-
-    // 전체 탑승권 조회
-    @Override
-    public List<Product> product_flightList() throws Exception {
-        List<Product> productFlightList = userMapper.product_flightList();
-        return productFlightList;
-    }
 }
