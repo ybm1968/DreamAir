@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.WebUtils;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Product;
@@ -95,31 +99,33 @@ public class UserController {
 
 
 
-    @PostMapping("/cart")
-    public String CartPro(Product product, Users user, Booking booking) throws Exception {
-        int result = 0;
-        // double sum = cartList.stream().mapToDouble(Cart::getProductPrice).sum();
+    
 
-        // model.addAttribute("CartList", cartList);
-        // model.addAttribute("sum", sum);
-        List<Users> CartList = new ArrayList<Users>(); 
-        int productNo = product.getProductNo();
-        int productPrice = product.getProductPrice();
-        int cartCnt = 0;
-        int sum = 0;
+    // @PostMapping("/cart")
+    // public String CartPro(Product product, Users user, Booking booking) throws Exception {
+    //     int result = 0;
+    //     // double sum = cartList.stream().mapToDouble(Cart::getProductPrice).sum();
 
-        for(int i =0; i<CartList.size(); i++){
-            sum += productPrice;
-        }
-        // 회원일 경우
-        // userNo에 productNo를 cart 테이블에 데이터 저장
+    //     // model.addAttribute("CartList", cartList);
+    //     // model.addAttribute("sum", sum);
+    //     List<Users> CartList = new ArrayList<Users>(); 
+    //     int productNo = product.getProductNo();
+    //     int productPrice = product.getProductPrice();
+    //     int cartCnt = 0;
+    //     int sum = 0;
+
+    //     for(int i =0; i<CartList.size(); i++){
+    //         sum += productPrice;
+    //     }
+    //     // 회원일 경우
+    //     // userNo에 productNo를 cart 테이블에 데이터 저장
         
-        // 비회원일 경우
-        // input box를 통해 phone이랑 password를 입력 받고,
-        // 장바구니 table에 데이터 저장
+    //     // 비회원일 경우
+    //     // input box를 통해 phone이랑 password를 입력 받고,
+    //     // 장바구니 table에 데이터 저장
 
-        return "";
-    }
+    //     return "";
+    // }
 
     // 장바구니 삭제 처리
     @PostMapping(value="/cart_delete")

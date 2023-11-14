@@ -1,21 +1,13 @@
 <th:block th:fragment="header">
-  <th:block th:fragment="header">
     <div class="container">
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="height: 30px;" >
-        <div class="container-fluid">
-          <!-- <a class="navbar-brand" href="/"><img style="width: 80px; height: 80px;" src="/img/logo.png" alt="로고 이미지"></a> -->
-
-          <div class="collapse navbar-collapse" id="navbarCollapse" style="justify-items: flex-end;">
-            <!-- <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/"><img src="/img/logoName.jpg" alt="로고 이미지" style="width: 150px; height: 60px;"></a>
-              </li>
-            </ul> -->
-
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark w-100 position-absolute start-0 top-0 py-4" style="height: 30px;" >
+        <div class="container-fluid ">
+          <div class="collapse navbar-collapse py-5" id="navbarCollapse" style="justify-items: flex-end;">
+            
             <!-- 비 로그인 시 -->
             <th:block sec:authorize="isAnonymous()">
 
-              <ul class="navbar-nav d-flex align-items-center px-3">
+              <ul class="navbar-nav navbar-skyblue d-flex justify-content-end w-100 pe-5 me-5" style="padding-right: 245px !important;" >
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="/login">로그인</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="/join">회원가입</a></li>
                 <li class="nav-item">
@@ -64,39 +56,32 @@
       </div>
     </header>
   </th:block>
-  <header class="border-bottom align-items-center text-center" style="line-height: 50px; margin-top: -72px;">
-    <div class="container d-flex flex-wrap justify-content-center" style="width: 100%;" >
+  <header class="border-bottom align-items-center text-center" style="line-height: 50px; margin-top: -50px;">
+    <div class="container d-flex flex-wrap" style="width: 100%;" >
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/"><img src="/img/blackNameLogo.png" alt="로고 이미지" style="width: 150px; height: 60px;"></a>
         </li>
       </ul>
-      <ul class="navbar navbar-light me-auto nav-pills" >
+      <ul class="navbar navbar-light" >
         <li class="nav-item">
           <a class="nav-link link-body-emphasis px-2" href="/user/productFlightList">출도착 항공편 조회</a>
         </li>
         <li class="nav-item">
-              <a class="nav-link link-body-emphasis px-2" href="/board/list">게시판</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link link-body-emphasis px-2" href="/bus">공항 버스 예약</a>
-            </li>
-            <!-- 임시 셋팅 -->
-            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-              <li class="nav-item">
-                <a class="nav-link link-body-emphasis px-2" href="/admin">관리자 페이지</a>
-              </li>
-            </th:block>
-
-            <!-- <li class="nav-item">
-              <a class="nav-link link-body-emphasis px-2" href="/user">마이 페이지</a>
-            </li> -->
-            <!-- 로그인 시 -->
-            <!-- <th:block sec:authorize="isAuthenticated()">
-              <li class="nav-item">
-                <a class="nav-link link-body-emphasis px-2" aria-current="page" href="/admin">관리자 페이지</a>
-              </li>
-            </th:block> -->
+          <a class="nav-link link-body-emphasis px-2" href="/">항공권 예약</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-body-emphasis px-2" href="/bus">공항 버스 예약</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-body-emphasis px-2" href="/board/list">게시판</a>
+        </li>
+        <!-- 임시 셋팅 -->
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+          <li class="nav-item">
+            <a class="nav-link link-body-emphasis px-2" href="/admin">관리자 페이지</a>
+          </li>
+        </th:block>
           </ul>
         </ul>
     </div>

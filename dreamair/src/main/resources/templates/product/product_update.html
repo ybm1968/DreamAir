@@ -13,7 +13,7 @@
 <body layout:fragment="content">
 
     <div class="product_container">
-        <h1 style="text-align: center;">상품(항공권) 정보 수정</h1>
+        <h1 class="text-center my-5">상품(항공권) 정보 수정</h1>
         <br>
         
         <form class="needs-validation" novalidate th:action="|/product/product_update?productNo=${product.productNo}&${_csrf.parameterName}=${_csrf.token}|" method="post" enctype="multipart/form-data">   

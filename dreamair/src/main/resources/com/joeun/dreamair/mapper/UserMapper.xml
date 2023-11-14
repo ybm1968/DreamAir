@@ -124,6 +124,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES ( #{productNo}, #{userNo}, #{userNo2}, #{cartCnt} )
     </insert>
 
+
+
     <!-- 장바구니 삭제 -->
     <insert id="cart_delete">
         DELETE cart
