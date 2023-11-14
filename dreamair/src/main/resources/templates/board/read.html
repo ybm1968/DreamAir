@@ -8,6 +8,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 조회</title>
+
+    <style>
+
+        .comment-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .comment-box:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .data-box .top .item {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin-left: 5px;
+            text-decoration: none;
+            color: #333;
+            background-color: #e7e7e7;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #d6d6d6;
+        }
+
+        .btn-comment-update, .btn-comment-delete, .btn-reply {
+            cursor: pointer;
+        }
+
+        .comment-content {
+            margin-top: 5px;
+        }
+
+        .etc-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .etc-box .btn {
+            padding: 3px 6px;
+        }
+
+        .comment-writer {
+            margin-right: 10px; /* 작성자와 날짜 사이의 거리 추가 */
+            font-weight: bold;
+        }
+
+        .middle {
+    margin-bottom: 20px; /* 댓글 내용과 버튼 사이의 거리 추가 */
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: space-between; /* 버튼을 양쪽에 배치 */
+        }
+
+        .buttons-left, .buttons-right {
+            display: flex;
+        }
+
+        .buttons-right {
+            justify-content: flex-end; /* 오른쪽에 위치한 버튼을 오른쪽 끝으로 정렬 */
+        }
+
+/* 추가적인 스타일링이 필요한 경우 이곳에 작성 */
+
+    </style>
+
 </head>
 <body layout:fragment="content" class="container mt-5">
     <h1 class="mb-4">게시글 조회</h1>
@@ -66,12 +148,12 @@
             <input type="hidden" name="parentTable" value="comment" /> 
             <input type="hidden" name="parentNo" th:value="${board.boardNo}" />
             <div class="form-group">
-                <label for="writer">작성자</label>
-                <input type="text" id="writer" name="comment-writer" class="form-control" placeholder="이름을 입력하세요..." required>
+                <label for="comment-writer">작성자</label>
+                <input type="text" id="comment-writer" name="comment-writer" class="form-control" placeholder="이름을 입력하세요..." required>
             </div>
             <div class="form-group">
-                <label for="comment">댓글</label>
-                <textarea id="content" name="comment-content" class="form-control" placeholder="댓글을 입력하세요..." required></textarea>
+                <label for="comment-content">댓글</label>
+                <textarea id="comment-content" name="comment-content" class="form-control" placeholder="댓글을 입력하세요..." required></textarea>
             </div>
             <div class="btn-box">
                 <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
@@ -118,6 +200,9 @@
             </th:block>
         </ul>
     </div> 
+
+    <input type="hidden" id="csrf" th:value="${_csrf.token}"/>
+    <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -194,6 +279,11 @@
                 url : '/comment/update',
                 type : 'post',
                 data : data,
+                beforeSend: function(xhr) {
+                    // alert(header)
+                    // alert(token)
+                    xhr.setRequestHeader(header, token);
+                },
                 success : function(response) {
                 	location.reload(true);
                     /* 
@@ -227,10 +317,18 @@
                 boardNo : boardNo
             }
 
+            const csrfToken = document.getElementById('csrf').value;
+            const csrfHeader = document.getElementById('csrfHeader').value;
+
             $.ajax({
                 url : '/comment/delete',
                 type : 'post',
                 data :data,   // 폼 데이터 형식으로 보냄
+                beforeSend: function(xhr) {
+                    // alert(header)
+                    // alert(token)
+                    xhr.setRequestHeader(header, token);
+                },
                 success : function(response) {
 
                     let result = response
@@ -272,7 +370,7 @@
         // 댓글 목록 조회
         function getCommentList() {
 
-            const url = 'http://localhost:8080/comment/read'
+            const url = '/comment/read'
 
             let data = {
                 'boardNo' : boardNo
@@ -291,7 +389,6 @@
                     for (let i = 0; i < commentList.length; i++) {
                         let comment = commentList[i]
                         
-
                         let date = new Date(comment.regDate);
                         let regDate = date.toISOString().split("T")[0];
                         let regTime = date.toISOString().split("T")[1];
@@ -305,23 +402,25 @@
                                                 <div class="top">
                                                     <div class="item">
                                                         <span class="comment-writer">${comment.writer}</span>
-                                                    </div>
-                                                    <div class="item">
-                                                        <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
-                                                        <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                                                        <span class="comment-date">${regDate} - ${regTime}</span>
                                                     </div>
                                                 </div>
-                                                <div class="bottom">
+                                                <div class="middle">
                                                     <p class="comment-content">${comment.content}</p>
-                                                    <div class="etc-box">
-                                                        <span class="comment-date">${comment.regDate} </span>
-                                                        <a href="javascript:;" class="btn btn-sm btn-reply" data="${comment.commentNo}">답글</a>
+                                                </div>
+                                                <div class="bottom">
+                                                    <div class="buttons-left">
+                                                        <a href="javascript:;" class="btn btn-comment-update" data="${comment.commentNo}">수정</a>
+                                                        <a href="javascript:;" class="btn btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                                                    </div>
+                                                    <div class="buttons-right">
+                                                        <a href="javascript:;" class="btn btn-reply" data="${comment.commentNo}">답글</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="edit-box"></div>
                                         </div>
-                                        `
+                                       `
                         commentData += commentBox
                     }
 
@@ -343,19 +442,30 @@
             const url = '/comment/insert'
 
             let data = {
-                'parentNo'   : boardNo,
+                'parentNo'   : "[[${board.boardNo}]]",
                 'parentTable' : 'board',
                 'writer'    : writer,
                 'content'   : content,
             }
 
+
+            // let token = $("meta[name='_csrf']").attr("content");
+            // let header = $("meta[name='_csrf_header']").attr("content");
+            let header = '[[${_csrf.headerName}]]'       // X-CSRF-TOKEN
+            let token = '[[${_csrf.token}]]'             // c8645699-8cd8-44cc-967d-25f089c8aa09
+
+
             $.ajax({
-                url : '/comment/insert',
+                url : '/comment',
                 type : 'post',
                 data : data,
+                beforeSend: function(xhr) {
+                    // alert(header)
+                    // alert(token)
+                    xhr.setRequestHeader(header, token);
+                },
                 success : function(response) {
                 	let result = response
-
                     if( result == 'SUCCESS' ) {
                         Swal.fire(
                             '완료!',
@@ -363,16 +473,30 @@
                             'success'
                         )
                         // 댓글 목록 갱신
-                        //getCommentList()
+                        getCommentList()
 						//location.reload(true);
                         // 작성한 댓글 입력내용 초기화
                         $('#comment-writer').val('')
                         $('#comment-content').val('')
 
                     }
+                    if( result == 'FAIL' ) {
+                        Swal.fire(
+                            '실패!',
+                            '댓글 등록에 실패하였습니다.',
+                            'error'
+                        )
+                        // 댓글 목록 갱신
+                        //getCommentList()
+						//location.reload(true);
+                        // 작성한 댓글 입력내용 초기화
+                        // $('#comment-writer').val('')
+                        // $('#comment-content').val('')
+
+                    }
                 },
                 error : function(error) {
-
+                    alert(error)
                 }
             })
             }
@@ -381,18 +505,18 @@
         $('#btn-comment-insert').on('click', function() {
 
            
-            let writer = $('#writer').val()
-            let content = $('#content').val()
+            let writer = $('#comment-writer').val()
+            let content = $('#comment-content').val()
 
             
             if (writer.trim() === '' || content.trim() === '') {
                 alert('작성자와 댓글 내용을 모두 입력해주세요.');
                 return;
-         }
+            }
             insertComment( writer, content )
-			location.reload(true);
-            getCommentList()
-            })
+			// location.reload(true);
+            // getCommentList()
+        })
 
 
 // -----------------------------------------------------------------------------------------------------------------------
@@ -615,7 +739,7 @@
 
             })
 
-            }
+        }
 
 
     </script>

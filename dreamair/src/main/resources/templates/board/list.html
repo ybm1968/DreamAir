@@ -9,13 +9,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 목록</title>
-    <style>
-        .card-columns { column-count: 3; row-gap: 20px; }
-        .card { margin: 20px 0; break-inside: avoid-column; }
-        .footer_container {
-          position: relative!important;
-        }
-    </style>
 </head>
 <body layout:fragment="content">
     
@@ -24,12 +17,12 @@
     
         <a href="/board/insert" class="btn btn-primary mb-4">글쓰기</a>
     
-        <div class="card-columns">
-            <th:block th:each="board : ${boardList}">
+        <div class="row">
+            <div th:each="board : ${boardList}" class="col-md-4 mb-4">
                 <div class="card">
                     <img th:src="|/file/img/${board.thumbnail.fileNo}|" alt="게시글 이미지" 
-                         class="card-img-top w-100 p-4" th:if="${board.thumbnail != null }" /><br>
-                    <div class="card-body">
+                                class="card-img-top w-70 p-4" th:if="${board.thumbnail != null }" />
+                     <div class="card-body">
                         <h5 class="card-title" th:text="${board.title}"></h5>
                         <p class="card-text">
                             작성자: <span th:text="${board.writer}"></span><br>
@@ -40,7 +33,7 @@
                         <a th:href="|/board/read?boardNo=${board.boardNo}|" class="btn btn-primary">게시글 조회</a>
                     </div>
                 </div>
-            </th:block>
+            </div>
         </div>
     </div>
     

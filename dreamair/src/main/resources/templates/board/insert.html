@@ -8,11 +8,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 등록</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        input[type=text], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+
 </head>
 <body layout:fragment="content">
-    <h1>게시글 등록</h1>
-    <form action="/board/insert" method="POST" id="form" enctype="multipart/form-data">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div class="form-container">
+        <h1>게시글 등록</h1>
+        <form action="/board/insert" method="POST" id="form" enctype="multipart/form-data">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <table>
             <tr>
@@ -41,11 +94,13 @@
                 </td>
             </tr>
         </table>
-        <div>
-            <button type="button" onclick="moveList()">목록</button>
-            <button type="button" onclick="actionInsert()">등록</button>
-        </div>
-    </form>
+            <div>
+                <button type="button" class="form-button" onclick="moveList()">목록</button>
+                <button type="button" class="form-button" onclick="actionInsert()">등록</button>
+            </div>
+     </form>
+    </div>
+
 
     <script>
         let form = document.getElementById('form')

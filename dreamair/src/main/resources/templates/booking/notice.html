@@ -10,7 +10,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
-
+    <style>
+        .footer_container {
+          position: relative!important;
+        }
+      </style>
 
 </head>
 
@@ -27,6 +31,8 @@
             <!-- <input type="hidden" name="phones" th:value="${bookingInfo.phones}">  -->
             <input type="hidden" name="pasCount" th:value="${bookingInfo.pasCount}"> 
             <input type="hidden" name="roundTrip" th:value="${bookingInfo.roundTrip}"> 
+            <input type="hidden" name="seatNoDeps" th:value="${bookingInfo.seatNoDeps}"> 
+            <input type="hidden" name="seatNoDess" th:value="${bookingInfo.seatNoDess}"> 
             <section>
                 <h2>가는편</h2>
                 <table class="table table-striped table-hover table-bordered text-center align-middle">
@@ -50,8 +56,7 @@
                             <td><span th:text="${booking.destinationDate}"></span></td>
                             <td>일반석</td>
                             <td><span th:text="${booking.productPrice}"></span></td>
-                            <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
-                            <td>1석</td>
+                            <td><span th:text="${bookingInfo.seatNoDeps}"></span></td>
                             <td><span th:text="${booking.passengerName}"></span></td>
                             <input type="hidden" name="passengerNames" th:value="${booking.passengerName}">
                             <input type="hidden" name="passengerNos" th:value="${booking.passengerNo}">
@@ -84,8 +89,7 @@
                                 <td><span th:text="${booking.destinationDate}"></span></td>
                                 <td>일반석</td>
                                 <td><span th:text="${booking.productPrice}"></span></td>
-                                <!-- <tr><span th:text="${booking.seatNo}"></span></tr> -->
-                                <td>1석</td>
+                                <td><span th:text="${bookingInfo.seatNoDess}"></span></td>
                                 <td><span th:text="${booking.passengerName}"></span></td>
                                 <input type="hidden" name="passengerNames" th:value="${booking.passengerName}">
                                 <input type="hidden" name="passengerNos" th:value="${booking.passengerNo}">
@@ -145,7 +149,7 @@
             </section>
 
                 <label class="radio-container m-r-45" for="commit">위 내용을 확인하셨습니까?
-                    <input type="checkbox" id="commit" value="확인" required>                    
+                    <input type="checkbox" id="commit" value="확인" required checked>                     
                     <span class="radio-checkmark"></span>
                 </label> 
 

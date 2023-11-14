@@ -26,6 +26,11 @@ public interface BookingMapper {
     // 비회원 - 가장 최근 예매 번호 조회
     public int latest_user2_bookingNo(int userNo2) throws Exception;
     
+    // 가는편 예매 테이블 등록
+    public int goBookingInsert(Booking booking) throws Exception;
+
+    // 오는편 예매 테이블 등록
+    public int comeBookingInsert(Booking booking) throws Exception;
 
     // 여권 정보 입력
     // public int infoPassport(Users user) throws Exception;
@@ -44,6 +49,9 @@ public interface BookingMapper {
 
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus(int flightNo) throws Exception;
+
+    // 항공기 좌석 조회 - 예약된 좌석
+    public List<Booking> bookedSeatStatus(int flightNo) throws Exception;
 
     // 탑승권 리스트 조회 - 회원
     public List<Booking> selectBookingListByUser(String userId) throws Exception;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.joeun.dreamair.dto.Comment;
 import com.joeun.dreamair.service.CommentService;
@@ -38,6 +39,9 @@ public class CommentController {
         log.info("[GET] - /board/read");
 
         List<Comment> commentList = commentService.listByBoard(boardNo);
+        for (Comment comment : commentList) {
+            log.info("comment : " + comment);
+        }
         model.addAttribute("commentList", commentList);
         return new ResponseEntity<List<Comment>>(commentList, HttpStatus.OK);
     }
@@ -53,16 +57,34 @@ public class CommentController {
     public String insertPro(@ModelAttribute Comment comment) throws Exception {
         // 댓글 데이터베이스에 삽입
         int result = commentService.insert(comment);
+        log.info("댓글 쓰기 결과 : result : " + result);
     
         // `parentNo`가 게시글 번호라고 가정합니다.
         int boardNo = comment.getParent_no();
+        log.info("댓글 쓰기 처리 후, boardNo : " + boardNo);
         
         // 성공적으로 댓글을 삽입한 후, 댓글이 달린 게시글로 리다이렉트합니다.
         return "redirect:/board/read/" + boardNo;
     }
 
-    // 댓글 수정
+    // 댓글 쓰기 처리
+    @ResponseBody
+    @PostMapping(value="")
+    public String commentPost(@ModelAttribute Comment comment) throws Exception {
+        // 댓글 데이터베이스에 삽입
+        int result = commentService.insert(comment);
+        log.info("댓글 쓰기 결과 : result : " + result);
+    
+        if( result > 0 )
+            return "SUCCESS";
+        else 
+            return "FAIL";
+        
+    }
 
+
+
+    // 댓글 수정
     @GetMapping(value="/update")
     public String update(Model model, int commentNo) throws Exception {
         // 데이터 요청

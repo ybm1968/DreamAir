@@ -12,7 +12,11 @@
         .footer_container {
           position: relative!important;
         }
+
+        .card-columns { column-count: 3; row-gap: 20px; }
+        .card { margin: 20px 0; break-inside: avoid-column; }
       </style>
+
       
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 </head>
@@ -141,6 +145,8 @@
 
     <section>
         <div class="container">
+
+            <br>
             <h1>최근 게시글</h1>
             <!-- <div class="row"> -->
             <div class="card-columns">

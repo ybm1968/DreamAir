@@ -11,12 +11,17 @@
 
     <!-- main_layout에 적용되어있는 style.css가 아닌 checkIn.css를 우선 적용 -->
     <link rel="stylesheet" th:href="@{/css/checkIn.css}" />
+
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <style>
         .footer_container {
           position: relative!important;
         }
-      </style>
+    </style>
 
+    <!-- JavaScript 추가 -->
     <script th:inline="javascript">
 
         let booking = [[${booking}]]        // 여기는 원래 에러 뜨는 것임 무시 가능
@@ -24,12 +29,24 @@
         console.log( booking );
         console.log( booking.pasCount );
 
+        // 토스트 정의
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            iconColor: 'red',
+            customClass: {
+                popup: 'colored-toast',
+            },
+            showConfirmButton: false,
+            timer: 6000,
+            timerProgressBar: true,
+        })
+
         document.addEventListener('DOMContentLoaded', function() {
 
             // checkbox의 change 이벤트 핸들러 등록
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            var depSeatInput = document.getElementById('depSeat');
-            var seatNoDepsInput = document.getElementById('seatNoDeps');  // 추가 부분
+            var seatNoDepsInput = document.getElementById('seatNoDeps');
 
             var selectedSeats = new Array();
 
@@ -39,36 +56,118 @@
                     // 체크 해제인 경우 (🟦)
                     if (checkbox.classList.contains('checked')) {
                         checkbox.classList.remove('checked');
-                        checkbox.checked = false;  // 선택한 체크 박스를 선택 해제 (✅  -->  🟩)
+                        checkbox.checked = false; // 선택한 체크 박스를 선택 해제 (✅ --> 🟩)
                     }
 
                     selectedSeats = Array.from(checkboxes)
-                        .filter(function(checkbox) { return checkbox.checked; })
-                        .map(function(checkbox) { return checkbox.value; });
+                                        .filter(function(checkbox) { return checkbox.checked; })
+                                        .map(function(checkbox) { return checkbox.value; });
+
                     console.log('selectedSeats : ' + selectedSeats);
 
                     if (booking.pasCount < selectedSeats.length) {
                         alert('선택 불가');
                         checkbox.checked = false;
-                        return;  // 선택 좌석 수 > 탑승인원 수 (선택 불가)
+                        return; // 선택 좌석 수 > 탑승인원 수 (선택 불가)
                     }
 
                     // input 선택된 좌석 넣어주기
-                    depSeatInput.value = selectedSeats.join(', ');
-
-                    // seatNoDeps 값 설정
-                    booking.seatNoDeps = selectedSeats;
-                    seatNoDepsInput.value = selectedSeats.join(',');
+                    seatNoDepsInput.value = selectedSeats.join(', '); 
 
                     // 체크 박스 선택(🟥)
                     console.log('checkbox.checked : ' + checkbox.checked);
-                    if (checkbox.checked)
-                        checkbox.classList.add('checked');
+                    if (checkbox.checked) {
+                        checkbox.classList.add('checked');              // 체크박스 모양 🟥
+                    }
 
                     console.log('선택된 좌석 수 : ' + selectedSeats.length);
                 });
             });
         });
+
+        // 5초마다 예약된 좌석 확인
+        // setInterval(function() {
+        //     // console.log('5초마다...');
+        //     let flightNo = '[[${booking.flightNo}]]'
+        //     let url = '/booking/booked?flightNo=' + flightNo
+        //    $.ajax({
+        //         url : url,
+        //         type : 'GET',
+        //         // data : data,
+        //         success : function(response) {
+        //             console.log(response);
+        //         },
+        //         error : function() {
+        //             alert('에러')
+        //         }
+        //     })
+        //}, 5000);
+
+       setInterval( function () {
+            let flightNo = '[[${booking.flightNo}]]'
+            let url = '/booking/booked?flightNo=' + flightNo
+
+            $.ajax({
+                url : url,
+                type : 'get',
+                success : function(response) {
+                    console.log(response);
+                    let bookedSeatList = response
+                    // 예약된 자리 확인
+                    let selectedSeatList = $('#seatNoDeps').val()
+                    console.log('선택한 좌석');
+                    console.log(selectedSeatList);
+                    selectedSeatList = selectedSeatList.split(',')
+                    console.log(selectedSeatList);
+                    console.log( typeof selectedSeatList );
+
+                    for (let i = 0; i < bookedSeatList.length ; i++) {
+                        const bookedSeat = bookedSeatList[i].seatNo    // 예약된 좌석
+                        for (let j = 0; j < selectedSeatList.length; j++) {
+                            const selectedSeat = selectedSeatList[j];      // 선택한 좌석
+                            console.log('selectedSeat : '+ selectedSeat);
+                            console.log('bookedSeat : '+ bookedSeat);
+                            if( bookedSeat == selectedSeat ) {
+                                // alert(bookedSeat + ' 좌석이 실시간으로 예약되었습니다.\n 다른 좌석을 선택해주세요.')
+
+                                // Toast.fire({
+                                //     icon: 'error',
+                                //     title: bookedSeat + ' 좌석이 실시간으로 예약되었습니다.\n다른 좌석을 선택해주세요.',
+                                // })
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: ' 좌석이 실시간으로 예약되었습니다.\n다른 좌석을 선택해주세요.',
+                                })
+
+
+                                // 선택좌석 취소
+                                
+                                let checkbox = document.getElementById('seat-' + bookedSeat)
+                                checkbox.checked = false;		         // 체크된 값 제거
+                                checkbox.classList.remove('checked');    // 체크박스 모양 🟥 해제
+                                checkbox.disabled = 'true'               // 좌석 선택 불가 (❌)
+
+                                // 선택한 좌석의 값을 좌석 input 에서 제거
+                                var selectedSeats = new Array();
+                                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                                var seatNoDepsInput = document.getElementById('seatNoDeps');
+
+                                // 체크된 박스들의 값을 가져와서 배열로 지정
+                                selectedSeats = Array.from(checkboxes)
+                                                        .filter(function(checkbox) { return checkbox.checked; })
+                                                        .map(function(checkbox) { return checkbox.value; });
+
+                                // input 선택된 좌석 넣어주기
+                                seatNoDepsInput.value = selectedSeats.join(', '); 
+                            }
+                        }
+                    } // 반복끝
+                },
+                error : function(error) {
+                    alert('에러')
+                }
+            })
+       }, 30 * 1000);       // 30초
 
     </script>
 
@@ -88,7 +187,7 @@
         </div>
 
         <div class="seat-body">
-            <form action="./notice" method="post" id="frm3">
+            <form action="./notice" method="GET" id="frm3">
                 <!-- input : hidden으로 데이터 넘기기 -->
                 <input type="hidden" name="pasCount" id="pasCount" th:value="${booking.pasCount}">
                 <input type="hidden" name="roundTrip" id="roundTrip" th:value="${booking.roundTrip}">
@@ -102,13 +201,23 @@
                         <input type="hidden" name="passengerNoss" id="passengerNoss" th:value="${booking.passengerNoss[i-1]}" th:attr="data-index=${i-1}" />
                     </th:block>
                 </th:block>
-                <input type="hidden" id="seatNoDeps" name="seatNoDeps" th:value="${booking.seatNoDeps}" />
                 <th:block th:with="count=${booking.pasCount}">
                     <th:block th:each="i : ${#numbers.sequence(1, count)}">
                         <input type="hidden" name="routeNoDess" id="routeNoDess" th:value="${booking.routeNoDess[i-1]}" th:attr="data-index=${i-1}" />
                     </th:block>
                 </th:block>
                 <input type="hidden" name="destination" id="destination" th:value="${booking.destination}">
+                <th:block th:with="count=${booking.pasCount}">
+                    <th:block th:each="i : ${#numbers.sequence(1, count)}">
+                        <input type="hidden" name="phones" id="phones" th:value="${booking.phones[i-1]}" th:attr="data-index=${i-1}" />
+                    </th:block>
+                </th:block>
+                <th:block th:with="count=${booking.pasCount}">
+                    <th:block th:each="seatNoDep, i : ${booking.seatNoDeps}">
+                        <input type="hidden" name="seatNoDeps" th:value="${seatNoDep}" th:attr="data-index=${i.index}" />
+                    </th:block>
+                </th:block>
+                
 
 
             <!-- csrf -->
@@ -119,8 +228,8 @@
                         <div class="left1">
                             <div class="nameView"></div>
                             <div class="seatView">
-                                <div class="depAir">
-                                    <div class="depSeat">
+                                <div class="seatNoDeps">
+                                    <div class="SeatNoDeps">
 
                                         <br>
 
@@ -157,7 +266,7 @@
                         
                         
                         <div class="seatInnerRightDown">
-                            <div class="passengerName">탑승객 명
+                            <div class="passengerName">탑승객명
                                 <h5 th:each="passenger : ${booking.passengerNames}">
                                     <span th:text="${passenger}"></span>
                                 </h5>
@@ -168,7 +277,7 @@
                             </div>
                             <br>
                             <div class="goSeat">가는 편 좌석
-                                <input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px">
+                                <input type="text" id="seatNoDeps" name="seatNoDeps" readonly="readonly" style="padding: 0; height: 17px">
                             </div>
                             
                         </div>
@@ -228,6 +337,14 @@
             }
             
             var commaSeparatedRouteNoDess = routeNoDess.join(',');    // 배열을 콤마로 구분된 문자열로 변환
+            
+            var phones = [];
+            for (var i = 0; i < pasCount; i++) {
+                var inputValue4 = $("#phones[data-index='" + i + "']").val();
+                phones.push(inputValue4);
+            }
+            
+            var commaSeparatedPhones = phones.join(',');    // 배열을 콤마로 구분된 문자열로 변환
     
             // URL에 파라미터 추가
             var url =   "/booking/seat_rt?roundTrip=" + roundTrip
@@ -237,6 +354,7 @@
                       + "&passengerNames=" + commaSeparatedPassengerNames
                       + "&passengerNoss=" + commaSeparatedPassengerNoss
                       + "&routeNoDess=" + commaSeparatedRouteNoDess
+                      + "&phones=" + commaSeparatedPhones
                       ;
             
             // 이동
