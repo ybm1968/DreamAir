@@ -64,8 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 티켓 발행 등록 -->
 <!-- ✅ TODO -->
 <insert id="createTicket">
-  INSERT INTO ticket ( passenger_no, passenger_name, route_no, booking_no, departure, destination, departure_date, destination_date, departure_time, destination_time, duration, boarding, checked_in, is_boarded, route_no, seat_no, flight_no, phone, user_pw, user_id )
-  VALUES ( #{passengerNo}, #{passengerName}, #{routeNo}, #{bookingNo}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checkedIn}, #{isBoarded}, #{routeNo}, #{seatNo}, #{flightNo}, #{phone}, #{userPw}, #{userId} )
+  INSERT INTO ticket ( passenger_no, passenger_name, route_no, booking_no, departure, destination, departure_date, destination_date, departure_time, destination_time, duration, boarding, checked_in, is_boarded, seat_no, flight_no, phone, user_pw, user_id )
+  VALUES ( #{passengerNo}, #{passengerName}, #{routeNo}, #{bookingNo}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checkedIn}, #{isBoarded}, #{seatNo}, #{flightNo}, #{phone}, #{userPw}, #{userId} )
 </insert>
             
 <!-- 예매한 탑승권 정보 조회 -->

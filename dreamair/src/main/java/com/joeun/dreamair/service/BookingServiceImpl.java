@@ -106,46 +106,52 @@ public class BookingServiceImpl implements BookingService{
         return result;
     }
     
-    @Override
-    public int createTicket(Booking booking) throws Exception {
-        String userId = "";
-        int result = 0;
-        int bookingNo = 0;
-        int ticketNo = 0;
-        // 필요한것 : 이름 배열 하나만, pinType,
-        // pinType=0, pinTypes=null, passengerNo=0 routeNo=0, departure=null, destination=null boarding=null departureTime=null, destinationTime=null
+  // 탑승권 번호 발행 + QR 코드 발행
+  @Override
+  public int createTicket(Booking booking) throws Exception {
+      String userId = "";
+      int result = 0;
+      int bookingNo = 0;
+      int ticketNo = 0;
+      // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
+      for (int i = 0; i < booking.getPasCount(); i++) {
+          int count = bookingMapper.createTicket(booking);
+          // 조건 : 회원 비회원
+          // 회원
+          if( !userId.contains("GUEST") ) {
+              bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
 
-        log.info("티켓 발행 : " + booking);
+              List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                  for(int j = 0; j < ticketList.size(); j++){
+                      Booking ticket = new Booking();
+                      ticket = ticketList.get(i);
+                      ticketNo = ticket.getTicketNo();
+                  }
+          }
+          else {
+              bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
+              List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                  for(int j = 0; j < ticketList.size(); j++){
+                      Booking ticket = new Booking();
+                      ticket = ticketList.get(i);
+                      ticketNo = ticket.getTicketNo();
+                  }
+          }
+          
+          QR qr = new QR();
+          qr.setParentTable("booking");
+          qr.setParentNo(ticketNo);
+          String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
+          qr.setUrl( url );
+          qr.setName("QR_" + ticketNo + "B" + bookingNo);
 
-        // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
-        for (int i = 0; i < booking.getPasCount(); i++) {
-            int count = bookingMapper.createTicket(booking);
-            // 조건 : 회원 비회원
-            // 회원
-            if( !userId.contains("GUEST") ) {
-                bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
-                //ticketNo = ???;
-            }
-            else {
-                bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
-                //ticketNo = ???;
-            }
+          qrService.makeQR(qr);
 
-            
-            QR qr = new QR();
-            qr.setParentTable("booking");
-            qr.setParentNo(ticketNo);
-            String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
-            qr.setUrl( url );
-            qr.setName("???");
+          result += count;
+      }
 
-            qrService.makeQR(qr);
-
-            // result += count;
-        }
-
-        return result;
-    }
+      return result;
+  }
 
     // seat 테이블 좌석 상태 조회
     @Override
