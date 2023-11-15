@@ -75,7 +75,6 @@ to {
 
 .seat-content {
 	width: 100%;
-	margin-bottom: 100px;
 }
 
 .seat-header {
@@ -180,7 +179,7 @@ input:focus {
 }
 
 .seatCol {
-	margin-left: 80px;
+	margin-left: 65px;
 }
 
 /* 체크 박스 여기 */

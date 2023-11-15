@@ -15,10 +15,16 @@
     <!-- sweetalert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <style>
+        .footer_container {
+          position: relative!important;
+        }
+    </style>
+
     <!-- JavaScript 추가 -->
     <script th:inline="javascript">
 
-let booking = [[${booking}]]        // 여기는 원래 에러 뜨는 것임 무시 가능
+    let booking = [[${booking}]]        // 여기는 원래 에러 뜨는 것임 무시 가능
         let selectable = true               // 좌석 선택 가능 여부
         console.log( booking );
         console.log( booking.pasCount );
@@ -171,15 +177,17 @@ let booking = [[${booking}]]        // 여기는 원래 에러 뜨는 것임 무
 
 <body layout:fragment="content">
 
-    <div class="seat-content">
-        <div class="seat-header">
-            <h2 class="text">좌석선택</h2>
-        </div>
+    <div class="seat-content mt-5 py-3">
+        <h1 style="text-align: center;">좌석 선택</h1>
+        <br>
 
-        <div class="seat-header2">
+        <div class="img_container text-center">
+            <img src="/img/select_seat.png" alt="좌석선택">
+          </div>
+
+        <div class="seat-header2 mt-4">
             <h2>오는 편</h2>
         </div>
-
 
         <div class="seat-body">
             <form action="./notice" method="GET" id="frm3">
