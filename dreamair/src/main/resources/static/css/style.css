@@ -98,7 +98,6 @@
     margin-bottom: 20px;
 
     position: absolute;
-    /* margin-bottom: -540px; */
     bottom: 180px;
     width: 100%;
 }
@@ -188,15 +187,6 @@
     height: 40px;
   }
 
-  /* .footer .container .family > select {
-    width: 120px;
-    height: 5px;
-    border-radius: 10px;
-    margin-right: 10px;
-    text-align: center;
-    background-color: #eee;
-  } */
-
 /* INDEX - CONTENT : 항공권 조회 */
 #index_body {
     float: left;
@@ -215,7 +205,6 @@
 }
 
 #searchFlight {
-  /* border: 1px solid blue; */
   width: 1280px;
   height: 300px;
 }
@@ -247,55 +236,57 @@
     display: block;
   }
 
-/* 슬라이드
-#image_slide {
-    height: 480px;
+  /* INDEX - 이미지 슬라이드 */
+  #slide {
+    width:100%;
+    padding: 0 15vw;
+    position: relative;
+    margin:1vw 0 0 0;
   }
-   */
-/* 슬라이드 이미지 */
-/* .slide > img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover;
+
+  #slide i{
+      font-size: 30px;
   }
-   */
-  /* 기본 커스텀 */
-  /* .bx-wrapper {
-    box-shadow: 0 0 0 transparent;
-    border: 0 solid #fff;
-    background-color: #fff;
-  } */
-  
-  /************** 페이지네이션 커스텀 **************/
-  /* .bx-wrapper .bx-pager.bx-default-pager a {
-    background-color: rgb(182, 180, 180);
+
+  #slide .slider-container {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 15px;
   }
-  
-  .bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default-pager a:focus {
-    background-color: black;
+
+  #slide .slider-container span{
+      position: absolute;
+      z-index: 99;
+      top:50%;
+      cursor: pointer;
   }
-  
-  .bx-wrapper .bx-pager.bx-default-pager a {
-    border-radius: 50%;
-  } */
-  
-  /************** 네비게이션 화살표 커스텀 **************/
-  /* .bx-wrapper .bx-prev { 
-    background: url(../img/prev.png) no-repeat left center; 
-    background-size: 32px 32px;
+
+  #slide .slider-container .leftBtn{
+      left: 12%;
+      transform: translate(0,-50%);
   }
-  .bx-wrapper .bx-next { 
-    background: url(../img/next.png) no-repeat left center; 
-    background-size: 32px 32px;
+
+  #slide .slider-container .rightBtn{
+      right: 12%;
+      transform: translate(0,-50%);
   }
-  
-  .bx-wrapper .bx-prev:hover,
-  .bx-wrapper .bx-prev:focus { background-position: 0 0; }
-  .bx-wrapper .bx-prev:hover { filter: brightness(60%); }
-  
-  .bx-wrapper .bx-next:hover,
-  .bx-wrapper .bx-next:focus { background-position: 0 0; }
-  .bx-wrapper .bx-next:hover { filter: brightness(60%); } */
+
+  #slide .slider-container .slider{
+      display:flex;
+      width: 101%;
+  }
+
+  #slide .slider-container .slider span{
+      display: block;
+      position: relative;
+      min-width: 100%;
+  }
+
+  #slide .slider-container .slider span img{
+    width: 1900px;
+    height: 400px;
+    margin-bottom: 10%;
+  }
 
 /**
 * 중복 아이디
@@ -361,3 +352,5 @@
 .passenger {width: 10%;}
 .search_btn {width: 10%;}
 .none {display: none;}
+
+/*  */

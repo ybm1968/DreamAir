@@ -218,7 +218,6 @@ let booking = [[${booking}]]        // 여기는 원래 에러 뜨는 것임 무
 
                                         <br>
 
-                                        <h5 class="seatCol">A 　B 　C 　D</h5>
                                         <!-- 좌석 -->
                                         <div class="seat1">
                                             <th:block th:each="seat, iterStat : ${seatStatus}">
@@ -255,7 +254,7 @@ let booking = [[${booking}]]        // 여기는 원래 에러 뜨는 것임 무
                         
                         
                         <div class="seatInnerRightDown">
-                            <div class="passengerName">탑승객 명
+                            <div class="passengerName">탑승객명
                                 <h5 th:each="passenger : ${booking.passengerNames}">
                                     <span th:text="${passenger}"></span>
                                 </h5>
