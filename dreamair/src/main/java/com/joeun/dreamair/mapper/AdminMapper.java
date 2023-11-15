@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 
 @Mapper
@@ -69,5 +70,6 @@ public interface AdminMapper {
 
     // 탑승권 조회 - ticketNo
     public List<Booking> pas_ticketList(@Param("ticketNo") int ticketNo) throws Exception;
+
 
 }

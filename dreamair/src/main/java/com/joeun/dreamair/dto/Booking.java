@@ -1,9 +1,6 @@
 package com.joeun.dreamair.dto;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
@@ -107,6 +104,5 @@ public class Booking {
     private List<String> seatNoDess;    // 좌석 번호 오는 편
 
     private String payment;     // payment 페이지 구분하는 변수
-
 }
 

@@ -8,11 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>체크인</title>
+    <style>
+        .footer_container {
+          position: relative!important;
+        }
+    </style>
 
 </head>
 <body layout:fragment="content" class="pt-5">
-
-    <div class="container">
+    <div class="container mt-5">
         <h1 class="text-center my-3">체크인</h1>
 
         <form action="/user/checkin" method="post" th:name="checkinForm">
@@ -29,7 +33,7 @@
                     <select id="numTypeSelect" style="width: 200px" title="종류별 번호">
                         <!-- <option value="reservNo">예약번호</option> -->
                         <option value="ticketNo">탑승권 번호</option>
-                    </select> <input type="text" id="bookingNum" name="bookingNum" maxlength="8" placeholder="탑승권 번호 입력" style="width: 280px; text-transform: uppercase;">
+                    </select> <input type="text" id="ticketNo" name="ticketNo" maxlength="8" placeholder="탑승권 번호 입력" style="width: 280px; text-transform: uppercase;">
                     <button type="submit" class="btn btn-outline-primary btn-lg">조회</button>
                 </div>
             </div>
@@ -92,8 +96,8 @@
                             <td><span th:text="${ticket.productPrice}"></span></td>
                             <td colspan="2">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <!-- <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/admin_update?adminId=${admin.adminId}|">체크인</button></td>           -->
-                                    <td><button class="btn btn-primary me-md-2" type="button"><a th:href="#">체크인</button></td>          
+                                    <td><button class="btn btn-primary me-md-2" type="button"><a th:href="|user/checkin?ticketNo=${ticket.ticketNo}|">체크인</button></td>          
+                                    <!-- <td><button class="btn btn-primary me-md-2" type="button">체크인</button></td>           -->
                                 </div>
                             </td>
                         </tr>
@@ -104,11 +108,11 @@
     </th:block>
 
     <th:block th:if="${TicketList==null}" >
-        <th:block th:if="${TicketList.isEmpty()}">
+        <!-- <th:block th:if="${TicketList.isEmpty()}"> -->
             <tr>
                 <td colspan="11">예매된 탑승권이 없습니다.</td>
             </tr>
-        </th:block>
+        <!-- </th:block> -->
     </th:block>
 
     <!-- 체크인 안내 -->
@@ -148,331 +152,7 @@
                     <li>모바일 탑승권이 허용되지 않는 일부 해외공항에서는 탑승권 전송이 제한됩니다.</li>
                 </ul>
             </div>
-
-        <!-- Modal content -->
-        <!-- <div class="modal-content">
-            <div class="modal-header">
-              <span class="close">&times;</span>
-              <h2 style="color: #6d6e70;cursor: context-menu;">좌석선택</h2>
-            </div>
-            <div class="modal-header2">
-              <h2 class="direction"><span id="depLoc"></span> → <span id="arrLoc"></span></h2>
-            </div>
-            <div class="modal-body">
-            <form id="frm3" method="post" action="./checkInPage">
-                <div class="modalInnerWrap">
-                    <div class="modalInnerLeft">
-                        <div class="left1">
-                            <div class="nameView"><p class="nameViewInner"></p></div>
-                                <div class="seatView">
-                        <div class="depAir">
-                        <div class="depSeat">
-                            <div class="seat1">
-                                <c:forEach begin="1" end="31" var="i">
-                                 <c:forEach begin="1" end="3" var="j">
-                                <c:choose>
-                                         <c:when test="${j eq 1}">
-                                             <c:set var="c" value="A"/>
-                                         </c:when>
-                                         <c:when test="${j eq 2}">
-                                             <c:set var="c" value="B"/>
-                                         </c:when>
-                                         <c:otherwise>
-                                             <c:set var="c" value="C"/>
-                                         </c:otherwise>
-                                     </c:choose>
-                                    <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
-                                  </c:forEach>
-                                  <br>
-                                </c:forEach>
-                                </div>
-                                <div class="seat2">
-                                <c:forEach begin="1" end="32" var="i">
-                                 <c:forEach begin="1" end="3" var="j">
-                                 <c:choose>
-                                         <c:when test="${j eq 1}">
-                                             <c:set var="c" value="D"/>
-                                         </c:when>
-                                         <c:when test="${j eq 2}">
-                                             <c:set var="c" value="E"/>
-                                         </c:when>
-                                         <c:otherwise>
-                                             <c:set var="c" value="F"/>
-                                         </c:otherwise>
-                                     </c:choose>
-                                     <label for="dep${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="dep${c}${i}" class="seat" title="${c}${i}"></label>
-                                  </c:forEach>
-                                  <br>
-                                </c:forEach>
-                            </div>
-                         </div>
-                        </div>
-                        <div class="arrAir" style="display: none">
-                            <div class="arrSeat">
-                                <div class="seat1">
-                                <c:forEach begin="1" end="31" var="i">
-                                 <c:forEach begin="1" end="3" var="j">
-                                <c:choose>
-                                         <c:when test="${j eq 1}">
-                                             <c:set var="c" value="A"/>
-                                         </c:when>
-                                         <c:when test="${j eq 2}">
-                                             <c:set var="c" value="B"/>
-                                         </c:when>
-                                         <c:otherwise>
-                                             <c:set var="c" value="C"/>
-                                         </c:otherwise>
-                                     </c:choose>
-                                    <label for="arr${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="arr${c}${i}" class="seat" title="${c}${i}"></label>
-                                  </c:forEach>
-                                  <br>
-                                </c:forEach>
-                                </div>
-                                    <div class="seat2">
-                                <c:forEach begin="1" end="32" var="i">
-                                 <c:forEach begin="1" end="3" var="j">
-                                 <c:choose>
-                                         <c:when test="${j eq 1}">
-                                             <c:set var="c" value="D"/>
-                                         </c:when>
-                                         <c:when test="${j eq 2}">
-                                             <c:set var="c" value="E"/>
-                                         </c:when>
-                                         <c:otherwise>
-                                             <c:set var="c" value="F"/>
-                                         </c:otherwise>
-                                     </c:choose>
-                                     <label for="arr${arrFNum}${c}${i}" class="bookable" title="${c}${i}"><input type="checkbox" id="arr${arrFNum}${c}${i}" class="seat" title="${c}${i}"></label>
-                                  </c:forEach>
-                                  <br>
-                                </c:forEach>
-                            </div>
-                                </div>
-                        </div>
-                                </div>
-                                <div class="seatWarning"> <span class="warning"><i class="fa fa-warning" style="margin-right: 5px"></i>좌석지정 유의사항 안내</span></div>
-                            </div>
-                    </div>
-
-                    <div class="modalInnerRight">
-                        <div class="modalInnerRightTop">
-                            <div class="seatInfo">
-                                <div class="seatInfo_bookSeat"><img alt="" src="../resources/newni/bookableSeat.png"> 선택가능 좌석 </div>
-                                <div class="seatInfo_bookingSeat"><img alt="" src="../resources/newni/bookingSeat.png"> 선택한 좌석 </div>
-                                <div class="seatInfo_bookedSeat"><img alt="" src="../resources/newni/bookedSeat.png"> 선택불가 좌석 </div>
-                            </div>
-                        </div>
-                        <div class="modalInnerRightDown">
-                            <div> 예매번호  <span class="spanBookingNum"></span><input type="text" id="bookingNum" name="bookingNum" readonly="readonly" hidden="hidden"></div>
-                            <div> 인원 수 <input type="text" id="people" name="people" readonly="readonly" style="width: 10px" hidden="hidden"><span class="spanPeople"></span>명</div>
-                            <div class="goSeat">가는편 좌석<input type="text" id="depSeat" name="depSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
-                            <div class="roundOnly backSeat">오는편 좌석<input type="text" id="arrSeat" name="arrSeat" readonly="readonly" style="padding: 0; height: 17px"></div>
-                                
-                            <input type="text" id="depFNum" name="depFNum" readonly="readonly" hidden="hidden">
-                            <input type="text" class="roundOnly" id="arrFNum" name="arrFNum" readonly="readonly" hidden="hidden">
-                            <input type="text" id="kind" name="kind" readonly="readonly" hidden="hidden">
-                        </div>
-                    </div>
-                    <div class="ajax" style="display: none;">
-                        
-                    </div>
-                         <p><button type="button" class="modalInnerBottom" id="btn"><span>선택 완료</span></button></p>
-                         
-                    <div class="modalInnerBottom2" style="display: none">
-                         <p><button type="button" class="depBookGo" id="btn2"><span>좌석 변경</span></button></p>
-                         <p><button type="button" class="bookOk" id="btn3"><span>체크인</span></button></p>
-                    </div>
-                </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-              <h3 class="tripDate"></h3>
-            </div>
-          </div>
-        
-        </div>
-            <script type="text/javascript">
-                var depChecks=[]; // 가는 비행기의 좌석에 체크된 항목을 담을 배열
-                var arrChecks=[]; // 오는 비행기의 좌석에 체크된 항목을 담을 배열
-                var depLoc;
-                var arrLoc;
-                
-                $(function() { // 구매가능한 좌석만 호버 
-                    $('.bookable').mouseover(function() {
-                        $(this).addClass('over');
-                    });
-                    $('.bookable').mouseout(function() {
-                        $(this).removeClass('over');
-                    });
-                });
-                
-                $("input:checkbox").click(function(){
-                    // alert($(this).attr('id'));
-                    // alert($(this).attr('class'));
-                    if ($(this).prop('checked')) {
-                        $(this).parent().closest('label').addClass('booking');
-                        $(this).parent().closest('label').removeClass('bookable');
-                    }
-                    else{
-                        //alert($(this).attr('id')+" 좌석을 취소");
-                        $(this).parent().closest('label').addClass('bookable');
-                        $(this).parent().closest('label').removeClass('booking');
-                    }
-                    // 가는 편 좌석을 모두 선택시 체크박스 제어
-                    if($(".depAir input:checkbox:checked").length == $("#people").val()){
-                        $(".depAir input:checkbox").not(":checked").attr('disabled', true);
-                        $(".depAir input:checkbox").not(":checked").parent().closest('label').removeClass('bookable');
-                        $(".depAir input:checkbox").not(":checked").parent().closest('label').addClass('bookend');
-                    }
-                    else if($(".depAir input:checkbox:checked").length < $("#people").val()){
-                        // 이미 예매 되어있는 좌석을 제외한 나머지 좌석의 disabled을 해제
-                        $(".depAir input:checkbox").not(".booked input:checkbox").attr('disabled', false); 
-                        $(".depAir input:checkbox").not(":checked").addClass('bookable');
-                        $(".depAir input:checkbox").not(":checked").parent().closest('label').removeClass('bookend');
-                        $(".depAir input:checkbox").not(":checked").parent().closest('label').addClass('bookable');
-                    } 
-                    // 오는 편 좌석을 모두 선택시 체크박스 제어
-                    if($(".arrAir input:checkbox:checked").length == $("#people").val()){
-                        $(".arrAir input:checkbox").not(":checked").attr('disabled', true);
-                        $(".arrAir input:checkbox").not(":checked").parent().closest('label').removeClass('bookable');
-                        $(".arrAir input:checkbox").not(":checked").parent().closest('label').addClass('bookend');
-                    }
-                    else if($(".arrAir input:checkbox:checked").length < $("#people").val()){
-                        $(".arrAir input:checkbox").not(".booked input:checkbox").attr('disabled', false);
-                        $(".arrAir input:checkbox").not(":checked").addClass('bookable');
-                        $(".arrAir input:checkbox").not(":checked").parent().closest('label').removeClass('bookend');
-                        $(".arrAir input:checkbox").not(":checked").parent().closest('label').addClass('bookable');
-                    } 
-                    if($(this).closest("div").parent().attr("class") == "depSeat"){
-                        if($(this).is(":checked")) {
-                            // 좌석 선택시 배열에 넣음 
-                            depChecks.push($(this).attr('title'));
-                        } else if ($(this).not(":checked")) {
-                            // 좌석 선택 해제시 해제한 값을 찾아서 배열에서 삭제
-                            depChecks.splice(depChecks.indexOf($(this).attr('title')),1);	
-                        }
-                        <c:forEach items='depChecks' var='depCheck'>
-                            $("#depSeat").val(${depCheck}); // 선택한 좌석을 파라미터로 넘기기 위해 input에 담아줌
-                        </c:forEach>
-                    }
-                    if($(this).closest("div").parent().attr("class") == "arrSeat"){
-                        if($(this).is(":checked")) {
-                            arrChecks.push($(this).attr('title'));
-                        } else if ($(this).not(":checked")) {
-                            arrChecks.splice(arrChecks.indexOf($(this).attr('title')),1);	
-                        }
-                        <c:forEach items='arrChecks' var='arrCheck'>
-                            $("#arrSeat").val(${arrCheck});
-                        </c:forEach>
-                    }
-                });
-                $("#btn_search").click(function() {
-                    var  bookingNum = $('#bookingNum').val();
-                    $.get("./bookingCheck?bookingNum=" + bookingNum, function(data) {
-                        $(".ajax").html(data);
-                        var result = $(".ajax").find(".result").text();
-                        if (result == 2) {
-                            var people = $(".ajax").find(".people").text();
-                            var depFNum = $(".ajax").find(".depFNum").text();
-                            var arrFNum = $(".ajax").find(".arrFNum").text();
-                            var tripData = $(".ajax").find(".tripData").text();
-                            var booked = $(".ajax").find(".booked").text();
-                            depLoc = $(".ajax").find(".depLoc").text();
-                            arrLoc = $(".ajax").find(".arrLoc").text();
-                            var depSeat = $(".ajax").find(".depSeat").text();
-                            var arrSeat = $(".ajax").find(".arrSeat").text();
-                            var bookingNum = $(".ajax").find(".bookingNum").text();
-                            var kind = $(".ajax").find(".kind").text();
-                            var id = $(".ajax").find(".id").text();
-                            var tripDate = $(".ajax").find(".tripDate").text();
-                            $("#myModal").css('display','block');
-                            $("#people").val(people);
-                            $("#tripData").val(tripData);
-                            $(".modalInnerRightDown #bookingNum").val(bookingNum);
-                            $("#depFNum").val(depFNum);
-                            $("#arrFNum").val(arrFNum);
-                            $("#kind").val(kind);
-                            $("#depLoc").html(depLoc);
-                            $("#arrLoc").html(arrLoc);
-                            $(".nameViewInner").html(id);
-                            $(".tripDate").html(tripDate);
-                            $(".spanPeople").html(people);
-                            $(".spanBookingNum").html(bookingNum);
-                            var depSplit = depSeat.split(",");
-                            for(var i = 0; i < depSplit.length; i++){
-                                var depSeat = depSplit[i].replace("[","").replace("]","").trim();
-                                $(".depSeat input:checkbox[id=dep"+depSeat+"]").attr('disabled', true); // 이미 예매 되어있는 좌석을 선택불가로 바꿈
-                                $(".depSeat input:checkbox[id=dep"+depSeat+"]").parent().closest('label').addClass('booked'); // 색상도 바꿔줌
-                                $(".depSeat input:checkbox[id=dep"+depSeat+"]").parent().closest('label').removeClass('bookable'); // 색상도 바꿔줌
-                                }
-                            var arrSplit = arrSeat.split(",");
-                            for(var i = 0; i < arrSplit.length; i++){
-                                var arrSeat = arrSplit[i].replace("[","").replace("]","").trim();
-                                $(".arrSeat input:checkbox[id=arr"+arrSeat+"]").attr('disabled', true); // 이미 예매 되어있는 좌석을 선택불가로 바꿈
-                                $(".arrSeat input:checkbox[id=arr"+arrSeat+"]").parent().closest('label').addClass('booked'); // 색상도 바꿔줌
-                                $(".arrSeat input:checkbox[id=arr"+arrSeat+"]").parent().closest('label').removeClass('bookable'); // 색상도 바꿔줌
-                                }
-                            var span = document.getElementsByClassName("close")[0];
-                            span.onclick = function() {
-                                  $("#myModal").css('display','none');
-                                }
-                            window.onclick = function(event) {
-                                  if (event.target == $("#myModal")) {
-                                    $("#myModal").css('display','none');
-                                  }
-                                }
-                            if($("#kind").val() == 1){
-                                $(".modalInnerBottom").click(function(){
-                                    if($("#people").val() == $(".depAir input:checkbox:checked").length){
-                                        $(".depAir").css("display","none");
-                                        $(".arrAir").css("display","block");
-                                        $(".modalInnerBottom").css('display','none');
-                                        $(".modalInnerBottom2").css('display','block');
-                                        $("#depLoc").html(arrLoc);
-                                        $("#arrLoc").html(depLoc);
-                                    } else {
-                                        alert('좌석을 선택하세요.');
-                                    }
-                                });
-                            } else {
-                                $(".modalInnerBottom").text('좌석 선택 완료');
-                                $(".roundOnly").html("");
-                                $(".modalInnerBottom").click(function(){
-                                    if($("#people").val() == $(".depAir input:checkbox:checked").length){
-                                        $("#frm3").submit();
-                                    } else {
-                                        alert('좌석을 선택하세요.');
-                                    } 
-                                });
-                            }		
-                                
-                        } else if (result == 1){
-                            alert('이미 체크인 하셨습니다.');
-                        } else {
-                            alert('정보 조회에 실패했습니다. 예매번호를 확인해주세요.');
-                        }
-                        
-                    });
-                });
-                
-                $(".depBookGo").click(function(){
-                    $(".depAir").css("display","block");
-                    $(".arrAir").css("display","none");
-                    $(".modalInnerBottom").css('display','inline-block');
-                    $(".modalInnerBottom2").css('display','none');
-                    $("#depLoc").html(depLoc);
-                    $("#arrLoc").html(arrLoc);
-                });
-                $(".bookOk").click(function(){
-                    if($("#people").val() == $(".depAir input:checkbox:checked").length && $("#people").val() == $(".arrAir input:checkbox:checked").length){
-                        $("#frm3").submit();
-                    }
-                    else{
-                        alert('좌석 선택이 완료되지 않았습니다.');
-                    }
-                });
-            </script> -->
-                    
+        </div>             
 </body>
 </html>
     

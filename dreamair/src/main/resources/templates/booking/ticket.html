@@ -74,27 +74,35 @@
 </style>
 </head>
 <body>
-<div class="boarding-pass">
+<div class="boarding-pass" style="width: 1200px; height: 300px;">
   <!-- Left Section -->
   <div class="left-section">
-    <div class="section airline-logo">DreamAir</div>
+    <div class="section airline-logo"><img src="/img/BlueNameLogo.png" alt="로고이미지" style="width: 130px; height: 30px;"></div>
+    <hr>
     <div class="section flight-details">
       <div class="flight-detail-item"><strong>Flight:</strong> KLM 39</div>
       <div class="flight-detail-item"><strong>Date:</strong> JANUARY 6, 2013</div>
       <div class="flight-detail-item"><strong>Boarding time:</strong> 09:10</div>
       <div class="flight-detail-item"><strong>Gate:</strong> D10</div>
     </div>
+    <hr>
+    <hr>
     <div class="section passenger-details">
-      <div class="passenger-detail-item"><strong>Passenger:</strong> Jane Doe</div>
-      <div class="passenger-detail-item"><strong>Seat:</strong> A22</div>
-      <div class="passenger-detail-item"><strong>Boarding Priority:</strong> 1 2 3 4</div>
-      <div class="passenger-detail-item"><strong>Frequent Flyer:</strong> 2073621000</div>
+      <div class="passenger-detail-item"><strong>Passenger : </strong> Jane Doe</div>
+      <div class="passenger-detail-item"><strong>Seat :</strong> A22</div>
+      <div class="passenger-detail-item"><strong>Boarding Priority : </strong> 1 2 3 4</div>
+      <div class="passenger-detail-item"><strong>Frequent Flyer : </strong> 2073621000</div>
+      <div class="passenger-detail-item"><strong>Class : </strong> Economy</div>
     </div>
-    <div class="barcode">
+    <div class="QRCode">
+      <p>QR Code</p>
       <img src="/dreamair/src/main/resources/static/img/barcode.gif" alt="Barcode">
     </div>
-    <div class="boarding-pass-footer"><strong>Class:</strong> Economy</div>
+    <div class="boarding-pass-footer">
+      <p>Boarding gate closes <span style="color: red;">10 minutes</span> prior to departure time.</p>
+    </div>
   </div>
+
   <!-- Right Section -->
   <div class="right-section">
     <div class="section"><strong>San Francisco to Amsterdam</strong></div>

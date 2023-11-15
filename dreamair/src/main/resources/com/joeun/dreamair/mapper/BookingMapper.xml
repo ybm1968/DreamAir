@@ -49,7 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       AND r.departure_date= SUBSTRING_INDEX(#{departureDate}, ' ~ ', -1)
 </select> 
 
-
 <!-- 회원의 예매 번호(가장 최근) -->
 <select id="latest_user_bookingNo" resultType="int">
     SELECT booking_no FROM booking ORDER BY user_no = #{userNo} DESC LIMIT 1;  
@@ -67,6 +66,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   INSERT INTO ticket ( pin_type, passenger_no, passenger_name, route_no, booking_no, booking_no2,  departure, destination, departure_date, destination_date, departure_time, destination_time, duration, boarding, checked_in, is_boarded, seat_no, flight_no, phone, user_pw, user_id )
   VALUES ( #{pinType}, #{passengerNo}, #{passengerName}, #{routeNo}, #{bookingNo}, #{bookingNo2}, #{departure}, #{destination}, #{departureDate}, #{destinationDate}, #{departureTime}, #{destinationTime}, #{duration}, #{boarding}, #{checkedIn}, #{isBoarded}, #{seatNo}, #{flightNo}, #{phone}, #{userPw}, #{userId} )
 </insert>
+
+<!-- 탑승객 정보 입력 -->
+<insert id="info">
+        INSERT INTO passengers ( product_no_dep, product_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email )
+        VALUES ( #{productNoDep}, #{productNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email} )
+</insert>
+
+<!-- 예매 번호로 탑승권 정보 조회 -->
+<select id="ticketList_bookingNo" resultType="Booking">
+SELECT * 
+FROM ticket LEFT JOIN booking 
+ON ticket.booking_no = #{bookingNo}
+</select>
             
 <!-- 예매한 탑승권 정보 조회 -->
 <!-- 탑승객 정보 입력 -->
@@ -140,11 +152,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <!-- 예매 번호로 탑승권 정보 조회 -->
-<select id="ticketList_bookingNo" resultType="Booking">
+<!-- <select id="ticketList_bookingNo" resultType="Booking">
 SELECT * 
 FROM ticket LEFT JOIN booking 
 ON ticket.booking_no = #{bookingNo}
-</select>
+</select> -->
 
 
 <!-- seat 조회 -->
@@ -152,6 +164,16 @@ ON ticket.booking_no = #{bookingNo}
   SELECT *
   FROM seat
   WHERE flight_no = #{flightNo}
+  ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
+</select>
+
+
+<!-- seat 조회 -->
+<select id="bookedSeatStatus" resultType="Booking">
+  SELECT *
+  FROM seat
+  WHERE flight_no = #{flightNo}
+    AND status = 1        -- 예약된 상태
   ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
 </select>
 
@@ -187,25 +209,25 @@ ON ticket.booking_no = #{bookingNo}
   <select id="selectDestination" resultType="String">
     SELECT destination
     FROM product
-    WHERE product_no = #{productNoDess}
+    WHERE product_no = #{productNoDeps}
   </select>
 
   <!-- 출발지명과 도착지명으로 route_no 조회 -->
-  <select id="selectRouteNo" resultType="Int">
+  <select id="selectRouteNo" resultType="Integer">
     SELECT route_no
     FROM route
     WHERE departure = #{departure} AND destination = #{destination}
   </select>
 
   <!-- 도착지명으로 route_no 조회 -->
-  <select id="selectRouteNoByDes" resultType="Int">
+  <select id="selectRouteNoByDes" resultType="Integer">
     SELECT route_no
     FROM route
     WHERE departure = #{destination}
   </select>
 
   <!-- 입력된 pasCount 수 만큼 passengerNo 조회 -->
-  <select id="selectLastPasNos" resultType="String" parameterType="int">
+  <select id="selectLastPasNos" resultType="String" parameterType="Int">
       SELECT passenger_no
        FROM (
           SELECT passenger_no
@@ -257,5 +279,5 @@ ON ticket.booking_no = #{bookingNo}
        SET seat_no_des = #{seatNoDes}
        WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
   </update>
-
+ 
 </mapper>

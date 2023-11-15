@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -91,7 +93,6 @@ public class BookingController {
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
         
-
         int result1 = 0;
         int result2 = 0;
 
@@ -109,15 +110,10 @@ public class BookingController {
     public String seat(Model model, @ModelAttribute("booking") Booking booking) throws Exception {
 
         int productNoDepValue = booking.getProductNoDeps()[0];
-        int productNoDesValue = booking.getProductNoDess()[0];
+        int productNoDesValue = booking.getProductNoDeps()[0];
 
-        // 아래는 임시 : 편도일 때 도착지 값을 어떻게 가지고 오지..
-        if(productNoDesValue == 0) {
-            productNoDesValue = 5;
-        }
-        
         String departure = bookingService.selectDeparture(productNoDepValue);
-        String destination = bookingService.selectDeparture(productNoDesValue);
+        String destination = bookingService.selectDestination(productNoDesValue);
         
         // 출발지명과 도착지명으로 노선 조회해서 항공기 번호 부여
         int routeNoToFlightNo = bookingService.selectRouteNo(departure, destination);
@@ -127,13 +123,12 @@ public class BookingController {
         booking.setDestination(destination);
         booking.setFlightNo(productNoDepValue);
         
-        
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
         List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
         
         booking.setPassengerNoss(selectLastPasNoss);
         
-        log.info("seat 페이지 부킹 객체 : " + booking);
+        log.info("가는 편 페이지 부킹 객체 : " + booking);
         
         // 모델에 등록
         model.addAttribute("booking", booking);
@@ -142,7 +137,19 @@ public class BookingController {
         return "booking/seat";
     }
 
-    // 좌석 선택 - 왕복일 시
+
+    // 예약된 좌석 데이터 가져오기
+    @ResponseBody       // 데이터만 응답
+    @GetMapping(value="/booked")
+    public List<Booking> bookedSeatList(int flightNo) throws Exception {
+        log.info("filghtNo : " + flightNo);
+        List<Booking> bookedSeatList = bookingService.bookedSeatStatus(flightNo);
+        return bookedSeatList;
+    }
+    
+
+
+    // 왕복 여부에 따라 페이지 처리
     @PostMapping(value = "/seat")
     public String seatPro(Model model, @ModelAttribute("booking") Booking booking) {
 
@@ -153,9 +160,8 @@ public class BookingController {
             // "왕복"이 아닐 경우 notice 페이지로 이동
 
             // JavaScript 코드 추가
-            model.addAttribute("booking", booking); // 필요한 경우 모델에 객체 추가
+            model.addAttribute("booking", booking);
             return "booking/notice";
-            // return "redirect:/booking/notice";
         }
     }
 
@@ -172,14 +178,15 @@ public class BookingController {
 
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
 
-        log.info("왕복 페이지 부킹 객체 : " + booking);
-    
+        log.info("오는 편 페이지 부킹 객체 : " + booking);
+
         // 모델에 등록
         model.addAttribute("booking", booking);
         model.addAttribute("seatStatus", seatStatus);
         
         return "booking/seat_rt";
     }
+
 
     // 탑승객 유의사항
     @GetMapping(value="/notice")
@@ -210,7 +217,7 @@ public class BookingController {
     }
 
 
-     // 결제
+    // 결제
     @GetMapping(value="/payment")
     public String payment(Model model, Booking booking, Principal principal) throws Exception {
         log.info("페이먼트 booking : " + booking);
@@ -256,7 +263,6 @@ public class BookingController {
             bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  
             booking.setBookingNo2(bookingNum);
         } else {
-            log.info("회원 번호 : " + user.getUserNo());
             bookingNum = bookingService.latest_user_bookingNo(user.getUserNo());  
             booking.setBookingNo(bookingNum);
         }
@@ -288,7 +294,7 @@ public class BookingController {
     }
 
     // 탑승권 발행
-    @PostMapping(value="/ticket")
+    @GetMapping(value="/ticket")
     public String ticket() {
         return "booking/ticket";
     }
@@ -298,6 +304,7 @@ public class BookingController {
     public String ticketInfo() {
         return "booking/ticketInfo";
     }
+
 
 
 

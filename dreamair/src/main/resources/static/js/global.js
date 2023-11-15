@@ -58,7 +58,7 @@
     
         var selectSpecial = $('#js-select-special');
         var info = selectSpecial.find('#info');
-        var dropdownSelect = selectSpecial.parent().find('.dropdown-select');
+        var dropdownSelect = selectSpecial.parent().find('.list-room');
         var listRoom = dropdownSelect.find('.list-room');
         var btnAddRoom = $('#btn-add-room');
         var totalRoom = 1;

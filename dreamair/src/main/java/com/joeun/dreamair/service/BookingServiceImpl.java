@@ -201,6 +201,7 @@ public class BookingServiceImpl implements BookingService{
     }
 
 
+
     // 탑승권 리스트 조회 - 회원
     @Override
     public List<Booking> selectBookingListByUser(String userId) throws Exception {
@@ -233,9 +234,9 @@ public class BookingServiceImpl implements BookingService{
 
     // 도착지 조회
     @Override
-    public String selectDestination(int productNoDess) {
+    public String selectDestination(int productNoDeps) {
 
-        String destination = bookingMapper.selectDestination(productNoDess);
+        String destination = bookingMapper.selectDestination(productNoDeps);
 
         return destination;
     }
@@ -411,5 +412,13 @@ public class BookingServiceImpl implements BookingService{
 
         return selectRouteNoByDes;
     }
+
+    @Override
+    public List<Booking> bookedSeatStatus(int flightNo) throws Exception {
+        List<Booking> bookedSeatStatus = bookingMapper.bookedSeatStatus(flightNo);
+        return bookedSeatStatus; 
+    }
+
+
 
 }

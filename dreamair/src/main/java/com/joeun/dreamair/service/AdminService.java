@@ -5,6 +5,7 @@ import java.util.List;
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 
 public interface AdminService {
@@ -59,4 +60,5 @@ public interface AdminService {
 
     // 탑승권 조회 - ticketNo
     public List<Booking> pas_ticketList(int ticketNo) throws Exception;
+
 }

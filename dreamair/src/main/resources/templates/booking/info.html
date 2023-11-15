@@ -4,23 +4,29 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/UI/layout/main_layout}"
       >
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
 
+    <style>
+      .footer_container {
+        position: relative!important;
+      }
+    </style>
 
 </head>
 
 <body layout:fragment="content">
 
-    <div class="container">
+    <div class="container mt-5 py-3">
         <h1 style="text-align: center;">탑승객 정보입력</h1>
-        <h2 style="text-align: center;">신분증 정보와 동일하게 입력해주세요.</h2>
-
-        <br><br><br>
+        <h3 style="text-align: center; margin-top: 10px;">신분증 정보와 동일하게 입력해주세요.</h3>
+        <br>
+        <div class="img_container text-center">
+          <img src="/img/insert_information.png" alt="정보입력">
+        </div>
+        <br><br>
 
         <form action="/booking/info" method="post" th:object="${booking}">
           <input type="hidden" name="pasCount" th:value="${booking.pasCount}">
@@ -71,14 +77,15 @@
                 <input type="text" class="form-control col-md-10"  name="births">
               </div>
 
-              <div class="input-group mb-3 row">
-                <select  id="" 
-                  name="pinTypes">
-                  <option value="1">주민등록증</option>
-                  <option value="2">여권</option>
-                  <option value="3">운전면허증</option>
+              <div class="form-floating input-group mb-3 row">
+                <select class="form-select" name="pinTypes" id="floatingSelectGrid" aria-label="Floating label select example">
+                    <option value="1">주민등록증</option>
+                    <option value="2">여권</option>
+                    <option value="3">운전면허증</option>
                 </select>
-              </div>
+                <label for="floatingSelectGrid">신분증</label>
+                </div>
+
 
               <!-- <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">여권 번호</label>
@@ -114,7 +121,7 @@
 
             <div class="d-flex justify-content-between mt-5 mb-5">
               <a href="/" class="btn btn-lg btn-secondary">목록</a> 
-              <input type="submit" class="btn btn-lg btn-primary" value="등록" />
+              <input type="submit" class="btn btn-lg btn-primary ms-3" value="다음" />
             </div>
           
         </form> 

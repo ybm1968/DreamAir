@@ -68,52 +68,57 @@
           width: 100%;
           text-align: center;
         }
+
       </style>
 </head>
 <body layout:fragment="content">
-    <h1 class="text-center my-3">탑승권 관리 - 탑승 처리</h1>
+    <h1 class="text-center my-5">탑승권 관리 - 탑승 처리</h1>
 
     <div class="container">
     <th:block th:each="ticket : ${pasTicketList}">
-    <div class="boarding-pass">
+    <div class="boarding-pass" style="width: 1200px; height: 300px;">
         <!-- Left Section -->
         <div class="left-section">
-          <div class="section airline-logo">DreamAir</div>
+          <div class="section airline-logo"><img src="/img/BlueNameLogo.png" alt="로고이미지" style="width: 130px; height: 30px;"></div>
+          <hr>
           <div class="section flight-details">
-            <div class="flight-detail-item"><strong>Flight:</strong><span th:text="${ticket.flightNo}"><span></div>
-            <div class="flight-detail-item"><strong>Date:</strong><span th:text="${ticket.departureDate}"></div>
-            <div class="flight-detail-item"><strong>Boarding time:</strong><span th:text="${ticket.boardingTime}"></div>
-            <div class="flight-detail-item"><strong>Gate:</strong>A1</div>
+            <div class="flight-detail-item"><strong>TicketNo : </strong><span th:text="${ticket.ticketNo}"><span></div>
+            <div class="flight-detail-item"><strong>FlightNo : </strong><span th:text="${ticket.flightNo}"><span></div>
+            <div class="flight-detail-item"><strong>Departure Date : </strong><span th:text="${ticket.departureDate}"></div>
+            <div class="flight-detail-item"><strong>Boarding time : </strong><span th:text="${ticket.boardingTime}"></div>
+            <div class="flight-detail-item"><strong>Gate : </strong>A1</div>
           </div>
+          <hr>
+          <hr>
           <div class="section passenger-details">
-            <div class="passenger-detail-item"><strong>Passenger: </strong><span th:text="${ticket.passengerName}"></div>
-            <div class="passenger-detail-item"><strong>Seat: </strong><span th:text="${ticket.seatNo}"></div>
-            <!-- <div class="passenger-detail-item"><strong>Boarding Priority: </strong>1 2 3 4</div> -->
-            <!-- 회원인지 확인이 되면 마일리 정보 조회 -->
-            <!-- <div class="passenger-detail-item"><strong>Frequent Flyer(mileage): </strong>${Users.mileage}</div> -->
+            <div class="passenger-detail-item"><strong>Passenger : </strong><span th:text="${ticket.passengerName}"></div>
+            <div class="passenger-detail-item"><strong>Seat : </strong><span th:text="${ticket.seatNo}"></div>
+            <div class="passenger-detail-item"><strong>Class : </strong>Economy</div>
           </div>
+          <!-- QR 코드 -->
           <div class="QRcode">
-            <!-- <img src="/dreamair/src/main/resources/static/img/barcode.gif" alt="Barcode"> -->
-            <!-- QR 코드 -->
             <a th:href="|${qr.url}|" target="_blank" style="text-decoration: none;"><img th:src="|/qr/img?qrNo=${qr.qrNo}|" alt="QR코드"></a>          
           </div>
-          <div class="boarding-pass-footer"><strong>Class:</strong><span th:text="${ticket.seatClass}"></div>
-        </div>
-
+          <div class="boarding-pass-footer">
+            <p>Boarding gate closes <span style="color: red;">10 minutes</span> prior to departure time.</p>
+          </div>
+       
         <!-- Right Section -->
         <div class="right-section">
-          <div class="section"><strong><span th:text="${ticket.departure}">to</span><span th:text="${ticket.dstination}"></span></strong></div>
-          <div class="section"><strong>Departure:</strong><span th:text="${ticket.departureDate}"></span><span th:text="${ticket.departureTime}"></span></div>
-          <div class="section"><strong>Seat:</strong><span th:text="${ticket.seatNo}"></span></div>
-          <!-- <div class="section"><strong>Class:</strong>#{ticket.seatClass}</div> -->
+          <div class="section"><strong><span th:text="${ticket.departure}"> to </span><span th:text="${ticket.destination}"></span></strong></div>
+          <div class="section"><strong>Departure : </strong><span th:text="${ticket.departureDate}"></span><span th:text="${ticket.departureTime}"></span></div>
+          <div class="section"><strong>Seat : </strong><span th:text="${ticket.seatNo}"></span></div>
+          <div class="section"><strong>Class : </strong>Economy</div>
+          <div class="section"><img src="/img/logo.png" alt="로고이미지" style="width: 30px; height: 30px;"></div>
         </div>
       </div>
     </th:block>
+    
     <th:block>
       <div class="btn-box d-grid gap-2">
         <form action="/admin/Final_check" method="post">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <button type="submit" class="btn btn-outline-danger">탑승 완료</button>
+            <button type="submit" class="btn btn-outline-primary btn-lg">탑승 완료</button>
         </form>
       </div>
     </th:block>

@@ -5,16 +5,12 @@
       layout:decorate="~{UI/layout/admin_layout}"
       >
 <head>
-
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>항공기 관리</title>
 </head>
-
 <body layout:fragment="content">
-    <h1 class="text-center my-3">항공기 관리</h1>
+    <h1 class="text-center my-5">항공기 관리</h1>
 
     <div class="btn-box d-grid gap-2 " >
         <span class="btn btn-outline-primary btn-lg"><a href="/product/flight_insert">항공기 정보 등록</a></span>
@@ -42,9 +38,9 @@
                         <th:block th:each="flight : ${FlightList}">
                             <tr>
                                 <td><span th:text="${flight.flightNo}"></span></td>                                
-                                <td><img th:src="|/${flight.fileName}|" alt="이미지" th:if="${flight.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>
+                                <td><img th:src="|/file/img/${flight.thumbnail.fileNo}|" alt="이미지" th:if="${flight.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>
                                 <td><span th:text="${flight.flightName}"></span></td>
-                                <td><span th:text="${flight.routNo}"></span></td>
+                                <td><span th:text="${flight.routeNo}"></span></td>
                                 <td><span th:text="${flight.departure}"></span></td>
                                 <td><span th:text="${flight.destination}"></span></td>
                                 <td><span th:text="${flight.departureTime}"></span></td>
@@ -59,10 +55,10 @@
                                         <form action="/product/flight_delete" method="POST" id="flightform" onsubmit="return deletePro()">
                                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                             <input type="hidden" name="flightNo" th:value="${product.flightNo}">
-                                            <button class="btn btn-primary" type="submit">삭제</button>
+                                            <button class="btn btn-danger" type="submit">삭제</button>
                                         </form>
                                     </div>
-                                    </td>
+                                </td>
 
                             </tr>
                         </th:block>
@@ -71,13 +67,13 @@
             </table>
         </th:block>
 
-        <th:block th:if="${FlightList==null}" >
+        <!-- <th:block th:if="${FlightList==null}" >
             <th:block th:if="${FlightList.isEmpty()}">
                 <tr>
                     <td colspan="13">등록된 항공기 정보가 없습니다.</td>
                 </tr>
             </th:block>
-        </th:block>
+        </th:block> -->
         <script>
             function deletePro() {
                 let check = confirm('정말로 삭제하시겠습니까?')

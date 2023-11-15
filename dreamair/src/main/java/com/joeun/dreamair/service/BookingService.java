@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
-import com.joeun.dreamair.dto.Users;
 
 public interface BookingService {
     
@@ -40,9 +39,12 @@ public interface BookingService {
 
     // 티켓 발행 등록
     public int createTicket(Booking booking, Principal principal) throws Exception;
-
+    
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus(int flightNo) throws Exception;
+
+    // 항공기 좌석 조회 - 예약된 좌석
+    public List<Booking> bookedSeatStatus(int flightNo) throws Exception;
 
     // 탑승권 리스트 조회 - 회원
     public List<Booking> selectBookingListByUser(String userId) throws Exception;
@@ -54,7 +56,7 @@ public interface BookingService {
     public String selectDeparture(int productNoDeps);
 
     // 출발지 조회
-    public String selectDestination(int productNoDess);
+    public String selectDestination(int productNoDeps);
     
     // 출발지명과 도착지명으로 노선 번호 조회
     public int selectRouteNo(String departure, String destination);
