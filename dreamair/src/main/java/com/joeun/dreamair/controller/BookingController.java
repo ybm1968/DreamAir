@@ -173,7 +173,7 @@ public class BookingController {
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
 
         log.info("왕복 페이지 부킹 객체 : " + booking);
-
+    
         // 모델에 등록
         model.addAttribute("booking", booking);
         model.addAttribute("seatStatus", seatStatus);
@@ -213,10 +213,6 @@ public class BookingController {
      // 결제
     @GetMapping(value="/payment")
     public String payment(Model model, Booking booking, Principal principal) throws Exception {
-        log.info("페이먼트 탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
-        log.info("페이먼트 탑승객 번호 배열 : " + booking.getPassengerNos()[0]);
-        log.info("페이먼트 탑승객 수 : " + booking.getPasCount());
-        log.info("페이먼트 왕복 : " + booking.getRoundTrip());
         log.info("페이먼트 booking : " + booking);
 
         List<Booking> goBookingList = new ArrayList<Booking>();

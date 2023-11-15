@@ -115,7 +115,7 @@ public class BookingServiceImpl implements BookingService{
     int ticketNo = 0;
     int count1 = 0;
     int count2 = 0;
-    
+    log.info("createTicket : " + booking);
     // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
     for (int i = 0; i < booking.getPasCount(); i++) {
         int bookingNum = (principal == null) ? booking.getBookingNo2() : booking.getBookingNo();
@@ -126,6 +126,7 @@ public class BookingServiceImpl implements BookingService{
         gobooking.setUserId(principal == null ? "GUEST" : principal.getName());
         gobooking.setBoarding("0");
         gobooking.setRouteNo(booking.getRouteNoDep());
+        gobooking.setSeatNo(booking.getSeatNoDepss()[i]);
         
         if( principal == null ) {
             gobooking.setBookingNo2(bookingNum);
@@ -140,7 +141,8 @@ public class BookingServiceImpl implements BookingService{
             comeBooking.setUserId(principal == null ? "GUEST" : principal.getName());
             comeBooking.setBoarding("0");
             comeBooking.setRouteNo(booking.getRouteNoDes());
-            
+            comeBooking.setSeatNo(booking.getSeatNoDesss()[i]);
+
             if( principal == null ) {
                 comeBooking.setBookingNo2(bookingNum);
             } else {
@@ -305,6 +307,11 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setPassengerNo(passengerNo); 
 
             bookingItem = bookingMapper.goScheduleList(bookingItem);
+            if ( booking.getPayment() != null && booking.getPayment().equals("확인") ) { 
+                bookingItem.setSeatNoDep(booking.getSeatNoDepss()[i]);   // 페이먼트
+            } else {
+                bookingItem.setSeatNoDep(booking.getSeatNoDeps().get(i));   // 노티스
+            }
 
             bookingList.add(bookingItem);
         }
@@ -328,6 +335,11 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setPassengerNo(passengerNo);
 
             bookingItem = bookingMapper.comeScheduleList(bookingItem);
+             if ( booking.getPayment() != null && booking.getPayment().equals("확인") ) { 
+                bookingItem.setSeatNoDes(booking.getSeatNoDesss()[i]);   // 페이먼트
+            } else {
+                bookingItem.setSeatNoDes(booking.getSeatNoDess().get(i));   // 노티스
+            }
 
             bookingList.add(bookingItem);
         }
@@ -338,20 +350,17 @@ public class BookingServiceImpl implements BookingService{
     @Override
     // 예매 테이블 등록
     public int bookingInsert(Booking booking, Principal principal) throws Exception {
-        log.info("회원이름 : " + booking.getNames()[0]);
-        log.info("가는편 상품 번호 : " + booking.getProductNoDep());
-        log.info("가는편 상품 아이디 : " + booking.getProductIdDeps()[0]);  
-        log.info("탑승인원 : " + booking.getPasCount());            
-        log.info("왕복여부 : " + booking.getRoundTrip());          
-        log.info("상태 : " + booking.getStatus());           
-        log.info("비회원넘버 : " + booking.getUserNo2());
         int result = 0;
         int result1 = 0;
         int result2 = 0;
+        int tmp = 0;
         for (int i = 0; i < booking.getPasCount(); i++) {
             Booking bookingItem = new Booking();
             String loginId = principal != null ? principal.getName() : "GUEST";
             bookingItem.setName(booking.getNames()[i]);
+            bookingItem.setPassengerNo(booking.getPassengerNos()[i]);
+            bookingItem.setSeatNoDep(booking.getSeatNoDepss()[i]);
+            tmp = bookingMapper.goInsertSeat(bookingItem);
 
             if (loginId.equals("GUEST")) {
                 bookingItem.setUserNo2(booking.getUserNo2());
@@ -370,6 +379,8 @@ public class BookingServiceImpl implements BookingService{
             log.info("가는편 상품 아이디 : " + bookingItem.getProductIdDep());
             
             if (booking.getRoundTrip().equals("왕복")) {
+                bookingItem.setSeatNoDes(booking.getSeatNoDesss()[i]);
+                tmp = bookingMapper.comeInsertSeat(bookingItem);
                 bookingItem.setProductNoDes(booking.getProductNoDes());
                 bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
                 bookingItem.setRouteNoDes(booking.getRouteNoDes());

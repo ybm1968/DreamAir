@@ -25,9 +25,6 @@
           <input type="hidden" name="pasCount" id="pasCount" th:value="${bookingInfo.pasCount}">
           <input type="hidden" name="roundTrip" id="roundTrip" th:value="${bookingInfo.roundTrip}">
           <input type="hidden" name="status" id="status" value="예매완료">
-          <input type="hidden" name="seatNoDeps" th:value="${bookingInfo.seatNoDeps}"> 
-          <input type="hidden" name="seatNoDess" th:value="${bookingInfo.seatNoDess}"> 
-
           <div sec:authorize="isAuthenticated()">
             <input type="hidden" name="userNo" id="userNo" th:value="${user.userNo}">
           </div>
@@ -56,7 +53,7 @@
                     <td><span th:text="${booking.destinationDate}"></span></td>
                     <td>일반석</td>
                     <td><span th:text="${booking.productPrice}"></span></td>
-                    <td><span th:text="${bookingInfo.seatNoDeps}"></span></td>
+                    <td><span th:text="${booking.seatNoDep}"></span></td>
                     <td><span th:text="${booking.passengerName}"></span></td>
                     <input type="hidden" name="names" id="names" th:value="${booking.passengerName}">
                     <input type="hidden" name="passengerNos" id="passengerNos" th:value="${booking.passengerNo}">
@@ -64,6 +61,7 @@
                     <input type="hidden" name="routeNoDep" id="routeNoDep" th:value="${booking.routeNoDep}">
                     <input type="hidden" name="productIdDeps" id="productIdDeps" th:value="${booking.productId}">
                     <input type="hidden" name="productPriceDep" id="productPriceDep" th:value="${booking.productPrice}">
+                    <input type="hidden" name="seatNoDepss" th:value="${booking.seatNoDep}">
                 </tr>
             </th:block>
 
@@ -92,12 +90,13 @@
                         <td><span th:text="${booking.destinationDate}"></span></td>
                         <td>일반석</td>
                         <td><span th:text="${booking.productPrice}"></span></td>
-                        <td><span th:text="${bookingInfo.seatNoDess}"></span></td>
+                        <td><span th:text="${booking.seatNoDes}"></span></td>
                         <td><span th:text="${booking.passengerName}"></span></td>
                         <input type="hidden" name="productNoDes" id="productNoDes" th:value="${booking.productNo}">
                         <input type="hidden" name="routeNoDes" id="routeNoDes" th:value="${booking.routeNoDes}">
                         <input type="hidden" name="productIdDess" id="productIdDess" th:value="${booking.productId}">
                         <input type="hidden" name="productPriceDes" id="productPriceDes" th:value="${booking.productPrice}">
+                        <input type="hidden" name="seatNoDesss" th:value="${booking.seatNoDes}">
                     </tr> 
                 </th:block>
 
