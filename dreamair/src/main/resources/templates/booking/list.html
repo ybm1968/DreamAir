@@ -19,9 +19,14 @@
 
 <body layout:fragment="content">
 
-    <div class="container">
+    <div class="container mt-5 py-3">
 
-        <h1 style="text-align: center;">항공권 조회</h1> <br>
+        <h1 style="text-align: center;">항공권 조회</h1> 
+        <br>
+        <div class="img_container text-center">
+            <img src="/img/searchTicket.png" alt="조회">
+          </div>
+          <br><br>
         <!-- 출발지 - 목적지를 보여주는 섹션 -->
         <section>
             
@@ -36,52 +41,10 @@
         
         <!-- 항공권 목록을 보여주는 섹션 -->
         <section id="goWay">
-            
-            
-            <!-- <table class="table table-striped table-hover table-bordered text-center align-middle"  style="margin-top: 100px;">
-
-                <tr class="table-primary">
-                    <th>운항시간</th>  
-                    <th>항공사</th> 
-                    <th>편명</th> 
-                    <th>가격</th>  
-                    <th>잔여좌석</th>
-                    <th>장바구니</th>
-                    <th>예매하기</th>
-                </tr>
-
-                <th:block th:if="${bookingList.isEmpty()}">
-                    <tr>
-                        <td colspan="13">조회된 항공권이 없습니다.</td>
-                    </tr>
-                </th:block>
-                
-                    <th:block th:each="booking : ${bookingList}">
-                        <form action="/booking/info">
-                            <tr>
-                                <td><span th:text="${booking.duration}"></span></td> 
-                                <td>DramAir</td> 
-                                <td><span th:text="${booking.flightName}"></span></td> 
-                                <td><span th:text="${booking.productPrice}"></span></td>  
-                                <td><span th:text="${booking.seatRemaining}"></span></td>
-                                <td><a href="" class="btn btn-outline-primary btn-lg">장바구니</a></td>
-                                <input type="hidden" name="productNo" th:value="${booking.productNo}" >
-                                <input type="hidden" name="routeNo" th:value="${booking.routeNo}" >
-                                <td><input type="submit" value="예매하기" class="btn btn-outline-primary btn-lg"></td>
-                            </tr>
-                        </form>
-                    </th:block>
-                    
-            </table>  -->
-           
-            <!-- <input type="hidden" name="producId" th:value="${booking.producId}" > -->
-            <!-- 좌석번호, 예매번호는 나중에 insert문 말고 update문으로 값을 추가 -->
-
         </section>
 
         <!-- 오는편 -->
-        <section id="comeWay"> 
-
+        <section id="comeWay">
         </section>
 
         <div class="d-flex justify-content-between">
