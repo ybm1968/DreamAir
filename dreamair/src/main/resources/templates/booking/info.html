@@ -20,13 +20,13 @@
 <body layout:fragment="content">
 
     <div class="container mt-5 py-3">
-      <h1 style="text-align: center;">탑승객 정보입력</h1>
-      <h3 style="text-align: center; margin-top: 10px;">신분증 정보와 동일하게 입력해주세요.</h3>
-      <br>
-      <div class="img_container text-center">
-        <img src="/img/insert_information.png" alt="정보입력">
-      </div>
-      <br><br>
+        <h1 style="text-align: center;">탑승객 정보입력</h1>
+        <h3 style="text-align: center; margin-top: 10px;">신분증 정보와 동일하게 입력해주세요.</h3>
+        <br>
+        <div class="img_container text-center">
+          <img src="/img/insert_information.png" alt="정보입력">
+        </div>
+        <br><br>
 
         <form action="/booking/info" method="post" th:object="${booking}">
           <input type="hidden" name="pasCount" th:value="${booking.pasCount}">

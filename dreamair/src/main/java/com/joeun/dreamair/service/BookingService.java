@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +25,9 @@ public interface BookingService {
 
     // 비회원 - 가장 최근 예매 번호 조회
     public int latest_user2_bookingNo(int userNo2) throws Exception;
+
+    // 예매 테이블 등록
+    public int bookingInsert(Booking booking, Principal principal) throws Exception;
     
     // 여권 정보 입력 
     // public int infoPassport(Users user) throws Exception;

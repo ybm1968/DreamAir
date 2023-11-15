@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -329,7 +330,56 @@ public class BookingServiceImpl implements BookingService{
         return result;
     }
 
-   
+    @Override
+    // 예매 테이블 등록
+    public int bookingInsert(Booking booking, Principal principal) throws Exception {
+        log.info("회원이름 : " + booking.getNames()[0]);
+        log.info("가는편 상품 번호 : " + booking.getProductNoDep());
+        log.info("가는편 상품 아이디 : " + booking.getProductIdDeps()[0]);  
+        log.info("탑승인원 : " + booking.getPasCount());            
+        log.info("왕복여부 : " + booking.getRoundTrip());          
+        log.info("상태 : " + booking.getStatus());           
+        log.info("비회원넘버 : " + booking.getUserNo2());
+        int result = 0;
+        int result1 = 0;
+        int result2 = 0;
+        for (int i = 0; i < booking.getPasCount(); i++) {
+            Booking bookingItem = new Booking();
+            String loginId = principal != null ? principal.getName() : "GUEST";
+            bookingItem.setName(booking.getNames()[i]);
+
+            if (loginId.equals("GUEST")) {
+                bookingItem.setUserNo2(booking.getUserNo2());
+                log.info("비회원넘버if : " + booking.getUserNo2());
+            } else {
+                bookingItem.setUserNo(booking.getUserNo());
+                log.info("회원넘버if : " + booking.getUserNo());
+            }
+            
+            bookingItem.setPasCount(booking.getPasCount());
+            bookingItem.setRoundTrip(booking.getRoundTrip());
+            bookingItem.setStatus(booking.getStatus());
+            bookingItem.setProductNoDep(booking.getProductNoDep());
+            bookingItem.setProductIdDep(booking.getProductIdDeps()[0]);
+            bookingItem.setRouteNoDep(booking.getRouteNoDep());
+            log.info("가는편 상품 아이디 : " + bookingItem.getProductIdDep());
+            
+            if (booking.getRoundTrip().equals("왕복")) {
+                bookingItem.setProductNoDes(booking.getProductNoDes());
+                bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
+                bookingItem.setRouteNoDes(booking.getRouteNoDes());
+                log.info("오는편 상품 번호 : " + booking.getProductNoDes());
+                log.info("오는편 상품 아이디 : " + bookingItem.getProductIdDes());
+                result2 = bookingMapper.comeBookingInsert(bookingItem);
+            }
+                result1 = bookingMapper.goBookingInsert(bookingItem);
+        }
+
+        result = result1 + result2;
+
+        return result;
+    }
+    
      // 예매 번호로 탑승권 정보(번호) 조회
     // @Override
     // public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception {

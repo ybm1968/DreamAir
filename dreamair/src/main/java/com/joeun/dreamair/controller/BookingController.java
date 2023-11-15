@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -187,14 +186,6 @@ public class BookingController {
         return "booking/seat_rt";
     }
 
-    // // 좌석 선택 - 왕복일 시
-    // @PostMapping(value = "/seat_rt")
-    // public String seatRtPro(Model model, @ModelAttribute("booking") Booking booking) {
-
-    //     model.addAttribute("booking", booking);
-    //     return "redirect:/booking/notice";
-    // }
-
 
     // 탑승객 유의사항
     @GetMapping(value="/notice")
@@ -226,6 +217,8 @@ public class BookingController {
         return "booking/notice";
     }
 
+
+
     // 결제
     @GetMapping(value="/payment")
     public String payment(Model model, Booking booking, Principal principal) throws Exception {
@@ -256,16 +249,16 @@ public class BookingController {
         } else {
             log.info("회원 유저번호 : " + user.getUserNo());
         }
-        
+         
         model.addAttribute("user", user);
-        // model.addAttribute("booking", booking);
 
         return "booking/payment";
     }
 
     // 결제 처리  - 예매 번호 발급
-    @PostMapping(value="/payment")
+    @PostMapping(value="/paymentPro")
     public String paymentPro(Model model, Booking booking) throws Exception {
+        log.info("결제처리");
 
         // ✅ TODO 티켓 발행 등록 요청
         int result = bookingService.createTicket(booking);
@@ -279,28 +272,51 @@ public class BookingController {
         
         return "redirect:/booking/payment_complete";
     }
-    
 
     @PostMapping(value = "/bookingInsert")
-    public String bookingInsert(Booking booking) throws Exception {
-        log.info("이름 : " + booking.getPassengerNames()[0]);
-        int result = bookingService.bookingInsert(booking);
+    public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr) throws Exception {
+        log.info("booking 객체 조회 : " + booking);
+        int result1 = bookingService.bookingInsert(booking, principal);
+        int bookingNum = 0;
+        
+        Users user = userService.selectById2(principal);
+        if( (principal == null) ) {
+            log.info("비회원 번호 : " + user.getUserNo2());
+            bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  
+            booking.setBookingNo2(bookingNum);
+        } else {
+            bookingNum = bookingService.latest_user_bookingNo(user.getUserNo());  
+            booking.setBookingNo(bookingNum);
+        }
 
-        return "booking/success";
+        log.info("결제처리");
+        log.info("예매번호 : " + booking.getBookingNo2());
+
+        booking.setBookingNo(bookingNum);
+        // // ✅ TODO 티켓 발행 등록 요청
+        int result = bookingService.createTicket(booking);
+
+        // 같은 bookingNo에 대한 ticket 정보 조회
+        int bookingNo = booking.getBookingNo();
+        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);        // 정수형으로 반환값 설정
+        model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
+
+        // ticketNO 받아서 qr 발행
+
+        rttr.addFlashAttribute("booking", booking);
+
+        // return "booking/paymentPro";
+        // return "redirect:/booking/paymentPro";
+        return "redirect:/booking/payment_complete";
     }
 
-    @GetMapping(value="/success")
-    public String success(String result, String productId) {
-        log.info("결제 성공!!!");
-        log.info("result : " + result);
-        log.info("productId : " + productId);
-        return "booking/success";
-    }
-
-
-    // 결제 완료 화면
+    // 결제 완료
     @GetMapping(value="/payment_complete")
-    public String paymentComplete() {
+    public String paymentComplete(Model model, Booking booking) {
+        log.info("결제완료 booking" + booking);
+        
+        model.addAttribute("booking", booking);
+
 
         return "booking/payment_complete";
     }
