@@ -259,11 +259,11 @@ public class BookingController {
 
     // 결제 처리  - 예매 번호 발급
     @PostMapping(value="/paymentPro")
-    public String paymentPro(Model model, Booking booking) throws Exception {
+    public String paymentPro(Model model, Booking booking, Principal principal) throws Exception {
         log.info("결제처리");
 
         // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking);
+        int result = bookingService.createTicket(booking, principal);
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();
@@ -296,7 +296,7 @@ public class BookingController {
 
         booking.setBookingNo(bookingNum);
         // // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking);
+        int result = bookingService.createTicket(booking, principal);
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();

@@ -229,14 +229,14 @@ ON ticket.booking_no = #{bookingNo}
   </select>
 
   <!-- 출발지명과 도착지명으로 route_no 조회 -->
-  <select id="selectRouteNo" resultType="Int">
+  <select id="selectRouteNo" resultType="Integer">
     SELECT route_no
     FROM route
     WHERE departure = #{departure} AND destination = #{destination}
   </select>
 
   <!-- 도착지명으로 route_no 조회 -->
-  <select id="selectRouteNoByDes" resultType="Int">
+  <select id="selectRouteNoByDes" resultType="Integer">
     SELECT route_no
     FROM route
     WHERE departure = #{destination}
@@ -254,16 +254,16 @@ ON ticket.booking_no = #{bookingNo}
       ORDER BY passenger_no ASC;
   </select>
 
-  <!-- 가는편 예매 테이블 등록 -->
+    <!-- 가는편 예매 테이블 등록 -->
   <insert id="goBookingInsert">
-    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
-    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status} )
+    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
+    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
   </insert>
 
   <!-- 오는편 예매 테이블 등록 -->
   <insert id="comeBookingInsert">
-    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
-    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status} )
+    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
+    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
   </insert>
 
   <update id="goInsertSeat">
