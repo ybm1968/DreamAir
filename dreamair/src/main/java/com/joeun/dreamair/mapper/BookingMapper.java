@@ -79,4 +79,16 @@ public interface BookingMapper {
 
     // 도착지 명으로 노선 번호 조회
     public int selectRouteNoByDes(@Param("destination") String destination);
+
+    // 가는편 티켓 테이블 insert할 값 조회
+    public Booking goTickeData(Booking booking) throws Exception;
+
+    // 오는편 티켓 테이블 insert할 값 조회
+    public Booking comeTicketData(Booking booking) throws Exception;
+
+    // 가는편 좌석 데이터 테이블 등록
+    public int goInsertSeat(Booking booking) throws Exception;
+
+    // 오는편 좌석 데이터 테이블 등록
+    public int comeInsertSeat(Booking booking) throws Exception;
 }

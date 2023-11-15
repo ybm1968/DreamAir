@@ -113,6 +113,7 @@ public class BookingServiceImpl implements BookingService{
         int result = 0;
         int bookingNo = 0;
         int ticketNo = 0;
+        log.info("createTicket : " + booking);
         // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
         for (int i = 0; i < booking.getPasCount(); i++) {
             int count = bookingMapper.createTicket(booking);

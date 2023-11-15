@@ -266,5 +266,16 @@ ON ticket.booking_no = #{bookingNo}
     VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status} )
   </insert>
 
+  <update id="goInsertSeat">
+    UPDATE passengers
+       SET seat_no_dep = #{seatNoDep}
+       WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
+  </update>
+
+  <update id="comeInsertSeat">
+    UPDATE passengers
+       SET seat_no_des = #{seatNoDes}
+       WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
+  </update>
  
 </mapper>
