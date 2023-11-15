@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
-import com.joeun.dreamair.dto.Users;
 
 public interface BookingService {
     
@@ -25,9 +24,6 @@ public interface BookingService {
 
     // 비회원 - 가장 최근 예매 번호 조회
     public int latest_user2_bookingNo(int userNo2) throws Exception;
-
-    // 예매 테이블 등록
-    public int bookingInsert(Booking booking, Principal principal) throws Exception;
     
     // 여권 정보 입력 
     // public int infoPassport(Users user) throws Exception;
@@ -40,6 +36,9 @@ public interface BookingService {
 
     // 예매 테이블 등록
     public int bookingInsert(Booking booking) throws Exception;
+
+    // 예매 테이블 등록
+    public int bookingInsert(Booking booking, Principal principal) throws Exception;
 
     // 티켓 발행 등록
     public int createTicket(Booking booking) throws Exception;

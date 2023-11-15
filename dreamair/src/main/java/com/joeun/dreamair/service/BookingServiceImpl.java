@@ -379,7 +379,8 @@ public class BookingServiceImpl implements BookingService{
 
         return result;
     }
-    
+
+   
      // 예매 번호로 탑승권 정보(번호) 조회
     // @Override
     // public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception {
@@ -400,5 +401,6 @@ public class BookingServiceImpl implements BookingService{
         List<Booking> bookedSeatStatus = bookingMapper.bookedSeatStatus(flightNo);
         return bookedSeatStatus; 
     }
+
 
 }

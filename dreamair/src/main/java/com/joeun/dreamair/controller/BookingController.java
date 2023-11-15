@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -190,30 +191,34 @@ public class BookingController {
     // 탑승객 유의사항
     @GetMapping(value="/notice")
     public String notice(Model model, Booking booking) throws Exception {
-        log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
-        log.info("탑승객 수 : " + booking.getPasCount());
-        log.info("왕복 : " + booking.getRoundTrip());
-        log.info("좌석 : " + booking.getSeatNoDeps());
-        log.info("좌석 : " + booking.getSeatNoDess());
+            log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
+            log.info("탑승객 수 : " + booking.getPasCount());
+            log.info("왕복 : " + booking.getRoundTrip());
 
-
-        List<Booking> goBookingList = new ArrayList<Booking>();
-        List<Booking> comeBookingList = new ArrayList<Booking>();
-        
-        if (booking.getRoundTrip().equals("편도")) {
-            // 편도 조회
-            goBookingList = bookingService.goScheduleList(booking);
-        } else {
-            // 왕복 조회
-            goBookingList = bookingService.goScheduleList(booking);
-            comeBookingList = bookingService.comeScheduleList(booking);
-        }
-        model.addAttribute("goBookingList", goBookingList);
-        model.addAttribute("comeBookingList", comeBookingList);
-        model.addAttribute("bookingInfo", booking);
-
-        log.info("notice 페이지 부킹 객체 : " + booking);
+            List<Booking> goBookingList = new ArrayList<Booking>();
+            List<Booking> comeBookingList = new ArrayList<Booking>();
+            
+            if (booking.getRoundTrip().equals("편도")) {
+                // 편도 조회
+                goBookingList = bookingService.goScheduleList(booking);
+            } else {
+                // 왕복 조회
+                goBookingList = bookingService.goScheduleList(booking);
+                comeBookingList = bookingService.comeScheduleList(booking);
+            }
+            model.addAttribute("goBookingList", goBookingList);
+            model.addAttribute("comeBookingList", comeBookingList);
+            model.addAttribute("bookingInfo", booking);
     
+            return "booking/notice";
+    }
+
+    // notice 페이지로 이동
+    @PostMapping("/notice")
+    public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) {
+        
+        model.addAttribute("booking", booking);
+        
         return "booking/notice";
     }
 

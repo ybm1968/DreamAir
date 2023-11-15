@@ -59,12 +59,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select> 
 
 <!-- 회원의 예매 번호(가장 최근) -->
-<select id="latest_user_bookingNo" resultType="int">
+<select id="latest_user_bookingNo" resultType="Booking">
     SELECT booking_no FROM booking ORDER BY user_no = #{userNo} DESC LIMIT 1;  
 </select>
 
 <!-- 비회원의 예매 번호(가장 최근) -->
-<select id="latest_user2_bookingNo" resultType="int">
+<select id="latest_user2_bookingNo" resultType="Booking">
     SELECT booking_no FROM booking ORDER BY user_no2 = #{userNo2} DESC LIMIT 1;
 </select>
 
@@ -183,15 +183,6 @@ ON ticket.booking_no = #{bookingNo}
   ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
 </select>
 
-<!-- seat 조회 -->
-<select id="bookedSeatStatus" resultType="Booking">
-  SELECT *
-  FROM seat
-  WHERE flight_no = #{flightNo}
-    AND status = 1        -- 예약된 상태
-  ORDER BY CAST(SUBSTRING(seat_no, 2) AS SIGNED), seat_no;
-</select>
-
 
 <!-- seat 조회 -->
 <select id="bookedSeatStatus" resultType="Booking">
@@ -263,7 +254,7 @@ ON ticket.booking_no = #{bookingNo}
       ORDER BY passenger_no ASC;
   </select>
 
-<!-- 가는편 예매 테이블 등록 -->
+  <!-- 가는편 예매 테이블 등록 -->
   <insert id="goBookingInsert">
     INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
     VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status} )
@@ -274,6 +265,6 @@ ON ticket.booking_no = #{bookingNo}
     INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status )
     VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status} )
   </insert>
-  
+
  
 </mapper>
