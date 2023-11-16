@@ -56,7 +56,8 @@
                                             <button class="btn btn-primary me-md-2" type="button"><a th:href="|/product/flight_update?flightNo=${flight.flightNo}|">수정</button>         
                                         <form action="/product/flight_delete" method="POST" id="flightform" onsubmit="return deletePro()">
                                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                            <input type="hidden" name="flightNo" th:value="${product.flightNo}">
+                                            <!-- 아래 값이 없어서 한 줄만 나왔던 것임 -> 수정 필요 -->
+                                            <!-- <input type="hidden" name="flightNo" th:value="${product.flightNo}"> -->
                                             <button class="btn btn-danger" type="submit">삭제</button>
                                         </form>
                                     </div>
