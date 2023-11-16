@@ -46,10 +46,10 @@ public class ProductServiceImpl implements ProductService {
             Files file = new Files();
             file.setParentTable("flight");
 
-            log.info("fligthList.get(i) : " + flightList.get(i));
-
-            // file.setParentNo(flightList.get(i).getFlightNo());
-            file.setParentNo(9);
+            log.info("fligthList.get(i) : " + flightList.get(i).getFlightNo());
+            int setNumber = flightList.get(i).getFlightNo();
+            file.setParentNo(setNumber);
+            // file.setParentNo(9);
 
             file = fileMapper.selectThumbnail(file);
             if(file != null) {

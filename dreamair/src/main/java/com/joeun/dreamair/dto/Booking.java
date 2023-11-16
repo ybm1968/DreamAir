@@ -8,6 +8,7 @@ import lombok.Data;
 public class Booking {
 
     // booking 테이블
+    private int no;
     private int bookingNo;
     private int bookingNo2;
     private String name;

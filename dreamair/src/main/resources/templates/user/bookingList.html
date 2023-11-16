@@ -86,8 +86,8 @@
 
                     <th:block th:each="ticket : ${bookingList}">
                         <tr>
-                            <td><span th:text="${ticket.ticketNo}"></span></td>
                             <td><span th:text="${ticket.bookingNo}"></span></td>
+                            <td><span th:text="${ticket.ticketNo}"></span></td>
                             <td><span th:text="${ticket.name}"></span></td>                                
                             <td><span th:text="${ticket.departureDate}"></span></td>
                             <td><span>50,000</span></td>

@@ -180,7 +180,7 @@ public class BookingServiceImpl implements BookingService{
         qr.setParentNo(ticketNo);
         String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
         qr.setUrl( url );
-        qr.setName("QR_" + ticketNo + "B" + bookingNo);
+        qr.setName("QR_" + ticketNo);
 
         qrService.makeQR(qr);
 
@@ -391,7 +391,8 @@ public class BookingServiceImpl implements BookingService{
             }
                 result1 = bookingMapper.goBookingInsert(bookingItem);
         }
-
+                // int no = booking.getNo();
+                // booking.setBookingNo("AIRBT00000000" + no);
         result = result1 + result2;
 
         return result;
@@ -418,6 +419,14 @@ public class BookingServiceImpl implements BookingService{
         List<Booking> bookedSeatStatus = bookingMapper.bookedSeatStatus(flightNo);
         return bookedSeatStatus; 
     }
+
+    @Override
+    public int selectLastBookingNo(int bookingNo) throws Exception {
+        
+        int result = bookingMapper.selectLastBookingNo(bookingNo);
+        return result;
+    }
+
 
 
 

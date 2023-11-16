@@ -1,15 +1,14 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -19,10 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.WebUtils;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Product;
@@ -57,7 +54,7 @@ public class UserController {
      */
     // 회원권한(ROLE_USER)을 가진 사용자만 접근 허용
     // @PreAuthorize("hasRole('ROLE_USER')")
-    // @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     // @Secured("ROLE_USER")
     // @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value={"/", ""})
@@ -274,13 +271,16 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value = "/mileage")
-    public String viewMileage(Users user, Model model, Principal principal) throws Exception {
+    public String viewMileage(Users user, Product product, Model model, Principal principal) throws Exception {
         String loginId = principal != null ? principal.getName() : null;
 
         user = userService.selectById(loginId);
         
         Users mileageUser = userService.selectMileage(loginId);
-        user.setMileage(mileageUser.getMileage());
+
+        double mileage = (product.getProductPrice() * 0.1);
+
+        user.setMileage(mileage);
 
         System.out.println(user);
 
@@ -297,7 +297,7 @@ public class UserController {
      */
     @GetMapping(value="/checkin")
     public String checkin(Model model, Principal principal) throws Exception {
-        String loginId = principal != null ? principal.getName() : null;
+        String loginId = principal != null ? principal.getName() : "GUEST";
 
         Users user = userService.selectById(loginId);
         model.addAttribute("user", user);
@@ -307,22 +307,27 @@ public class UserController {
 
     // 체크인 처리
     @PostMapping(value="/checkin")
-    public String checkinPro(@RequestParam int ticketNo, Model model, Booking booking) throws Exception {
-
+    public String checkinPro(@RequestParam int ticketNo, Model model, Booking booking, RedirectAttributes rttr) throws Exception {
+        log.info("ticketNo : "  + ticketNo );
         // 입력받은 탑승권 번호를 조회
        List<Booking> ticketList = adminService.pas_ticketList(ticketNo);
-       model.addAttribute("TicketList", ticketList);
+       log.info("ticketList : " + ticketList);
+       log.info("ticket.size() " + ticketList.size());
+    //    model.addAttribute("TicketList", ticketList);
+
+       rttr.addFlashAttribute("TicketList", ticketList);     
 
        // 체크인 버튼을 누르면, ticketNo를 받아서 체크인 완료로 처리
        booking.setTicketNo(ticketNo);
        booking.setCheckedIn(1); // 체크인 완료
 
-       return "redirect:/user/checkin_complete";
+       return "redirect:/user/checkin";
     }
 
     // 체크인 완료 페이지
     @GetMapping(value="/checkin_complete")
-    public String checkinComplete() {
+    public String checkinComplete(Model model, Booking booking) throws Exception {
+        log.info("왔니?");
         return "user/checkin_complete";
     }
 

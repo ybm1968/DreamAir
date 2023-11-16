@@ -241,14 +241,14 @@ ON ticket.booking_no = #{bookingNo}
 
   <!-- 가는편 예매 테이블 등록 -->
   <insert id="goBookingInsert">
-    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
-    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
+    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
+    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
   </insert>
 
   <!-- 오는편 예매 테이블 등록 -->
   <insert id="comeBookingInsert">
-    INSERT INTO booking ( name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
-    VALUES ( #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
+    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
+    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
   </insert>
 
   <!-- 가는편 티켓 테이블 insert할 값 조회 -->
@@ -279,5 +279,22 @@ ON ticket.booking_no = #{bookingNo}
        SET seat_no_des = #{seatNoDes}
        WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
   </update>
+
+    <!-- 입력된 pasCount 수 만큼 bookingNo 조회 -->
+  <!-- <select id="selectLastbookingNo" resultType="Booking" parameterType="Int">
+      SELECT no
+       FROM (
+          SELECT no
+          FROM booking
+          ORDER BY no DESC
+          LIMIT #{pasCount}
+      ) AS subquery
+      ORDER BY no ASC;
+  </select> -->
+
+  <!-- bookingNo -->
+  <select id="selectLastBookingNo" resultType="Booking">
+  SELECT booking_no FROM booking ORDER BY booking_no = #{bookingNo} DESC LIMIT 1; 
+  </select>
  
 </mapper>
