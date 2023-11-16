@@ -194,6 +194,9 @@ public class BookingController {
             log.info("탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
             log.info("탑승객 수 : " + booking.getPasCount());
             log.info("왕복 : " + booking.getRoundTrip());
+            log.info("노티스 좌석 : " + booking);
+
+            log.info("noticeGET 페이지 부킹 객체 : " + booking);
 
             List<Booking> goBookingList = new ArrayList<Booking>();
             List<Booking> comeBookingList = new ArrayList<Booking>();
@@ -212,16 +215,6 @@ public class BookingController {
     
             return "booking/notice";
     }
-
-    // notice 페이지로 이동
-    @PostMapping("/notice")
-    public String goToNotice(Model model, @ModelAttribute("booking") Booking booking) {
-        
-        model.addAttribute("booking", booking);
-        
-        return "redirect:/booking/notice";
-    }
-
 
 
     // 결제
@@ -256,24 +249,7 @@ public class BookingController {
 
         return "booking/payment";
     }
-
-    // 결제 처리  - 예매 번호 발급
-    @PostMapping(value="/paymentPro")
-    public String paymentPro(Model model, Booking booking, Principal principal) throws Exception {
-        log.info("결제처리");
-
-        // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking, principal);
-
-        // 같은 bookingNo에 대한 ticket 정보 조회
-        int bookingNo = booking.getBookingNo();
-        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);
-        model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
-
-        // ticketNO 받아서 qr 발행
-        
-        return "redirect:/booking/payment_complete";
-    }
+    
 
     @PostMapping(value = "/bookingInsert")
     public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr) throws Exception {
@@ -291,10 +267,6 @@ public class BookingController {
             booking.setBookingNo(bookingNum);
         }
 
-        log.info("결제처리");
-        log.info("예매번호 : " + booking.getBookingNo2());
-
-        booking.setBookingNo(bookingNum);
         // // ✅ TODO 티켓 발행 등록 요청
         int result = bookingService.createTicket(booking, principal);
 
@@ -307,8 +279,6 @@ public class BookingController {
 
         rttr.addFlashAttribute("booking", booking);
 
-        // return "booking/paymentPro";
-        // return "redirect:/booking/paymentPro";
         return "redirect:/booking/payment_complete";
     }
 

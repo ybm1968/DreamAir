@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/layout/main_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개발을 꿈꾸는 항공사</title>
+
+    <!-- main_layout에 적용되어있는 style.css가 아닌 checkIn.css를 우선 적용 -->
+    <link rel="stylesheet" th:href="@{/css/checkIn.css}" />
+
+<body layout:fragment="content">
+    
+    <form action="/booking/notice">
+        <!-- 이름 핸드폰 왕복 탑승객수 -->
+        <input type="hidden" name="passengerNames" value="갑7, 갑8">
+        <input type="hidden" name="phones" value="123456, 123123">
+        <input type="hidden" name="roundTrip" th:value="${booking.roundTrip}">
+        <input type="hidden" name="pasCount" th:value="${booking.pasCount}">
+        <h2 th:text="${booking.roundTrip}"></h2>
+        <br>
+        <h2 th:text="${booking.pasCount}"></h2>
+
+        <br>
+        <input type="submit" class="btn btn-lg btn-primary" value="등록" />
+
+    </form>
+   
+</body>
+</html>

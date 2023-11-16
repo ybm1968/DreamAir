@@ -117,7 +117,8 @@
     <th:block>
       <div class="btn-box d-grid gap-2">
         <form action="/admin/Final_check" method="post">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <!-- 아래 살려두면 값이 안 나옴 -->
+            <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
             <button type="submit" class="btn btn-outline-primary btn-lg">탑승 완료</button>
         </form>
       </div>

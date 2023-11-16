@@ -48,7 +48,7 @@
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
             var seatNoDepsInput = document.getElementById('seatNoDeps');
 
-            var selectedSeats = new Array();
+            var selectedSeats = new Array()
 
             checkboxes.forEach(function(checkbox) {
                 checkbox.addEventListener('change', function() {
@@ -58,7 +58,7 @@
                         checkbox.classList.remove('checked');
                         checkbox.checked = false; // 선택한 체크 박스를 선택 해제 (✅ --> 🟩)
                     }
-
+                    
                     selectedSeats = Array.from(checkboxes)
                                         .filter(function(checkbox) { return checkbox.checked; })
                                         .map(function(checkbox) { return checkbox.value; });
@@ -80,7 +80,7 @@
                         checkbox.classList.add('checked');              // 체크박스 모양 🟥
                     }
 
-                    console.log('선택된 좌석 수 : ' + selectedSeats.length);
+                    console.log('선택된 좌석 수 : ' +  selectedSeats.length );
                 });
             });
         });

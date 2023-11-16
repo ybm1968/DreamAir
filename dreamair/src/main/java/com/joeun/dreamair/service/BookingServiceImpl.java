@@ -106,7 +106,7 @@ public class BookingServiceImpl implements BookingService{
         return result;
     }
     
-    // 탑승권 번호 발행 + QR 코드 발행
+  // 탑승권 번호 발행 + QR 코드 발행
   @Override
   public int createTicket(Booking booking, Principal principal) throws Exception {
     String userId = "";
@@ -185,11 +185,11 @@ public class BookingServiceImpl implements BookingService{
         qrService.makeQR(qr);
 
         result += count;
-        }
+    }
 
     return result;
-    }
-    
+  }
+
     // seat 테이블 좌석 상태 조회
     @Override
     public List<Booking> selectSeatStatus(int flightNo) throws Exception {
