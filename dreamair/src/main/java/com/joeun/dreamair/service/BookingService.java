@@ -6,10 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
-import com.joeun.dreamair.dto.Users;
 
 public interface BookingService {
-    
     
     // 가는편 항공권 조회
     public List<Booking> golist(Booking booking) throws Exception;

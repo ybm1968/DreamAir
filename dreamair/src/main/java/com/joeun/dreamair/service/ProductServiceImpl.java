@@ -63,6 +63,10 @@ public class ProductServiceImpl implements ProductService {
     // 항공기 정보 등록
     @Override
     public int flight_insert(Product flight) throws Exception {
+        int seatMax = flight.getSeatMax();
+        int seatUse = flight.getSeatUsed();
+        int seatRemaining = seatMax - seatUse;
+        flight.setSeatRemaining(seatRemaining);
         
         int result = productMapper.flight_insert(flight);
 

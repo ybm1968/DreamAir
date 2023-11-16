@@ -1,6 +1,6 @@
 <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도') || #strings.equals(bookingInfo.roundTrip, '왕복 가는편')}">
     <h2 style="text-align: center;">가는편</h2>
-    <h2 style="text-align: center;"><i class="fa fa-solid fa-plane-departure" style="color: skyblue;"></i> <span th:text="${bookingInfo.departure}"></span> → <i class="fa fa-solid fa-plane-arrival" style="color: skyblue;" ></i> <span th:text="${bookingInfo.destination}"></span></h2>
+    <h2 style="text-align: center;"><i class="fa fa-solid fa-plane-departure" style="color: skyblue;"></i><span th:text="${bookingInfo.departure}"></span> → <i class="fa fa-solid fa-plane-arrival" style="color: skyblue;" ></i> <span th:text="${bookingInfo.destination}"></span></h2>
 </th:block>
 
 <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복')}">
@@ -13,6 +13,8 @@
 
     <tr class="table-primary">
         <th>편명</th>
+        <th>출발시간</th> 
+        <th>도착시간</th> 
         <th>운항시간</th> 
         <th>항공사</th> 
         <th>편명</th> 
@@ -43,7 +45,10 @@
         <th:block th:each="booking : ${bookingList}"> 
                 <tr>
                     <td><i class="fa fa-solid fa-plane fa-2x" style="color: skyblue;"></i><br><span th:text="${booking.flightName}"></span></td>
-                    <td><span th:text="${booking.departureTime}"></span> <span th:text="${booking.duration}"></span> <span th:text="${booking.destinationTime}"></span></td> 
+                    <td><span th:text="${booking.departureTime}"></span></td>
+                    <td><span th:text="${booking.destinationTime}"></span></td>
+                    <td><span th:text="${booking.duration}"></span></td>  
+
                     <td><img src="/img/logo.png" alt="" width="60">DreamAir</td> 
                     <td><span th:text="${booking.flightName}"></span></td> 
                     <td><span th:text="${booking.productPrice}"></span></td>  

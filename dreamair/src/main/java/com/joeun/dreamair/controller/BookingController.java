@@ -160,7 +160,7 @@ public class BookingController {
 
             // JavaScript 코드 추가
             model.addAttribute("booking", booking);
-            return "booking/notice";
+            return "redirect:/booking/notice";
         }
     }
 
@@ -218,7 +218,7 @@ public class BookingController {
         
         model.addAttribute("booking", booking);
         
-        return "booking/notice";
+        return "redirect:/booking/notice";
     }
 
 

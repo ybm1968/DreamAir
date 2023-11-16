@@ -86,6 +86,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM Files WHERE parentNo = #{boardNo}
     </select>
 
+    <select id="selectFilesByFlightNo" resultType="Files">
+        SELECT * FROM Files WHERE parentNo = #{flightNo}
+    </select>
+
+      <select id="selectFilesByproductNo" resultType="Files">
+        SELECT * FROM Files WHERE parentNo = #{productNo}
+    </select>
 
     <!-- 썸네일 조회 -->
     <select id="selectThumbnail" resultType="Files">

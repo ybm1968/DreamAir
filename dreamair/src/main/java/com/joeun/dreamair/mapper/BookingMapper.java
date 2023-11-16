@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
-import com.joeun.dreamair.dto.Users;
 
 @Mapper
 public interface BookingMapper {

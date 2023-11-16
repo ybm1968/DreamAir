@@ -1,15 +1,15 @@
 package com.joeun.dreamair.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -19,10 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.WebUtils;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Product;
@@ -56,10 +53,8 @@ public class UserController {
      * @return
      */
     // 회원권한(ROLE_USER)을 가진 사용자만 접근 허용
-    // @PreAuthorize("hasRole('ROLE_USER')")
-    // @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    // @Secured("ROLE_USER")
-    // @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @Secured("ROLE_USER")
     @GetMapping(value={"/", ""})
     public String index() {
         // int result = 10 / 0;

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,19 +49,19 @@ public class AdminController {
     private QRService qrService;
 
     // 관리자 권한(ROLE_ADMIN)을 가진 사용자만 접근 허용
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
-    // @GetMapping(value={"/", ""})
-    // public String index() {
-    //     log.info("[GET] - /admin");
-    //     return "admin/index";
-    // }
-
-    // [관리자] index 화면 
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value={"/", ""})
     public String index() {
-        log.info("[GET] - /admin/");
+        log.info("[GET] - /admin");
         return "admin/index";
     }
+
+    // [관리자] index 화면 
+    // @GetMapping(value={"/", ""})
+    // public String index() {
+    //     log.info("[GET] - /admin/");
+    //     return "admin/index";
+    // }
     
     // 관리자 목록 조회
     @GetMapping(value="/admin_list")
