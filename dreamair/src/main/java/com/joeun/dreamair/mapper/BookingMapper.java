@@ -24,7 +24,7 @@ public interface BookingMapper {
 
     // 비회원 - 가장 최근 예매 번호 조회
     public int latest_user2_bookingNo(int userNo2) throws Exception;
-    
+
     // 가는편 예매 테이블 등록
     public int goBookingInsert(Booking booking) throws Exception;
 
@@ -62,7 +62,7 @@ public interface BookingMapper {
     public String selectDeparture(int productNoDeps);
 
     // 도착지 조회
-    public String selectDestination(int productNoDess);
+    public String selectDestination(int productNoDeps);
 
     // 출발지명과 도착지명으로 노선 번호 조회
     public int selectRouteNo(@Param("departure") String departure, @Param("destination") String destination);
@@ -78,4 +78,16 @@ public interface BookingMapper {
 
     // 도착지 명으로 노선 번호 조회
     public int selectRouteNoByDes(@Param("destination") String destination);
+
+    // 가는편 티켓 테이블 insert할 값 조회
+    public Booking goTickeData(Booking booking) throws Exception;
+
+    // 오는편 티켓 테이블 insert할 값 조회
+    public Booking comeTicketData(Booking booking) throws Exception;
+
+    // 가는편 좌석 데이터 테이블 등록
+    public int goInsertSeat(Booking booking) throws Exception;
+
+    // 오는편 좌석 데이터 테이블 등록
+    public int comeInsertSeat(Booking booking) throws Exception;
 }

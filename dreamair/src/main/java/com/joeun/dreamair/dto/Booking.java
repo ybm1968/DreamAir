@@ -13,6 +13,7 @@ public class Booking {
     private String name;
     private String[] names;
     private String seatNo;
+    private String seatNo2;
     private int userNo;
     private int[] userNos;
     private int userNo2;
@@ -102,6 +103,6 @@ public class Booking {
     private List<String> seatNoDeps;    // 좌석 번호 가는 편
     private List<String> seatNoDess;    // 좌석 번호 오는 편
 
-
+    private String payment;     // payment 페이지 구분하는 변수
 }
 

@@ -23,9 +23,6 @@ public interface BookingService {
 
     // 비회원 - 가장 최근 예매 번호 조회
     public int latest_user2_bookingNo(int userNo2) throws Exception;
-
-    // 예매 테이블 등록
-    public int bookingInsert(Booking booking, Principal principal) throws Exception;
     
     // 여권 정보 입력 
     // public int infoPassport(Users user) throws Exception;
@@ -37,10 +34,10 @@ public interface BookingService {
     public List<Booking> comeScheduleList(Booking booking) throws Exception;
 
     // 예매 테이블 등록
-    public int bookingInsert(Booking booking) throws Exception;
+    public int bookingInsert(Booking booking, Principal principal) throws Exception;
 
     // 티켓 발행 등록
-    public int createTicket(Booking booking) throws Exception;
+    public int createTicket(Booking booking, Principal principal) throws Exception;
     
     // 항공기 좌석 조회
     public List<Booking> selectSeatStatus(int flightNo) throws Exception;
@@ -58,7 +55,7 @@ public interface BookingService {
     public String selectDeparture(int productNoDeps);
 
     // 출발지 조회
-    public String selectDestination(int productNoDess);
+    public String selectDestination(int productNoDeps);
     
     // 출발지명과 도착지명으로 노선 번호 조회
     public int selectRouteNo(String departure, String destination);

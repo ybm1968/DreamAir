@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
@@ -226,10 +227,7 @@ public class BookingController {
     // 결제
     @GetMapping(value="/payment")
     public String payment(Model model, Booking booking, Principal principal) throws Exception {
-        log.info("페이먼트 탑승객 이름 배열 : " + booking.getPassengerNames()[0]);
-        log.info("페이먼트 탑승객 번호 배열 : " + booking.getPassengerNos()[0]);
-        log.info("페이먼트 탑승객 수 : " + booking.getPasCount());
-        log.info("페이먼트 왕복 : " + booking.getRoundTrip());
+        log.info("페이먼트 booking : " + booking);
 
         List<Booking> goBookingList = new ArrayList<Booking>();
         List<Booking> comeBookingList = new ArrayList<Booking>();
@@ -261,11 +259,11 @@ public class BookingController {
 
     // 결제 처리  - 예매 번호 발급
     @PostMapping(value="/paymentPro")
-    public String paymentPro(Model model, Booking booking) throws Exception {
+    public String paymentPro(Model model, Booking booking, Principal principal) throws Exception {
         log.info("결제처리");
 
         // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking);
+        int result = bookingService.createTicket(booking, principal);
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();
@@ -298,7 +296,7 @@ public class BookingController {
 
         booking.setBookingNo(bookingNum);
         // // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking);
+        int result = bookingService.createTicket(booking, principal);
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();
@@ -336,6 +334,7 @@ public class BookingController {
     public String ticketInfo() {
         return "booking/ticketInfo";
     }
+
 
 
 

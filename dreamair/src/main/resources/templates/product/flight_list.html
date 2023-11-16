@@ -39,6 +39,7 @@
                             <tr>
                                 <td><span th:text="${flight.flightNo}"></span></td>                                
                                 <td><img th:src="${flight.fileName}" alt="이미지" th:if="${flight.fileType == 'img'}" style="width: 200px;height: 200px;"/></td>
+                                <!-- <td><img th:src="|/file/img/${flight.thumbnail.fileNo}|" alt="이미지" th:if="${flight.fileType == 'img'}" style="width: 200px;height: 200px;"/></td> -->
                                 <td><span th:text="${flight.flightName}"></span></td>
                                 <td><span th:text="${flight.routeNo}"></span></td>
                                 <td><span th:text="${flight.departure}"></span></td>

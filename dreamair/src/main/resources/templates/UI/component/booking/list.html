@@ -1,10 +1,12 @@
 <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '편도') || #strings.equals(bookingInfo.roundTrip, '왕복 가는편')}">
     <h2 style="text-align: center;">가는편</h2>
-    <h2 style="text-align: center;"><i class="fa fa-solid fa-plane-departure" style="color: skyblue;"></i><span th:text="${bookingInfo.departure}"></span> → <i class="fa fa-solid fa-plane-arrival" style="color: skyblue;" ></i> <span th:text="${bookingInfo.destination}"></span></h2>
+    <br>
+    <h2 style="text-align: center;"><i class="fa fa-solid fa-plane-departure" style="color: skyblue;"></i> <span th:text="${bookingInfo.departure}"></span> → <i class="fa fa-solid fa-plane-arrival" style="color: skyblue;" ></i> <span th:text="${bookingInfo.destination}"></span></h2>
 </th:block>
 
 <th:block th:if="${#strings.equals(bookingInfo.roundTrip, '왕복')}">
     <h2 style="text-align: center;">오는편</h2>
+    <br>
     <h2 style="text-align: center;"><i class="fa fa-solid fa-plane-departure" style="color: skyblue;"></i> <span th:text="${bookingInfo.departure}"></span> → <i class="fa fa-solid fa-plane-arrival" style="color: skyblue;"></i> <span th:text="${bookingInfo.destination}"></span></h2>
 </th:block>
 
@@ -45,11 +47,8 @@
         <th:block th:each="booking : ${bookingList}"> 
                 <tr>
                     <td><i class="fa fa-solid fa-plane fa-2x" style="color: skyblue;"></i><br><span th:text="${booking.flightName}"></span></td>
-                    <td><span th:text="${booking.departureTime}"></span></td>
-                    <td><span th:text="${booking.destinationTime}"></span></td>
-                    <td><span th:text="${booking.duration}"></span></td>  
-
-                    <td><img src="/img/logo.png" alt="" width="60">DreamAir</td> 
+                    <td><span th:text="${booking.departureTime}"></span> <span th:text="${booking.duration}"></span> <span th:text="${booking.destinationTime}"></span></td> 
+                    <td><img src="/img/logo.png" alt="" width="25">DreamAir</td> 
                     <td><span th:text="${booking.flightName}"></span></td> 
                     <td><span th:text="${booking.productPrice}"></span></td>  
                     <td><span th:text="${booking.seatRemaining}"></span></td>

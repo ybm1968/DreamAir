@@ -87,14 +87,12 @@ public class UserController {
 
         // 회원이 가지고 있는 장바구니 조회
         List<Users> cartlist = userService.user_cart_list(userNo);
+
+        log.info("카트 리스트 : " + cartlist);
         model.addAttribute("CartList", cartlist);
 
             return "user/addCart";
-        }
-
-
-
-    
+    }
 
     // @PostMapping("/cart")
     // public String CartPro(Product product, Users user, Booking booking) throws Exception {
@@ -370,17 +368,15 @@ public class UserController {
         return "user/bookingList";
     }
     
-        // 전체 항공편 조회
-        @GetMapping(value="/productFlightList")
-        public String list(Model model) throws Exception {
-    
-            List<Product> productFlightList = userService.product_flightList();
-            model.addAttribute("productFlightList", productFlightList);
-    
-            return "user/productFlightList";
-        }
+    // 전체 항공편 조회
+    @GetMapping(value="/productFlightList")
+    public String list(Model model) throws Exception {
 
+        List<Product> productFlightList = userService.product_flightList();
+        model.addAttribute("productFlightList", productFlightList);
 
+        return "user/productFlightList";
+    }
 
     /**
      * 티켓 상세 정보 페이지

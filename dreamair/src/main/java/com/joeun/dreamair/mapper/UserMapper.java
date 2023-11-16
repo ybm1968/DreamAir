@@ -45,6 +45,11 @@ public interface UserMapper {
 
     // 장바구니 조회 : 회원
     public List<Users> user_cart_list(int userNo) throws Exception;
+    public List<Users> user2_cart_list(int userNo2) throws Exception;
+
+    // 전체 탑승권 조회
+    public List<Product> product_flightList() throws Exception;
+
     
     // 장바구니 조회 : 비회원
     public List<Users> user2_cart_list(int phone, int userPw) throws Exception;
@@ -54,8 +59,5 @@ public interface UserMapper {
     
     // 장바구니 삭제
     public int cart_delete(int userNo) throws Exception;
-
-    // 전체 탑승권 조회
-    public List<Product> product_flightList() throws Exception;
 
 }

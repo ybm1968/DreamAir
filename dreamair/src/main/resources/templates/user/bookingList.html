@@ -90,7 +90,7 @@
                             <td><span th:text="${ticket.bookingNo}"></span></td>
                             <td><span th:text="${ticket.name}"></span></td>                                
                             <td><span th:text="${ticket.departureDate}"></span></td>
-                            <td><span>결제 금액 여기 나와야 함</span></td>
+                            <td><span>50,000</span></td>
                             <td>
                                 <span th:if="${ticket.checkedIn == 0}">체크인 전</span>
                                 <span th:if="${ticket.checkedIn == 1}">체크인 완료</span>
@@ -101,11 +101,11 @@
                             </td>
                             <td>
                                 <span style="white-space: nowrap;">
-                                <button>환불</button>
+                                <button>[환불]</button>
                                 <p style="display: inline;">/</p>
-                                <button>좌석 변경</button>
+                                <button>[좌석 변경]</button>
                                 <p style="display: inline;">/</p>
-                                <a th:href="@{/user/booking/ticketInfo(bookingNo=${ticket.bookingNo})}">조회</a>
+                                <a th:href="@{/user/booking/ticketInfo(bookingNo=${ticket.bookingNo})}">[조회]</a>
                                 </span>
                             </td>
                         </tr>

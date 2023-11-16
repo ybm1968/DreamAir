@@ -8,6 +8,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>체크인</title>
+    <style>
+        .footer_container {
+          position: relative!important;
+        }
+    </style>
 
 </head>
 <body layout:fragment="content" class="pt-5">
@@ -103,11 +108,11 @@
     </th:block>
 
     <th:block th:if="${TicketList==null}" >
-        <th:block th:if="${TicketList.isEmpty()}">
+        <!-- <th:block th:if="${TicketList.isEmpty()}"> -->
             <tr>
                 <td colspan="11">예매된 탑승권이 없습니다.</td>
             </tr>
-        </th:block>
+        <!-- </th:block> -->
     </th:block>
 
     <!-- 체크인 안내 -->

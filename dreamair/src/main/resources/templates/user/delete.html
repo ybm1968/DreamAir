@@ -24,7 +24,7 @@
         <br>
 
 
-        <div class="btn-box d-grid gap-2">
+        <div class="btn-box d-grid gap-2 d-flex justify-content-center">
             <form action="/user/delete" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <button type="submit" class="btn btn-outline-danger">회원 탈퇴</button>
