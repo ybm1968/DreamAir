@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +17,11 @@ import com.joeun.dreamair.dto.ProductIo;
 import com.joeun.dreamair.mapper.FileMapper;
 import com.joeun.dreamair.mapper.ProductMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+
+@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -41,7 +45,11 @@ public class ProductServiceImpl implements ProductService {
        for (int i = 0; i < flightList.size(); i++) {
             Files file = new Files();
             file.setParentTable("flight");
-            file.setParentNo(flightList.get(i).getFlightNo());
+
+            log.info("fligthList.get(i) : " + flightList.get(i));
+
+            // file.setParentNo(flightList.get(i).getFlightNo());
+            file.setParentNo(9);
 
             file = fileMapper.selectThumbnail(file);
             if(file != null) {
