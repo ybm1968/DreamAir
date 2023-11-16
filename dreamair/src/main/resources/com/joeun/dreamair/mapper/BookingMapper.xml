@@ -230,7 +230,6 @@ ON ticket.booking_no = #{bookingNo}
 
   <!-- 출발지명과 도착지명으로 route_no 조회 -->
   <select id="selectRouteNo" resultType="Integer">
-  <select id="selectRouteNo" resultType="int">
     SELECT route_no
     FROM route
     WHERE departure = #{departure} AND destination = #{destination}
@@ -238,7 +237,6 @@ ON ticket.booking_no = #{bookingNo}
 
   <!-- 도착지명으로 route_no 조회 -->
   <select id="selectRouteNoByDes" resultType="Integer">
-  <select id="selectRouteNoByDes" resultType="int">
     SELECT route_no
     FROM route
     WHERE departure = #{destination}
