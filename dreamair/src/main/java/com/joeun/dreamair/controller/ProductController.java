@@ -163,7 +163,7 @@ public class ProductController {
     }
 
     //* - 항공기 삭제 처리       
-    @GetMapping(value="/flight_delete")
+    @PostMapping(value="/flight_delete")
     public String flightDelete(int flightNo) throws Exception {
         log.info("[POST] - /product/flight_delete");
 
