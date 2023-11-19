@@ -98,11 +98,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE user_id = #{userId}
     </update>
 
-    <!-- 회원 삭제 -->
-    <delete id="delete">
-        DELETE users, auth
-        FROM users JOIN auth ON users.user_id = auth.user_id        
-        WHERE users.user_id = #{userId} AND auth.user_id = #{userId}
+    <!-- users 테이블 회원 삭제 -->
+    <delete id="deleteUsers">
+        DELETE FROM users
+        WHERE user_id = #{userId}
     </delete>
     
     <select id="selectMileage" resultType="Users">
@@ -146,6 +145,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                     left join route r on f.route_no = r.route_no
     </select>
     
+    <!-- auth 테이블 회원 삭제 -->
+    <delete id="deleteAuth">
+        DELETE FROM Auth
+        WHERE user_id = #{userId}
+    </delete>
+
+    <!-- auth 테이블 회원 삭제 -->
+    <delete id="deleteMileage">
+        DELETE FROM mileage
+        WHERE user_id = #{userId}
+    </delete>
 
 </mapper>
 

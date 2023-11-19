@@ -139,10 +139,10 @@ public class UserServiceImpl implements UserService {
     
     // 회원 탈퇴
     @Override
-    public Users delete(String userId) throws Exception {
+    public Users deleteUsers(String userId) throws Exception {
         
         // 사용자를 삭제하고 삭제된 사용자 정보를 반환
-        Users deleteUser = userMapper.delete(userId);
+        Users deleteUser = userMapper.deleteUsers(userId);
 
         return deleteUser;
     }
@@ -188,4 +188,29 @@ public class UserServiceImpl implements UserService {
         List<Product> productFlightList = userMapper.product_flightList();
         return productFlightList;
     }
+
+    
+    
+    // 회원 탈퇴 시, auth 테이블 삭제
+    @Override
+    public Users deleteAuth(String username) {
+        
+        Users deleteAuth = userMapper.deleteAuth(username);
+
+        return deleteAuth;
+    }
+
+
+    
+    // 회원 탈퇴 시, mileage 테이블 삭제
+    @Override
+    public Users deleteMileage(String username) {
+
+        Users deleteMileage = userMapper.deleteMileage(username);
+
+        return deleteMileage;
+    }
+
+    
+
 }

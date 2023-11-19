@@ -227,8 +227,12 @@ public class UserController {
                                     , HttpServletResponse response) throws Exception {
 
         String loginId = principal != null ? principal.getName() : null;
-        
+
         try {
+            
+            userService.deleteUsers(loginId);
+            userService.deleteAuth(loginId);
+            userService.deleteMileage(loginId);
             
             // 시큐리티 강제 로그아웃
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -249,7 +253,7 @@ public class UserController {
             
             log.info("test3");
             
-            userService.delete(loginId);
+
             
         } catch (Exception e) {
 
