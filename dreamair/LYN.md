@@ -27,7 +27,9 @@ info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때�
 
 --------------------------------------------------------------------------------------------------------
 - 11/19
-booking dto에 mileage 변수 추가
+- booking dto에 mileage, goFlightNo, comeFlightNo 변수 추가
+- BookingMapper(xml, java), bookingService, bookingServiceimpl, BookingController(결제 완료 메소드에만) 수정 함
+
 
 - 11/10
 - [header.html], [user_layout.html], [user/index.html], [UI/fragment/sidebar.html] : 위치 등등 수정

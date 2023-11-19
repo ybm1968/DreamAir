@@ -430,6 +430,15 @@ public class BookingServiceImpl implements BookingService{
         return result;
     }
 
+    // 결제 완료 시, seat 테이블 업데이트
+    @Override
+    public int updateSeat(int flightNo, String seatNo) throws Exception {
+
+        int updateSeat = bookingMapper.updateSeat(flightNo, seatNo);
+
+        return updateSeat;
+    }
+
 
 
 

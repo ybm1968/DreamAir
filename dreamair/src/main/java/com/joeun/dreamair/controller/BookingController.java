@@ -122,6 +122,7 @@ public class BookingController {
         booking.setDeparture(departure);
         booking.setDestination(destination);
         booking.setFlightNo(productNoDepValue);
+        booking.setGoFlightNo(booking.getFlightNo());
         
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
         List<String> selectLastPasNoss = bookingService.selectLastPasNos(booking.getPasCount());
@@ -175,6 +176,7 @@ public class BookingController {
         int routeNoToFlightNo = bookingService.selectRouteNoByDes(destination);
 
         booking.setFlightNo(routeNoToFlightNo);
+        booking.setComeFlightNo(booking.getFlightNo());
 
         List<Booking> seatStatus = bookingService.selectSeatStatus(routeNoToFlightNo);
 
@@ -280,6 +282,8 @@ public class BookingController {
 
         rttr.addFlashAttribute("booking", booking);
 
+        log.info("결제 시 부킹 객체 : " + booking);
+
         return "redirect:/booking/payment_complete";
     }
 
@@ -287,7 +291,31 @@ public class BookingController {
     @GetMapping(value="/payment_complete")
     public String paymentComplete(Model model, Booking booking) throws Exception {
         log.info("결제완료 booking" + booking);
-        
+
+        // seat 테이블 업데이트
+        if ("왕복".equals(booking.getRoundTrip())) {    // 왕복일 때
+            for (int i = 0; i < booking.getPasCount(); i++) {
+
+                int flightNo = booking.getGoFlightNo();
+                String seatNo = booking.getSeatNoDepss()[i];
+    
+                int result = bookingService.updateSeat(flightNo, seatNo);
+
+                int flightNo2 = booking.getComeFlightNo();
+                String seatNo2 = booking.getSeatNoDesss()[i];
+    
+                int result2 = bookingService.updateSeat(flightNo2, seatNo2);
+            }
+        } else {                                        // 편도일 때
+            for (int i = 0; i < booking.getPasCount(); i++) {
+
+                int flightNo = booking.getGoFlightNo();
+                String seatNo = booking.getSeatNoDepss()[i];
+    
+                int result = bookingService.updateSeat(flightNo, seatNo);
+            }
+        }
+
         // int bookingNo = booking.getBookingNo();
 
         model.addAttribute("booking", booking);

@@ -91,4 +91,7 @@ public interface BookingMapper {
 
     // 마지막 booking_no 조회
     public int selectLastBookingNo(int bookingNo) throws Exception;
+
+    // seat 테이블 업데이트
+    int updateSeat(@Param("flightNo") int flightNo, @Param("seatNo") String seatNo);
 }

@@ -33,6 +33,8 @@
         <form action="/booking/payment"> 
             <input type="hidden" name="pasCount" th:value="${bookingInfo.pasCount}"> 
             <input type="hidden" name="roundTrip" th:value="${bookingInfo.roundTrip}"> 
+            <input type="hidden" name="goFlightNo" th:value="${bookingInfo.goFlightNo}"> 
+            <input type="hidden" name="comeFlightNo" th:value="${bookingInfo.comeFlightNo}"> 
             <section>
                 <h2>가는편</h2>
                 <table class="table table-striped table-hover table-bordered text-center align-middle">

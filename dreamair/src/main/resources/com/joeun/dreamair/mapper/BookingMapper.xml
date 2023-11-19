@@ -296,5 +296,12 @@ ON ticket.booking_no = #{bookingNo}
   <select id="selectLastBookingNo" resultType="Booking">
   SELECT booking_no FROM booking ORDER BY booking_no = #{bookingNo} DESC LIMIT 1; 
   </select>
+
+  <!-- 결제 완료 시 seat 테이블 업데이트 -->
+  <update id="updateSeat">  
+    UPDATE seat
+    SET status = '1'
+    WHERE flight_no = #{flightNo} AND seat_no = #{seatNo};
+  </update>
  
 </mapper>

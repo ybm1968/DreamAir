@@ -90,6 +90,8 @@ public class Booking {
 
     // flight 테이블
     private int flightNo;
+    private int goFlightNo;
+    private int comeFlightNo;
     private String flightName;
     private int seatRemaining;
     // private int seatUsed;
