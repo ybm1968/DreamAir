@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,14 +91,14 @@ public class BookingController {
  
 
     @PostMapping(value="/info")
-    public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr) throws Exception{ 
+    public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr, HttpServletRequest request) throws Exception{ 
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
         
         int result1 = 0;
         int result2 = 0;
 
-        result1 = bookingService.infoPassngers(booking);
+        result1 = bookingService.infoPassngers(booking, request);
         // result2 = bookingService.infoPassport(user);
         // rttr.addFlashAttribute("user", user);     
         rttr.addFlashAttribute("booking", booking);     
@@ -219,7 +221,7 @@ public class BookingController {
 
     // 결제
     @GetMapping(value="/payment")
-    public String payment(Model model, Booking booking, Principal principal) throws Exception {
+    public String payment(Model model, Booking booking, Principal principal, HttpServletRequest request) throws Exception {
         log.info("페이먼트 booking : " + booking);
 
         List<Booking> goBookingList = new ArrayList<Booking>();
@@ -238,7 +240,7 @@ public class BookingController {
         model.addAttribute("bookingInfo", booking);
 
         // 회원 : userNo 추출, 비회원 : userNo2 추출
-        Users user = userService.selectById2(principal);
+        Users user = userService.selectById2(principal, request);
         if (user.getUserId().equals("GUEST")) {
             log.info("비회원 유저번호 : " + user.getUserNo2());
         } else {
@@ -252,12 +254,12 @@ public class BookingController {
     
 
     @PostMapping(value = "/bookingInsert")
-    public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr) throws Exception {
+    public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
         log.info("booking 객체 조회 : " + booking);
         int result1 = bookingService.bookingInsert(booking, principal);
         int bookingNum = 0;
         
-        Users user = userService.selectById2(principal);
+        Users user = userService.selectById2(principal, request);
         if( (principal == null) ) {
             log.info("비회원 번호 : " + user.getUserNo2());
             bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  

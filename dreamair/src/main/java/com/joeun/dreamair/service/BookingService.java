@@ -3,6 +3,8 @@ package com.joeun.dreamair.service;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
@@ -17,7 +19,7 @@ public interface BookingService {
     public List<Booking> comelist(Booking booking) throws Exception;
 
     // 탑승객들 정보 입력
-    public int infoPassngers(Booking booking) throws Exception;
+    public int infoPassngers(Booking booking, HttpServletRequest request) throws Exception;
     
     // 회원 - 가장 최근 예매 번호 조회
     public int latest_user_bookingNo(int userNo) throws Exception;
@@ -72,5 +74,8 @@ public interface BookingService {
 
     // 마지막 booking_no 조회
     public int selectLastBookingNo(int bookingNo) throws Exception;
+
+    // 비회원 주문 내역 조회
+    // public List<Booking> listByGuest(Booking booking) throws Exception;
 
 }

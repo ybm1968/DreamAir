@@ -3,6 +3,10 @@ package com.joeun.dreamair.service;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,7 +63,7 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     // 탑승객들 정보 입력
-    public int infoPassngers(Booking booking) throws Exception {
+    public int infoPassngers(Booking booking, HttpServletRequest request) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
         int result = 0;
@@ -84,6 +88,14 @@ public class BookingServiceImpl implements BookingService{
             }
 
             bookingMapper.infoPassngers(bookingItem);
+
+            String userId = "GUEST_" + UUID.randomUUID().toString().substring(0, 5);
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", userId);
+            bookingItem.setUserId(userId);
+            bookingItem.setStatus("GUEST");
+            bookingMapper.user2Insert(bookingItem);
+
             result++;
         }
 
@@ -361,9 +373,8 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setName(booking.getNames()[i]);
             bookingItem.setPassengerNo(booking.getPassengerNos()[i]);
             bookingItem.setSeatNoDep(booking.getSeatNoDepss()[i]);
-            tmp = bookingMapper.goInsertSeat(bookingItem);
             bookingItem.setSeatNo(booking.getSeatNoDepss()[i]);
-
+            
             if (loginId.equals("GUEST")) {
                 bookingItem.setUserNo2(booking.getUserNo2());
                 log.info("비회원넘버if : " + booking.getUserNo2());
@@ -381,11 +392,13 @@ public class BookingServiceImpl implements BookingService{
             log.info("가는편 상품 아이디 : " + bookingItem.getProductIdDep());
             
             result1 = bookingMapper.goBookingInsert(bookingItem);
-            
+            // bookingItem.setTempBookingNo(bookingMapper.lastBookingNo()); 
+            tmp = bookingMapper.goPasUpdate(bookingItem); 
+
             if (booking.getRoundTrip().equals("왕복")) {
                 bookingItem.setSeatNoDes(booking.getSeatNoDesss()[i]);
-                tmp = bookingMapper.comeInsertSeat(bookingItem);
                 bookingItem.setSeatNo(booking.getSeatNoDesss()[i]);
+                tmp = bookingMapper.comePasUpdate(bookingItem);
                 bookingItem.setProductNoDes(booking.getProductNoDes());
                 bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
                 bookingItem.setRouteNoDes(booking.getRouteNoDes());
@@ -429,6 +442,14 @@ public class BookingServiceImpl implements BookingService{
         int result = bookingMapper.selectLastBookingNo(bookingNo);
         return result;
     }
+
+    // 비회원 주문 내역 조회
+    // @Override
+    // public List<Booking> listByGuest(Booking booking) throws Exception {
+    //     List<Booking> bookingList = bookingMapper.listByGuest(booking);
+
+    //     return bookingList;
+    // }
 
 
 
