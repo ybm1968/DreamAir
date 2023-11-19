@@ -145,6 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM flight f left join product p on f.route_no = p.route_no 
                     left join route r on f.route_no = r.route_no
     </select>
+    
 
 </mapper>
 
