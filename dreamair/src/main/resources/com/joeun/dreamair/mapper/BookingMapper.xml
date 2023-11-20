@@ -189,13 +189,13 @@ ON ticket.booking_no = #{bookingNo}
 
   <!-- 탑승권 상세 조회 - by bookingNo -->
   <select id="selectTicket" resultMap="bookingMap">
-      SELECT booking_no
+      SELECT ticket_no
             , departure
             , destination
             , departure_date
             , seat_no
       FROM ticket
-      WHERE booking_no = #{bookingNo}
+      WHERE ticket_no = #{ticketNo}
   </select>
 
     <!-- 출발지 조회 -->

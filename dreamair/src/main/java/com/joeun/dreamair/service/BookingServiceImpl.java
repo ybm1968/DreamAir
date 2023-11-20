@@ -222,9 +222,9 @@ public class BookingServiceImpl implements BookingService{
 
     // 탑승권 상세 조회
     @Override
-    public List<Booking> selectTicket(int bookingNo) throws Exception {
+    public List<Booking> selectTicket(int ticketNo) throws Exception {
 
-        List<Booking> viewTicket = bookingMapper.selectTicket(bookingNo);
+        List<Booking> viewTicket = bookingMapper.selectTicket(ticketNo);
 
         return viewTicket;
 
