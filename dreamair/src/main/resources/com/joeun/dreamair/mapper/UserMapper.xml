@@ -157,5 +157,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE user_id = #{userId}
     </delete>
 
+
+    <!-- 비회원 주문 내역 조회 -->
+    <select id="user2_ticket_list" resultType="Users">
+        SELECT *
+        FROM ticket
+        WHERE phone=#{phone} AND user_pw = #{userPw}
+    </select>
 </mapper>
 
