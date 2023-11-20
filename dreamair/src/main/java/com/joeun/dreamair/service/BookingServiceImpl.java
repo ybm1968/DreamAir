@@ -377,10 +377,8 @@ public class BookingServiceImpl implements BookingService{
             
             if (loginId.equals("GUEST")) {
                 bookingItem.setUserNo2(booking.getUserNo2());
-                log.info("비회원넘버if : " + booking.getUserNo2());
             } else {
                 bookingItem.setUserNo(booking.getUserNo());
-                log.info("회원넘버if : " + booking.getUserNo());
             }
             
             bookingItem.setPasCount(booking.getPasCount());
@@ -389,10 +387,8 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setProductNoDep(booking.getProductNoDep());
             bookingItem.setProductIdDep(booking.getProductIdDeps()[0]);
             bookingItem.setRouteNoDep(booking.getRouteNoDep());
-            log.info("가는편 상품 아이디 : " + bookingItem.getProductIdDep());
             
             result1 = bookingMapper.goBookingInsert(bookingItem);
-            // bookingItem.setTempBookingNo(bookingMapper.lastBookingNo()); 
             tmp = bookingMapper.goPasUpdate(bookingItem); 
 
             if (booking.getRoundTrip().equals("왕복")) {
@@ -402,8 +398,6 @@ public class BookingServiceImpl implements BookingService{
                 bookingItem.setProductNoDes(booking.getProductNoDes());
                 bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
                 bookingItem.setRouteNoDes(booking.getRouteNoDes());
-                log.info("오는편 상품 번호 : " + booking.getProductNoDes());
-                log.info("오는편 상품 아이디 : " + bookingItem.getProductIdDes());
                 result2 = bookingMapper.comeBookingInsert(bookingItem);
             }
         }
@@ -442,16 +436,6 @@ public class BookingServiceImpl implements BookingService{
         int result = bookingMapper.selectLastBookingNo(bookingNo);
         return result;
     }
-
-    // 비회원 주문 내역 조회
-    // @Override
-    // public List<Booking> listByGuest(Booking booking) throws Exception {
-    //     List<Booking> bookingList = bookingMapper.listByGuest(booking);
-
-    //     return bookingList;
-    // }
-
-
 
 
 }
