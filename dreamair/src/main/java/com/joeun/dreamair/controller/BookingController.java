@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.BookingService;
+import com.joeun.dreamair.service.ProductService;
 import com.joeun.dreamair.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,9 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService; 
+
+    @Autowired
+    private ProductService productService;
     
     // 항공권 조회 목록 -> 예매
     // 출발지 날짜 도착지(ticket), 탑승인원 왕복여부(booking) 를 정보()에 맞는 검색결과를 보여주기
@@ -258,6 +262,7 @@ public class BookingController {
     public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
         log.info("booking 객체 조회 : " + booking);
         int result1 = bookingService.bookingInsert(booking, principal, request);
+        productService.productOut(booking);
         int bookingNum = 0;
         
         Users user = userService.selectById2(principal, request);

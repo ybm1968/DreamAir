@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.ProductIo;
 import com.joeun.dreamair.dto.QR;
 import com.joeun.dreamair.mapper.BookingMapper;
+import com.joeun.dreamair.mapper.ProductMapper;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -369,7 +372,6 @@ public class BookingServiceImpl implements BookingService{
         int result = 0;
         int result1 = 0;
         int result2 = 0;
-        int tmp = 0;
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
         for (int i = 0; i < booking.getPasCount(); i++) {
@@ -387,24 +389,24 @@ public class BookingServiceImpl implements BookingService{
                 bookingItem.setUserNo(booking.getUserNo());
             }
             
-            bookingItem.setPasCount(booking.getPasCount());
+            bookingItem.setPasCount(booking.getPasCount());                 
             bookingItem.setRoundTrip(booking.getRoundTrip());
             bookingItem.setStatus(booking.getStatus());
-            bookingItem.setProductNoDep(booking.getProductNoDep());
+            bookingItem.setProductNoDep(booking.getProductNoDep());         
             bookingItem.setProductIdDep(booking.getProductIdDeps()[0]);
-            bookingItem.setRouteNoDep(booking.getRouteNoDep());
-            
-            result1 = bookingMapper.goBookingInsert(bookingItem);
-            tmp = bookingMapper.goPasUpdate(bookingItem); 
+            bookingItem.setRouteNoDep(booking.getRouteNoDep());             
+
+            result1 = bookingMapper.goBookingInsert(bookingItem);           // 가는편 Booking 테이블 insert
+            bookingMapper.goPasUpdate(bookingItem);                         // 가는편 좌석번호 등록
 
             if (booking.getRoundTrip().equals("왕복")) {
                 bookingItem.setSeatNoDes(booking.getSeatNoDesss()[i]);
                 bookingItem.setSeatNo(booking.getSeatNoDesss()[i]);
-                tmp = bookingMapper.comePasUpdate(bookingItem);
+                bookingMapper.comePasUpdate(bookingItem);                   // 오는편 좌석번호 등록
                 bookingItem.setProductNoDes(booking.getProductNoDes());
                 bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
                 bookingItem.setRouteNoDes(booking.getRouteNoDes());
-                result2 = bookingMapper.comeBookingInsert(bookingItem);
+                result2 = bookingMapper.comeBookingInsert(bookingItem);     // 오는편 Booking 테이블 insert
             }
         }
                 // int no = booking.getNo();

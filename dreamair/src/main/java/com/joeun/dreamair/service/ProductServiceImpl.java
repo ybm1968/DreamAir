@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Files;
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.ProductIo;
@@ -251,5 +252,41 @@ public class ProductServiceImpl implements ProductService {
        return result;
     }
     
-    
+    // 상품 출고 처리
+    @Override
+    public int productOut(Booking booking) throws Exception {
+        int result = 0;
+        int productNo = 0;
+        int routeNo = 0;
+        int amount = 0;
+        String type = "OUT";
+
+        ProductIo productIo = new ProductIo();
+
+        // 가는편 상품 출고
+        productNo = booking.getProductNoDep();
+        routeNo = booking.getRouteNoDep();
+        amount = booking.getPasCount();
+
+        productIo.setProductNo(productNo);
+        productIo.setRouteNo(routeNo);
+        productIo.setAmount(amount);
+        productIo.setType(type);
+
+        productMapper.productIO_insert(productIo);
+
+        // 오는편 상품 출고
+        if (booking.getRoundTrip().equals("왕복")) {
+            productNo = booking.getProductNoDes();
+            routeNo = booking.getRouteNoDes();
+
+            productIo.setProductNo(productNo);
+            productIo.setRouteNo(routeNo);
+
+            productMapper.productIO_insert(productIo);
+            
+        }
+
+        return result;
+    }
 }

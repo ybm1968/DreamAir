@@ -75,7 +75,4 @@ public interface BookingService {
     // 마지막 booking_no 조회
     public int selectLastBookingNo(int bookingNo) throws Exception;
 
-    // 비회원 주문 내역 조회
-    // public List<Booking> listByGuest(Booking booking) throws Exception;
-
 }
