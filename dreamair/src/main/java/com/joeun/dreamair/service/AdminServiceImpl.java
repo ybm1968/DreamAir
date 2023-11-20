@@ -123,6 +123,15 @@ public class AdminServiceImpl implements AdminService {
     return ticketList;
   }
 
+     @Override
+  public List<Booking> ticket_selectList_w(String departureDate, int flightNo) throws Exception {
+    List<Booking> ticketList = adminMapper.ticket_selectList_w(departureDate, flightNo);
+
+    return ticketList;
+  }
+
+
+
   // 탑승권 목록 내역 조회(전체)
   @Override
   public List<Booking> ticket_list(String today) throws Exception {
@@ -132,8 +141,14 @@ public class AdminServiceImpl implements AdminService {
 
   // 탑승 처리 : (탑승완료1, 미탑승0)
   @Override
-  public int ticket_update(int ticketNo) throws Exception {
-    int result = adminMapper.ticket_update(ticketNo);
+  public int ticket_update_c(int ticketNo) throws Exception {
+    int result = adminMapper.ticket_update_c(ticketNo);
+    return result;
+  }
+
+  @Override
+  public int ticket_update_b(int ticketNo) throws Exception {
+    int result = adminMapper.ticket_update_b(ticketNo);
     return result;
   }
   

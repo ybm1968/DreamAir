@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="auth" column="auth" />
     </resultMap>
 
+    
     <!-- 회원 등록 -->
     <!-- users 테이블에 회원 등록 -->
     <insert id="insertUsers" parameterType="Users">

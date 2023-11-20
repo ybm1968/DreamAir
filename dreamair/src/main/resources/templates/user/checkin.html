@@ -92,9 +92,28 @@
                             <td><span th:text="${ticket.destinationTime}"></span></td>
                             <td><span th:text="${ticket.productPrice}"></span></td>
                             <td colspan="2">
-                                <button class="btn btn-primary me-md-2" type="button"><a th:href="|user/checkin?ticketNo=${ticket.ticketNo}|">체크인</button>         
-                                </div>
+                                <!-- <button class="btn btn-primary me-md-2" type="button"><a th:href="|user/checkin?ticketNo=${ticket.ticketNo}|">체크인</button>          -->
+                                <form action="/user/checkin_complete" method="POST" id="checkinform" onsubmit="return checkinPro()">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <input type="hidden" name="ticketNo" th:value="${ticket.ticketNo}">
+                                    <input type="hidden" class="checkedIn" th:value="${ticket.checkedIn}">
+                                    <th:block th:if="${ticket.checkedIn == 0}"> 
+                                        <button class="checkin_btn btn btn-primary active" type="submit">체크인</button>
+                                    </th:block>
+                                    <th:block th:if="${ticket.checkedIn == 1}">
+                                        <button class="checkin_btn btn btn-primary disabled" type="button" data-bs-toggle="button" aria-disabled="true">체크인 완료</button>
+                                    </th:block>
+                                </form>
                             </td>
+
+                        <!-- <td colspan="2">
+                            <th:block th:if="${booking.checkedIn == 0}" th:object="Booking">
+                                <button  class="btn btn-primary active me-md-2" type="button" data-bs-toggle="button"><a th:href="|/user/checkin?ticketNo=${ticket.ticketNo}|">체크인</a></button>
+                            </th:block>
+                            <th:block th:if="${booking.checkedIn == 1}" th:object="Booking">
+                                <button class="btn btn-primary disabled" type="button" data-bs-toggle="button" aria-disabled="true">체크인 완료</button>
+                            </th:block>
+                        </td> -->
                         </tr>
                     </th:block>
                 </tbody>
@@ -147,7 +166,31 @@
                     <li>모바일 탑승권이 허용되지 않는 일부 해외공항에서는 탑승권 전송이 제한됩니다.</li>
                 </ul>
             </div>
-        </div>             
+        </div>    
+        
+        <script>
+            function checkinPro() {
+                let check = confirm('체크인 하시겠습니까?')
+                if( check )
+                    return true
+    
+                return false
+            }
+        </script>
+
+    <script>
+        $('.checkin_btn').click(function(){
+            let checkedIn = $(this).prev('input').val()
+            let ticketNo = $(this).prev('input').prev('input').val()
+        
+            if(checkedIn!=0){
+                alert('이미 체크인이 완료되었습니다.')
+                return false
+            } else {
+                location.href = `/user/checkin?ticketNo=${ticketNo}`
+            }
+        })
+    </script>
 </body>
 </html>
     

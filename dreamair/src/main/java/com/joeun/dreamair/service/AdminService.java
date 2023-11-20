@@ -51,12 +51,14 @@ public interface AdminService {
 
     // 항공권 번호로 당일의 탑승객 조회
     public List<Booking> ticket_selectList(String today, int flightNo, int checkedIn, int isBoarded) throws Exception;
+    public List<Booking> ticket_selectList_w(String today, int flightNo) throws Exception;
 
     // 탑승권 목록 내역 조회(전체)
     public List<Booking> ticket_list(String today) throws Exception;
 
     // 탑승 처리 : (탑승완료1, 미탑승0)
-    public int ticket_update(int ticketNo) throws Exception;
+    public int ticket_update_c(int ticketNo) throws Exception;
+    public int ticket_update_b(int ticketNo) throws Exception;
 
     // 탑승권 조회 - ticketNo
     public List<Booking> pas_ticketList(int ticketNo) throws Exception;
