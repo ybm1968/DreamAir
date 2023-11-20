@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Users;
 
 @Mapper
 public interface BookingMapper {
@@ -87,4 +88,7 @@ public interface BookingMapper {
 
     // 오는편 좌석 데이터 테이블 등록
     public int comeInsertSeat(Booking booking) throws Exception;
+
+    // 마지막 booking_no 조회
+    public int selectLastBookingNo(int bookingNo) throws Exception;
 }

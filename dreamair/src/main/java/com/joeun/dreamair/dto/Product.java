@@ -20,7 +20,7 @@ public class Product {
     private String destination;
     private String productRegDate;
     private String productUpdDate;
-    private int unitInStock;
+    private int unitsInStock;
     private String description;
     private int amount;
 

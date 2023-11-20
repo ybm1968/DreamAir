@@ -58,7 +58,7 @@ public class ProductController {
         
         // 상품 입출고 처리(입고)
         int productNo = product.getProductNo();
-        int amount = product.getUnitInStock();
+        int amount = product.getUnitsInStock();
         String type = "IN";
 
         ProductIo productIo = new ProductIo();
@@ -113,6 +113,7 @@ public class ProductController {
         log.info("[GET] - /product/flight_list");
 
         List<Product> flightList = productService.flight_list();
+        log.info("size 확인 : " + flightList.size());
         model.addAttribute("FlightList", flightList);
         
         return "product/flight_list";
@@ -143,7 +144,7 @@ public class ProductController {
     public String flightUpdate(Model model, int flightNo) throws Exception {
         log.info("[GET] - /product/flight_update");
 
-        //Product flight = productService.product_update(flightNo);
+        // Product flight = productService.product_update(flightNo);
         Product flight = new Product();
         model.addAttribute("flight", flight);                    
         return "product/flight_update";
@@ -162,7 +163,7 @@ public class ProductController {
     }
 
     //* - 항공기 삭제 처리       
-    @GetMapping(value="/flight_delete")
+    @PostMapping(value="/flight_delete")
     public String flightDelete(int flightNo) throws Exception {
         log.info("[POST] - /product/flight_delete");
 

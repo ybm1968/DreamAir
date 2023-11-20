@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Product;
@@ -53,8 +53,10 @@ public class UserController {
      * @return
      */
     // 회원권한(ROLE_USER)을 가진 사용자만 접근 허용
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @Secured("ROLE_USER")
+    // @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    // @Secured("ROLE_USER")
+    // @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value={"/", ""})
     public String index() {
         // int result = 10 / 0;
@@ -225,8 +227,12 @@ public class UserController {
                                     , HttpServletResponse response) throws Exception {
 
         String loginId = principal != null ? principal.getName() : null;
-        
+
         try {
+            
+            userService.deleteUsers(loginId);
+            userService.deleteAuth(loginId);
+            userService.deleteMileage(loginId);
             
             // 시큐리티 강제 로그아웃
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -247,7 +253,7 @@ public class UserController {
             
             log.info("test3");
             
-            userService.delete(loginId);
+
             
         } catch (Exception e) {
 
@@ -269,13 +275,16 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value = "/mileage")
-    public String viewMileage(Users user, Model model, Principal principal) throws Exception {
+    public String viewMileage(Users user, Product product, Model model, Principal principal) throws Exception {
         String loginId = principal != null ? principal.getName() : null;
 
         user = userService.selectById(loginId);
         
         Users mileageUser = userService.selectMileage(loginId);
-        user.setMileage(mileageUser.getMileage());
+
+        double mileage = (product.getProductPrice() * 0.1);
+
+        user.setMileage(mileage);
 
         System.out.println(user);
 
@@ -292,7 +301,7 @@ public class UserController {
      */
     @GetMapping(value="/checkin")
     public String checkin(Model model, Principal principal) throws Exception {
-        String loginId = principal != null ? principal.getName() : null;
+        String loginId = principal != null ? principal.getName() : "GUEST";
 
         Users user = userService.selectById(loginId);
         model.addAttribute("user", user);
@@ -302,23 +311,54 @@ public class UserController {
 
     // 체크인 처리
     @PostMapping(value="/checkin")
-    public String checkinPro(@RequestParam int ticketNo, Model model, Booking booking) throws Exception {
-
+    public String checkinPro(@RequestParam int ticketNo, Model model, Booking booking, RedirectAttributes rttr) throws Exception {
+        log.info("ticketNo : "  + ticketNo );
         // 입력받은 탑승권 번호를 조회
+
        List<Booking> ticketList = adminService.pas_ticketList(ticketNo);
-       model.addAttribute("TicketList", ticketList);
+       log.info("ticketList : " + ticketList);
+       log.info("ticket.size() " + ticketList.size());
+    //    model.addAttribute("TicketList", ticketList);
+       rttr.addFlashAttribute("TicketList", ticketList);     
 
-       // 체크인 버튼을 누르면, ticketNo를 받아서 체크인 완료로 처리
-       booking.setTicketNo(ticketNo);
-       booking.setCheckedIn(1); // 체크인 완료
+    //    int checkedIn = booking.getCheckedIn();
+    //    log.info("checkedIn 값 : " + checkedIn);
 
-       return "redirect:/user/checkin_complete";
+    //    rttr.addFlashAttribute("booking", booking);
+
+       return "redirect:/user/checkin";
     }
 
     // 체크인 완료 페이지
+    // @GetMapping(value="/checkin_complete")
+    // public String checkinComplete(Model model, Booking booking) throws Exception {
+    //     log.info("왔니?");
+    //     return "user/checkin_complete";
+    // }
+ 
     @GetMapping(value="/checkin_complete")
-    public String checkinComplete() {
+    public String checkincomplete(Model model, Booking booking){
+        log.info("[GET]] - /user/checkin_complete");
+        model.addAttribute("booking", booking);
         return "user/checkin_complete";
+    }
+
+    @PostMapping(value="/checkin_complete")
+    public String checkinpro(@RequestParam int ticketNo, Booking booking, Model model) throws Exception {
+        log.info("[POST]] - /user/checkin_complete");
+
+        int checkedIn = 1;
+        // int isBoarded = 0;
+        booking.setCheckedIn(checkedIn);
+        // booking.setIsBoarded(isBoarded);
+        model.addAttribute("booking", booking);
+
+        int result = adminService.ticket_update_c(ticketNo);
+        if(result > 0){
+            log.info("DB 변경 완료");
+        }
+
+        return "redirect:/user/checkin_complete";
     }
 
     // 충돌나면 여기 아래로 적용 필요!
@@ -385,7 +425,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
+    @PostMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
     public String viewTicket(@RequestParam int bookingNo, Model model, Principal principal) throws Exception {
 
         String userId = principal.getName();

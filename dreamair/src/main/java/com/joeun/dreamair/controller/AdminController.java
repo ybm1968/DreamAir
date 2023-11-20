@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,19 +48,19 @@ public class AdminController {
     private QRService qrService;
 
     // 관리자 권한(ROLE_ADMIN)을 가진 사용자만 접근 허용
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping(value={"/", ""})
-    public String index() {
-        log.info("[GET] - /admin");
-        return "admin/index";
-    }
-
-    // [관리자] index 화면 
+    // @PreAuthorize("hasRole('ROLE_ADMIN')")
     // @GetMapping(value={"/", ""})
     // public String index() {
-    //     log.info("[GET] - /admin/");
+    //     log.info("[GET] - /admin");
     //     return "admin/index";
     // }
+
+    // [관리자] index 화면 
+    @GetMapping(value={"/", ""})
+    public String index() {
+        log.info("[GET] - /admin/");
+        return "admin/index";
+    }
     
     // 관리자 목록 조회
     @GetMapping(value="/admin_list")
@@ -193,6 +192,26 @@ public class AdminController {
     // [탑승권 관리]
     // 탑승권 목록 조회
     @GetMapping(value="/ticket_list")
+    public String checkTicket(Model model, Product flight, Booking ticket) throws Exception{
+        log.info("[GET] - /admin/ticket_list");
+
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        String today = format.format(now);
+        log.info("today : " + today);
+        ticket.setDepartureDate(today);
+        
+        int flightNo = ticket.getFlightNo();
+        
+        List<Booking> ticketList = null;
+        ticketList = adminService.ticket_selectList_w(today, flightNo);
+
+        model.addAttribute("TicketList", ticketList);
+
+        return "admin/ticket_list";
+    }
+
+    @PostMapping(value="/ticket_list")
     public String ticket_listPro(Model model, Booking ticket, Product product) throws Exception {
         log.info("[GET] - /product/ticket_list");
 
@@ -221,7 +240,7 @@ public class AdminController {
         List<Booking> ticketList = null;
         if(select==0){
             // 전체조회
-            ticketList = adminService.ticket_list(today);
+            ticketList = adminService.ticket_selectList_w(today, flightNo);
         } else{
             // 검색
             log.info("검색....");
@@ -231,14 +250,10 @@ public class AdminController {
         model.addAttribute("product", product);
         model.addAttribute("TicketList", ticketList);
 
-        return "admin/ticket_list";
+        return "redirect:/admin/ticket_list";
     }
 
-    @PostMapping(value="/ticket_list")
-    public String checkTicket(){
 
-        return "redirect:/admin/Final_check";
-    }
 
     // 탑승권 화면 - 탑승 최종 확인 위한
     @GetMapping(value="/Final_check")
@@ -275,10 +290,12 @@ public class AdminController {
 
         // adminService.ticket_update(ticketNo);
         // 버튼을 클릭 하면, '탑승 완료'로 처리
-        ticket.setIsBoarded(1);
-        model.addAttribute("ticket", ticket);
-        // adminService.ticket_update(ticketNo);
-        
+        int isBoarded = 1;
+        ticket.setIsBoarded(isBoarded);
+        int result = adminService.ticket_update_b(ticketNo);
+        if(result > 0 ){
+            log.info("탑승 완료 DB 처리");
+        }
         // 탑승처리가 완료되면 QR 코드 삭제
 
         return "redirect:/admin/ticket_list";

@@ -51,7 +51,7 @@ public class Users {
     private String idDriverNo;
 
     // mileage 테이블
-    private int mileage;
+    private double mileage;
 
     // persistent_logins 테이블
     private int pNo;

@@ -4,7 +4,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/UI/layout/main_layout}"
       >
+<html lang="en">
+
 <head>
+    <!-- 폰트 어썸 라이브러리 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개발을 꿈꾸는 항공사</title>
@@ -21,19 +26,32 @@
 <body layout:fragment="content">
 
     <div class="container mt-5 py-3">
+
         <h1 style="text-align: center;">항공권 조회</h1> 
         <br>
-        <div class="img_container text-center"><img src="/img/searchTicket.png" alt="조회"></div>
-        <br><br>
-
+        <div class="img_container text-center">
+            <img src="/img/searchTicket.png" alt="조회">
+          </div>
+          <br><br>
         <!-- 출발지 - 목적지를 보여주는 섹션 -->
-        <section><div id="flight_box"></div></section>
+        <section>
+            
+            <div id="flight_box">
+                <!-- 출발지 - 목적지를 보여주는 박스 -->
+            </div>
+            
+        </section>
         
-        <!-- (OPTION) 이전날짜 다음날짜 목록을 보여줘서 해당날짜 항공권 목록을 보여주는 섹션(옵션) -->
+        <!-- 이전날짜 다음날짜 목록을 보여줘서 해당날짜 항공권 목록을 보여주는 섹션(옵션) -->
         <section></section>
         
-        <section id="goWay"></section>
-        <section id="comeWay"></section>
+        <!-- 항공권 목록을 보여주는 섹션 -->
+        <section id="goWay">
+        </section>
+
+        <!-- 오는편 -->
+        <section id="comeWay">
+        </section>
 
         <div class="d-flex justify-content-between">
             <a href="/" class="btn btn-outline-primary btn-lg">메인으로 가기</a>
@@ -49,6 +67,7 @@
         let pasCount = "[[${booking.pasCount}]]"
         let productNoDep
         let routeNoDep
+     
 
         goWay()
 
@@ -56,6 +75,7 @@
         function goWay() {
 
             const url = "/booking/component/golist"
+
             const data = {
                 roundTrip: roundTrip,
                 departure: departure,
@@ -63,6 +83,7 @@
                 departureDate: departureDate,
                 pasCount: pasCount
             };
+
 
             $.ajax({
                 url     : url,
@@ -79,6 +100,8 @@
             })
             
         }
+
+        
 
         $(function() {
 
@@ -98,6 +121,7 @@
         function comeWay() {
 
             const url = "/booking/component/comelist"
+
             const data = {
                 roundTrip: roundTrip,
                 departure: destination,
@@ -108,6 +132,7 @@
                 routeNoDep : routeNoDep
             };
  
+
             $.ajax({
                 url     : url,
                 type    : 'GET',
@@ -122,6 +147,7 @@
 
             })
         }
+            
     </script>
 
 </body>

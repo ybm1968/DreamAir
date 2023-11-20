@@ -161,7 +161,7 @@ public class BookingController {
 
             // JavaScript 코드 추가
             model.addAttribute("booking", booking);
-            return "redirect:/booking/notice";
+            return "booking/notice";
         }
     }
 
@@ -274,6 +274,7 @@ public class BookingController {
         int bookingNo = booking.getBookingNo();
         List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);        // 정수형으로 반환값 설정
         model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
+        
 
         // ticketNO 받아서 qr 발행
 
@@ -284,9 +285,11 @@ public class BookingController {
 
     // 결제 완료
     @GetMapping(value="/payment_complete")
-    public String paymentComplete(Model model, Booking booking) {
+    public String paymentComplete(Model model, Booking booking) throws Exception {
         log.info("결제완료 booking" + booking);
         
+        // int bookingNo = booking.getBookingNo();
+
         model.addAttribute("booking", booking);
 
 

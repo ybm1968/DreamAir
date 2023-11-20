@@ -180,7 +180,7 @@ public class BookingServiceImpl implements BookingService{
         qr.setParentNo(ticketNo);
         String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
         qr.setUrl( url );
-        qr.setName("QR_" + ticketNo + "B" + bookingNo);
+        qr.setName("QR_" + ticketNo);
 
         qrService.makeQR(qr);
 
@@ -362,6 +362,7 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setPassengerNo(booking.getPassengerNos()[i]);
             bookingItem.setSeatNoDep(booking.getSeatNoDepss()[i]);
             tmp = bookingMapper.goInsertSeat(bookingItem);
+            bookingItem.setSeatNo(booking.getSeatNoDepss()[i]);
 
             if (loginId.equals("GUEST")) {
                 bookingItem.setUserNo2(booking.getUserNo2());
@@ -379,9 +380,12 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setRouteNoDep(booking.getRouteNoDep());
             log.info("가는편 상품 아이디 : " + bookingItem.getProductIdDep());
             
+            result1 = bookingMapper.goBookingInsert(bookingItem);
+            
             if (booking.getRoundTrip().equals("왕복")) {
                 bookingItem.setSeatNoDes(booking.getSeatNoDesss()[i]);
                 tmp = bookingMapper.comeInsertSeat(bookingItem);
+                bookingItem.setSeatNo(booking.getSeatNoDesss()[i]);
                 bookingItem.setProductNoDes(booking.getProductNoDes());
                 bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
                 bookingItem.setRouteNoDes(booking.getRouteNoDes());
@@ -389,9 +393,9 @@ public class BookingServiceImpl implements BookingService{
                 log.info("오는편 상품 아이디 : " + bookingItem.getProductIdDes());
                 result2 = bookingMapper.comeBookingInsert(bookingItem);
             }
-                result1 = bookingMapper.goBookingInsert(bookingItem);
         }
-
+                // int no = booking.getNo();
+                // booking.setBookingNo("AIRBT00000000" + no);
         result = result1 + result2;
 
         return result;
@@ -418,6 +422,14 @@ public class BookingServiceImpl implements BookingService{
         List<Booking> bookedSeatStatus = bookingMapper.bookedSeatStatus(flightNo);
         return bookedSeatStatus; 
     }
+
+    @Override
+    public int selectLastBookingNo(int bookingNo) throws Exception {
+        
+        int result = bookingMapper.selectLastBookingNo(bookingNo);
+        return result;
+    }
+
 
 
 

@@ -26,6 +26,9 @@ info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때�
 
 
 --------------------------------------------------------------------------------------------------------
+- 11/19
+booking dto에 mileage 변수 추가
+
 - 11/10
 - [header.html], [user_layout.html], [user/index.html], [UI/fragment/sidebar.html] : 위치 등등 수정
 - [BookingMapper.xml] : selectBookingListByUser(주문 내역 조회), selectTicket(티켓 상세 조회) 메소드 추가
@@ -33,8 +36,6 @@ info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때�
 - [BookingService.java] : 이하 동문
 - [BookingServiceImpl.java] : 이하 동문
 - [dto/booking.java] : userId 변수 추가
-
-
 
 
 - 11/2

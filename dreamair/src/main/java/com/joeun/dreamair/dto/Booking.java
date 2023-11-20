@@ -8,6 +8,7 @@ import lombok.Data;
 public class Booking {
 
     // booking 테이블
+    private int no;
     private int bookingNo;
     private int bookingNo2;
     private String name;
@@ -104,5 +105,7 @@ public class Booking {
     private List<String> seatNoDess;    // 좌석 번호 오는 편
 
     private String payment;     // payment 페이지 구분하는 변수
+
+    private int mileage;
 }
 

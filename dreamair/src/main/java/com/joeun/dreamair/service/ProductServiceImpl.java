@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.UUID;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -47,10 +46,10 @@ public class ProductServiceImpl implements ProductService {
             Files file = new Files();
             file.setParentTable("flight");
 
-            log.info("fligthList.get(i) : " + flightList.get(i));
-
-            // file.setParentNo(flightList.get(i).getFlightNo());
-            file.setParentNo(9);
+            log.info("fligthList.get(i) : " + flightList.get(i).getFlightNo());
+            int setNumber = flightList.get(i).getFlightNo();
+            file.setParentNo(setNumber);
+            // file.setParentNo(9);
 
             file = fileMapper.selectThumbnail(file);
             if(file != null) {
@@ -72,10 +71,6 @@ public class ProductServiceImpl implements ProductService {
     // 항공기 정보 등록
     @Override
     public int flight_insert(Product flight) throws Exception {
-        int seatMax = flight.getSeatMax();
-        int seatUse = flight.getSeatUsed();
-        int seatRemaining = seatMax - seatUse;
-        flight.setSeatRemaining(seatRemaining);
         
         int result = productMapper.flight_insert(flight);
 

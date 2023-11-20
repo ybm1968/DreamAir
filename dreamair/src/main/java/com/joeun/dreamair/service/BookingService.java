@@ -9,6 +9,7 @@ import com.joeun.dreamair.dto.Booking;
 
 public interface BookingService {
     
+    
     // 가는편 항공권 조회
     public List<Booking> golist(Booking booking) throws Exception;
 
@@ -68,4 +69,8 @@ public interface BookingService {
 
     // 도착지명으로 노선 번호 조회
     public int selectRouteNoByDes(String destination);
+
+    // 마지막 booking_no 조회
+    public int selectLastBookingNo(int bookingNo) throws Exception;
+
 }

@@ -118,8 +118,17 @@ WHERE user_no = #{userNo}
         AND departure_date = #{today};
 </select>
 
+<select id="ticket_selectList_w" resultType="Booking">
+    SELECT *
+    FROM ticket
+    WHERE flight_no = #{flightNo}
+    AND departure_date = #{today};
+</select>
+
+
+
 <!-- 탑승권 정보 수정/탑승처리 -->
-<update id="ticket_update">
+<!-- <update id="ticket_update">
     UPDATE ticket
     SET passenger_no = #{passengerNo}
        ,passenger_name = #{passengerName}
@@ -134,6 +143,18 @@ WHERE user_no = #{userNo}
        ,is_boarded = #{isBoarded}
        ,route_no = #{routeNo}
        ,boarding_time = #{boardingTime}
+    WHERE ticket_no = #{ticketNo} 
+</update> -->
+
+<update id="ticket_update_c">
+    UPDATE ticket
+    SET checked_in = #{checkedIn}
+    WHERE ticket_no = #{ticketNo} 
+</update>
+
+<update id="ticket_update_b">
+    UPDATE ticket
+    SET is_boarded = #{isBoarded}
     WHERE ticket_no = #{ticketNo} 
 </update>
 
