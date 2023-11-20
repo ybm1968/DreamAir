@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Auth;
 import com.joeun.dreamair.dto.Booking;
+import com.joeun.dreamair.dto.Files;
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.mapper.AdminMapper;
+import com.joeun.dreamair.mapper.FileMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +24,9 @@ public class AdminServiceImpl implements AdminService {
     
   @Autowired
   private AdminMapper adminMapper;
+
+  @Autowired
+  private FileMapper fileMapper;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -136,6 +141,7 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public List<Booking> ticket_list(String today) throws Exception {
     List<Booking> ticketList = adminMapper.ticket_list(today);
+
     return ticketList;
   }
 
@@ -156,6 +162,24 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public List<Booking> pas_ticketList(int ticketNo) throws Exception {
     List<Booking> pasTicketList = adminMapper.pas_ticketList(ticketNo);
+
+    for (int i = 0; i < pasTicketList.size(); i++) {
+            Files file = new Files();
+            file.setParentTable("booking");
+
+            log.info("ticketList.get(i) : " + pasTicketList.get(i).getFlightNo());
+            int setNumber = pasTicketList.get(i).getFlightNo();
+            file.setParentNo(setNumber);
+            // file.setParentNo(9);
+
+            file = fileMapper.selectThumbnail(file);
+            if(file != null) {
+        		pasTicketList.get(i).setFileName(file.getFileName());
+        		pasTicketList.get(i).setFileType(file.getFileType());
+            }
+            pasTicketList.get(i).setThumbnail(file);
+        }
+
     return pasTicketList;
   }
 

@@ -2,6 +2,8 @@ package com.joeun.dreamair.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -107,5 +109,13 @@ public class Booking {
     private String payment;     // payment 페이지 구분하는 변수
 
     private int mileage;
+
+    // 파일 등록
+    private List<Files> files;
+    private Files thumbnail;
+    private String fileName;
+    private String fileType;
+    
+    private List<MultipartFile> file;
 }
 

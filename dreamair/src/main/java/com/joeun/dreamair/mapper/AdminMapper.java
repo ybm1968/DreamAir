@@ -75,4 +75,6 @@ public interface AdminMapper {
     public List<Booking> pas_ticketList(@Param("ticketNo") int ticketNo) throws Exception;
 
 
+    // 탑승권 번호(기본키) 최댓값
+    public int ticket_maxPk() throws Exception;
 }

@@ -42,6 +42,7 @@ SELECT *
 FROM admin
 </select>
 
+
 <!-- 사용자 조회 -->
 <!-- <select id="user_list" resultType="Users">
     SELECT users.*, auth.*
