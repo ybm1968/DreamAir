@@ -426,7 +426,7 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
-    public String viewTicket(@RequestParam int bookingNo, Model model, Principal principal) throws Exception {
+    public String viewTicket(@RequestParam int bookingNo, Model model, Product product, Principal principal) throws Exception {
 
         String userId = principal.getName();
 
@@ -434,7 +434,7 @@ public class UserController {
         Users userInfo = userService.selectById(userId);
 
         log.info("viewTicketDetail : " + viewTicketDetail);
-        log.info("user : " + userInfo);
+        // log.info("user : " + userInfo);
         
         // viewTicket을 모델에 추가
         model.addAttribute("viewTicketDetail", viewTicketDetail);
