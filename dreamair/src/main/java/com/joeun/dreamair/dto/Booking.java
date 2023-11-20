@@ -109,5 +109,6 @@ public class Booking {
     private String payment;     // payment 페이지 구분하는 변수
 
     private int mileage;
+    private int tempBookingNo;
 }
 
