@@ -80,16 +80,11 @@ FROM ticket LEFT JOIN booking
 ON ticket.booking_no = #{bookingNo}
 </select>
             
+<!-- 예매한 탑승권 정보 조회 -->
 <!-- 탑승객 정보 입력 -->
 <insert id="infoPassngers">
         INSERT INTO passengers ( product_no_dep, product_no_des, route_no_dep, route_no_des, passenger_name, first_name, last_name, gender, pin_type, birth, phone, email, user_pw )
         VALUES ( #{productNoDep}, #{productNoDes}, #{routeNoDep}, #{routeNoDes}, #{passengerName}, #{firstName}, #{lastName}, #{gender}, #{pinType}, #{birth}, #{phone}, #{email}, #{userPw} )
-</insert>
-
-<!-- 비회원 테이블 정보 입력 -->
-<insert id = "user2Insert">
-        INSERT INTO user2 ( user_id, phone, user_pw, status )
-        VALUES ( #{userId}, #{phone}, #{userPw}, #{status} )
 </insert>
 
 <!-- <insert id="infoPassport">
@@ -97,6 +92,20 @@ ON ticket.booking_no = #{bookingNo}
         VALUES ( #{passportNo}, #{pinType}, #{lastName}, #{firstName}, #{nationality}, #{expirationDate}, #{userId} )
 </insert> -->
 
+<!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+<!-- <select id="goScheduleList" resultType="Booking">
+  SELECT *
+  FROM product p left JOIN route r ON p.route_no = r.route_no
+                  left JOIN flight f ON p.route_no = f.route_no
+                  left JOIN passengers ps  ON p.route_no = ps.route_no_dep
+  WHERE product_no IN (
+                        SELECT product_no_dep 
+                        FROM passengers
+                        WHERE passenger_name = #{passengerName}
+                          AND passenger_no = #{passengerNo} 
+  );
+    
+</select> -->
 
 <!-- 가는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
 <select id="goScheduleList" resultType="Booking">
@@ -107,6 +116,21 @@ ON ticket.booking_no = #{bookingNo}
   WHERE passenger_name = #{passengerName}
     AND passenger_no = #{passengerNo}       
 </select>
+
+<!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
+<!-- <select id="comeScheduleList" resultType="Booking"> 
+  SELECT *
+  FROM product p left JOIN route r ON p.route_no = r.route_no
+                  left JOIN flight f ON p.route_no = f.route_no
+                  left JOIN passengers ps  ON p.route_no = ps.route_no_des
+  WHERE product_no IN (
+                        SELECT product_no_des 
+                        FROM passengers
+                        WHERE passenger_name = #{passengerName}
+                          AND passenger_no = #{passengerNo} 
+  );
+    
+</select> -->
 
 <!-- 오는편 탑승권 정보 조회(탑승객 유의사항 안내) -->
 <select id="comeScheduleList" resultType="Booking">
@@ -215,7 +239,7 @@ ON ticket.booking_no = #{bookingNo}
   </select>
 
 
-  <!-- 가는편 예매 테이블 등록 -->
+ <!-- 가는편 예매 테이블 등록 -->
   <insert id="goBookingInsert">
     INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no, user_id )
     VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo}, #{userId} )
@@ -258,9 +282,21 @@ ON ticket.booking_no = #{bookingNo}
        WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
   </update>
 
+    <!-- 입력된 pasCount 수 만큼 bookingNo 조회 -->
+  <!-- <select id="selectLastbookingNo" resultType="Booking" parameterType="Int">
+      SELECT no
+       FROM (
+          SELECT no
+          FROM booking
+          ORDER BY no DESC
+          LIMIT #{pasCount}
+      ) AS subquery
+      ORDER BY no ASC;
+  </select> -->
+
   <!-- bookingNo -->
   <select id="selectLastBookingNo" resultType="Booking">
-    SELECT booking_no FROM booking ORDER BY booking_no = #{bookingNo} DESC LIMIT 1; 
+  SELECT booking_no FROM booking ORDER BY booking_no = #{bookingNo} DESC LIMIT 1; 
   </select>
 
   <!-- 결제 완료 시 seat 테이블 업데이트 -->

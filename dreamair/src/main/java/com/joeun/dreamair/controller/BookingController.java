@@ -92,14 +92,14 @@ public class BookingController {
  
 
     @PostMapping(value="/info")
-    public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr, HttpServletRequest request) throws Exception{ 
+    public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr) throws Exception{ 
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
         
         int result1 = 0;
         int result2 = 0;
 
-        result1 = bookingService.infoPassngers(booking, request);
+        result1 = bookingService.infoPassngers(booking);
         // result2 = bookingService.infoPassport(user);
         // rttr.addFlashAttribute("user", user);     
         rttr.addFlashAttribute("booking", booking);     

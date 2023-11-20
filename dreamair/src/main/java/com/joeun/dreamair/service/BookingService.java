@@ -18,8 +18,8 @@ public interface BookingService {
     // 오는편 항공권 조회
     public List<Booking> comelist(Booking booking) throws Exception;
 
-    // 탑승객들 정보 입력
-    public int infoPassngers(Booking booking, HttpServletRequest request) throws Exception;
+    // 탑승객 정보 입력
+    public int infoPassngers(Booking booking) throws Exception;
     
     // 회원 - 가장 최근 예매 번호 조회
     public int latest_user_bookingNo(int userNo) throws Exception;
