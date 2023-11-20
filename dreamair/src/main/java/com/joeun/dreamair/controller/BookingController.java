@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -241,7 +242,7 @@ public class BookingController {
 
         // 회원 : userNo 추출, 비회원 : userNo2 추출
         Users user = userService.selectById2(principal, request);
-        if (user.getUserId().equals("GUEST")) {
+        if ( principal == null ) {
             log.info("비회원 유저번호 : " + user.getUserNo2());
         } else {
             log.info("회원 유저번호 : " + user.getUserNo());
@@ -256,7 +257,7 @@ public class BookingController {
     @PostMapping(value = "/bookingInsert")
     public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
         log.info("booking 객체 조회 : " + booking);
-        int result1 = bookingService.bookingInsert(booking, principal);
+        int result1 = bookingService.bookingInsert(booking, principal, request);
         int bookingNum = 0;
         
         Users user = userService.selectById2(principal, request);
@@ -270,7 +271,7 @@ public class BookingController {
         }
 
         // // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking, principal);
+        int result = bookingService.createTicket(booking, principal, request);
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();

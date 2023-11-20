@@ -217,14 +217,14 @@ ON ticket.booking_no = #{bookingNo}
 
   <!-- 가는편 예매 테이블 등록 -->
   <insert id="goBookingInsert">
-    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
-    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
+    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no, user_id )
+    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo}, #{userId} )
   </insert>
 
   <!-- 오는편 예매 테이블 등록 -->
   <insert id="comeBookingInsert">
-    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
-    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
+    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no, user_id )
+    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo}, #{userId} )
   </insert>
 
   <!-- 가는편 티켓 테이블 insert할 값 조회 -->
