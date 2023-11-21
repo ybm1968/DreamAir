@@ -303,5 +303,25 @@ ON ticket.booking_no = #{bookingNo}
     SET status = '1'
     WHERE flight_no = #{flightNo} AND seat_no = #{seatNo};
   </update>
+
+  <!-- 가는편 좌석, 예매번호 탑승객 테이블 등록 -->
+  <update id="goPasUpdate">
+    UPDATE passengers
+       SET seat_no_dep = #{seatNoDep}
+       WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
+  </update>
+
+  <!-- 오는편 좌석, 예매번호 탑승객 테이블 등록 -->
+  <update id="comePasUpdate">
+    UPDATE passengers
+       SET seat_no_des = #{seatNoDes}
+       WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
+  </update>
+
+  <!-- 비회원 테이블 정보 입력 -->
+  <insert id = "user2Insert">
+          INSERT INTO user2 ( user_id, phone, user_pw, status )
+          VALUES ( #{userId}, #{phone}, #{userPw}, #{status} )
+  </insert>
  
 </mapper>
