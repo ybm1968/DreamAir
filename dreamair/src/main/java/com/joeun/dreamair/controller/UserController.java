@@ -420,17 +420,17 @@ public class UserController {
 
     /**
      * 티켓 상세 정보 페이지
-     * @param bookingNo
+     * @param ticketNo
      * @param model
      * @return
      * @throws Exception
      */
-    @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
-    public String viewTicket(@RequestParam int bookingNo, Model model, Product product, Principal principal) throws Exception {
+    @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 ticketgNo 파라미터로 전달받음
+    public String viewTicket(@RequestParam int ticketNo, Model model, Product product, Principal principal) throws Exception {
 
         String userId = principal.getName();
 
-        List<Booking> viewTicketDetail = bookingService.selectTicket(bookingNo);
+        List<Booking> viewTicketDetail = bookingService.selectTicket(ticketNo);
         Users userInfo = userService.selectById(userId);
 
         log.info("viewTicketDetail : " + viewTicketDetail);

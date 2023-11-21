@@ -100,11 +100,11 @@
                             <td><span>50,000</span></td>
                             <td>
                                 <span th:if="${ticket.checkedIn == 0}">체크인 전</span>
-                                <span th:if="${ticket.checkedIn == 1}">체크인 완료</span>
+                                <span th:unless="${ticket.checkedIn eq 0}">체크인 완료</span>
                             </td>
                             <td>
                                 <span th:if="${ticket.isBoarded == 0}">탑승 전</span>
-                                <span th:if="${ticket.isBoarded == 1}">탑승 완료</span>
+                                <span th:unless="${ticket.isBoarded eq 0}">탑승 완료</span>
                             </td>
                             <td>
                                 <span style="white-space: nowrap;">
@@ -112,7 +112,7 @@
                                 <p style="display: inline;">/</p>
                                 <button>[좌석 변경]</button>
                                 <p style="display: inline;">/</p>
-                                <a th:href="@{/user/booking/ticketInfo(bookingNo=${ticket.bookingNo})}">[조회]</a>
+                                <a th:href="@{/user/booking/ticketInfo(ticketNo=${ticket.ticketNo})}">[조회]</a>
                                 </span>
                             </td>
                         </tr>
