@@ -4,7 +4,6 @@ import java.util.List;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -107,19 +106,17 @@ public class UserServiceImpl implements UserService {
 
     
     @Override
-    public Users selectById2(Principal principal, HttpServletRequest request) throws Exception {
+    public Users selectById2(Principal principal) throws Exception {
 
+        String loginId = principal != null ? principal.getName() : "GUEST";
         Users user = new Users();
-        String loginId;
-        if( principal != null ) {
-            loginId = principal.getName();
-            user = userMapper.selectById(loginId);
-        } else {
-            HttpSession session = request.getSession();
-            String userId = (String) session.getAttribute("userId");
-            log.info("비회원아이디 : " + userId);
-            loginId = userId;
+        log.info("유저아이디 : " + loginId);
+        if (loginId.equals("GUEST")) {
+            // 비회원 조회
             user = userMapper.selectByUser2Id(loginId);
+        } else {
+            // 회원 조회
+            user = userMapper.selectById(loginId);
         }
 
         return user;

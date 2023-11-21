@@ -187,15 +187,15 @@ ON ticket.booking_no = #{bookingNo}
   </select>
 
 
-  <!-- 탑승권 상세 조회 - by ticketNo -->
+  <!-- 탑승권 상세 조회 - by bookingNo -->
   <select id="selectTicket" resultMap="bookingMap">
-      SELECT ticket_no
+      SELECT booking_no
             , departure
             , destination
             , departure_date
             , seat_no
       FROM ticket
-      WHERE ticket_no = #{ticketNo}
+      WHERE booking_no = #{bookingNo}
   </select>
 
     <!-- 출발지 조회 -->
@@ -239,16 +239,16 @@ ON ticket.booking_no = #{bookingNo}
   </select>
 
 
- <!-- 가는편 예매 테이블 등록 -->
+  <!-- 가는편 예매 테이블 등록 -->
   <insert id="goBookingInsert">
-    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no, user_id )
-    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo}, #{userId} )
+    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
+    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDep}, #{routeNoDep}, #{productIdDep}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
   </insert>
 
   <!-- 오는편 예매 테이블 등록 -->
   <insert id="comeBookingInsert">
-    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no, user_id )
-    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo}, #{userId} )
+    INSERT INTO booking ( booking_no, name, user_no, user_no2, product_no, route_no, product_id, pas_count, round_trip, status, seat_no )
+    VALUES ( #{bookingNo}, #{name}, #{userNo}, #{userNo2}, #{productNoDes}, #{routeNoDes}, #{productIdDes}, #{pasCount}, #{roundTrip}, #{status}, #{seatNo} )
   </insert>
 
   <!-- 가는편 티켓 테이블 insert할 값 조회 -->
@@ -268,15 +268,13 @@ ON ticket.booking_no = #{bookingNo}
     WHERE passenger_name = #{name} AND passenger_no = #{passengerNo};
   </select>
 
-  <!-- 가는편 좌석, 예매번호 탑승객 테이블 등록 -->
-  <update id="goPasUpdate">
+  <update id="goInsertSeat">
     UPDATE passengers
        SET seat_no_dep = #{seatNoDep}
        WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 
   </update>
 
-  <!-- 오는편 좌석, 예매번호 탑승객 테이블 등록 -->
-  <update id="comePasUpdate">
+  <update id="comeInsertSeat">
     UPDATE passengers
        SET seat_no_des = #{seatNoDes}
        WHERE passenger_name = #{name} AND passenger_no = #{passengerNo}; 

@@ -19,9 +19,6 @@ public interface BookingMapper {
     
     // 탑승객 정보 입력
     public int infoPassngers(Booking booking) throws Exception;
-    
-    // 비회원 테이블 정보 입력
-    public int user2Insert(Booking booking) throws Exception;
 
     // 회원 - 가장 최근 예매 번호 조회
     public int latest_user_bookingNo(int userNo) throws Exception;
@@ -57,7 +54,7 @@ public interface BookingMapper {
     public List<Booking> selectBookingListByUser(String userId) throws Exception;
 
     // 탑승권 상세 조회
-    public List<Booking> selectTicket(int ticketNo) throws Exception;
+    public List<Booking> selectTicket(int bookingNo) throws Exception;
 
     // 출발지 조회
     public String selectDeparture(int productNoDeps);
@@ -86,16 +83,15 @@ public interface BookingMapper {
     // 오는편 티켓 테이블 insert할 값 조회
     public Booking comeTicketData(Booking booking) throws Exception;
 
-    // 가는편 좌석, 예매번호 탑승객 테이블 등록
-    public int goPasUpdate(Booking booking) throws Exception;
+    // 가는편 좌석 데이터 테이블 등록
+    public int goInsertSeat(Booking booking) throws Exception;
 
-    // 오는편 좌석, 예매번호 탑승객 테이블 등록
-    public int comePasUpdate(Booking booking) throws Exception;
+    // 오는편 좌석 데이터 테이블 등록
+    public int comeInsertSeat(Booking booking) throws Exception;
 
     // 마지막 booking_no 조회
     public int selectLastBookingNo(int bookingNo) throws Exception;
 
     // seat 테이블 업데이트
     int updateSeat(@Param("flightNo") int flightNo, @Param("seatNo") String seatNo);
-
 }

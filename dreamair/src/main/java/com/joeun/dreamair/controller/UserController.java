@@ -441,6 +441,6 @@ public class UserController {
         model.addAttribute("userInfo", userInfo);
     
 
-        return "/user/booking/ticketInfo"; // 보여줄 뷰 페이지 이름을 반환
+        return "/booking/ticketInfo"; // 보여줄 뷰 페이지 이름을 반환
     }
 }

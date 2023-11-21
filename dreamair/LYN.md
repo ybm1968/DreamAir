@@ -1,16 +1,6 @@
 # 이유나 작업 사항
 
-로그인 페이지의 아이디 저장 & 자동 로그인 체크 박스는 link에 있는 common css 때문에 안 나오는거고,
-info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때문에 안 나옴
-
-
-[좌석 선택]
-1) 유저가 좌석 선택 창 진입 시, DB의 seat 테이블에서 먼저 좌석 상태 조회해 옴
-2) 탑승 인원만큼, 편도 및 왕복 여부에 따라 좌석 선택하여 notice 페이지로 넘김(이 때, DB seat 테이블에 해당 좌석들의 status가 1로 update 되어야 함)
-
-- info에서 배열로 모델에 등록되어 넘어 옴
-- 좌석 선택하고 notice로 넘길 때 passenger_no랑 passenger_name 넘기기
-- 좌석 선택하고 notice로 넘길 때 update문으로 passengers 테이블에도 좌석 번호 데이터 업데이트하기
+예매 시, booking_no가 계속 동일하게 들어감
 
 
 [회원 탈퇴]
