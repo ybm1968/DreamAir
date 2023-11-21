@@ -192,6 +192,26 @@ public class AdminController {
     // [탑승권 관리]
     // 탑승권 목록 조회
     @GetMapping(value="/ticket_list")
+    public String checkTicket(Model model, Product flight, Booking ticket) throws Exception{
+        log.info("[GET] - /admin/ticket_list");
+
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        String today = format.format(now);
+        log.info("today : " + today);
+        ticket.setDepartureDate(today);
+        
+        int flightNo = ticket.getFlightNo();
+        
+        List<Booking> ticketList = null;
+        ticketList = adminService.ticket_selectList_w(today, flightNo);
+
+        model.addAttribute("TlicketList", ticketList);
+
+        return "admin/ticket_list";
+    }
+
+    @PostMapping(value="/ticket_list")
     public String ticket_listPro(Model model, Booking ticket, Product product) throws Exception {
         log.info("[GET] - /product/ticket_list");
 
@@ -220,7 +240,7 @@ public class AdminController {
         List<Booking> ticketList = null;
         if(select==0){
             // 전체조회
-            ticketList = adminService.ticket_list(today);
+            ticketList = adminService.ticket_selectList_w(today, flightNo);
         } else{
             // 검색
             log.info("검색....");
@@ -230,22 +250,16 @@ public class AdminController {
         model.addAttribute("product", product);
         model.addAttribute("TicketList", ticketList);
 
-        return "admin/ticket_list";
+        return "redirect:/admin/ticket_list";
     }
 
-    @PostMapping(value="/ticket_list")
-    public String checkTicket(){
 
-        return "redirect:/admin/Final_check";
-    }
 
     // 탑승권 화면 - 탑승 최종 확인 위한
     @GetMapping(value="/Final_check")
     public String ticket_Checking(Model model, Booking ticket, Files files, QR qr) throws Exception{
         log.info("[GET] - /admin/Final_check");       
         log.info("ticketNo 확인 : " + ticket.getTicketNo());
-
-        model.addAttribute("ticket", ticket);
 
         int ticketNo = ticket.getTicketNo();
         // ticketNo로 탑승권 조회
@@ -278,37 +292,14 @@ public class AdminController {
         // 버튼을 클릭 하면, '탑승 완료'로 처리
         int isBoarded = 1;
         ticket.setIsBoarded(isBoarded);
-        model.addAttribute("ticket", ticket);
-        // adminService.ticket_update(ticketNo);
-
-       log.info("complete에서  ticketNo 값 : " + ticketNo);
-
-       int result = adminService.ticket_update_b(ticketNo);
-        if(result > 0) {
-            log.info("DB 탑승 처리 완료");
+        int result = adminService.ticket_update_b(ticketNo);
+        if(result > 0 ){
+            log.info("탑승 완료 DB 처리");
         }
-        
-        // 탑승처리가 완료되면 QR 코드 삭제
-
-        return "redirect:/admin/Final_check_complete";
-    }
-
-    @GetMapping(value = "/Final_check_complete")
-    public String finalcomplete(Model model, Booking booking) throws Exception{
-        log.info("[GET] - /admin/Final_check_complete");
-
-        return "admin/Final_check_complete";
-    }
-
-
-    @PostMapping(value = "/Final_check_complete")
-    public String finalcomplete1(Model model, Booking ticket) throws Exception{
-        log.info("[POST] - /admin/Final_check_complete");
-
-
         // 탑승처리가 완료되면 QR 코드 삭제
 
         return "redirect:/admin/ticket_list";
     }
+
 
 }

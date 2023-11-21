@@ -34,7 +34,6 @@ public interface FileMapper {
     public List<Files> selectFilesByBoardNo(int boardNo) throws Exception;
     public List<Files> selectFilesByFlightNo(int flightNo) throws Exception;
     public List<Files> selectFilesByProductNo(int productNo) throws Exception;
-    public List<Files> selectFilesByTicketNo(int ticketNo) throws Exception;
     
     // 파일 조회
     public Files selectThumbnail(Files file) throws Exception;

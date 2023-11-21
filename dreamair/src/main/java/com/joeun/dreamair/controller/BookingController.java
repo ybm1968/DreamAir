@@ -295,17 +295,19 @@ public class BookingController {
 
         return "booking/payment_complete";
     }
- // 탑승권 발행
- @GetMapping(value="/ticket")
- public String ticket() {
-     return "booking/ticket";
- }
 
- // 탑승권 상세 페이지
- @PostMapping(value="/ticketInfo")
- public String ticketInfo() {
-     return "booking/ticketInfo";
- }
+    // 탑승권 발행
+    @GetMapping(value="/ticket")
+    public String ticket() {
+        return "booking/ticket";
+    }
+
+    // 탑승권 상세 페이지
+    @PostMapping(value="/ticketInfo")
+    public String ticketInfo() {
+        return "booking/ticketInfo";
+    }
+
 
 
 

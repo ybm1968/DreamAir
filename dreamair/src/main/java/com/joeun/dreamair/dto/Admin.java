@@ -29,11 +29,6 @@ public class Admin {
     private int seatRemaining;
     private int seatUsed;
 
-    private List<Files> files;
-    private Files thumbnail;
-    private String fileName;
-    private String fileType;
-    
     // 파일 등록
     private List<MultipartFile> file;
 
