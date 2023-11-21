@@ -293,6 +293,7 @@ public class BookingController {
     // 결제 완료
     @GetMapping(value="/payment_complete")
     public String paymentComplete(Model model, Booking booking) throws Exception {
+    public String paymentComplete(Model model, Booking booking) throws Exception {
         log.info("결제완료 booking" + booking);
 
         // seat 테이블 업데이트
