@@ -11,17 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.BookingService;
 import com.joeun.dreamair.service.UserService;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -187,6 +184,8 @@ public class BookingController {
         return "booking/seat_rt";
     }
 
+    // 좌석 변경
+    
 
     // 탑승객 유의사항
     @GetMapping(value="/notice")

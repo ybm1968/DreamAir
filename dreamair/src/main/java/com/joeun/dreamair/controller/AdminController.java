@@ -288,10 +288,10 @@ public class AdminController {
         // ticketNo에 해당하는 정보 조회
         int ticketNo = ticket.getTicketNo();
 
-        // adminService.ticket_update(ticketNo);
         // 버튼을 클릭 하면, '탑승 완료'로 처리
         int isBoarded = 1;
         ticket.setIsBoarded(isBoarded);
+        model.addAttribute("ticket", ticket);
         int result = adminService.ticket_update_b(ticketNo);
         if(result > 0 ){
             log.info("탑승 완료 DB 처리");
@@ -300,6 +300,5 @@ public class AdminController {
 
         return "redirect:/admin/ticket_list";
     }
-
 
 }
