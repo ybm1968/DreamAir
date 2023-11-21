@@ -223,7 +223,7 @@ public class BookingController {
 
     // 결제
     @GetMapping(value="/payment")
-    public String payment(Model model, Booking booking, Principal principal) throws Exception {
+    public String payment(Model model, Booking booking, Principal principal, HttpServletRequest request) throws Exception {
         log.info("페이먼트 booking : " + booking);
 
         List<Booking> goBookingList = new ArrayList<Booking>();
@@ -242,8 +242,8 @@ public class BookingController {
         model.addAttribute("bookingInfo", booking);
 
         // 회원 : userNo 추출, 비회원 : userNo2 추출
-        Users user = userService.selectById2(principal);
-        if (user.getUserId().equals("GUEST")) {
+        Users user = userService.selectById2(principal, request);
+        if ( principal == null ) {
             log.info("비회원 유저번호 : " + user.getUserNo2());
         } else {
             log.info("회원 유저번호 : " + user.getUserNo());
@@ -262,7 +262,7 @@ public class BookingController {
         productService.productOut(booking);
         int bookingNum = 0;
         
-        Users user = userService.selectById2(principal);
+        Users user = userService.selectById2(principal, request);
         if( (principal == null) ) {
             bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  
             booking.setBookingNo2(bookingNum);
@@ -283,8 +283,6 @@ public class BookingController {
 
         rttr.addFlashAttribute("booking", booking);
 
-        log.info("결제 시 부킹 객체 : " + booking);
-
         return "redirect:/booking/payment_complete";
     }
 
@@ -292,31 +290,7 @@ public class BookingController {
     @GetMapping(value="/payment_complete")
     public String paymentComplete(Model model, Booking booking) throws Exception {
         log.info("결제완료 booking" + booking);
-
-        // seat 테이블 업데이트
-        if ("왕복".equals(booking.getRoundTrip())) {    // 왕복일 때
-            for (int i = 0; i < booking.getPasCount(); i++) {
-
-                int flightNo = booking.getGoFlightNo();
-                String seatNo = booking.getSeatNoDepss()[i];
-    
-                int result = bookingService.updateSeat(flightNo, seatNo);
-
-                int flightNo2 = booking.getComeFlightNo();
-                String seatNo2 = booking.getSeatNoDesss()[i];
-    
-                int result2 = bookingService.updateSeat(flightNo2, seatNo2);
-            }
-        } else {                                        // 편도일 때
-            for (int i = 0; i < booking.getPasCount(); i++) {
-
-                int flightNo = booking.getGoFlightNo();
-                String seatNo = booking.getSeatNoDepss()[i];
-    
-                int result = bookingService.updateSeat(flightNo, seatNo);
-            }
-        }
-
+        
         // int bookingNo = booking.getBookingNo();
 
         model.addAttribute("booking", booking);
