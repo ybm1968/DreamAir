@@ -19,7 +19,7 @@ public interface BookingService {
     public List<Booking> comelist(Booking booking) throws Exception;
 
     // 탑승객들 정보 입력
-    public int infoPassngers(Booking booking, HttpServletRequest request) throws Exception;
+    public int infoPassngers(Booking booking, HttpServletRequest request, Principal principal) throws Exception;
     
     // 회원 - 가장 최근 예매 번호 조회
     public int latest_user_bookingNo(int userNo) throws Exception;

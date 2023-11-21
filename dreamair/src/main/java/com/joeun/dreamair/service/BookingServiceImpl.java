@@ -66,7 +66,7 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     // 탑승객들 정보 입력
-    public int infoPassngers(Booking booking, HttpServletRequest request) throws Exception {
+    public int infoPassngers(Booking booking, HttpServletRequest request, Principal principal) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
         int result = 0;
@@ -92,12 +92,15 @@ public class BookingServiceImpl implements BookingService{
 
             bookingMapper.infoPassngers(bookingItem);
 
-            String userId = "GUEST_" + UUID.randomUUID().toString().substring(0, 5);
-            HttpSession session = request.getSession();
-            session.setAttribute("userId", userId);
-            bookingItem.setUserId(userId);
-            bookingItem.setStatus("GUEST");
-            bookingMapper.user2Insert(bookingItem);
+            if ( principal == null ) {
+                
+                String userId = "GUEST_" + UUID.randomUUID().toString().substring(0, 5);
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", userId);
+                bookingItem.setUserId(userId);
+                bookingItem.setStatus("GUEST");
+                bookingMapper.user2Insert(bookingItem); 
+            }
 
             result++;
         }
