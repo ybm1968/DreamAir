@@ -50,7 +50,7 @@ public interface BookingService {
     public List<Booking> selectBookingListByUser(String userId) throws Exception;
 
     // 탑승권 상세 조회
-    public List<Booking> selectTicket(int bookingNo) throws Exception;
+    public List<Booking> selectTicket(int ticketNo) throws Exception;
 
     // 출발지 조회
     public String selectDeparture(int productNoDeps);
