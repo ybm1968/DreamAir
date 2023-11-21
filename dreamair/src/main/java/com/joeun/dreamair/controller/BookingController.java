@@ -269,7 +269,7 @@ public class BookingController {
         } else {
             bookingNum = bookingService.latest_user_bookingNo(user.getUserNo());  
             booking.setBookingNo(bookingNum);
-        }
+        } 
 
         // // ✅ TODO 티켓 발행 등록 요청
         int result = bookingService.createTicket(booking, principal, request);
