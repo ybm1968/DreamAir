@@ -272,7 +272,7 @@ public class BookingController {
         }
 
         // // ✅ TODO 티켓 발행 등록 요청
-        int result = bookingService.createTicket(booking, principal);
+        int result = bookingService.createTicket(booking, principal, request);
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();

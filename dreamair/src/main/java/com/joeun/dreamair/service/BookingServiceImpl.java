@@ -116,13 +116,15 @@ public class BookingServiceImpl implements BookingService{
     
   // 탑승권 번호 발행 + QR 코드 발행
   @Override
-  public int createTicket(Booking booking, Principal principal) throws Exception {
+  public int createTicket(Booking booking, Principal principal, HttpServletRequest request) throws Exception {
     String userId = "";
     int result = 0;
     int bookingNo = 0;
     int ticketNo = 0;
     int count1 = 0;
     int count2 = 0;
+    HttpSession session = request.getSession();
+    userId = (String) session.getAttribute("userId");
     log.info("createTicket : " + booking);
     // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
     for (int i = 0; i < booking.getPasCount(); i++) {
@@ -131,7 +133,8 @@ public class BookingServiceImpl implements BookingService{
         booking.setPassengerNo(booking.getPassengerNos()[i]);
 
         Booking gobooking = bookingMapper.goTickeData(booking);
-        gobooking.setUserId(principal == null ? "GUEST" : principal.getName());
+        
+        gobooking.setUserId(principal == null ? userId : principal.getName());
         gobooking.setBoarding("0");
         gobooking.setRouteNo(booking.getRouteNoDep());
         gobooking.setSeatNo(booking.getSeatNoDepss()[i]);
@@ -145,7 +148,7 @@ public class BookingServiceImpl implements BookingService{
        
         if(booking.getRoundTrip().equals("왕복")) {
             Booking comeBooking = bookingMapper.comeTicketData(booking);
-            comeBooking.setUserId(principal == null ? "GUEST" : principal.getName());
+            comeBooking.setUserId(principal == null ? userId : principal.getName());
             comeBooking.setBoarding("0");
             comeBooking.setRouteNo(booking.getRouteNoDes());
             comeBooking.setSeatNo(booking.getSeatNoDesss()[i]);
