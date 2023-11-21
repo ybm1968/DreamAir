@@ -187,7 +187,7 @@ ON ticket.booking_no = #{bookingNo}
   </select>
 
 
-  <!-- 탑승권 상세 조회 - by bookingNo -->
+  <!-- 탑승권 상세 조회 - by ticketNo -->
   <select id="selectTicket" resultMap="bookingMap">
       SELECT ticket_no
             , departure
