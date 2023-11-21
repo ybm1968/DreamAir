@@ -154,7 +154,6 @@ public class BookingServiceImpl implements BookingService{
         } else {
             gobooking.setBookingNo(bookingNum);
         }
-        
         count1 = bookingMapper.createTicket(gobooking);
        
         if(booking.getRoundTrip().equals("왕복")) {
@@ -176,7 +175,7 @@ public class BookingServiceImpl implements BookingService{
         int count = count1 + count2;
         // 조건 : 회원 비회원
         // 회원
-        if( !userId.contains("GUEST") ) {
+        if( principal != null ) {
             bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
 
             List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
