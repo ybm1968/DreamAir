@@ -266,7 +266,6 @@ public class BookingController {
         
         Users user = userService.selectById2(principal, request);
         if( (principal == null) ) {
-            log.info("비회원 번호 : " + user.getUserNo2());
             bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  
             booking.setBookingNo2(bookingNum);
         } else {
@@ -279,10 +278,9 @@ public class BookingController {
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();
-        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);        // 정수형으로 반환값 설정
+        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);        
         model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
         
-
         // ticketNO 받아서 qr 발행
 
         rttr.addFlashAttribute("booking", booking);
