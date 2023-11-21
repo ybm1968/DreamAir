@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,17 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Users;
 import com.joeun.dreamair.service.BookingService;
+import com.joeun.dreamair.service.ProductService;
 import com.joeun.dreamair.service.UserService;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,6 +34,9 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService; 
+
+    @Autowired
+    private ProductService productService;
     
     // 항공권 조회 목록 -> 예매
     // 출발지 날짜 도착지(ticket), 탑승인원 왕복여부(booking) 를 정보()에 맞는 검색결과를 보여주기
@@ -54,7 +57,6 @@ public class BookingController {
         
         List<Booking> bookingList = bookingService.golist(booking);
         model.addAttribute("bookingList", bookingList);
-        log.info("가는편 노선번호 : " + bookingList.get(0).getRouteNo());
         model.addAttribute("bookingInfo", booking);
         return "UI/component/booking/list";
     }
@@ -89,14 +91,14 @@ public class BookingController {
  
 
     @PostMapping(value="/info")
-    public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr) throws Exception{ 
+    public String infoPro(Model model, Booking booking, Users user, RedirectAttributes rttr, HttpServletRequest request, Principal principal) throws Exception{ 
         log.info("탑승객 이름 : " + booking.getPassengerNames()[0]);
         log.info("infoPro 왕복여부 : " + booking.getRoundTrip());
         
         int result1 = 0;
         int result2 = 0;
 
-        result1 = bookingService.infoPassngers(booking);
+        result1 = bookingService.infoPassngers(booking, request, principal);
         // result2 = bookingService.infoPassport(user);
         // rttr.addFlashAttribute("user", user);     
         rttr.addFlashAttribute("booking", booking);     
@@ -254,14 +256,14 @@ public class BookingController {
     
 
     @PostMapping(value = "/bookingInsert")
-    public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr) throws Exception {
+    public String bookingInsert(Model model, Booking booking, Principal principal, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
         log.info("booking 객체 조회 : " + booking);
-        int result1 = bookingService.bookingInsert(booking, principal);
+        int result1 = bookingService.bookingInsert(booking, principal, request);
+        productService.productOut(booking);
         int bookingNum = 0;
         
         Users user = userService.selectById2(principal);
         if( (principal == null) ) {
-            log.info("비회원 번호 : " + user.getUserNo2());
             bookingNum = bookingService.latest_user2_bookingNo(user.getUserNo2());  
             booking.setBookingNo2(bookingNum);
         } else {
@@ -274,10 +276,9 @@ public class BookingController {
 
         // 같은 bookingNo에 대한 ticket 정보 조회
         int bookingNo = booking.getBookingNo();
-        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);        // 정수형으로 반환값 설정
+        List<Booking> ticketList_bookingNo = bookingService.ticketList_bookingNo(bookingNo);        
         model.addAttribute("ticketList_bookingNo", ticketList_bookingNo);
         
-
         // ticketNO 받아서 qr 발행
 
         rttr.addFlashAttribute("booking", booking);

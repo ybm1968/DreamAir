@@ -2,6 +2,7 @@ package com.joeun.dreamair.service;
 
 import java.util.List;
 
+import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.Product;
 import com.joeun.dreamair.dto.ProductIo;
 
@@ -49,4 +50,7 @@ public interface ProductService {
      */
     // 상품이 등록되면 IN / 예매가 완료되면 OUT -> 예매가 환불되면 IN
     public int productIO_insert(ProductIo productIo) throws Exception;
+
+    // 상품 출고 처리
+    public int productOut(Booking booking) throws Exception;
 }

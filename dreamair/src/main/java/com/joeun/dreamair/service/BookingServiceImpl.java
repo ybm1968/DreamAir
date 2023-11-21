@@ -3,6 +3,10 @@ package com.joeun.dreamair.service;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,13 +15,6 @@ import org.springframework.stereotype.Service;
 import com.joeun.dreamair.dto.Booking;
 import com.joeun.dreamair.dto.QR;
 import com.joeun.dreamair.mapper.BookingMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-
-import com.joeun.dreamair.dto.Booking;
-import com.joeun.dreamair.dto.Users;
-import com.joeun.dreamair.mapper.BookingMapper; 
 
 import lombok.extern.slf4j.Slf4j;
  
@@ -59,7 +56,7 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     // 탑승객들 정보 입력
-    public int infoPassngers(Booking booking) throws Exception {
+    public int infoPassngers(Booking booking, HttpServletRequest request, Principal principal) throws Exception {
         log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
         log.info("서비스임플 인원수 : " + booking.getPasCount());
         int result = 0;
@@ -84,6 +81,17 @@ public class BookingServiceImpl implements BookingService{
             }
 
             bookingMapper.infoPassngers(bookingItem);
+
+            if ( principal == null ) {
+                
+                String userId = "GUEST_" + UUID.randomUUID().toString().substring(0, 5);
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", userId);
+                bookingItem.setUserId(userId);
+                bookingItem.setStatus("GUEST");
+                bookingMapper.user2Insert(bookingItem); 
+            }
+
             result++;
         }
 
@@ -133,7 +141,6 @@ public class BookingServiceImpl implements BookingService{
         } else {
             gobooking.setBookingNo(bookingNum);
         }
-        
         count1 = bookingMapper.createTicket(gobooking);
        
         if(booking.getRoundTrip().equals("왕복")) {
@@ -155,7 +162,7 @@ public class BookingServiceImpl implements BookingService{
         int count = count1 + count2;
         // 조건 : 회원 비회원
         // 회원
-        if( !userId.contains("GUEST") ) {
+        if( principal != null ) {
             bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
 
             List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
@@ -350,48 +357,45 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     // 예매 테이블 등록
-    public int bookingInsert(Booking booking, Principal principal) throws Exception {
+    public int bookingInsert(Booking booking, Principal principal, HttpServletRequest request) throws Exception {
         int result = 0;
         int result1 = 0;
         int result2 = 0;
-        int tmp = 0;
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
         for (int i = 0; i < booking.getPasCount(); i++) {
             Booking bookingItem = new Booking();
-            String loginId = principal != null ? principal.getName() : "GUEST";
+            userId = principal != null ? principal.getName() : userId;
+            bookingItem.setUserId(userId);
             bookingItem.setName(booking.getNames()[i]);
             bookingItem.setPassengerNo(booking.getPassengerNos()[i]);
             bookingItem.setSeatNoDep(booking.getSeatNoDepss()[i]);
-            tmp = bookingMapper.goInsertSeat(bookingItem);
             bookingItem.setSeatNo(booking.getSeatNoDepss()[i]);
-
-            if (loginId.equals("GUEST")) {
+            
+            if ( principal == null ) {
                 bookingItem.setUserNo2(booking.getUserNo2());
-                log.info("비회원넘버if : " + booking.getUserNo2());
             } else {
                 bookingItem.setUserNo(booking.getUserNo());
-                log.info("회원넘버if : " + booking.getUserNo());
             }
             
-            bookingItem.setPasCount(booking.getPasCount());
+            bookingItem.setPasCount(booking.getPasCount());                 
             bookingItem.setRoundTrip(booking.getRoundTrip());
             bookingItem.setStatus(booking.getStatus());
-            bookingItem.setProductNoDep(booking.getProductNoDep());
+            bookingItem.setProductNoDep(booking.getProductNoDep());         
             bookingItem.setProductIdDep(booking.getProductIdDeps()[0]);
-            bookingItem.setRouteNoDep(booking.getRouteNoDep());
-            log.info("가는편 상품 아이디 : " + bookingItem.getProductIdDep());
-            
-            result1 = bookingMapper.goBookingInsert(bookingItem);
-            
+            bookingItem.setRouteNoDep(booking.getRouteNoDep());             
+
+            result1 = bookingMapper.goBookingInsert(bookingItem);           // 가는편 Booking 테이블 insert
+            bookingMapper.goPasUpdate(bookingItem);                         // 가는편 좌석번호 등록
+
             if (booking.getRoundTrip().equals("왕복")) {
                 bookingItem.setSeatNoDes(booking.getSeatNoDesss()[i]);
-                tmp = bookingMapper.comeInsertSeat(bookingItem);
                 bookingItem.setSeatNo(booking.getSeatNoDesss()[i]);
+                bookingMapper.comePasUpdate(bookingItem);                   // 오는편 좌석번호 등록
                 bookingItem.setProductNoDes(booking.getProductNoDes());
                 bookingItem.setProductIdDes(booking.getProductIdDess()[0]);
                 bookingItem.setRouteNoDes(booking.getRouteNoDes());
-                log.info("오는편 상품 번호 : " + booking.getProductNoDes());
-                log.info("오는편 상품 아이디 : " + bookingItem.getProductIdDes());
-                result2 = bookingMapper.comeBookingInsert(bookingItem);
+                result2 = bookingMapper.comeBookingInsert(bookingItem);     // 오는편 Booking 테이블 insert
             }
         }
                 // int no = booking.getNo();
@@ -438,7 +442,6 @@ public class BookingServiceImpl implements BookingService{
 
         return updateSeat;
     }
-
 
 
 
