@@ -285,10 +285,8 @@ public class AdminController {
     }
 
     @GetMapping(value = "/Final_check_complete")
-    public String finalcomplete(Model model, Booking ticket) throws Exception{
+    public String finalcomplete(Model model, Booking ticket, @RequestParam int ticketNo) throws Exception{
         log.info("[GET] - /admin/Final_check_complete");
-
-        int ticketNo = ticket.getTicketNo();
         int isBoarded = 1;
         
         log.info("ticket no : " + ticketNo);
@@ -311,7 +309,21 @@ public class AdminController {
     @PostMapping(value = "/Final_check_complete")
     public String finalcomplete1(Model model, Booking ticket) throws Exception{
         log.info("[POST] - /admin/Final_check_complete");
+        int ticketNo = ticket.getTicketNo();
+        int isBoarded = 1;
+        
+        log.info("ticket no : " + ticketNo);
+        log.info("isBoarded : " + isBoarded);
 
+        ticket.setTicketNo(ticketNo);
+        ticket.setIsBoarded(isBoarded);
+        model.addAttribute("ticket", ticket);
+
+        
+        int result = adminService.ticket_update_b(ticketNo, isBoarded);
+        if(result > 0) {
+            log.info("DB 탑승 처리 완료");
+        }
 
         // 탑승처리가 완료되면 QR 코드 삭제
 

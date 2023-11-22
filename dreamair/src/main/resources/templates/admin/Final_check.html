@@ -115,14 +115,16 @@
       
     </th:block>
     <div class="btn-box d-grid gap-2 " >
+      <input type="hidden" class="ticketNo" id="ticketNo" th:value="${ticket.ticketNo}">
       <button type="submit" class="final_btn btn btn-outline-primary btn-lg" onclick="return checkPro()">탑승 완료</button>
    </div>
     </div>
     <script>
       function checkPro() {
+          let ticketNo = document.getElementById("ticketNo").value
           let check = confirm('최종 탑승 완료하시겠습니까?')
           if( check )
-              location.href = `/admin/Final_check_complete`
+              location.href = `/admin/Final_check_complete?ticketNo=${ticketNo}`
               return true
 
           return false
