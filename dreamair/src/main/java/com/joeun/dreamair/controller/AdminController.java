@@ -274,8 +274,6 @@ public class AdminController {
         // ticketNo에 해당하는 정보 조회
         int ticketNo = ticket.getTicketNo();
 
-        // adminService.ticket_update(ticketNo);
-        // 버튼을 클릭 하면, '탑승 완료'로 처리
         int isBoarded = 1;
         ticket.setIsBoarded(isBoarded);
         model.addAttribute("ticket", ticket);
@@ -283,20 +281,29 @@ public class AdminController {
 
        log.info("complete에서  ticketNo 값 : " + ticketNo);
 
-       int result = adminService.ticket_update_b(ticketNo);
-        if(result > 0) {
-            log.info("DB 탑승 처리 완료");
-        }
-        
-        // 탑승처리가 완료되면 QR 코드 삭제
-
         return "redirect:/admin/Final_check_complete";
     }
 
     @GetMapping(value = "/Final_check_complete")
-    public String finalcomplete(Model model, Booking booking) throws Exception{
+    public String finalcomplete(Model model, Booking ticket) throws Exception{
         log.info("[GET] - /admin/Final_check_complete");
 
+        int ticketNo = ticket.getTicketNo();
+        int isBoarded = 1;
+        
+        log.info("ticket no : " + ticketNo);
+        log.info("isBoarded : " + isBoarded);
+
+        ticket.setTicketNo(ticketNo);
+        ticket.setIsBoarded(isBoarded);
+        model.addAttribute("ticket", ticket);
+
+        
+        int result = adminService.ticket_update_b(ticketNo, isBoarded);
+        if(result > 0) {
+            log.info("DB 탑승 처리 완료");
+        }
+        
         return "admin/Final_check_complete";
     }
 

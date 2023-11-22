@@ -353,7 +353,7 @@ public class UserController {
         // booking.setIsBoarded(isBoarded);
         model.addAttribute("booking", booking);
 
-        int result = adminService.ticket_update_c(ticketNo);
+        int result = adminService.ticket_update_c(ticketNo, checkedIn);
         if(result > 0){
             log.info("DB 변경 완료");
         }

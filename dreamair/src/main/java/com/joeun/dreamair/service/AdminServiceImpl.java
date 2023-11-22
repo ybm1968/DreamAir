@@ -141,14 +141,14 @@ public class AdminServiceImpl implements AdminService {
 
   // 탑승 처리 : (탑승완료1, 미탑승0)
   @Override
-  public int ticket_update_c(int ticketNo) throws Exception {
-    int result = adminMapper.ticket_update_c(ticketNo);
+  public int ticket_update_c(int ticketNo, int checkedIn) throws Exception {
+    int result = adminMapper.ticket_update_c(ticketNo, checkedIn);
     return result;
   }
 
   @Override
-  public int ticket_update_b(int ticketNo) throws Exception {
-    int result = adminMapper.ticket_update_b(ticketNo);
+  public int ticket_update_b(int ticketNo, int isBoarded) throws Exception {
+    int result = adminMapper.ticket_update_b(ticketNo, isBoarded);
     return result;
   }
   
