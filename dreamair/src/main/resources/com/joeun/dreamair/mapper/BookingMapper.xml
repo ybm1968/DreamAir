@@ -259,6 +259,12 @@ ON ticket.booking_no = #{bookingNo}
     WHERE passenger_name = #{name} AND passenger_no = #{passengerNo};
   </select>
   
+  <!-- 좌석 변경 -->
+  <update id="changeSeat">
+    UPDATE booking
+    SET seat_no = #{seatNo} 
+    WHERE passenger_no = #{passengerNo}
+  </update>
 
   <!-- 오는편 티켓 테이블 insert할 값 조회 -->
   <select id="comeTicketData" resultType="Booking">

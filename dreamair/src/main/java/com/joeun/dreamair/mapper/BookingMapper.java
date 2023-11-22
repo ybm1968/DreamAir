@@ -91,4 +91,7 @@ public interface BookingMapper {
 
     // 마지막 booking_no 조회
     public int selectLastBookingNo(int bookingNo) throws Exception;
+
+    // 좌석 변경
+    public int changeSeat(int passengerNo) throws Exception;
 }

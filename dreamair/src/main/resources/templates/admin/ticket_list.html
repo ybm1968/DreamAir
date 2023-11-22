@@ -72,23 +72,12 @@
                                 <td><span th:text="${ticket.isBoarded}"></span></td>                                
                                 <td><span th:text="${ticket.boardingTime}"></span></td>                                
                                 <td colspan="2">
-                                    <form action="/admin/Final_check" method="POST" id="ticketForm" onsubmit="return checkPro()">
-                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                        <input type="hidden" name="ticketNo" th:value="${ticket.ticketNo}">
-                                        <input type="hidden" class="checkedIn" th:value="${ticket.checkedIn}">
-                                        <input type="hidden" class="isBoarded" th:value="${ticket.isBoarded}">
-                                        <th:block th:if="${ticket.isBoarded == 0}"> 
-                                            <button class="checkin_btn btn btn-primary active" type="submit">미탑승</button>
-                                        </th:block>
-                                        <th:block th:if="${ticket.isBoarded == 1}">
-                                            <button class="checkin_btn btn btn-primary disabled" type="button" data-bs-toggle="button" aria-disabled="true">탑승 완료</button>
-                                        </th:block>
-                                    </form>
                                     
-                                    <!-- <input type="hidden" class="ticketNo" th:value="${ticket.ticketNo}">
+                                    
+                                    <input type="hidden" class="ticketNo" th:value="${ticket.ticketNo}">
                                     <input type="hidden" class="checkedIn" th:value="${ticket.checkedIn}">
                                     <button class="check_Button btn btn-primary me-md-2" type="button">탑승처리하기</button>          
-                                    <button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/Final_check?ticketNo=${ticket.ticketNo}|">탑승처리하기</button>           -->
+                                    <!-- <button class="btn btn-primary me-md-2" type="button"><a th:href="|/admin/Final_check?ticketNo=${ticket.ticketNo}|">탑승처리하기</button>           -->
                                 </td>
                             </tr>
                         </th:block>
@@ -103,16 +92,6 @@
                     <td colspan="12">등록된 탑승권이 없습니다.</td>
                 </tr>
         </th:block>
-
-        <script>
-            function checkPro() {
-                let check = confirm('탑승 처리하시겠습니까?')
-                if( check )
-                    return true
-    
-                return false
-            }
-        </script>
 
         <script>
             $('.check_Button').click(function(){

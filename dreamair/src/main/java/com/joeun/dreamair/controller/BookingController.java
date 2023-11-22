@@ -184,8 +184,6 @@ public class BookingController {
         return "booking/seat_rt";
     }
 
-    // 좌석 변경
-    
 
     // 탑승객 유의사항
     @GetMapping(value="/notice")
