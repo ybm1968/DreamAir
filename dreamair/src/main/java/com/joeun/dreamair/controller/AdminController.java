@@ -299,9 +299,18 @@ public class AdminController {
         
         int result = adminService.ticket_update_b(ticketNo, isBoarded);
         if(result > 0) {
-            log.info("DB 탑승 처리 완료");
-        }
+            log.info("여기 맞음? DB 탑승 처리 완료");
+            log.info("boardingTime은?");
         
+            //boardingTime
+            Date boardingTime = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            log.info("시간 : " + dateFormat.format(boardingTime));
+            int result2 = adminService.update_boardingTime(ticketNo, dateFormat.format(boardingTime));
+            if(result2 > 0) {
+                log.info("DB 탑승 시간 완료");
+            }
+        }        
         return "admin/Final_check_complete";
     }
 
@@ -319,11 +328,15 @@ public class AdminController {
         ticket.setIsBoarded(isBoarded);
         model.addAttribute("ticket", ticket);
 
+
         
-        int result = adminService.ticket_update_b(ticketNo, isBoarded);
-        if(result > 0) {
-            log.info("DB 탑승 처리 완료");
-        }
+        // int result = adminService.ticket_update_b(ticketNo, isBoarded);
+        // if(result > 0) {
+        //     log.info(" 여기 DB 탑승 처리 완료");
+        // }
+
+
+
 
         // 탑승처리가 완료되면 QR 코드 삭제
 

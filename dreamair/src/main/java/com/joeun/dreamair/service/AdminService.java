@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.joeun.dreamair.dto.Admin;
@@ -62,5 +63,9 @@ public interface AdminService {
 
     // 탑승권 조회 - ticketNo
     public List<Booking> pas_ticketList(int ticketNo) throws Exception;
+
+     // boardingTime
+     public int update_boardingTime(int ticketNo, String boardingTime) throws Exception;
+    
 
 }

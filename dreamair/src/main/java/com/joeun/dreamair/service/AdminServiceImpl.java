@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,5 +160,10 @@ public class AdminServiceImpl implements AdminService {
     return pasTicketList;
   }
 
+  @Override
+  public int update_boardingTime(int ticketNo, String boardingTime) throws Exception {
+    int result = adminMapper.update_boardingTime(ticketNo, boardingTime);
+    return result;
+  }
 
 }
