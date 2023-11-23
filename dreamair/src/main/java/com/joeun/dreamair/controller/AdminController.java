@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
@@ -195,6 +196,7 @@ public class AdminController {
     public String ticket_listPro(Model model, Booking ticket, Product product) throws Exception {
         log.info("[GET] - /product/ticket_list");
 
+        
         // today : YYYY/MM/DD (String)
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
@@ -206,21 +208,28 @@ public class AdminController {
         int checkedIn = ticket.getCheckedIn();
         int isBoarded = ticket.getIsBoarded();
         int flightNo = ticket.getFlightNo();
-
+        
         log.info("flightNo 값 넘어오나 확인 : " + ticket.getFlightNo());
         log.info("select 값 넘어오나 확인 : " + Integer.toString(select));
         log.info("checkeedIn 값 넘어오나 확인 : " + Integer.toString(checkedIn));
         log.info("isBoarded 값 넘어오나 확인 : " + Integer.toString(isBoarded));
-
+        
         switch (select) {
             case 1: checkedIn = 1; isBoarded = 0; break;
             case 2: checkedIn = 1; isBoarded = 1; break;
         }
-
+        
         List<Booking> ticketList = null;
+  
+        
+        
+        // 전체조회
         if(select==0){
-            // 전체조회
-            ticketList = adminService.ticket_list(today);
+            if(flightNo==0){
+                ticketList = adminService.ticket_list(today);
+            } else {
+                ticketList = adminService.ticket_selectList_w(today, flightNo);
+            }
         } else{
             // 검색
             log.info("검색....");
@@ -234,9 +243,10 @@ public class AdminController {
     }
 
     @PostMapping(value="/ticket_list")
-    public String checkTicket(){
+    public String checkTicket(Model model, Booking ticket, Product product, RedirectAttributes rttr) throws Exception {
+   
 
-        return "redirect:/admin/Final_check";
+        return "redirect:/admin/ticket_list";
     }
 
     // 탑승권 화면 - 탑승 최종 확인 위한
@@ -244,8 +254,6 @@ public class AdminController {
     public String ticket_Checking(Model model, Booking ticket, Files files, QR qr) throws Exception{
         log.info("[GET] - /admin/Final_check");       
         log.info("ticketNo 확인 : " + ticket.getTicketNo());
-
-        model.addAttribute("ticket", ticket);
 
         int ticketNo = ticket.getTicketNo();
         // ticketNo로 탑승권 조회

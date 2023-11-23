@@ -16,7 +16,7 @@
 <body layout:fragment="content">
     <h1 class="text-center my-5">탑승권 관리</h1>
 
-    <form action="/admin/ticket_list" method="POST" th:name="ticketForm">
+    <form action="/admin/ticket_list" method="get" th:name="ticketForm">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div class="btn-box d-grid gap-2 ">
             <div class="form-floating col-5">
@@ -94,11 +94,11 @@
             </table>
         </th:block>
 
-        <th:block th:if="${TicketList.isEmpty()}" >
+        <!-- <th:block th:if="${TicketList.isEmpty()}" >
                 <tr>
                     <td colspan="12">등록된 탑승권이 없습니다.</td>
                 </tr>
-        </th:block>
+        </th:block> -->
 
         <script>
             $('.check_Button').click(function(){
