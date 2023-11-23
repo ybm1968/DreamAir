@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.joeun.dreamair.dto.Admin;
 import com.joeun.dreamair.dto.Booking;
@@ -195,6 +196,7 @@ public class AdminController {
     public String ticket_listPro(Model model, Booking ticket, Product product) throws Exception {
         log.info("[GET] - /product/ticket_list");
 
+        
         // today : YYYY/MM/DD (String)
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
@@ -206,21 +208,28 @@ public class AdminController {
         int checkedIn = ticket.getCheckedIn();
         int isBoarded = ticket.getIsBoarded();
         int flightNo = ticket.getFlightNo();
-
+        
         log.info("flightNo 값 넘어오나 확인 : " + ticket.getFlightNo());
         log.info("select 값 넘어오나 확인 : " + Integer.toString(select));
         log.info("checkeedIn 값 넘어오나 확인 : " + Integer.toString(checkedIn));
         log.info("isBoarded 값 넘어오나 확인 : " + Integer.toString(isBoarded));
-
+        
         switch (select) {
             case 1: checkedIn = 1; isBoarded = 0; break;
             case 2: checkedIn = 1; isBoarded = 1; break;
         }
-
+        
         List<Booking> ticketList = null;
+  
+        
+        
+        // 전체조회
         if(select==0){
-            // 전체조회
-            ticketList = adminService.ticket_list(today);
+            if(flightNo==0){
+                ticketList = adminService.ticket_list(today);
+            } else {
+                ticketList = adminService.ticket_selectList_w(today, flightNo);
+            }
         } else{
             // 검색
             log.info("검색....");
@@ -234,9 +243,10 @@ public class AdminController {
     }
 
     @PostMapping(value="/ticket_list")
-    public String checkTicket(){
+    public String checkTicket(Model model, Booking ticket, Product product, RedirectAttributes rttr) throws Exception {
+   
 
-        return "redirect:/admin/Final_check";
+        return "redirect:/admin/ticket_list";
     }
 
     // 탑승권 화면 - 탑승 최종 확인 위한
@@ -244,8 +254,6 @@ public class AdminController {
     public String ticket_Checking(Model model, Booking ticket, Files files, QR qr) throws Exception{
         log.info("[GET] - /admin/Final_check");       
         log.info("ticketNo 확인 : " + ticket.getTicketNo());
-
-        model.addAttribute("ticket", ticket);
 
         int ticketNo = ticket.getTicketNo();
         // ticketNo로 탑승권 조회
@@ -274,8 +282,6 @@ public class AdminController {
         // ticketNo에 해당하는 정보 조회
         int ticketNo = ticket.getTicketNo();
 
-        // adminService.ticket_update(ticketNo);
-        // 버튼을 클릭 하면, '탑승 완료'로 처리
         int isBoarded = 1;
         ticket.setIsBoarded(isBoarded);
         model.addAttribute("ticket", ticket);
@@ -283,20 +289,36 @@ public class AdminController {
 
        log.info("complete에서  ticketNo 값 : " + ticketNo);
 
-       int result = adminService.ticket_update_b(ticketNo);
-        if(result > 0) {
-            log.info("DB 탑승 처리 완료");
-        }
-        
-        // 탑승처리가 완료되면 QR 코드 삭제
-
         return "redirect:/admin/Final_check_complete";
     }
 
     @GetMapping(value = "/Final_check_complete")
-    public String finalcomplete(Model model, Booking booking) throws Exception{
+    public String finalcomplete(Model model, Booking ticket, @RequestParam int ticketNo) throws Exception{
         log.info("[GET] - /admin/Final_check_complete");
+        int isBoarded = 1;
+        
+        log.info("ticket no : " + ticketNo);
+        log.info("isBoarded : " + isBoarded);
 
+        ticket.setTicketNo(ticketNo);
+        ticket.setIsBoarded(isBoarded);
+        model.addAttribute("ticket", ticket);
+
+        
+        int result = adminService.ticket_update_b(ticketNo, isBoarded);
+        if(result > 0) {
+            log.info("여기 맞음? DB 탑승 처리 완료");
+            log.info("boardingTime은?");
+        
+            //boardingTime
+            Date boardingTime = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            log.info("시간 : " + dateFormat.format(boardingTime));
+            int result2 = adminService.update_boardingTime(ticketNo, dateFormat.format(boardingTime));
+            if(result2 > 0) {
+                log.info("DB 탑승 시간 완료");
+            }
+        }        
         return "admin/Final_check_complete";
     }
 
@@ -304,6 +326,24 @@ public class AdminController {
     @PostMapping(value = "/Final_check_complete")
     public String finalcomplete1(Model model, Booking ticket) throws Exception{
         log.info("[POST] - /admin/Final_check_complete");
+        int ticketNo = ticket.getTicketNo();
+        int isBoarded = 1;
+        
+        log.info("ticket no : " + ticketNo);
+        log.info("isBoarded : " + isBoarded);
+
+        ticket.setTicketNo(ticketNo);
+        ticket.setIsBoarded(isBoarded);
+        model.addAttribute("ticket", ticket);
+
+
+        
+        // int result = adminService.ticket_update_b(ticketNo, isBoarded);
+        // if(result > 0) {
+        //     log.info(" 여기 DB 탑승 처리 완료");
+        // }
+
+
 
 
         // 탑승처리가 완료되면 QR 코드 삭제

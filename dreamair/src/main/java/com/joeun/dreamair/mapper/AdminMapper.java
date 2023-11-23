@@ -1,5 +1,6 @@
 package com.joeun.dreamair.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -68,11 +69,12 @@ public interface AdminMapper {
     public List<Booking> ticket_list(@Param("today") String today) throws Exception;
 
     // 탑승 처리 - (탑승완료1, 미탑승0)
-    public int ticket_update_c(int ticketNo) throws Exception;
-    public int ticket_update_b(int ticketNo) throws Exception;
+    public int ticket_update_c(int ticketNo, int checkedIn) throws Exception;
+    public int ticket_update_b(int ticketNo, int isBoarded) throws Exception;
 
     // 탑승권 조회 - ticketNo
     public List<Booking> pas_ticketList(@Param("ticketNo") int ticketNo) throws Exception;
 
-
+    // boardingTime
+    public int update_boardingTime(int ticketNo, String boardingTime) throws Exception;
 }

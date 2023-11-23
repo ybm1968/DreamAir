@@ -5,99 +5,102 @@
     layout:decorate="~{/UI/layout/main_layout}"
     >
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>버스 예약 결제 페이지</title>
-<style>
-  .footer_container {
-    position: relative!important;
-  }
-</style>
-<style>
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  .container {
-    width: 800px;
-    margin: 50px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  table, th, td {
-    border: 1px solid #ddd;
-  }
-  th, td {
-    text-align: left;
-    padding: 12px;
-  }
-  th {
-    background-color: #f8f9fa;
-  }
-  .total {
-    text-align: right;
-  }
-  .total span {
-    font-weight: bold;
-  }
-  .input-group {
-    margin-top: 30px;
-  }
-  .input-group label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  .input-group input, .input-group select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  .btn {
-    background-color: #0056b3;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    transition: background-color 0.3s;
-  }
-  .btn:hover {
-    background-color: #004494;
-  }
-  .privacy-policy {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 30px;
-  }
-  .privacy-policy p, .privacy-policy ul {
-    margin: 10px 0;
-  }
-  .privacy-policy strong {
-    color: #0056b3;
-  }
-</style>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>버스 예약 결제 페이지</title>
+  <style>
+    .footer_container {
+      position: relative!important;
+    }
+  </style>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: rgb(244, 244, 244);
+      margin: 0;
+      padding: 0;
+    }
+
+    .re_container {
+      width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px;
+    }
+    th {
+      background-color: #f8f9fa;
+    }
+    .total {
+      text-align: right;
+    }
+    .total span {
+      font-weight: bold;
+    }
+    .input-group {
+      margin-top: 30px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .btn {
+      background-color: #0056b3;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #004494;
+    }
+    .privacy-policy {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 30px;
+    }
+    .privacy-policy p, .privacy-policy ul {
+      margin: 10px 0;
+    }
+    .privacy-policy strong {
+      color: #0056b3;
+    }
+  </style>
+  </head>
 <body layout:fragment="content">
-<div class="container">
+
+  <div class="re_container">
   <h1>주문/결제</h1>
   <table>
     <thead>
