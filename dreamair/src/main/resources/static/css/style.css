@@ -576,9 +576,13 @@ width: 80%;
 }
 
 /* checkBox */
-.form-check, .form-check-input, .radio-row, .login_checkbox {
+.form-check, .form-check-input, .radio-row {
 display: block;
 margin-left: 22px;
+}
+
+.login_checkbox {
+  display: block;
 }
 
 /* main index.html css */
