@@ -351,4 +351,9 @@ public class AdminController {
         return "redirect:/admin/ticket_list";
     }
 
+    @GetMapping(value = "QRCode")
+    public String qr() throws Exception{
+        log.info("[GET] - /admin/QRCode");
+        return "/admin/QRCode";
+    }
 }

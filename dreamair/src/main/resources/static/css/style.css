@@ -588,3 +588,75 @@ img:not([draggable]), embed, object, video {
 .passenger {width: 10%;}
 .search_btn {width: 10%;}
 .none {display: none;}
+
+
+/* Final_check.html */
+.final_container {
+  display: block;
+  width: 1200px;
+  height: 500px;
+}
+
+.boarding-pass {
+  display: flex;
+  width: 1200px;
+  height: 300px;
+  background-color: #fff;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  position: absolute;
+}
+
+.left-section, .right-section {
+  padding: 10px;
+  position: relative;
+}
+
+.left-section {
+  width: 70%;
+  border-right: 2px dashed #bbb;
+}
+
+.right-section {
+  width: 30%;
+  background-color: #0046ad;
+  color: white;
+}
+
+.section {
+  margin-bottom: 10px;
+}
+
+.airline-logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0046ad;
+}
+
+.flight-details, .passenger-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flight-detail-item, .passenger-detail-item {
+  margin-right: 20px;
+}
+
+.QRcode img {
+  width: 10%;
+  height: 10%;
+}
+
+.boarding-pass-footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.btnBox {
+  display: block;
+  margin-top: 30px;
+  z-index: 1;
+}
