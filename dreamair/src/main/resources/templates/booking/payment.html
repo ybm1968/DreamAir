@@ -30,6 +30,8 @@
           <input type="hidden" name="pasCount" id="pasCount" th:value="${bookingInfo.pasCount}">
           <input type="hidden" name="roundTrip" id="roundTrip" th:value="${bookingInfo.roundTrip}">
           <input type="hidden" name="status" id="status" value="예매완료">
+          <input type="hidden" name="goFlightNo" id="goFlightNo" th:value="${bookingInfo.goFlightNo}">
+          <input type="hidden" name="comeFlightNo" id="comeFlightNo" th:value="${bookingInfo.comeFlightNo}">
           <div sec:authorize="isAuthenticated()">
             <input type="hidden" name="userNo" id="userNo" th:value="${user.userNo}">
           </div>

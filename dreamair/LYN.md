@@ -1,16 +1,9 @@
 # 이유나 작업 사항
 
-로그인 페이지의 아이디 저장 & 자동 로그인 체크 박스는 link에 있는 common css 때문에 안 나오는거고,
-info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때문에 안 나옴
-
-
-[좌석 선택]
-1) 유저가 좌석 선택 창 진입 시, DB의 seat 테이블에서 먼저 좌석 상태 조회해 옴
-2) 탑승 인원만큼, 편도 및 왕복 여부에 따라 좌석 선택하여 notice 페이지로 넘김(이 때, DB seat 테이블에 해당 좌석들의 status가 1로 update 되어야 함)
-
-- info에서 배열로 모델에 등록되어 넘어 옴
-- 좌석 선택하고 notice로 넘길 때 passenger_no랑 passenger_name 넘기기
-- 좌석 선택하고 notice로 넘길 때 update문으로 passengers 테이블에도 좌석 번호 데이터 업데이트하기
+- 예매 시, booking_no가 계속 동일하게 들어감
+- admin 페이지에서 티켓 관리 페이지 안들어가짐
+- 마일리지...
+- 비회원 조회
 
 
 [회원 탈퇴]
@@ -26,6 +19,11 @@ info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때�
 
 
 --------------------------------------------------------------------------------------------------------
+- 11/19
+- booking dto에 mileage, goFlightNo, comeFlightNo 변수 추가
+- BookingMapper(xml, java), bookingService, bookingServiceimpl, BookingController(결제 완료 메소드에만) 수정 함
+
+
 - 11/10
 - [header.html], [user_layout.html], [user/index.html], [UI/fragment/sidebar.html] : 위치 등등 수정
 - [BookingMapper.xml] : selectBookingListByUser(주문 내역 조회), selectTicket(티켓 상세 조회) 메소드 추가
@@ -33,8 +31,6 @@ info 페이지의 남자 & 여자 체크 박스는 link에 있는 reset css 때�
 - [BookingService.java] : 이하 동문
 - [BookingServiceImpl.java] : 이하 동문
 - [dto/booking.java] : userId 변수 추가
-
-
 
 
 - 11/2

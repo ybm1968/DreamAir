@@ -227,8 +227,12 @@ public class UserController {
                                     , HttpServletResponse response) throws Exception {
 
         String loginId = principal != null ? principal.getName() : null;
-        
+
         try {
+            
+            userService.deleteUsers(loginId);
+            userService.deleteAuth(loginId);
+            userService.deleteMileage(loginId);
             
             // 시큐리티 강제 로그아웃
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -249,7 +253,7 @@ public class UserController {
             
             log.info("test3");
             
-            userService.delete(loginId);
+
             
         } catch (Exception e) {
 
@@ -310,25 +314,51 @@ public class UserController {
     public String checkinPro(@RequestParam int ticketNo, Model model, Booking booking, RedirectAttributes rttr) throws Exception {
         log.info("ticketNo : "  + ticketNo );
         // 입력받은 탑승권 번호를 조회
+
        List<Booking> ticketList = adminService.pas_ticketList(ticketNo);
        log.info("ticketList : " + ticketList);
        log.info("ticket.size() " + ticketList.size());
     //    model.addAttribute("TicketList", ticketList);
-
        rttr.addFlashAttribute("TicketList", ticketList);     
 
-       // 체크인 버튼을 누르면, ticketNo를 받아서 체크인 완료로 처리
-       booking.setTicketNo(ticketNo);
-       booking.setCheckedIn(1); // 체크인 완료
+    //    int checkedIn = booking.getCheckedIn();
+    //    log.info("checkedIn 값 : " + checkedIn);
+
+    //    rttr.addFlashAttribute("booking", booking);
 
        return "redirect:/user/checkin";
     }
 
     // 체크인 완료 페이지
+    // @GetMapping(value="/checkin_complete")
+    // public String checkinComplete(Model model, Booking booking) throws Exception {
+    //     log.info("왔니?");
+    //     return "user/checkin_complete";
+    // }
+ 
     @GetMapping(value="/checkin_complete")
-    public String checkinComplete(Model model, Booking booking) throws Exception {
-        log.info("왔니?");
+    public String checkincomplete(Model model, Booking booking){
+        log.info("[GET]] - /user/checkin_complete");
+        model.addAttribute("booking", booking);
         return "user/checkin_complete";
+    }
+
+    @PostMapping(value="/checkin_complete")
+    public String checkinpro(@RequestParam int ticketNo, Booking booking, Model model) throws Exception {
+        log.info("[POST]] - /user/checkin_complete");
+
+        int checkedIn = 1;
+        // int isBoarded = 0;
+        booking.setCheckedIn(checkedIn);
+        // booking.setIsBoarded(isBoarded);
+        model.addAttribute("booking", booking);
+
+        int result = adminService.ticket_update_c(ticketNo, checkedIn);
+        if(result > 0){
+            log.info("DB 변경 완료");
+        }
+
+        return "redirect:/user/checkin_complete";
     }
 
     // 충돌나면 여기 아래로 적용 필요!
@@ -390,27 +420,27 @@ public class UserController {
 
     /**
      * 티켓 상세 정보 페이지
-     * @param bookingNo
+     * @param ticketNo
      * @param model
      * @return
      * @throws Exception
      */
-    @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 bookingNo 파라미터로 전달받음
-    public String viewTicket(@RequestParam int bookingNo, Model model, Principal principal) throws Exception {
+    @GetMapping(value="/booking/ticketInfo") // URL 경로에 {bookingNo} 변수가 포함되어서 ticketgNo 파라미터로 전달받음
+    public String viewTicket(@RequestParam int ticketNo, Model model, Product product, Principal principal) throws Exception {
 
         String userId = principal.getName();
 
-        List<Booking> viewTicketDetail = bookingService.selectTicket(bookingNo);
+        List<Booking> viewTicketDetail = bookingService.selectTicket(ticketNo);
         Users userInfo = userService.selectById(userId);
 
         log.info("viewTicketDetail : " + viewTicketDetail);
-        log.info("user : " + userInfo);
+        // log.info("user : " + userInfo);
         
         // viewTicket을 모델에 추가
         model.addAttribute("viewTicketDetail", viewTicketDetail);
         model.addAttribute("userInfo", userInfo);
     
 
-        return "/user/booking/ticketInfo"; // 보여줄 뷰 페이지 이름을 반환
+        return "/booking/ticketInfo"; // 보여줄 뷰 페이지 이름을 반환
     }
 }

@@ -1,5 +1,6 @@
 package com.joeun.dreamair.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +124,15 @@ public class AdminServiceImpl implements AdminService {
     return ticketList;
   }
 
+     @Override
+  public List<Booking> ticket_selectList_w(String departureDate, int flightNo) throws Exception {
+    List<Booking> ticketList = adminMapper.ticket_selectList_w(departureDate, flightNo);
+
+    return ticketList;
+  }
+
+
+
   // 탑승권 목록 내역 조회(전체)
   @Override
   public List<Booking> ticket_list(String today) throws Exception {
@@ -132,8 +142,14 @@ public class AdminServiceImpl implements AdminService {
 
   // 탑승 처리 : (탑승완료1, 미탑승0)
   @Override
-  public int ticket_update(int ticketNo) throws Exception {
-    int result = adminMapper.ticket_update(ticketNo);
+  public int ticket_update_c(int ticketNo, int checkedIn) throws Exception {
+    int result = adminMapper.ticket_update_c(ticketNo, checkedIn);
+    return result;
+  }
+
+  @Override
+  public int ticket_update_b(int ticketNo, int isBoarded) throws Exception {
+    int result = adminMapper.ticket_update_b(ticketNo, isBoarded);
     return result;
   }
   
@@ -144,5 +160,10 @@ public class AdminServiceImpl implements AdminService {
     return pasTicketList;
   }
 
+  @Override
+  public int update_boardingTime(int ticketNo, String boardingTime) throws Exception {
+    int result = adminMapper.update_boardingTime(ticketNo, boardingTime);
+    return result;
+  }
 
 }

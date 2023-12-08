@@ -4,6 +4,7 @@ import java.util.List;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -106,17 +107,19 @@ public class UserServiceImpl implements UserService {
 
     
     @Override
-    public Users selectById2(Principal principal) throws Exception {
+    public Users selectById2(Principal principal, HttpServletRequest request) throws Exception {
 
-        String loginId = principal != null ? principal.getName() : "GUEST";
         Users user = new Users();
-        log.info("유저아이디 : " + loginId);
-        if (loginId.equals("GUEST")) {
-            // 비회원 조회
-            user = userMapper.selectByUser2Id(loginId);
-        } else {
-            // 회원 조회
+        String loginId;
+        if( principal != null ) {
+            loginId = principal.getName();
             user = userMapper.selectById(loginId);
+        } else {
+            HttpSession session = request.getSession();
+            String userId = (String) session.getAttribute("userId");
+            log.info("비회원아이디 : " + userId);
+            loginId = userId;
+            user = userMapper.selectByUser2Id(loginId);
         }
 
         return user;
@@ -139,10 +142,10 @@ public class UserServiceImpl implements UserService {
     
     // 회원 탈퇴
     @Override
-    public Users delete(String userId) throws Exception {
+    public Users deleteUsers(String userId) throws Exception {
         
         // 사용자를 삭제하고 삭제된 사용자 정보를 반환
-        Users deleteUser = userMapper.delete(userId);
+        Users deleteUser = userMapper.deleteUsers(userId);
 
         return deleteUser;
     }
@@ -188,4 +191,29 @@ public class UserServiceImpl implements UserService {
         List<Product> productFlightList = userMapper.product_flightList();
         return productFlightList;
     }
+
+    
+    
+    // 회원 탈퇴 시, auth 테이블 삭제
+    @Override
+    public Users deleteAuth(String username) {
+        
+        Users deleteAuth = userMapper.deleteAuth(username);
+
+        return deleteAuth;
+    }
+
+
+    
+    // 회원 탈퇴 시, mileage 테이블 삭제
+    @Override
+    public Users deleteMileage(String username) {
+
+        Users deleteMileage = userMapper.deleteMileage(username);
+
+        return deleteMileage;
+    }
+
+    
+
 }

@@ -215,6 +215,8 @@
                     <input type="hidden" name="phones" id="phones" th:value="${booking.phones[i-1]}" th:attr="data-index=${i-1}" />
                 </th:block>
             </th:block>
+            <input type="hidden" name="goFlightNo" id="goFlightNo" th:value="${booking.goFlightNo}">
+            <input type="hidden" name="comeFlightNo" id="comeFlightNo" th:value="${booking.comeFlightNo}">
 
                 <div class="seatInnerWrap">
                     <div class="seatInnerLeft">

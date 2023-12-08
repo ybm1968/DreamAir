@@ -220,6 +220,7 @@
                         <input type="hidden" name="seatNoDeps" th:value="${seatNoDep}" th:attr="data-index=${i.index}" />
                     </th:block>
                 </th:block>
+                <input type="hidden" name="goFlightNo" id="goFlightNo" th:value="${booking.goFlightNo}">
                 
 
 
@@ -309,12 +310,14 @@
         let roundTrip;
         let seatNoDeps;
         let destination;
+        let goFlightNo;
     
         function goToNextStep() {
             roundTrip = $("#roundTrip").val();
             pasCount = $("#pasCount").val();
             seatNoDeps = $("#seatNoDeps").val();
             destination = $("#destination").val();
+            goFlightNo = $("#goFlightNo").val();
     
             var passengerNames = [];
             for (var i = 0; i < pasCount; i++) {
@@ -357,6 +360,7 @@
                       + "&passengerNoss=" + commaSeparatedPassengerNoss
                       + "&routeNoDess=" + commaSeparatedRouteNoDess
                       + "&phones=" + commaSeparatedPhones
+                      + "&goFlightNo=" + goFlightNo
                       ;
             
             // 이동

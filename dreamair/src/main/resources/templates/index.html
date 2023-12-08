@@ -14,9 +14,8 @@
         }
 
       </style>
-
-      
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css">
 </head>
 
 <body layout:fragment="content">
@@ -141,64 +140,180 @@
         </section>
     </div>
 
-    <hr>
-    <!-- 최근 게시글 -->
-    <section>
-        <div class="container">
+    <div class="wrap">
+<!-- Quick Menu -->
+<section id="Quick">
+    <div class="quick_container">
+        <div class="wrap">
+            <a href="#"><img src="/img/seat.png" alt="좌석선택"></a>
+            <h3>사전 좌석</h3>
+        </div>
 
-            <br>
-            <h1 class="mt-3">최근 게시글</h1>
-            <br>
-            <!-- <div class="d-flex  justify-content-between"> -->
-            <div class="row gx-4 gy-4">
-                <th:block th:each="board : ${mainList}">
-                    <div class="col-4">
-                        <div class="card px-1">
-                            <div class="img_container" style="height: 250px; overflow: hidden;">
-                                <img th:src="|/file/img/${board.thumbnail.fileNo}|" alt="게시글 이미지" 
-                                class="card-img-top w-100 p-4" th:if="${board.thumbnail != null }" />
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${board.title}"></h5>
-                                <p class="card-text">
-                                    작성자: <span th:text="${board.writer}"></span><br>
-                                    등록일자: <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
-                                    수정일자: <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
-                                    조회수: <span th:text="${board.views}"></span>
-                                </p>
-                                <a th:href="|/board/read?boardNo=${board.boardNo}|" class="btn btn-primary">게시글 조회</a>
-                            </div>
+        <div class="wrap">
+            <a href="/user/checkin"><img src="/img/Checkin.png" alt="체크인"></a>
+            <h3>체크인</h3>
+        </div>
+
+        <div class="wrap">
+            <a href="/board/list"><img src="/img/community.png" alt="커뮤니티"></a>
+            <h3>커뮤니티</h3>
+        </div>
+
+        <div class="wrap">
+            <a href="/bus"><img src="/img/bus.png" alt="공항버스 예약"></a>
+            <h3>공항 버스 예약</h3>
+        </div>
+
+    </div>
+</section>
+
+<!-- 여행지 사진 모음 -->
+<section id="spot">
+    <br>
+    <h1 class="mt-5 ms-5">추천 여행지</h1>
+    <br>
+
+    <div class="spot_container">
+    <div class="card text-white">
+        <img src="/img/Paris.jpg" class="card-img" alt="파리">
+        <div class="card-img-overlay">
+          <h2 class="card-title">파리</h2>
+        </div>
+    </div>
+
+    <div class="card text-white">
+        <img src="/img/Japan.jpg" class="card-img" alt="일본">
+        <div class="card-img-overlay">
+            <h2 class="card-title">일본</h2>
+        </div>
+    </div>
+
+    <div class="card text-white">
+        <img src="/img/Jeju.jpg" class="card-img" alt="제주">
+        <div class="card-img-overlay">
+            <h2 class="card-title">제주</h2>
+        </div>
+    </div>
+
+    <div class="card text-white">
+        <img src="/img/Ulsan.jpg" class="card-img" alt="울산">
+        <div class="card-img-overlay">
+            <h2 class="card-title">울산</h2>
+        </div>
+    </div>
+
+    <div class="card text-white">
+        <img src="/img/Yesu.jpg" class="card-img" alt="여수">
+        <div class="card-img-overlay">
+            <h2 class="card-title">여수</h2>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- 최근 게시글 -->
+<section id="board">
+    <br>
+    <h1 class="mt-5 ms-5">최근 게시글</h1>
+    <br>
+    <div class="board_container">
+        <!-- <div class="d-flex  justify-content-between"> -->
+        <div class="row gx-4 gy-4">
+            <th:block th:each="board : ${mainList}">
+                <div class="col-4">
+                    <div class="card px-1">
+                        <div class="img_container" style="height: 250px; overflow: hidden;">
+                            <img th:src="|/file/img/${board.thumbnail.fileNo}|" alt="게시글 이미지" 
+                            class="card-img-top w-100 p-4" th:if="${board.thumbnail != null }" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${board.title}"></h5>
+                            <p class="card-text">
+                                작성자: <span th:text="${board.writer}"></span><br>
+                                등록일자: <span th:text="${ #dates.format( board.regDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
+                                수정일자: <span th:text="${ #dates.format( board.updDate, 'yyyy-MM-dd HH:mm:ss') }"></span><br>
+                                조회수: <span th:text="${board.views}"></span>
+                            </p>
+                            <a th:href="|/board/read?boardNo=${board.boardNo}|" class="btn btn-primary">게시글 조회</a>
                         </div>
                     </div>
-                </th:block>
-            </div>
-
-        </div>
-    </section>
-
-    <section>
-        <div id="slide">
-            <div class="slider-container">
-                <span class="leftBtn">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </span>
-                <div class="slider">
-                    <span class="first-img"><img src="/img/slide01.jpg" alt="이미지01" /></span>
-                    <span><img src="/img/slide02.jpg" alt="이미지02" /></span>
-                    <span><img src="/img/slide03.jpg" alt="이미지03" /></span>
-                    <span class="last-img"><img src="/img/slide04.jpg" alt="이미지04" /></span>
                 </div>
-                <span class="rightBtn">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </span>
+            </th:block>
+        </div>
+
+    </div>
+</section>
+
+<!-- 여행지 둘러보기 -->
+<section id="slide">
+    <br>
+    <h1 class="mt-5 ms-5">여행지 둘러보기</h1>
+    <br>
+
+    <!-- <div class="slide_container">
+        <div class="leftBtn"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="slider">
+            <div class="img_box"><img src="/img/slide01.jpg" alt="이미지01"></div>
+            <div class="img_box"><img src="/img/slide02.jpg" alt="이미지02"></div>
+            <div class="img_box"><img src="/img/slide03.jpg" alt="이미지03"></div>
+            <div class="img_box"><img src="/img/slide04.jpg" alt="이미지04"></div>
+        </div>
+        <div class="rightBtn"><i class="fa-solid fa-chevron-right"></i></div>
+    </div> -->
+<!-- Swiper -->
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="slider-image">
+                <img src="/img/slide01.jpg" alt="slide 1">
             </div>
         </div>
-    </section>
-    
+        <div class="swiper-slide">
+            <div class="slider-image">
+                <img src="/img/slide02.jpg" alt="slide 2">
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slider-image">
+                <img src="/img/slide03.jpg" alt="slide 3">
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slider-image">
+                <img src="/img/slide04.jpg" alt="slide 4">
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slider-image">
+                <img src="/img/slide05.jpg" alt="slide 5">
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slider-image">
+                <img src="/img/slide06.jpg" alt="slide 6">
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slider-image">
+                <img src="/img/slide07.jpg" alt="slide 7">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+    </div>
+    <!--div class="swiper-pagination"></div-->
+</div>
+</div>
+
+
+
+
+</section>
+<hr class="mt-5">
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
     <script type="text/javascript">
      
         initDatePicker()

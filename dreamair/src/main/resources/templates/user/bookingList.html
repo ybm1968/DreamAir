@@ -9,6 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 탑승권 관리</title>
 
+    <style>
+        .footer_container {
+          position: relative!important;
+        }
+
+    </style>
+
 </head>
 <body layout:fragment="content" class="">
 
@@ -16,6 +23,9 @@
         <h1 class="text-center my-3">나의 탑승권 관리</h1>
 
         <br>
+        <div class="img_container text-center">
+            <img src="/img/ticket_page_ticket.png" alt="ticket_page_ticket.png" style="width: 50px; height: 50px;">
+        </div>
         <br>
 
         <!-- 비회원 -->
@@ -44,7 +54,7 @@
                                 <tr>
                                     <td>주문 비밀번호 : </td>
                                     <td>
-                                        <input type="text" class="form-control" name="orderPw" 
+                                        <input type="text" class="form-control" name="userPw" 
                                             placeholder="주문 비밀번호를 입력해주세요.">
                                     </td>
                                 </tr>
@@ -66,7 +76,7 @@
                 <thead>
                     <tr class="table-primary">
                         <th>예매 번호</th>
-                        <th>티켓 번호</th>
+                        <th>탑승권 번호</th>
                         <th>상품명</th>
                         <th>출발일</th>
                         <th>결제 금액</th>
@@ -93,11 +103,11 @@
                             <td><span>50,000</span></td>
                             <td>
                                 <span th:if="${ticket.checkedIn == 0}">체크인 전</span>
-                                <span th:if="${ticket.checkedIn == 1}">체크인 완료</span>
+                                <span th:unless="${ticket.checkedIn eq 0}">체크인 완료</span>
                             </td>
                             <td>
                                 <span th:if="${ticket.isBoarded == 0}">탑승 전</span>
-                                <span th:if="${ticket.isBoarded == 1}">탑승 완료</span>
+                                <span th:unless="${ticket.isBoarded eq 0}">탑승 완료</span>
                             </td>
                             <td>
                                 <span style="white-space: nowrap;">
@@ -105,7 +115,7 @@
                                 <p style="display: inline;">/</p>
                                 <button>[좌석 변경]</button>
                                 <p style="display: inline;">/</p>
-                                <a th:href="@{/user/booking/ticketInfo(bookingNo=${ticket.bookingNo})}">[조회]</a>
+                                <a th:href="@{/user/booking/ticketInfo(ticketNo=${ticket.ticketNo})}">[조회]</a>
                                 </span>
                             </td>
                         </tr>

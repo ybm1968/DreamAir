@@ -16,14 +16,14 @@
     background-color: #f0f0f0;
     color: #333;
   }
-  .header {
-    background: #007bff; /* 부드러운 파란색 그라데이션 */
+  .bus_header {
+    background: #007bff; 
     background: linear-gradient(to right, #0062E6, #33AEFF);
     padding: 20px;
     color: white;
     text-align: center;
   }
-  .header h1 {
+  .bus_header h1 {
     margin: 0;
     font-size: 2em;
   }
@@ -166,6 +166,7 @@
     box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
     position: absolute;
     top: 19px; right: 19px;
+    z-index: 999;
   }
 
   .image-section {
@@ -183,17 +184,17 @@
 </style>
 </head>
 <body layout:fragment="content">
-<div class="header">
+<div class="bus_header mt-5">
   <h1>항공 버스 예약 서비스</h1>
 </div>
 <div class="main">
   <h2>편리하고 빠른 여행을 위한 선택</h2>
   <p>국내외 모든 공항으로의 신속한 이동을 위한 항공 버스 예매를 시작하세요.</p>
   <div class="section-container">
-    <div class="section"><a href="#timetable">운행 노선 및 시간표</a></div>
-    <div class="section"><a href="type.html">항공 버스 예약하기</a></div>
-    <div class="section"><a href="#guide">이용 안내</a></div>
-    <div class="section"><a href="#about">회사 소개</a></div>
+    <div class="section"><a href="#">운행 노선 및 시간표</a></div>
+    <div class="section"><a href="#">항공 버스 예약하기</a></div>
+    <div class="section"><a href="#">이용 안내</a></div>
+    <div class="section"><a href="#">회사 소개</a></div>
   </div>
 </div>
 
@@ -203,7 +204,7 @@
 
 <div class="main2">
   <div class="ticket-option">
-    <div class="ribbon"><span>**인기</span></div>
+    <div class="ribbon"><span>*인기</span></div>
     <a href="/bus/reservation">
       <img src="/static/img/리무진버스 사진.png" alt="">
       <div>리무진 1회권</div>
