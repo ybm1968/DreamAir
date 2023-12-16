@@ -74,7 +74,7 @@
 ## 프로젝트 리뷰
 
 <details>
-<summary><h3>메인 화면 👆</h3></summary>
+<summary><h3>사용자 👆</h3></summary>
 <div markdown="1">
 
 
@@ -84,7 +84,7 @@
 \***
 
 <details>
-<summary><h3>사용자 👆</h3></summary>
+<summary><h3>관리자 👆</h3></summary>
 <div markdown="1">
 
 
@@ -107,34 +107,6 @@
 <summary><h3>게시판 👆</h3></summary>
 <div markdown="1">
 
-
-</div>
-</details>
-
-\***
-
-<details>
-<summary><h3>아이디 / 비밀번호 찾기 👆</h3></summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
-\***
-
-<details>
-<summary><h3>커뮤니티 👆</h3></summary>
-<div markdown="1">
-
-</div>
-</details>
-
-\***
-
-<details>
-<summary><h3>관리자 👆</h3></summary>
-<div markdown="1">
 
 </div>
 </details>
