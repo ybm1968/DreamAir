@@ -1,5 +1,5 @@
 # 프로젝트: DreamAir
-<p align="center"><img src="https://github.com/ybm1968/DreamAir/assets/132187402/2ec7629c-e5f7-4b0f-9c09-16b8ef20024b" style="" width="700" height="500"/></p>
+<p align="center"><img src="https://github.com/ybm1968/DreamAir/assets/132187402/2ec7629c-e5f7-4b0f-9c09-16b8ef20024b" style="" width="600" height="500"/></p>
 
 
 
