@@ -223,7 +223,7 @@
 </div>
 </details>
 
-
+----
 
 <details>
 <summary><h3>관리자 👆</h3></summary>
@@ -246,7 +246,7 @@
 </div>
 </details>
 
-
+----
 
 <details>
 <summary><h3>예매 서비스 👆</h3></summary>
@@ -271,7 +271,7 @@
 </div>
 </details>
 
-
+----
 
 <details>
 <summary><h3>게시판 👆</h3></summary>
@@ -282,6 +282,9 @@
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%904.png" width="1000" height="600"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%905.png" width="1000" height="600"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%906.png" width="1000" height="600"/>
+
+
+----
 
 </div>
 </details>
@@ -302,7 +305,7 @@
 </div>
 </details>
 
-
+----
 
 <details>
 <summary><h3>관리자 👆</h3></summary>
@@ -319,7 +322,7 @@
 </div>
 </details>
 
-
+----
 
 <details>
 <summary><h3>예매 서비스 👆</h3></summary>
@@ -338,7 +341,7 @@
 </div>
 </details>
 
-
+----
 
 <details>
 <summary><h3>게시판 👆</h3></summary>
@@ -349,6 +352,10 @@
 
 </div>
 </details>
+
+
+----
+
 
 # 6. 핵심기능 코드 리뷰
 ## 6-1. 기능목표
@@ -432,6 +439,7 @@
 </div>
 </details>
 
+----
 
 ### QR코드 처리 : QR 코드 인식 →  탑승권 처리 페이지로 연결 → 해당 티켓 번호에 대한 탑승권 조회 → 탑승 처리 완료 → QR 코드 삭제
 <details>
@@ -507,7 +515,7 @@
 </div>
 </details>
 
-
+----
 
 ## 6-3. 개선 할 점
 - 추후 QR 코드를 사용자 버전과 관리자 버전으로 2개 생성하여 1) 사용자가 QR 코드를 인식 할 때 체크인 페이지로 이동하고, 2) 관리자가 QR 코드를 인식 할 때 탑승처리 페이지로 이동할 수 있도록 하여 보다 더 실제 항공사에서 사용하는 QR 코드 서비스처럼 구현하고자 함
