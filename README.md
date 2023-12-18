@@ -146,7 +146,7 @@
 <details>
 <summary><h3>기능 정의서 👆</h3></summary>
 <div markdown="1">
-<img src="" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/assets/132187402/3b2071d0-13d4-4481-98fd-307c224d6272" width="1000" height="600"/>
   
 </div>
 </details>
