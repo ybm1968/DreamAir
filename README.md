@@ -212,7 +212,20 @@
 <details>
 <summary><h3>관리자 👆</h3></summary>
 <div markdown="1">
-<img src="" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%901.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%902.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%903.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%904.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%905.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%906.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%907.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%908.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%909.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%9010.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%9011.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%9012.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%9013.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B4%80%EB%A6%AC%EC%9E%90/%EA%B4%80%EB%A6%AC%EC%9E%9014.png" width="1000" height="600"/>
 
 </div>
 </details>
