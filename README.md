@@ -1,13 +1,14 @@
 # 프로젝트: DreamAir
-<p align="center"><img src="https://github.com/ybm1968/DreamAir/assets/132187402/2ec7629c-e5f7-4b0f-9c09-16b8ef20024b" style="" width="600" height="500"/></p>
-
-
+<p align="center"><img src="https://github.com/ybm1968/DreamAir/assets/132187402/2ec7629c-e5f7-4b0f-9c09-16b8ef20024b" style="" width="600" height="400"/></p>
 
 
 ## 목차
 
 
 ## 주제
+<img src="https://github.com/ybm1968/DreamAir/assets/132187402/6d8b2073-83e3-4044-822f-ffe4e47f3f18" style="" width="600" height="600"/>
+
+
 
 ## 프로젝트 배경
 
