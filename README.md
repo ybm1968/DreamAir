@@ -142,12 +142,8 @@
 <details>
 <summary><h3>기능 정의서 👆</h3></summary>
 <div markdown="1">
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C1.PNG" width="1000" height="1000"/>
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C2.PNG" width="1000" height="700"/>
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C3.PNG" width="1000" height="700"/>
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C4.PNG" width="1000" height="700"/>
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C5.PNG" width="900" height="700"/>
-
+<img src="" width="1000" height="600"/>
+  
 </div>
 </details>
 
@@ -155,7 +151,10 @@
 <details>
 <summary><h3>ERD 👆</h3></summary>
 <div markdown="1">
-
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/ERD/%ED%95%AD%EA%B3%B5%EA%B6%8C%20%EC%98%88%EB%A7%A4%20(1).png" width="1000" height="800"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/ERD/erd1.PNG" width="1000" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/ERD/erd2.PNG" width="1000" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/ERD/erd3.PNG" width="1000" height="700"/>
 
 </div>
 </details>
@@ -164,7 +163,7 @@
 <details>
 <summary><h3>테이블 정의서 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
@@ -173,7 +172,17 @@
 <details>
 <summary><h3>사용자 👆</h3></summary>
 <div markdown="1">
-
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C1.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C2.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C3.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C4.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C5.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C6.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C7.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C8.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C9.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C10.PNG" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EC%9D%98%EC%84%9C11.PNG" width="1000" height="600"/>
 
 </div>
 </details>
@@ -183,7 +192,7 @@
 <details>
 <summary><h3>관리자 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
@@ -193,7 +202,7 @@
 <details>
 <summary><h3>예매 서비스 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
@@ -203,7 +212,7 @@
 <details>
 <summary><h3>게시판 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
@@ -213,7 +222,7 @@
 <details>
 <summary><h3>사용자 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
@@ -223,7 +232,7 @@
 <details>
 <summary><h3>관리자 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
@@ -233,7 +242,7 @@
 <details>
 <summary><h3>예매 서비스 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
@@ -243,7 +252,7 @@
 <details>
 <summary><h3>게시판 👆</h3></summary>
 <div markdown="1">
-
+<img src="" width="1000" height="600"/>
 
 </div>
 </details>
