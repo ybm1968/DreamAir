@@ -1,70 +1,51 @@
 # 프로젝트: DreamAir
-<p align="center"><img src="https://github.com/ybm1968/DreamAir/assets/132187402/2ec7629c-e5f7-4b0f-9c09-16b8ef20024b" style="" width="600" height="400"/></p>
+<p align="center"><img src="https://github.com/ybm1968/DreamAir/assets/132187402/2ec7629c-e5f7-4b0f-9c09-16b8ef20024b" style="" width="800" height="400"/></p>
 
 
 ## 목차
-1. 프로젝트 개요
-2. 프로젝트 구조
-3. 프로젝트 팀 구성 및 역할
-4. 프로젝트 수행절차 및 방법
-5. 프로젝트 수행 경과
-6. 자체 평가 의견
+### 1. 프로젝트 개요
+  - 프로젝트 주제
+  - 주제 선정 배경
+  - 기획 의도
+  - 활용방안 및 기대효과
+### 2. 프로젝트 구조
+  - 주요 기능
+  - Menu Structure
+  - Flow Chart
+### 3. 프로젝트 팀 구성 및 역할
+### 4. 프로젝트 수행절차 및 방법
+  - 수행 절차
+  - 수행 방법
+### 5. 프로젝트 수행 경과
+  - 요구사항 정의서
+  - 기능 정의서
+  - ERD
+  - 테이블 정의서
+  - 화면 설계서
+  - 프로젝트 실제 화면 UI
+### 6. 자체 평가 의견
+  - 개별 평가
+  - 종합 평가
 
 
-## 주제
+## 1-1. 프로젝트 주제
 - 사용자 경험을 공유하고 항공권 구매가 가능한 여행 포털사이트 구축 프로젝트
 
 
-## 프로젝트 배경
+## 1-2. 주제 선정 배경
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/6d8b2073-83e3-4044-822f-ffe4e47f3f18" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/b8274ccf-506c-4085-9044-00309235ab4c" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/31a1b706-0bbb-40e5-9348-bab3251793c8" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/328617e6-0ac3-42cb-bb8a-e6846b87e18d" width="800" height="500"/>
 <img src="" width="800" height="500"/>
 
-
-## 팀 구성
-- 인원 : 4명
-- 한현진(팀장)
-  - 주요 담당 : 게시판
-  - 프로젝트 설계 및 DB 구축, 게시판 목록/등록/수정/삭제, 버스 예매 시스템, 디자인 구성
-- 이유나(팀원)
-  - 주요 담당 : 사용자
-  - 프로젝트 설계 및 DB 구축, 회원가입/수정/탈퇴, 탑승권 조회/좌석 변경/환불, 실시간 좌석 선택 기능 구현
-- 임성민(팀원)
-  - 주요 담당 : 항공권 구매
-  - 프로젝트 설계 및 DB 구축, 항공권 조회/예매/결제, 탑승객 정보 관리, 결제 API 연동
-- 정슬기(팀원)
-  - 주요 담당 : 관리자
-  - 프로젝트 설계 및 DB 구축, 상품/사용자/예매/탑승권 관리 ,스프링 시큐리티 적용, 레이아웃 구성
- 
-
-## 프로젝트 기간
-- 2023-10-27 ~ 2023-11-15
+## 1-3. 기획의도
 
 
-## 개발 환경
-- 사용 언어 
-  + <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/html-E34F26?style=flat&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/jquery-0769AD?style=flat&logo=jquery&logoColor=white0"> <img src="https://img.shields.io/badge/Ajax-007396?style=flat&logo=Ajax&logoColor=white">
-- 프레임워크
-  + <img src="https://img.shields.io/badge/bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/springboot 2-6DB33F?style=flat&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity 5-6DB33F?style=flat&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis 3-6DB33F?style=flat&logo=MyBatis&logoColor=white"> <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=flat&logo=thymeleaf&logoColor=white">
-- 개발도구 
-  + <img src="https://img.shields.io/badge/openjdk:17.0.4.1-686767?style=flat&logo=openjdk&logoColor=black"/> <img src="https://img.shields.io/badge/visualstudiocode:1.74.1-007ACC?style=flat&logo=visualstudiocode&logoColor=white"/> <img src="https://img.shields.io/badge/mysql:8.0.31-4479A1?style=flat&logo=mysql&logoColor=white"/>
-- 라이브러리
-  + <img src="https://img.shields.io/badge/Lombok-6DB33F?style=flat&logo=Lombok&logoColor=white"> <img src="https://img.shields.io/badge/Devtools-6DB33F?style=flat&logo=springboot&logoColor=white">
-- 사용 DB : <img src="https://img.shields.io/badge/mysql:8.0.31-4479A1?style=flat&logo=mysql&logoColor=white"/> 
-- 참조 API : <img src="https://img.shields.io/badge/Iamport-007396?style=flat&logo=Iamport&logoColor=white"> <img src="https://img.shields.io/badge/Zxing-007396?style=flat&logo=Zxing&logoColor=white">
-- 협업 Tools : <img src="https://img.shields.io/badge/trello-0052CC?style=flat&logo=trello&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/GoogleDrive-4285F4?style=flat&logo=GoogleDrive&logoColor=white"/>
+## 1-4. 활용 방안 및 기대효과
 
 
-## 요구사항 정의서
-
-
-## ERD
-
-
-
-## 주요 기능
+## 2-1. 주요기능
 - 사용자
   - 회원가입
   - 로그인/로그아웃
@@ -85,7 +66,58 @@
   - 여행 정보 제공
   - 프로모션 정보 제공
 
-## 프로젝트 리뷰
+## 2-2. Menu Structure
+
+## 2-3. Flow Chart
+
+
+
+
+## 3.프로젝트 팀 구성 및 역할
+- 인원 : 4명
+- 한현진(팀장)
+  - 주요 담당 : 게시판
+  - 프로젝트 설계 및 DB 구축, 게시판 목록/등록/수정/삭제, 버스 예매 시스템, 디자인 구성
+- 이유나(팀원)
+  - 주요 담당 : 사용자
+  - 프로젝트 설계 및 DB 구축, 회원가입/수정/탈퇴, 탑승권 조회/좌석 변경/환불, 실시간 좌석 선택 기능 구현
+- 임성민(팀원)
+  - 주요 담당 : 항공권 구매
+  - 프로젝트 설계 및 DB 구축, 항공권 조회/예매/결제, 탑승객 정보 관리, 결제 API 연동
+- 정슬기(팀원)
+  - 주요 담당 : 관리자
+  - 프로젝트 설계 및 DB 구축, 상품/사용자/예매/탑승권 관리 ,스프링 시큐리티 적용, 레이아웃 구성
+ 
+
+## 4-1. 프로젝트 수행 절차
+- 2023-10-27 ~ 2023-11-15
+
+
+## 4-2. 수행 방법
+- 사용 언어 
+  + <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/html-E34F26?style=flat&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/jquery-0769AD?style=flat&logo=jquery&logoColor=white0"> <img src="https://img.shields.io/badge/Ajax-007396?style=flat&logo=Ajax&logoColor=white">
+- 프레임워크
+  + <img src="https://img.shields.io/badge/bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/springboot 2-6DB33F?style=flat&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity 5-6DB33F?style=flat&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis 3-6DB33F?style=flat&logo=MyBatis&logoColor=white"> <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=flat&logo=thymeleaf&logoColor=white">
+- 개발도구 
+  + <img src="https://img.shields.io/badge/openjdk:17.0.4.1-686767?style=flat&logo=openjdk&logoColor=black"/> <img src="https://img.shields.io/badge/visualstudiocode:1.74.1-007ACC?style=flat&logo=visualstudiocode&logoColor=white"/> <img src="https://img.shields.io/badge/mysql:8.0.31-4479A1?style=flat&logo=mysql&logoColor=white"/>
+- 라이브러리
+  + <img src="https://img.shields.io/badge/Lombok-6DB33F?style=flat&logo=Lombok&logoColor=white"> <img src="https://img.shields.io/badge/Devtools-6DB33F?style=flat&logo=springboot&logoColor=white">
+- 사용 DB : <img src="https://img.shields.io/badge/mysql:8.0.31-4479A1?style=flat&logo=mysql&logoColor=white"/> 
+- 참조 API : <img src="https://img.shields.io/badge/Iamport-007396?style=flat&logo=Iamport&logoColor=white"> <img src="https://img.shields.io/badge/Zxing-007396?style=flat&logo=Zxing&logoColor=white">
+- 협업 Tools : <img src="https://img.shields.io/badge/trello-0052CC?style=flat&logo=trello&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/GoogleDrive-4285F4?style=flat&logo=GoogleDrive&logoColor=white"/>
+
+
+## 5-1. 요구사항 정의서
+
+## 5-2. 기능 정의서
+
+## 5-3. ERD
+
+## 5-4. 테이블 정의서
+
+## 5-5. 화면 설계서
+
+## 5-6. 프로젝트 실제 화면 UI
 
 <details>
 <summary><h3>사용자 👆</h3></summary>
@@ -128,7 +160,7 @@
 \***
 
 
-## 개별 평가
+## 6-1. 개별 평가
 - 한현진
   - 프로젝트를 진행하면서, 처음에 security와 csrf로 인해 오류가 많이 떠서, 제가 맡은 프로젝트를 진행하는데 시간이 지체되는 것 같아서 security와 csrf 를 제외해놓고 프로젝트를 시작했는데, 나중에 깃으로 합칠 때 수정하는 과정이 더 길어졌던 것 같습니다. 그래서 조금 지체 되더라도 처음부터 체계적으로 빼놓는 부분 없이 프로젝트를 시작하고 진행하는 것이 중요하다고 생각했습니다.
 - 이유나
@@ -140,7 +172,7 @@
   - Spring Boot라는 프레임워크를 처음 활용해서 만드는 프로젝트이다 보니 구조 파악하는데 어려움이 있었고, 특히 Security에서 user principal을 커스텀해서 사용해야 하는 부분이 다소 복잡해 시간이 오래 걸렸던 것 같습니다. 타임리프라는 새로운 템플릿 엔진을 사용하면서 익숙치 않아 당황스러운 부분도 있었지만 시간이 지날 수록 점차 적응하고 있었고 팀원들과 프로젝트 목표치에 가까워져갈 때는 성취감을 느낄 수 있었습니다.
  
 
-## 종합 평가
+## 6-2. 종합 평가
 
 ### 한계점
 - 항공권 예매, 실시간 좌석 선택, 게시판과 같은 필수 기능들은 거의 구현이 되었으나, 공항버스 예매와 같은 옵션 기능들은 구현을 하지 못하였다.
