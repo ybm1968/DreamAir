@@ -363,6 +363,8 @@
 <details>
 <summary><h3>QR코드 생성 👆</h3></summary>
 <div markdown="1">
+
+ 
 - QR 코드 등록을 위한 QRController.java 작성
 
 ```java
@@ -435,8 +437,9 @@
 <details>
 <summary><h3>QR코드 처리 👆</h3></summary>
 <div markdown="1">
-- QR 코드 삭제를 위한 QRController 작성
 
+ 
+- QR 코드 삭제를 위한 QRController 작성
  
 ```java
 // 삭제
