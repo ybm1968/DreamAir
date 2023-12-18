@@ -43,6 +43,7 @@
 
 
 ## 1-4. 활용 방안 및 기대효과
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B0%9C%EC%9A%94/%ED%99%9C%EC%9A%A9%EB%B0%A9%EC%95%88%EB%B0%8F%EA%B8%B0%EB%8C%80%ED%9A%A8%EA%B3%BC.PNG" width="800" height="500"/>
 
 
 ## 2-1. 주요기능
@@ -138,12 +139,74 @@
 </details>
 
 ## 5-2. 기능 정의서
+<details>
+<summary><h3>기능 정의서 👆</h3></summary>
+<div markdown="1">
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C1.PNG" width="1200" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C2.PNG" width="1000" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C3.PNG" width="1000" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C4.PNG" width="1000" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C5.PNG" width="1000" height="700"/>
+
+</div>
+</details>
 
 ## 5-3. ERD
+<details>
+<summary><h3>ERD 👆</h3></summary>
+<div markdown="1">
+
+
+</div>
+</details>
 
 ## 5-4. 테이블 정의서
+<details>
+<summary><h3>테이블 정의서 👆</h3></summary>
+<div markdown="1">
+
+
+</div>
+</details>
 
 ## 5-5. 화면 설계서
+<details>
+<summary><h3>사용자 👆</h3></summary>
+<div markdown="1">
+
+
+</div>
+</details>
+
+
+
+<details>
+<summary><h3>관리자 👆</h3></summary>
+<div markdown="1">
+
+
+</div>
+</details>
+
+
+
+<details>
+<summary><h3>예매 서비스 👆</h3></summary>
+<div markdown="1">
+
+
+</div>
+</details>
+
+
+
+<details>
+<summary><h3>게시판 👆</h3></summary>
+<div markdown="1">
+
+
+</div>
+</details>
 
 ## 5-6. 프로젝트 실제 화면 UI
 
