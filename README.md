@@ -23,11 +23,16 @@
   - 테이블 정의서
   - 화면 설계서
   - 프로젝트 실제 화면 UI
-### 6. 자체 평가 의견
+### 6. 핵심기능 코드 리뷰
+  - 기능 목표
+  - QR코드 생성 및 처리과정
+  - 개선 할 점
+
+### 7. 자체 평가 의견
   - 개별 평가
   - 종합 평가
 
-
+# 1. 프로젝트 개요
 ## 1-1. 프로젝트 주제
 - 사용자 경험을 공유하고 항공권 구매가 가능한 여행 포털사이트 구축 프로젝트
 
@@ -49,7 +54,7 @@
 ## 1-4. 활용 방안 및 기대효과
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B0%9C%EC%9A%94/%ED%99%9C%EC%9A%A9%EB%B0%A9%EC%95%88%EB%B0%8F%EA%B8%B0%EB%8C%80%ED%9A%A8%EA%B3%BC.PNG" width="800" height="500"/>
 
-
+# 2. 프로젝트 구조
 ## 2-1. 주요기능
 - 사용자
   - 회원가입
@@ -96,7 +101,7 @@
 </details>
 
 
-## 3.프로젝트 팀 구성 및 역할
+# 3.프로젝트 팀 구성 및 역할
 - 인원 : 4명
 - 한현진(팀장)
   - 주요 담당 : 게시판
@@ -111,7 +116,7 @@
   - 주요 담당 : 관리자
   - 프로젝트 설계 및 DB 구축, 상품/사용자/예매/탑승권 관리 ,스프링 시큐리티 적용, 레이아웃 구성
  
-
+# 4. 프로젝트 수행절차 및 방법
 ## 4-1. 프로젝트 수행 절차
 - 2023-10-27 ~ 2023-11-15
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B0%9C%EC%9A%94/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B8%B0%EA%B0%84.png" width="900" height="500"/>
@@ -130,7 +135,7 @@
 - 참조 API : <img src="https://img.shields.io/badge/Iamport-007396?style=flat&logo=Iamport&logoColor=white"> <img src="https://img.shields.io/badge/Zxing-007396?style=flat&logo=Zxing&logoColor=white">
 - 협업 Tools : <img src="https://img.shields.io/badge/trello-0052CC?style=flat&logo=trello&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/GoogleDrive-4285F4?style=flat&logo=GoogleDrive&logoColor=white"/>
 
-
+# 5. 프로젝트 수행 경과
 ## 5-1. 요구사항 정의서
 <details>
 <summary><h3>요구사항 정의서 👆</h3></summary>
@@ -345,10 +350,149 @@
 </div>
 </details>
 
+# 6. 핵심기능 코드 리뷰
+## 6-1. 기능목표
+### 탑승권을 QR 코드의 형태로 제공하여 관리자가 편리하게 업무(사용자 탑승권 탑승 처리)를 볼 수 있도록 함
+- 사용자의 종이 탑승권 분실 위험도 감소
+- 탑승권 처리 시 해당 페이지로 자동 연결되므로 사용자 경험 개선
+![캡처](https://github.com/ybm1968/DreamAir/assets/132187402/0361b8d7-2045-460a-a5b0-d1cc9f8d877b)
 
 
+## 6-2. QR코드 생성 및 처리과정
+### QR코드 생성 : 항공권 결제 완료 → 티켓 번호 발급 → QR 코드 생성
+- QR 코드 등록을 위한 QRController.java 작성
 
-## 6-1. 개별 평가
+  ```java
+  // 등록
+  @PostMapping()
+    public ResponseEntity<?> create(@RequestBody QR qr) {
+        log.info("[POST] - /qr - qr 등록");
+        try {
+            int result = qrService.insert(qr);
+            if( result > 0 )
+                return new ResponseEntity<>("qr 등록 완료", HttpStatus.CREATED);  // 201
+            else
+                return new ResponseEntity<>("qr 등록 실패", HttpStatus.OK);  
+
+        } catch (Exception e) {
+            log.error(null, e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+  ```
+
+
+- 항공권 결제 완료 시, QR 코드 등록을 위한 BookingServiceImple.java 작성
+
+```java
+// 탑승권 번호 발행 + QR 코드 발행
+    @Override
+    public int createTicket(Booking booking, Principal principal, HttpServletRequest request) throws Exception {
+        String userId = "";
+        int result = 0;
+        int bookingNo = 0;
+        int ticketNo = 0;
+        int count1 = 0;
+        int count2 = 0;
+        HttpSession session = request.getSession();
+        userId = (String) session.getAttribute("userId");
+
+        // ✅ TODO : 조건 passeungerCount 에 따라서 티켓(탑승권 번호) 발행 
+        for (int i = 0; i < booking.getPasCount(); i++) {
+								...
+            }
+
+        // ✅ QR 코드 생성   
+            QR qr = new QR();
+            qr.setParentTable("booking");
+            qr.setParentNo(ticketNo);
+            String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
+            qr.setUrl( url );
+            qr.setName("QR_" + ticketNo);
+
+            qrService.makeQR(qr);
+
+            result += count;
+        }
+        return result;
+    }
+```
+
+
+- QR 코드 생성 시, [관리자 페이지 - QR 코드 목록]에서 확인 가능
+![qr1](https://github.com/ybm1968/DreamAir/assets/132187402/bec5d1ec-16ab-42d3-ab92-e31d9d004240)
+
+
+### QR코드 처리 : QR 코드 인식 →  탑승권 처리 페이지로 연결 → 해당 티켓 번호에 대한 탑승권 조회 → 탑승 처리 완료 → QR 코드 삭제
+- QR 코드 삭제를 위한 QRController 작성
+
+```java
+// 삭제
+    @DeleteMapping("/{qrNo}")
+    public ResponseEntity<?> destroy(@PathVariable Integer qrNo) {
+        log.info("[DELETE] - /qr/" + qrNo + " - qr 삭제");
+        try {
+            int result = qrService.delete(qrNo);
+            if( result > 0 )
+                return new ResponseEntity<>("qr 삭제 완료", HttpStatus.OK); 
+            else
+                return new ResponseEntity<>("qr 삭제 실패", HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(null, e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+```
+
+
+- 항공권 결제 완료 시, QR 코드 등록을 위한 BookingServiceImple.java 작성
+
+```java
+// 탑승권 화면 - 탑승 최종 확인 위한
+    @GetMapping("/Final_check/{ticketNo}")
+    public ResponseEntity<?> getOne(@PathVariable Integer ticketNo) {
+        log.info("[GET] - /admin/Final_check" + ticketNo + "탑승권 조회");  
+        try {
+            List<Booking> pasTicketList = adminService.pas_ticketList(ticketNo);
+            if( pasTicketList == null )
+                log.info("탑승권 목록 없음");
+            else
+                log.info("탑승권 수 : " + pasTicketList.size());
+
+                Files files = new Files();
+                files.setParentTable("booking");
+                files.setParentNo(ticketNo);
+                List<Files> fileList = fileService.listByParent(files);
+
+                QR qr = new QR();
+                qr.setParentTable("booking");
+                qr.setParentNo(ticketNo);
+                List<QR> qrList = qrService.listByParent(qr);
+
+                Map<String, Object> result = new HashMap<String,Object>();
+                result.put("qrList", qrList);
+                result.put("fileList", fileList);
+                result.put("pasTicketList", pasTicketList);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+            
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+```
+
+
+- QR 코드 인식 시, [관리자 페이지 - 탑승 처리]에서 탑승권 처리 가능
+![qr2](https://github.com/ybm1968/DreamAir/assets/132187402/d9b34145-c9a5-48a1-8259-0bd11e7cd291)
+
+## 6-3. 개선 할 점
+- 추후 QR 코드를 사용자 버전과 관리자 버전으로 2개 생성하여 1) 사용자가 QR 코드를 인식 할 때 체크인 페이지로 이동하고, 2) 관리자가 QR 코드를 인식 할 때 탑승처리 페이지로 이동할 수 있도록 하여 보다 더 실제 항공사에서 사용하는 QR 코드 서비스처럼 구현하고자 함
+  - QR 코드 1개에 1개의 URL 생성 가능함으로 2개를 생성하여 사용자 버전과 관리자 버전으로 구분하여 보다 제공되는 서비스 품질을 높일 수 있음
+
+
+# 7. 자체 평가 의견
+## 7-1. 개별 평가
 - 한현진
   - 프로젝트를 진행하면서, 처음에 security와 csrf로 인해 오류가 많이 떠서, 제가 맡은 프로젝트를 진행하는데 시간이 지체되는 것 같아서 security와 csrf 를 제외해놓고 프로젝트를 시작했는데, 나중에 깃으로 합칠 때 수정하는 과정이 더 길어졌던 것 같습니다. 그래서 조금 지체 되더라도 처음부터 체계적으로 빼놓는 부분 없이 프로젝트를 시작하고 진행하는 것이 중요하다고 생각했습니다.
 - 이유나
@@ -360,7 +504,7 @@
   - Spring Boot라는 프레임워크를 처음 활용해서 만드는 프로젝트이다 보니 구조 파악하는데 어려움이 있었고, 특히 Security에서 user principal을 커스텀해서 사용해야 하는 부분이 다소 복잡해 시간이 오래 걸렸던 것 같습니다. 타임리프라는 새로운 템플릿 엔진을 사용하면서 익숙치 않아 당황스러운 부분도 있었지만 시간이 지날 수록 점차 적응하고 있었고 팀원들과 프로젝트 목표치에 가까워져갈 때는 성취감을 느낄 수 있었습니다.
  
 
-## 6-2. 종합 평가
+## 7-2. 종합 평가
 
 ### 한계점
 - 항공권 예매, 실시간 좌석 선택, 게시판과 같은 필수 기능들은 거의 구현이 되었으나, 공항버스 예매와 같은 옵션 기능들은 구현을 하지 못하였다.
@@ -377,14 +521,3 @@
 ## 참조
 - Iampay API : https://api.iamport.kr/
 - QR API : https://github.com/zxing/zxing
-
-## 변경점
-\***
-2023-03-24, 기본 UI 구현
-
-2023-03-27, MySQL, MongoDB 연동
-
-2023-03-28, Lastfm API 연결, 차트 페이지
-
-2023-04-03, 배포
-\***
