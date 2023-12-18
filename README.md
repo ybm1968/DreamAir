@@ -435,6 +435,9 @@
 <details>
 <summary><h3>QR코드 처리 👆</h3></summary>
 <div markdown="1">
+- QR 코드 삭제를 위한 QRController 작성
+
+ 
 ```java
 // 삭제
     @DeleteMapping("/{qrNo}")
@@ -498,7 +501,7 @@
 
 </div>
 </details>
-- QR 코드 삭제를 위한 QRController 작성
+
 
 
 ## 6-3. 개선 할 점
