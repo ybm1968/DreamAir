@@ -31,9 +31,6 @@
         <form action="/booking/info" method="post" th:object="${booking}">
           <input type="hidden" name="pasCount" th:value="${booking.pasCount}">
           <input type="hidden" name="roundTrip" th:value="${booking.roundTrip}">
-          <!-- <div sec:authorize="isAuthenticated()">
-            <input type="hidden" name="userId" th:value="${#request.userPrincipal.name}">
-          </div> -->
           <th:block th:with="count=${booking.pasCount}">
             <th:block th:each="i : ${#numbers.sequence(1, count)}">
               <h2>탑승객 <span th:text="${i}"></span></h2>
@@ -85,22 +82,6 @@
                 </select>
                 <label for="floatingSelectGrid">신분증</label>
                 </div>
-
-
-              <!-- <div class="input-group mb-3 row">
-                <label class="input-group-text col-md-2" id="">여권 번호</label>
-                <input type="text" class="form-control col-md-10" name="passportNos">
-              </div>
-
-              <div class="input-group mb-3 row">
-                <label class="input-group-text col-md-2" id="">국적</label>
-                <input type="text" class="form-control col-md-10" name="nationalitys">
-              </div>
-
-              <div class="input-group mb-3 row">
-                <label class="input-group-text col-md-2" id="">여권 만료 일자</label>
-                <input type="text" class="form-control col-md-10" name="expirationDates">
-              </div> -->
                
               <div class="input-group mb-3 row">
                 <label class="input-group-text col-md-2" id="">핸드폰 번호</label>
