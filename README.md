@@ -37,7 +37,7 @@
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/b8274ccf-506c-4085-9044-00309235ab4c" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/31a1b706-0bbb-40e5-9348-bab3251793c8" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/328617e6-0ac3-42cb-bb8a-e6846b87e18d" width="800" height="500"/>
-<img src="" width="800" height="500"/>
+
 
 ## 1-3. 기획의도
 
@@ -67,8 +67,14 @@
   - 프로모션 정보 제공
 
 ## 2-2. Menu Structure
+<img src="https://github.com/ybm1968/DreamAir/assets/132187402/dafcbfb4-3ca5-49f6-b6e4-686476483415" width="800" height="500"/>
+<img src="https://github.com/ybm1968/DreamAir/assets/132187402/c4738c3d-e8bf-4d28-b9f1-02808a2c6615" width="800" height="500"/>
 
 ## 2-3. Flow Chart
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image129.png" width="800" height="500"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image123.png" width="800" height="500"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image116.png" width="800" height="500"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image117.png" width="800" height="500"/>
 
 
 
@@ -91,6 +97,7 @@
 
 ## 4-1. 프로젝트 수행 절차
 - 2023-10-27 ~ 2023-11-15
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B0%9C%EC%9A%94/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B8%B0%EA%B0%84.png" width="800" height="500"/>
 
 
 ## 4-2. 수행 방법
