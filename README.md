@@ -260,7 +260,12 @@
 <details>
 <summary><h3>게시판 👆</h3></summary>
 <div markdown="1">
-<img src="" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%901.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%902.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%903.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%904.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%905.png" width="1000" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%99%80%EC%9D%B4%EC%96%B4%20%ED%94%84%EB%A0%88%EC%9E%84/%EA%B2%8C%EC%8B%9C%ED%8C%90/%EA%B2%8C%EC%8B%9C%ED%8C%906.png" width="1000" height="600"/>
 
 </div>
 </details>
