@@ -67,16 +67,28 @@
   - 프로모션 정보 제공
 
 ## 2-2. Menu Structure
+<details>
+<summary><h3>Menu Structure 👆</h3></summary>
+<div markdown="1">
+
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/dafcbfb4-3ca5-49f6-b6e4-686476483415" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/assets/132187402/c4738c3d-e8bf-4d28-b9f1-02808a2c6615" width="800" height="500"/>
 
+</div>
+</details>
+
 ## 2-3. Flow Chart
+<details>
+<summary><h3>Flow Chart 👆</h3></summary>
+<div markdown="1">
+
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image129.png" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image123.png" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image116.png" width="800" height="500"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0/image117.png" width="800" height="500"/>
 
-
+</div>
+</details>
 
 
 ## 3.프로젝트 팀 구성 및 역할
@@ -97,7 +109,7 @@
 
 ## 4-1. 프로젝트 수행 절차
 - 2023-10-27 ~ 2023-11-15
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B0%9C%EC%9A%94/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B8%B0%EA%B0%84.png" width="800" height="500"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B0%9C%EC%9A%94/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B8%B0%EA%B0%84.png" width="800" height="700"/>
 
 
 ## 4-2. 수행 방법
@@ -115,6 +127,15 @@
 
 
 ## 5-1. 요구사항 정의서
+<details>
+<summary><h3>요구사항 정의서 👆</h3></summary>
+<div markdown="1">
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20%EC%A0%95%EC%9D%98%EC%84%9C/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%A0%95%EC%9D%98%EC%84%9C1.PNG" width="800" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20%EC%A0%95%EC%9D%98%EC%84%9C/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%A0%95%EC%9D%98%EC%84%9C2.PNG" width="800" height="600"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20%EC%A0%95%EC%9D%98%EC%84%9C/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%A0%95%EC%9D%98%EC%84%9C3.PNG" width="800" height="600"/>
+
+</div>
+</details>
 
 ## 5-2. 기능 정의서
 
@@ -134,7 +155,7 @@
 </div>
 </details>
 
-\***
+
 
 <details>
 <summary><h3>관리자 👆</h3></summary>
@@ -144,7 +165,7 @@
 </div>
 </details>
 
-\***
+
 
 <details>
 <summary><h3>예매 서비스 👆</h3></summary>
@@ -154,7 +175,7 @@
 </div>
 </details>
 
-\***
+
 
 <details>
 <summary><h3>게시판 👆</h3></summary>
@@ -164,7 +185,7 @@
 </div>
 </details>
 
-\***
+
 
 
 ## 6-1. 개별 평가
