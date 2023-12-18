@@ -142,11 +142,11 @@
 <details>
 <summary><h3>기능 정의서 👆</h3></summary>
 <div markdown="1">
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C1.PNG" width="1200" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C1.PNG" width="1000" height="1000"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C2.PNG" width="1000" height="700"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C3.PNG" width="1000" height="700"/>
 <img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C4.PNG" width="1000" height="700"/>
-<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C5.PNG" width="1000" height="700"/>
+<img src="https://github.com/ybm1968/DreamAir/blob/LSM/img/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C/%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C5.PNG" width="900" height="700"/>
 
 </div>
 </details>
