@@ -360,9 +360,12 @@
 
 ## 6-2. QR코드 생성 및 처리과정
 ### QR코드 생성 : 항공권 결제 완료 → 티켓 번호 발급 → QR 코드 생성
+<details>
+<summary><h3>QR코드 생성 👆</h3></summary>
+<div markdown="1">
 - QR 코드 등록을 위한 QRController.java 작성
 
-  ```java
+```java
   // 등록
   @PostMapping()
     public ResponseEntity<?> create(@RequestBody QR qr) {
@@ -379,7 +382,7 @@
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-  ```
+```
 
 
 - 항공권 결제 완료 시, QR 코드 등록을 위한 BookingServiceImple.java 작성
@@ -423,9 +426,15 @@
 ![qr1](https://github.com/ybm1968/DreamAir/assets/132187402/bec5d1ec-16ab-42d3-ab92-e31d9d004240)
 
 
-### QR코드 처리 : QR 코드 인식 →  탑승권 처리 페이지로 연결 → 해당 티켓 번호에 대한 탑승권 조회 → 탑승 처리 완료 → QR 코드 삭제
-- QR 코드 삭제를 위한 QRController 작성
+</div>
+</details>
 
+
+
+### QR코드 처리 : QR 코드 인식 →  탑승권 처리 페이지로 연결 → 해당 티켓 번호에 대한 탑승권 조회 → 탑승 처리 완료 → QR 코드 삭제
+<details>
+<summary><h3>QR코드 처리 👆</h3></summary>
+<div markdown="1">
 ```java
 // 삭제
     @DeleteMapping("/{qrNo}")
@@ -485,6 +494,12 @@
 
 - QR 코드 인식 시, [관리자 페이지 - 탑승 처리]에서 탑승권 처리 가능
 ![qr2](https://github.com/ybm1968/DreamAir/assets/132187402/d9b34145-c9a5-48a1-8259-0bd11e7cd291)
+
+
+</div>
+</details>
+- QR 코드 삭제를 위한 QRController 작성
+
 
 ## 6-3. 개선 할 점
 - 추후 QR 코드를 사용자 버전과 관리자 버전으로 2개 생성하여 1) 사용자가 QR 코드를 인식 할 때 체크인 페이지로 이동하고, 2) 관리자가 QR 코드를 인식 할 때 탑승처리 페이지로 이동할 수 있도록 하여 보다 더 실제 항공사에서 사용하는 QR 코드 서비스처럼 구현하고자 함
