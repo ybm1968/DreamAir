@@ -11,118 +11,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>탑승권 관리 - 탑승 처리</title>
-    <style>    
-        .boarding-pass {
-          display: flex;
-          width: 803px;
-          height: 500px;
-          background-color: #fff;
-          margin: 0 auto;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-      
-        .left-section, .right-section {
-          padding: 10px;
-          position: relative;
-        }
-      
-        .left-section {
-          width: 70%;
-          border-right: 2px dashed #bbb;
-        }
-      
-        .right-section {
-          width: 30%;
-          background-color: #0046ad;
-          color: white;
-        }
-      
-        .section {
-          margin-bottom: 10px;
-        }
-      
-        .airline-logo {
-          font-size: 22px;
-          font-weight: bold;
-          color: #0046ad;
-        }
-      
-        .flight-details, .passenger-details {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-      
-        .flight-detail-item, .passenger-detail-item {
-          margin-right: 20px;
-        }
-      
-        .QRcode img {
-          width: 10%;
-          height: 10%;
-        }
-      
-        .boarding-pass-footer {
-          position: absolute;
-          bottom: 10px;
-          width: 100%;
-          text-align: center;
-        }
-
-      </style>
 </head>
 <body layout:fragment="content">
     <h1 class="text-center my-5">탑승권 관리 - 탑승 처리</h1>
 
-    <div class="ticketf_container">
+    <th:block th:if="${pasTicketList != null}">
     <th:block th:each="ticket : ${pasTicketList}">
-      <div class="boarding-pass" style="width: 1200px; height: 300px;">
-        <!-- Left Section -->
-        <div class="left-section">
-          <div class="section airline-logo"><img src="/img/BlueNameLogo.png" alt="로고이미지" style="width: 130px; height: 30px;"></div>
-          <hr>
-          <div class="section flight-details">
-            <div class="flight-detail-item"><strong>TicketNo : </strong><span th:text="${ticket.ticketNo}"><span></div>
-            <div class="flight-detail-item"><strong>FlightNo : </strong><span th:text="${ticket.flightNo}"><span></div>
-            <div class="flight-detail-item"><strong>Departure Date : </strong><span th:text="${ticket.departureDate}"></div>
-            <div class="flight-detail-item"><strong>Boarding time : </strong><span th:text="${ticket.boardingTime}"></div>
-            <div class="flight-detail-item"><strong>Gate : </strong>A1</div>
+      <div class="final_container">
+        <div class="btnBox mb-3" >
+          <input type="hidden" class="ticketNo" id="ticketNo" th:value="${ticket.ticketNo}">
+          <button class="btn btn-outline-primary btn-lg" onclick="return checkPro()">탑승 완료</button>
+        </div>
+
+        <div class="boarding-pass">
+          <!-- Left Section -->
+          <div class="left-section">
+            <div class="section airline-logo"><img src="/img/BlueNameLogo.png" alt="로고이미지" style="width: 130px; height: 30px;"></div>
+            <hr>
+            <div class="section flight-details">
+              <div class="flight-detail-item"><strong>TicketNo : </strong><span th:text="${ticket.ticketNo}"><span></div>
+              <div class="flight-detail-item"><strong>FlightNo : </strong><span th:text="${ticket.flightNo}"><span></div>
+              <div class="flight-detail-item"><strong>Departure Date : </strong><span th:text="${ticket.departureDate}"></div>
+              <div class="flight-detail-item"><strong>Boarding time : </strong><span th:text="${ticket.boardingTime}"></div>
+              <div class="flight-detail-item"><strong>Gate : </strong>A1</div>
+            </div>
+              <hr>
+              <hr>
+            <div class="section passenger-details">
+              <div class="passenger-detail-item"><strong>Passenger : </strong><span th:text="${ticket.passengerName}"></div>
+              <div class="passenger-detail-item"><strong>Seat : </strong><span th:text="${ticket.seatNo}"></div>
+              <div class="passenger-detail-item"><strong>Class : </strong>Economy</div>
+            </div>
+            
+            <!-- QR 코드 -->
+            <th:block th:if="${QR.qrNo!=null}" >
+                <div class="QRcode">
+                  <a th:href="|${QR.url}|" target="_blank" style="text-decoration: none;"><img th:src="|/qr/img?qrNo=${QR.qrNo}|" alt="QR코드"></a>          
+                </div>
+            </th:block>
+            <div class="boarding-pass-footer">
+              <p>Boarding gate closes <span style="color: red;">10 minutes</span> prior to departure time.</p>
+            </div>
           </div>
-          <hr>
-          <hr>
-          <div class="section passenger-details">
-            <div class="passenger-detail-item"><strong>Passenger : </strong><span th:text="${ticket.passengerName}"></div>
-            <div class="passenger-detail-item"><strong>Seat : </strong><span th:text="${ticket.seatNo}"></div>
-            <div class="passenger-detail-item"><strong>Class : </strong>Economy</div>
+
+          <!-- Right Section -->
+          <div class="right-section">
+            <div class="section"><strong><span th:text="${ticket.departure}"> to </span><span th:text="${ticket.destination}"></span></strong></div>
+            <div class="section"><strong>Departure : </strong><span th:text="${ticket.departureDate}"></span><span th:text="${ticket.departureTime}"></span></div>
+            <div class="section"><strong>Seat : </strong><span th:text="${ticket.seatNo}"></span></div>
+            <div class="section"><strong>Class : </strong>Economy</div>
+            <div class="section"><img src="/img/logo.png" alt="로고이미지" style="width: 30px; height: 30px;"></div>
           </div>
-          <!-- QR 코드 -->
-          <div class="QRcode">
-            <a th:href="|${QR.url}|" target="_blank" style="text-decoration: none;"><img th:src="|/qr/img?qrNo=${QR.qrNo}|" alt="QR코드"></a>          
-          </div>
-          <div class="boarding-pass-footer">
-            <p>Boarding gate closes <span style="color: red;">10 minutes</span> prior to departure time.</p>
-          </div>
-       
-        <!-- Right Section -->
-        <div class="right-section">
-          <div class="section"><strong><span th:text="${ticket.departure}"> to </span><span th:text="${ticket.destination}"></span></strong></div>
-          <div class="section"><strong>Departure : </strong><span th:text="${ticket.departureDate}"></span><span th:text="${ticket.departureTime}"></span></div>
-          <div class="section"><strong>Seat : </strong><span th:text="${ticket.seatNo}"></span></div>
-          <div class="section"><strong>Class : </strong>Economy</div>
-          <div class="section"><img src="/img/logo.png" alt="로고이미지" style="width: 30px; height: 30px;"></div>
         </div>
       </div>
-      
     </th:block>
-    <div class="btn-box d-grid gap-2 " >
-      <button type="submit" class="final_btn btn btn-outline-primary btn-lg" onclick="return checkPro()">탑승 완료</button>
-   </div>
-    </div>
+    </th:block>
     <script>
       function checkPro() {
+          let ticketNo = document.getElementById("ticketNo").value
           let check = confirm('최종 탑승 완료하시겠습니까?')
           if( check )
-              location.href = `/admin/Final_check_complete`
+              location.href = `/admin/Final_check_complete?ticketNo=${ticketNo}`
               return true
 
           return false

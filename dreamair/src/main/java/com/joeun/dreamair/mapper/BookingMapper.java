@@ -35,9 +35,6 @@ public interface BookingMapper {
     // 오는편 예매 테이블 등록
     public int comeBookingInsert(Booking booking) throws Exception;
 
-    // 여권 정보 입력
-    // public int infoPassport(Users user) throws Exception;
-    
     // 가는편 선택한 항공 스케줄(탑승객 유의사항 안내)
     public Booking goScheduleList(Booking booking) throws Exception;
     
@@ -55,6 +52,9 @@ public interface BookingMapper {
 
     // 탑승권 리스트 조회 - 회원
     public List<Booking> selectBookingListByUser(String userId) throws Exception;
+    
+    // 탑승권 리스트 조회 - 비회원
+    public List<Booking> selectBookingListByGuest(String phone, String userPw) throws Exception;
 
     // 탑승권 상세 조회
     public List<Booking> selectTicket(int ticketNo) throws Exception;
@@ -103,4 +103,7 @@ public interface BookingMapper {
 
     // 오는편 좌석, 예매번호 탑승객 테이블 등록
     public int comePasUpdate(Booking booking) throws Exception;
+
+    // 최근 티켓 번호 조회
+    public int selectTicketNo() throws Exception;
 }
