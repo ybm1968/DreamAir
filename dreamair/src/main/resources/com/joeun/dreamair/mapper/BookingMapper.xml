@@ -255,4 +255,12 @@ ON ticket.booking_no = #{bookingNo}
     WHERE flight_no = #{flightNo} AND seat_no = #{seatNo};
   </update>
 
+  <!-- ticketNo 조회 -->
+  <select id="selectTicketNo" resultType="Integer">
+    SELECT ticket_no
+    FROM ticket
+    ORDER BY ticket_no DESC
+    LIMIT 1
+  </select>
+
 </mapper>
