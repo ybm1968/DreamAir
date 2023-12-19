@@ -31,40 +31,31 @@ public class BookingServiceImpl implements BookingService{
     @Autowired
     private QRService qrService;
 
-    @Override
     // 가는편 항공권 조회
+    @Override
     public List<Booking> golist(Booking booking) throws Exception {
-        log.info("서비스임플 가는편 도착지 : " + booking.getDestination());
-        log.info("시버스임플 가는편 출발날짜 : " + booking.getDepartureDate());
-
         List<Booking> bookingList = bookingMapper.golist(booking);
-
         return bookingList;
     }
 
-    @Override
     // 오는편 항공권 조회
+    @Override
     public List<Booking> comelist(Booking booking) throws Exception {
-        log.info("서비스임플 오는편 도착지 : " + booking.getDestination());
-        log.info("서비스임플 오는편 출발날짜 : " + booking.getDepartureDate());
-
         List<Booking> bookingList = bookingMapper.comelist(booking);
-
         return bookingList;
     }
 
-
-    @Override
     // 탑승객들 정보 입력
+    @Override
     public int infoPassngers(Booking booking, HttpServletRequest request, Principal principal) throws Exception {
-        log.info("서비스임플 이메일 : " + booking.getEmails()[0]);
-        log.info("서비스임플 인원수 : " + booking.getPasCount());
         int result = 0;
          
         for (int i = 0; i < booking.getPasCount(); i++) {
             Booking bookingItem = new Booking();
-            bookingItem.setProductNoDep(booking.getProductNoDeps()[i]);
-            bookingItem.setRouteNoDep(booking.getRouteNoDeps()[i]);
+            // bookingItem.setProductNoDep(booking.getProductNoDeps()[i]);
+            // bookingItem.setRouteNoDep(booking.getRouteNoDeps()[i]);
+            bookingItem.setProductNoDep(booking.getProductNoDep());
+            bookingItem.setRouteNoDep(booking.getRouteNoDep());
             bookingItem.setPassengerName(booking.getPassengerNames()[i]);
             bookingItem.setFirstName(booking.getFirstNames()[i]);
             bookingItem.setLastName(booking.getLastNames()[i]);
@@ -76,8 +67,10 @@ public class BookingServiceImpl implements BookingService{
             bookingItem.setUserPw(booking.getUserPw());
 
             if ( booking.getRoundTrip().equals("왕복")) {
-                bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
-                bookingItem.setRouteNoDes(booking.getRouteNoDess()[i]);
+                // bookingItem.setProductNoDes(booking.getProductNoDess()[i]);
+                // bookingItem.setRouteNoDes(booking.getRouteNoDess()[i]);
+                bookingItem.setProductNoDes(booking.getProductNoDes());
+                bookingItem.setRouteNoDes(booking.getRouteNoDes());
             }
 
             bookingMapper.infoPassngers(bookingItem);
@@ -91,12 +84,8 @@ public class BookingServiceImpl implements BookingService{
                 bookingItem.setStatus("GUEST");
                 bookingMapper.user2Insert(bookingItem); 
             }
-
             result++;
         }
-
-        log.info("왕복 등록결과 : " + result);
-        
         return result;
     }
 
@@ -114,200 +103,168 @@ public class BookingServiceImpl implements BookingService{
         return result;
     }
     
-  // 탑승권 번호 발행 + QR 코드 발행
-  @Override
-  public int createTicket(Booking booking, Principal principal, HttpServletRequest request) throws Exception {
-    String userId = "";
-    int result = 0;
-    int bookingNo = 0;
-    int ticketNo = 0;
-    int count1 = 0;
-    int count2 = 0;
-    HttpSession session = request.getSession();
-    userId = (String) session.getAttribute("userId");
-    log.info("createTicket : " + booking);
-    // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
-    for (int i = 0; i < booking.getPasCount(); i++) {
-        int bookingNum = (principal == null) ? booking.getBookingNo2() : booking.getBookingNo();
-        booking.setName(booking.getNames()[i]);
-        booking.setPassengerNo(booking.getPassengerNos()[i]);
+    // 탑승권 번호 발행 + QR 코드 발행
+    @Override
+    public int createTicket(Booking booking, Principal principal, HttpServletRequest request) throws Exception {
+        String userId = "";
+        int result = 0;
+        int bookingNo = 0;
+        int ticketNo = 0;
+        int count1 = 0;
+        int count2 = 0;
+        HttpSession session = request.getSession();
+        userId = (String) session.getAttribute("userId");
 
-        Booking gobooking = bookingMapper.goTickeData(booking);
-        
-        gobooking.setUserId(principal == null ? userId : principal.getName());
-        gobooking.setBoarding("0");
-        gobooking.setRouteNo(booking.getRouteNoDep());
-        gobooking.setSeatNo(booking.getSeatNoDepss()[i]);
-        
-        if( principal == null ) {
-            gobooking.setBookingNo2(bookingNum);
-        } else {
-            gobooking.setBookingNo(bookingNum);
-        }
-        count1 = bookingMapper.createTicket(gobooking);
-       
-        if(booking.getRoundTrip().equals("왕복")) {
-            Booking comeBooking = bookingMapper.comeTicketData(booking);
-            comeBooking.setUserId(principal == null ? userId : principal.getName());
-            comeBooking.setBoarding("0");
-            comeBooking.setRouteNo(booking.getRouteNoDes());
-            comeBooking.setSeatNo(booking.getSeatNoDesss()[i]);
+        // ✅ TODO : 조건 pasCount 에 따라서 티켓 발행 
+        for (int i = 0; i < booking.getPasCount(); i++) {
+            int bookingNum = (principal == null) ? booking.getBookingNo2() : booking.getBookingNo();
+            booking.setName(booking.getNames()[i]);
+            booking.setPassengerNo(booking.getPassengerNos()[i]);
 
+            Booking gobooking = bookingMapper.goTickeData(booking);
+            
+            gobooking.setUserId(principal == null ? userId : principal.getName());
+            gobooking.setBoarding("0");
+            gobooking.setRouteNo(booking.getRouteNoDep());
+            gobooking.setSeatNo(booking.getSeatNoDepss()[i]);
+            gobooking.setFlightNo(booking.getGoFlightNo());
+            
             if( principal == null ) {
-                comeBooking.setBookingNo2(bookingNum);
+                gobooking.setBookingNo2(bookingNum);
             } else {
-                comeBooking.setBookingNo(bookingNum);
+                gobooking.setBookingNo(bookingNum);
             }
+            count1 = bookingMapper.createTicket(gobooking);
 
-            count2 = bookingMapper.createTicket(comeBooking);
-        }
-       
-        int count = count1 + count2;
-        // 조건 : 회원 비회원
-        // 회원
-        if( principal != null ) {
-            bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
+            int ticketNo2 = bookingMapper.selectTicketNo();
 
-            List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
-                for(int j = 0; j < ticketList.size(); j++){
-                    Booking ticket = new Booking();
-                    ticket = ticketList.get(i);
-                    ticketNo = ticket.getTicketNo();
+            QR qr = new QR();
+            qr.setParentTable("booking");
+            qr.setParentNo(ticketNo2);
+            String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo2;
+            qr.setUrl( url );
+            qr.setName("QR_" + ticketNo2);
+
+            qrService.makeQR(qr);
+
+
+            if(booking.getRoundTrip().equals("왕복")) {
+                Booking comeBooking = bookingMapper.comeTicketData(booking);
+                comeBooking.setUserId(principal == null ? userId : principal.getName());
+                comeBooking.setBoarding("0");
+                comeBooking.setRouteNo(booking.getRouteNoDes());
+                comeBooking.setSeatNo(booking.getSeatNoDesss()[i]);
+                comeBooking.setFlightNo(booking.getComeFlightNo());
+
+                if( principal == null ) {
+                    comeBooking.setBookingNo2(bookingNum);
+                } else {
+                    comeBooking.setBookingNo(bookingNum);
                 }
-        }
-        else {
-            bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
-            List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
-                for(int j = 0; j < ticketList.size(); j++){
-                    Booking ticket = new Booking();
-                    ticket = ticketList.get(i);
-                    ticketNo = ticket.getTicketNo();
-                }
-        }
+
+                count2 = bookingMapper.createTicket(comeBooking);
+
+                int ticketNo3 = bookingMapper.selectTicketNo();
+
+                QR qr2 = new QR();
+                qr2.setParentTable("booking");
+                qr2.setParentNo(ticketNo3);
+                String url2 = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo3;
+                qr2.setUrl( url2 );
+                qr2.setName("QR_" + ticketNo3);
+
+                qrService.makeQR(qr2);
+
+            }
         
-        QR qr = new QR();
-        qr.setParentTable("booking");
-        qr.setParentNo(ticketNo);
-        String url = "http://localhost:" + serverPort + "/admin/Final_check?ticketNo=" + ticketNo;
-        qr.setUrl( url );
-        qr.setName("QR_" + ticketNo);
+            int count = count1 + count2;
+            // 조건 : 회원 비회원
+            // 회원
+            if( principal != null ) {
+                bookingNo = bookingMapper.latest_user_bookingNo(booking.getUserNo());
 
-        qrService.makeQR(qr);
+                List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                    for(int j = 0; j < ticketList.size(); j++){
+                        Booking ticket = new Booking();
+                        ticket = ticketList.get(i);
+                        ticketNo = ticket.getTicketNo();
+                    }
+            }
+            else {
+                bookingNo = bookingMapper.latest_user2_bookingNo(booking.getUserNo2());
+                List<Booking> ticketList = bookingMapper.ticketList_bookingNo(bookingNo);
+                    for(int j = 0; j < ticketList.size(); j++){
+                        Booking ticket = new Booking();
+                        ticket = ticketList.get(i);
+                        ticketNo = ticket.getTicketNo();
+                    }
+            }
+            
 
-        result += count;
+            result += count;
+        }
+        return result;
     }
-
-    return result;
-  }
 
     // seat 테이블 좌석 상태 조회
     @Override
     public List<Booking> selectSeatStatus(int flightNo) throws Exception {
-        
         List<Booking> seatList = bookingMapper.selectSeatStatus(flightNo);
-
-
         return  seatList;
     }
-
-
 
     // 탑승권 리스트 조회 - 회원
     @Override
     public List<Booking> selectBookingListByUser(String userId) throws Exception {
-
         List<Booking> bookingList = bookingMapper.selectBookingListByUser(userId);
-
         return bookingList;
-
     }
-
+    
+    // 탑승권 리스트 조회 - 비회원
+    @Override
+    public List<Booking> selectBookingListByGuest(String phone, String userPw) throws Exception {
+        List<Booking> bookingList = bookingMapper.selectBookingListByGuest(phone, userPw);
+        return bookingList;
+    }
 
     // 탑승권 상세 조회
     @Override
     public List<Booking> selectTicket(int ticketNo) throws Exception {
-
         List<Booking> viewTicket = bookingMapper.selectTicket(ticketNo);
-
         return viewTicket;
-
     }
 
     // 출발지 조회
     @Override
     public String selectDeparture(int productNoDeps) {
-
         String departure = bookingMapper.selectDeparture(productNoDeps);
-
         return departure;
     }
 
     // 도착지 조회
     @Override
     public String selectDestination(int productNoDeps) {
-
         String destination = bookingMapper.selectDestination(productNoDeps);
-
         return destination;
     }
 
     // 출발지명과 도착지명으로 노선 번호 조회
     @Override
     public int selectRouteNo(String departure, String destination) {
-        
         int selectRouteNo = bookingMapper.selectRouteNo(departure, destination);
-
         return selectRouteNo;
     }
 
     // 탑승객 수만큼 info 테이블의 passenger_no 조회
     @Override
     public List<String> selectLastPasNos(int pasCount) {
-
         List<String> selectLastPasNos = bookingMapper.selectLastPasNos(pasCount);
-
         return selectLastPasNos;
     }
 
-    // @Override
-    // 여권 정보 입력
-    // public int infoPassport(Users user) throws Exception {
-    //     log.info("여권번호 : " + user.getPassportNos()[0]);
-    //     log.info("라스트네임 : " + user.getLastNames()[0]);
-    //     log.info("여권만료일자 : " + user.getExpirationDates()[0]);
-    //     log.info("여권번호 : " + user.getUserId());
-
-    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        
-    //     int result = 0;
-        
-    //     for (int i = 0; i < user.getPassportNos().length; i++) {
-    //         Users userItem = new Users();
-    //         userItem.setPassportNo(user.getPassportNos()[i]);
-    //         userItem.setPinType(user.getPinTypes()[i]);
-    //         userItem.setLastName(user.getLastNames()[i]);
-    //         userItem.setFirstName(user.getFirstNames()[i]);
-    //         userItem.setNationality(user.getNationalitys()[i]);
-    //         userItem.setExpirationDate(user.getExpirationDates()[i]);
-            
-    //         if(authentication.isAuthenticated()) {
-    //             userItem.setUserId(user.getUserId()); 
-    //         } 
-
-    //         bookingMapper.infoPassport(userItem);
-    //         result++;
-    //     }
-
-    //     return result;
-    // }
-
-
-    @Override
     // 편도 항공 스케줄(탑승객 유의사항 안내)
+    @Override
     public List<Booking> goScheduleList(Booking booking) throws Exception {
-        log.info("탑승객 이름 배열 서비스: " + booking.getPassengerNames()[0]);
-        log.info("탑승객 인원: " + booking.getPasCount());
-        log.info("탑승객 번호: " + booking.getPhones()[0]);
         List<Booking> bookingList = new ArrayList<Booking>();
 
         for (int i = 0; i < booking.getPasCount(); i++) {
@@ -326,16 +283,12 @@ public class BookingServiceImpl implements BookingService{
 
             bookingList.add(bookingItem);
         }
-        
         return bookingList;
     }
     
-    @Override
     // 왕복 항공 스케줄(탑승객 유의사항 안내)
+    @Override
     public List<Booking> comeScheduleList(Booking booking) throws Exception {
-         log.info("왕복 탑승객 이름 배열 서비스: " + booking.getPassengerNames()[0]);
-        log.info("왕복 탑승객 인원: " + booking.getPasCount());
-        log.info("왕복 탑승객 번호: " + booking.getPhones()[0]);
         List<Booking> bookingList = new ArrayList<Booking>();
 
         for (int i = 0; i < booking.getPasCount(); i++) {
@@ -354,12 +307,11 @@ public class BookingServiceImpl implements BookingService{
 
             bookingList.add(bookingItem);
         }
-
         return bookingList;
     }
 
-    @Override
     // 예매 테이블 등록
+    @Override
     public int bookingInsert(Booking booking, Principal principal, HttpServletRequest request) throws Exception {
         int result = 0;
         int result1 = 0;
@@ -383,7 +335,7 @@ public class BookingServiceImpl implements BookingService{
             
             bookingItem.setPasCount(booking.getPasCount());                 
             bookingItem.setRoundTrip(booking.getRoundTrip());
-            bookingItem.setStatus(booking.getStatus());
+            bookingItem.setStatus("예매완료");
             bookingItem.setProductNoDep(booking.getProductNoDep());         
             bookingItem.setProductIdDep(booking.getProductIdDeps()[0]);
             bookingItem.setRouteNoDep(booking.getRouteNoDep());             
@@ -401,38 +353,36 @@ public class BookingServiceImpl implements BookingService{
                 result2 = bookingMapper.comeBookingInsert(bookingItem);     // 오는편 Booking 테이블 insert
             }
         }
-                // int no = booking.getNo();
-                // booking.setBookingNo("AIRBT00000000" + no);
         result = result1 + result2;
 
         return result;
     }
 
    
-     // 예매 번호로 탑승권 정보(번호) 조회
+    // 예매 번호로 탑승권 정보(번호) 조회
     @Override
     public List<Booking> ticketList_bookingNo(int bookingNo) throws Exception {
         List<Booking> ticketList_bookingNo = bookingMapper.ticketList_bookingNo(bookingNo);
         return ticketList_bookingNo;
     }
 
+    // 도착지명으로 노선 조회
     @Override
     public int selectRouteNoByDes(String destination) {
-
         int selectRouteNoByDes = bookingMapper.selectRouteNoByDes(destination);
-
         return selectRouteNoByDes;
     }
 
+    // 예매된 좌석 확인
     @Override
     public List<Booking> bookedSeatStatus(int flightNo) throws Exception {
         List<Booking> bookedSeatStatus = bookingMapper.bookedSeatStatus(flightNo);
         return bookedSeatStatus; 
     }
 
+    // 최근 예매 번호 조회
     @Override
     public int selectLastBookingNo(int bookingNo) throws Exception {
-        
         int result = bookingMapper.selectLastBookingNo(bookingNo);
         return result;
     }
@@ -440,12 +390,7 @@ public class BookingServiceImpl implements BookingService{
     // 결제 완료 시, seat 테이블 업데이트
     @Override
     public int updateSeat(int flightNo, String seatNo) throws Exception {
-
         int updateSeat = bookingMapper.updateSeat(flightNo, seatNo);
-
         return updateSeat;
     }
-
-
-
 }
